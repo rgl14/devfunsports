@@ -61,7 +61,7 @@ export class dWcomponent implements OnInit {
       {{ data.userName }}
     </h1>
     <div mat-dialog-content style="overflow: hidden;">
-      <form [formGroup]="systemPointForm" (ngSubmit)="AllocatePoint()">
+      <form [formGroup]="systemPointForm">
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
@@ -116,7 +116,6 @@ export class dWcomponent implements OnInit {
       <button
         mat-raised-button
         color="primary"
-        (click)="AllocatePoint()"
         [disabled]="!systemPointForm.valid"
       >
         Update
@@ -146,7 +145,7 @@ export class wdDialog {
   template: `
     <h1 mat-dialog-title style="text-align: center;">{{ data.userName }}</h1>
     <div mat-dialog-content style="overflow: hidden;">
-      <form [formGroup]="systemPointForm" (ngSubmit)="AllocatePoint()">
+      <form [formGroup]="systemPointForm">
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
@@ -202,7 +201,6 @@ export class wdDialog {
       <button
         mat-raised-button
         color="primary"
-        (click)="AllocatePoint()"
         [disabled]="!systemPointForm.valid"
       >
         Update
