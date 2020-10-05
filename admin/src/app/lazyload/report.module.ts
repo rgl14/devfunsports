@@ -21,6 +21,7 @@ import {
   PartialPaymentDialog,
 } from "../collectionreport/collectionreport.component";
 import { MyledgersComponent } from "../myledgers/myledgers.component";
+import { AccoutStatementComponent } from "../accout-statement/accout-statement.component";
 import { ProfitnlossComponent } from "../profitnloss/profitnloss.component";
 import { ChildrenContainerComponent } from "../shared/components/children-container.component";
 import { SportpnlComponent } from "../sportpnl/sportpnl.component";
@@ -43,6 +44,17 @@ const routes: Routes = [
           {
             path: "",
             component: CollectionreportComponent,
+          },
+        ],
+      },
+      {
+        path: "accountstatement",
+        component: AccoutStatementComponent,
+        data: { breadcrumb: "Account Statement" },
+        children: [
+          {
+            path: "",
+            component: AccoutStatementComponent,
           },
         ],
       },
@@ -97,6 +109,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     CollectionreportComponent,
+    AccoutStatementComponent,
     MyledgersComponent,
     ProfitnlossComponent,
     SportpnlComponent,
