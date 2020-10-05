@@ -18,6 +18,9 @@ import {
   RejectBetdialogcell,
   UpdateTossDialog,
   UpdateResultDialog,
+  ShowPwdDialog,
+  LimitsDialog,
+  ShareDialog,
 } from "./customcellbuttons/customcellbuttons.component";
 import { NavigationcellComponent } from "./navigationcell/navigationcell.component";
 import {
@@ -70,6 +73,11 @@ import { InputRestrictionDirective } from "./Directives/specialcharInput";
 
 import { BreadcrumbModule } from "angular-crumbs";
 import { SharedModule } from "./shared/shared.module";
+import {
+  dpDialog,
+  dWcomponent,
+  wdDialog,
+} from "./customcellbuttons/DWChild/dwchild.component";
 
 @NgModule({
   declarations: [
@@ -106,6 +114,12 @@ import { SharedModule } from "./shared/shared.module";
     SpecialCharacterDirective,
     InputRestrictionDirective,
     ConfirmBoxDialog,
+    dWcomponent,
+    wdDialog,
+    dpDialog,
+    ShareDialog,
+    LimitsDialog,
+    ShowPwdDialog,
   ],
   imports: [
     BrowserModule,
@@ -147,6 +161,12 @@ import { SharedModule } from "./shared/shared.module";
     UpdateTossDialog,
     UpdateResultDialog,
     ConfirmBoxDialog,
+    dWcomponent,
+    wdDialog,
+    dpDialog,
+    ShareDialog,
+    LimitsDialog,
+    ShowPwdDialog,
   ],
   providers: [
     ManageformService,

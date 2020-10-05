@@ -192,6 +192,46 @@ export class CustomcellbuttonsComponent implements OnInit {
     });
   }
 
+  openShowPwdDialog(): void {
+    const dialogRef = this.dialog.open(ShowPwdDialog, {
+      width: "500px",
+      data: this.data,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+      }
+    });
+  }
+
+  openLimitsDialog(): void {
+    const dialogRef = this.dialog.open(LimitsDialog, {
+      width: "500px",
+      data: this.data,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result != undefined || result != null) {
+          this.editUserData(result);
+        }
+      }
+    });
+  }
+  openShareDialog(): void {
+    const dialogRef = this.dialog.open(ShareDialog, {
+      width: "500px",
+      data: this.data,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result != undefined || result != null) {
+          this.editUserData(result);
+        }
+      }
+    });
+  }
   openSettleDialog(): void {
     const dialogRef = this.dialog.open(SettleFancyDialog, {
       width: "500px",
@@ -201,6 +241,35 @@ export class CustomcellbuttonsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.SettleFancy(result);
+      }
+    });
+  }
+
+  editUserData(data) {
+    var editusersdata = {
+      MComm: data.MComm,
+      SComm: data.SComm,
+      agentShare: data.maxShare,
+      context: "web",
+      firstName: data.name,
+      fixLimit: data.fixLimit,
+      expoLimit: data.expoLimit,
+      fixFees: data.fixFees ? data.fixFees : 0,
+      isMComm: 0,
+      isSComm: 0,
+      myShare: data.myShare,
+      bookDisplayType: data.bookDisplayType,
+      commType: 1,
+      mLossingComm: data.mLossingComm,
+      sLossingComm: data.sLossingComm,
+      userID: data.userId,
+    };
+    this.usermanagement.getEditUserData(editusersdata).subscribe((resp) => {
+      if (resp.status == "Success") {
+        this.notifyService.success(resp.result);
+        this.params.context.componentParent.GetuserList();
+      } else {
+        this.notifyService.error(resp.result);
       }
     });
   }
@@ -320,6 +389,177 @@ export class CustomcellbuttonsComponent implements OnInit {
           });
       }
     });
+  }
+}
+
+@Component({
+  template: `<h1 mat-dialog-title>{{ data.userName }}</h1>
+    <hr />
+    <div mat-dialog-content>
+      <div class="form-group">
+        <label class="col-sm-12 control-label">My Share</label>
+        <div class="col-sm-12">
+          <input
+            class="form-control"
+            onkeypress="return event.charCode >= 48"
+            name="myshare"
+            [(ngModel)]="data.myShare"
+            placeholder="Enter My Share"
+            type="number"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-12 control-label">Agent Share</label>
+        <div class="col-sm-12">
+          <input
+            class="form-control"
+            onkeypress="return event.charCode >= 48"
+            name="agentshare"
+            [(ngModel)]="data.maxShare"
+            placeholder="Enter Max Agent Share"
+            type="number"
+          />
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div mat-dialog-actions>
+      <button mat-raised-button (click)="onNoClick()">Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [mat-dialog-close]="data"
+        cdkFocusInitial
+        [disabled]="!data.maxShare"
+      >
+        Ok
+      </button>
+    </div>`,
+})
+export class ShareDialog {
+  constructor(
+    public dialogRef: MatDialogRef<ShareDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    // console.log(data);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+@Component({
+  template: `<h1 mat-dialog-title>{{ data.userName }}'s Commission Settings</h1>
+    <hr />
+    <div mat-dialog-content>
+      <div class="form-group">
+        <label class="col-sm-12 control-label">Market Commission</label>
+        <div class="col-sm-12">
+          <input
+            class="form-control"
+            onkeypress="return event.charCode >= 48"
+            name="MComm"
+            [(ngModel)]="data.MComm"
+            placeholder="Enter Market Commission"
+            type="number"
+          />
+        </div>
+      </div>
+      <div class="form-group" *ngIf="data.userType == 6">
+        <label class="col-sm-12 control-label">Exposure Limit</label>
+        <div class="col-sm-12">
+          <input
+            class="form-control"
+            onkeypress="return event.charCode >= 48"
+            name="expoLimit"
+            [(ngModel)]="data.expoLimit"
+            placeholder="Enter Exposure Limit"
+            type="number"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-12 control-label">Session Commission</label>
+        <div class="col-sm-12">
+          <input
+            class="form-control"
+            onkeypress="return event.charCode >= 48"
+            name="Scomm"
+            [(ngModel)]="data.SComm"
+            placeholder="Enter Session Commission"
+            type="number"
+          />
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div mat-dialog-actions>
+      <button mat-raised-button (click)="onNoClick()">Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [mat-dialog-close]="data"
+        cdkFocusInitial
+        [disabled]="!data.SComm"
+      >
+        Ok
+      </button>
+    </div>`,
+})
+export class LimitsDialog {
+  constructor(
+    public dialogRef: MatDialogRef<LimitsDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    // console.log(data);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+@Component({
+  template: `<h1 mat-dialog-title>{{ data.userName }}'s Password</h1>
+    <hr />
+    <div mat-dialog-content>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <input
+            class="form-control"
+            name="Password"
+            [(ngModel)]="data.password"
+            type="text"
+            [disabled]="true"
+          />
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <div mat-dialog-actions>
+      <button mat-raised-button (click)="onNoClick()">Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [mat-dialog-close]="data"
+        cdkFocusInitial
+        [disabled]="!data"
+      >
+        Ok
+      </button>
+    </div>`,
+})
+export class ShowPwdDialog {
+  constructor(
+    public dialogRef: MatDialogRef<ShowPwdDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    // console.log(data);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
 

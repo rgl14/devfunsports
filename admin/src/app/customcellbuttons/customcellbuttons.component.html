@@ -8,6 +8,42 @@
     <i class="fa fa-pencil"></i> Edit
   </button>
   <button
+    style="min-width: 30px; padding: 0 10px"
+    mat-raised-button
+    title="Show Password"
+    class="btn-dark"
+    (click)="openShowPwdDialog()"
+  >
+    S-P
+  </button>
+  <button
+    style="min-width: 30px; padding: 0 10px"
+    mat-raised-button
+    title="Limits"
+    class="btn-dark"
+    (click)="openLimitsDialog()"
+  >
+    L
+  </button>
+  <button
+    style="min-width: 30px; padding: 0 10px"
+    mat-raised-button
+    title="Report"
+    class="btn-dark"
+    [routerLink]="['./', data.userId, 'userledger']"
+  >
+    R
+  </button>
+  <button
+    style="min-width: 30px; padding: 0 10px"
+    mat-raised-button
+    title="Share"
+    class="btn-dark"
+    (click)="openShareDialog()"
+  >
+    S
+  </button>
+  <button
     [routerLink]="[data.userId, 'managepassword']"
     mat-raised-button
     title="Change Password"

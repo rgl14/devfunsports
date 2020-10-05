@@ -5,6 +5,7 @@ import { NavigationcellComponent } from "../navigationcell/navigationcell.compon
 import { ButtontogglecellComponent } from "../buttontogglecell/buttontogglecell.component";
 import { UsermanagementService } from "../services/usermanagement.service";
 import { ActivatedRoute } from "@angular/router";
+import { dWcomponent } from "../customcellbuttons/DWChild/dwchild.component";
 
 @Component({
   selector: "app-agent",
@@ -139,10 +140,18 @@ export class AgentComponent implements OnInit {
       {
         headerName: "Actions",
         field: "action",
+        minWidth: 400,
+        width: 400,
+        suppressSizeToFit: false,
+        cellRendererFramework: CustomcellbuttonsComponent,
+      },
+      {
+        headerName: "Chips",
+        field: "cp",
         minWidth: 250,
         width: 250,
         suppressSizeToFit: false,
-        cellRendererFramework: CustomcellbuttonsComponent,
+        cellRendererFramework: dWcomponent,
       },
     ];
 
@@ -194,6 +203,7 @@ export class AgentComponent implements OnInit {
 
   showraction(show) {
     this.gridColumnApi.setColumnVisible("action", show);
+    this.gridColumnApi.setColumnVisible("cp", show);
   }
 
   onGridSizeChanged(params) {
