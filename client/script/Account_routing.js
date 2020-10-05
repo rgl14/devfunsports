@@ -103,14 +103,14 @@ var appType = $.cookie("appType");
 if (!appType) {
   window.location.href = "login.html";
 }
-var ApiUrl = "http://www.funsports.win/Client/Client.svc";
+var ApiUrl = "http://159.8.246.2/Client/Client.svc";
 var currency = "INR";
 
 if (appType == 2) {
-  ApiUrl = "http://www.funsports.win/ClientU/Client.svc";
+  ApiUrl = "http://159.8.246.2/Client/Client.svc";
   currency = "USD";
 } else if (appType == 3) {
-  ApiUrl = "http://www.funsports.win/ClientH/Client.svc";
+  ApiUrl = "http://159.8.246.2/Client/Client.svc";
   currency = "HKD";
 }
 
