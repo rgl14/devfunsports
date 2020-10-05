@@ -1,0 +1,1500 @@
+<div class="game-wrap">
+   <h4 id="gameInfo" class="game-info">
+      {{getSportNameId(sportId)}}
+      <ul id="infoIcon" class="info-icon">
+         <li id="inPlayIcon" data-ng-if="getMarketData.isInplay=='true'">
+            <img class="info-inplay" src="images/transparent.gif" alt="inplay">In-Play
+         </li>
+      </ul>
+   </h4>
+   <table id="cricketScoreBoard" data-ng-if="sportId==4" class="game-team" data-eventid="29119662"
+      style="display: table;">
+      <tbody>
+         <tr>
+            
+            <th>
+               <a data-ng-class="isMultiAdded(getMarketData)?'pin-off':'pin-on'"
+                  title="{{isMultiAdded(getMarketData)?'Add to Multi Markets':'Remove from Multi Markets'}}"
+                  data-ng-click="isMultiAdded(getMarketData)?addMultiMarket(getMarketData):removeMultiMarket(getMarketData)"></a>
+               <!-- <h4 data-ng-if="fullScore==undefined">{{getMarketData.matchName}}</h4> -->
+               <h4 data-ng-if="fullScore==undefined">{{getMarketData.matchName.split(' v ')[0]}}</h4>
+               <h4 data-ng-if="fullScore==undefined">{{getMarketData.matchName.split(' v ')[1]}}</h4>
+               <!-- <ul  class="scores-time in-play">
+                  <li id="description"></li>
+                  
+                  <li >Day 2</li>
+                  
+                  </ul> -->
+               <h4 data-ng-if="fullScore!=undefined">{{fullScore.score.home.name}}</h4>
+               <h4 data-ng-if="fullScore!=undefined">{{fullScore.score.away.name}}</h4>
+               <ul class="scores-time in-play">
+                  <li data-ng-if="getMarketData.isInplay=='true' && fullScore.stateOfBall!=undefined && fullScore.matchStatus!='Finished'"
+                     style="display: flex;">
+                     <span class="ui-bowler-name">{{fullScore.stateOfBall.bowlerName}}</span>&nbsp;to&nbsp;<span
+                        class="ui-batsman-name">{{fullScore.stateOfBall.batsmanName}}</span>&nbsp;-&nbsp;
+                     <span class="ui-event-message" style="font-weight: bold;color: white;">{{scoreRun()}}</span>
+                     </span>
+                     <!-- <span class="ui-event-message" ng-if="fullScore.matchStatus=='Finished'" style="font-weight: bold;">Match Over</span> -->
+                  </li>
+                  <li data-ng-if="fullScore==undefined">{{getMarketData.matchDate}}</li>
+                  <li
+                     data-ng-if="getMarketData.isInplay=='true' && fullScore!=undefined && fullScore.matchType=='TEST'">
+                     Day {{fullScore.currentDay}}</li>
+               </ul>
+            </th>
+            <td id="inningsBox1" data-ng-if="fullScore.currentSet>=1" class="team-scores" style="">
+               <h4 data-ng-if="fullScore.score.home.inning1!=undefined && fullScore.score.home.highlight==true"
+                  data-ng-class="fullScore.score.home.inning1!=undefined && fullScore.currentSet<=1?'in-play':''">
+                  {{fullScore.score.home.inning1.runs}}/{{fullScore.score.home.inning1.wickets}}&nbsp;<span>({{fullScore.score.home.inning1.overs}})</span>
+               </h4>
+               <h4 data-ng-if="fullScore.score.home.inning1!=undefined && fullScore.score.home.highlight==false">
+                  {{fullScore.score.home.inning1.runs}}{{fullScore.score.home.inning1.wickets!='ALL_OUT'?'/'+fullScore.score.home.inning1.wickets:''}}&nbsp;<span>({{fullScore.score.home.inning1.overs}})</span>
+               </h4>
+               <h4 data-ng-if="fullScore.score.home.inning1==undefined">
+                  Yet to bat
+               </h4>
+               <h4 data-ng-if="fullScore.score.away.inning1!=undefined && fullScore.score.away.highlight==true"
+                  data-ng-class="fullScore.score.away.inning1!=undefined && fullScore.currentSet<=1?'in-play':''">
+                  {{fullScore.score.away.inning1.runs}}/{{fullScore.score.away.inning1.wickets}}&nbsp;<span>({{fullScore.score.away.inning1.overs}})</span>
+               </h4>
+               <h4 data-ng-if="fullScore.score.away.inning1!=undefined && fullScore.score.away.highlight==false">
+                  {{fullScore.score.away.inning1.runs}}{{fullScore.score.away.inning1.wickets!='ALL_OUT'?'/'+fullScore.score.away.inning1.wickets:''}}&nbsp;<span>({{fullScore.score.away.inning1.overs}})</span>
+               </h4>
+               <h4 data-ng-if="fullScore.score.away.inning1==undefined">
+                  Yet to bat
+               </h4>
+               <span>Innings 1</span>
+            </td>
+            <td id="inningsBox2" data-ng-if="fullScore.currentSet>=2" class="team-scores" style="display: table-cell;">
+               <h4 data-ng-if="fullScore.score.home.inning2!=undefined && fullScore.score.home.inning2.wickets!='ALL_OUT'"
+                  data-ng-class="fullScore.score.home.inning2!=undefined && fullScore.score.home.inning2.wickets!='ALL_OUT'?'in-play':''">
+                  {{fullScore.score.home.inning2.runs}}/{{fullScore.score.home.inning2.wickets}}&nbsp;<span>({{fullScore.score.home.inning2.overs}})</span>
+               </h4>
+               <h4
+                  data-ng-if="fullScore.score.home.inning2!=undefined && fullScore.score.home.inning2.wickets=='ALL_OUT'">
+                  {{fullScore.score.home.inning2.runs}}&nbsp;<span>({{fullScore.score.home.inning2.overs}})</span>
+               </h4>
+               <h4 data-ng-if="fullScore.score.home.inning2==undefined">
+                  Yet to bat
+               </h4>
+               <h4 data-ng-if="fullScore.score.away.inning2!=undefined && fullScore.score.away.inning2.wickets!='ALL_OUT'"
+                  data-ng-class="fullScore.score.away.inning2!=undefined && fullScore.score.away.inning2.wickets!='ALL_OUT'?'in-play':''">
+                  {{fullScore.score.away.inning2.runs}}/{{fullScore.score.away.inning2.wickets}}&nbsp;<span>({{fullScore.score.away.inning2.overs}})</span>
+               </h4>
+               <h4
+                  data-ng-if="fullScore.score.away.inning2!=undefined && fullScore.score.away.inning2.wickets=='ALL_OUT'">
+                  {{fullScore.score.away.inning2.runs}}&nbsp;<span>({{fullScore.score.away.inning2.overs}})</span>
+               </h4>
+               <h4 data-ng-if="fullScore.score.away.inning2==undefined">
+                  Yet to bat
+               </h4>
+               <span>Innings 2</span>
+            </td>
+            <td class="team-refresh">
+               <a class="refresh" data-ng-click="getAllMarket();"></a>
+               <img src="images/score-board.png" height="30px" width="30px" style="margin-top: 5px;" data-ng-if="scoreId!=0" data-ng-click="scoredivtoggle()"/>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+   <table id="tennisScoreBoard" data-ng-if="sportId==2" class="game-team"
+      data-ng-class="fullScore==undefined?'':'tennis'" style="display: table;">
+      <tbody>
+         <tr>
+            <th>
+               <a data-ng-class="isMultiAdded(getMarketData)?'pin-off':'pin-on'"
+                  title="{{isMultiAdded(getMarketData)?'Add to Multi Markets':'Remove from Multi Markets'}}"
+                  data-ng-click="isMultiAdded(getMarketData)?addMultiMarket(getMarketData):removeMultiMarket(getMarketData)"></a>
+               <h4 data-ng-if="fullScore==undefined">{{getMarketData.matchName.split(' v ')[0]}}</h4>
+               <h4 data-ng-if="fullScore==undefined">{{getMarketData.matchName.split(' v ')[1]}}</h4>
+               <h4 data-ng-if="fullScore!=undefined">{{fullScore.score.home.name}}</h4>
+               <h4 data-ng-if="fullScore!=undefined">{{fullScore.score.away.name}}</h4>
+               <ul data-ng-if="fullScore!=undefined" class="scores-time in-play">
+                  <li id="currentSet">Set {{fullScore.currentSet}}</li>
+                  <li id="fullTimeElapsed">{{fullScore.fullTimeElapsed.hour}}h {{fullScore.fullTimeElapsed.min}}m
+                     {{fullScore.fullTimeElapsed.sec}}s</li>
+                  <li id="court">HARD court</li>
+               </ul>
+            </th>
+            <td data-ng-if="fullScore.currentSet==1" class="team-scores">
+               <h4 class="in-play">{{fullScore.score.home.games}}</h4>
+               <h4 class="in-play">{{fullScore.score.away.games}}</h4>
+               <span>1</span>
+            </td>
+            <td data-ng-if="fullScore.currentSet>1" class="team-scores">
+               <h4>{{fullScore.score.home.gameSequence[0]}}</h4>
+               <h4>{{fullScore.score.away.gameSequence[0]}}</h4>
+               <span>1</span>
+            </td>
+            <td data-ng-if="fullScore.currentSet==2" class="team-scores">
+               <h4 class="in-play">{{fullScore.score.home.games}}</h4>
+               <h4 class="in-play">{{fullScore.score.away.games}}</h4>
+               <span>2</span>
+            </td>
+            <td data-ng-if="fullScore.currentSet>2" class="team-scores">
+               <h4>{{fullScore.score.home.gameSequence[1]}}</h4>
+               <h4>{{fullScore.score.away.gameSequence[1]}}</h4>
+               <span>2</span>
+            </td>
+            <td data-ng-if="fullScore.currentSet==3" class="team-scores team-last_box">
+               <h4 class="in-play">{{fullScore.score.home.games}}</h4>
+               <h4 class="in-play">{{fullScore.score.away.games}}</h4>
+               <span>3</span>
+            </td>
+            <td data-ng-if="fullScore.currentSet==1" class="team-scores">
+               <h4>-</h4>
+               <h4>-</h4>
+               <span>2</span>
+            </td>
+            <td data-ng-if="fullScore.currentSet==1 || fullScore.currentSet==2" class="team-scores team-last_box">
+               <h4>-</h4>
+               <h4>-</h4>
+               <span>3</span>
+            </td>
+            <td id="points" data-ng-if="fullScore!=undefined" class="team-scores team-last_box">
+               <h4 id="pointsHome" class="in-play">{{fullScore.score.home.score}}</h4>
+               <h4 id="pointsAway" class="in-play">{{fullScore.score.away.score}}</h4>
+               <span>Points</span>
+            </td>
+            <td id="aces" class="team-scores team-other">
+               <h4 id="acesHome">{{fullScore.score.home.aces}}</h4>
+               <h4 id="acesAway">{{fullScore.score.away.aces}}</h4>
+               <span>Aces</span>
+            </td>
+            <td id="faults" class="team-scores team-other">
+               <h4 id="faultsHome">{{fullScore.score.home.doubleFaults}}</h4>
+               <h4 id="faultsAway">{{fullScore.score.away.doubleFaults}}</h4>
+               <span>Faults</span>
+            </td>
+            <td id="breaks" class="team-scores team-other team-last_box">
+               <h4 id="breaksHome">{{fullScore.score.home.serviceBreaks}}</h4>
+               <h4 id="breaksAway">{{fullScore.score.away.serviceBreaks}}</h4>
+               <span>Breaks</span>
+            </td>
+            <td class="team-refresh"><a class="refresh" data-ng-click="getAllMarket();"></a></td>
+            <td id="setBoxTemplate" class="team-scores" style="display: none;">
+               <h4>-</h4>
+               <h4>-</h4>
+               <span id="setIndex"></span>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+   <table id="soccerScoreBoard" data-ng-if="sportId==1" class="game-team soccer" style="display: table;">
+      <tbody>
+         <tr>
+            <th>
+               <a data-ng-class="isMultiAdded(getMarketData)?'pin-off':'pin-on'"
+                  title="{{isMultiAdded(getMarketData)?'Add to Multi Markets':'Remove from Multi Markets'}}"
+                  data-ng-click="isMultiAdded(getMarketData)?addMultiMarket(getMarketData):removeMultiMarket(getMarketData)"></a>
+            </th>
+            <td class="team-scores team-last_box" data-ng-if="fullScore!=undefined">
+               <h4 id="scoresHome" class="in-play">{{fullScore.score.home.score}}</h4>
+               <h4 id="scoresAway" class="in-play">{{fullScore.score.away.score}}</h4>
+               <span id="timeElapsed">{{fullScore.elapsedRegularTime}}'</span>
+            </td>
+            <td>
+               <h4 data-ng-if="fullScore==undefined">{{getMarketData.matchName.split(' v ')[0]}}</h4>
+               <h4 data-ng-if="fullScore==undefined">{{getMarketData.matchName.split(' v ')[1]}}</h4>
+               <h4 data-ng-if="fullScore!=undefined">{{fullScore.score.home.name}}</h4>
+               <h4 data-ng-if="fullScore!=undefined">{{fullScore.score.away.name}}</h4>
+            </td>
+            <td class="team-refresh"><a class="refresh" data-ng-click="getAllMarket();"></a></td>
+         </tr>
+         <tr data-ng-if="fullScore!=undefined">
+            <td class="soccer-map" colspan="4">
+               <div class="bg-progress_bar">
+                  <div id="progressPercent" class="progress_bar"
+                     style="width: {{fullScore.elapsedRegularTime+getCardTeam(fullScore.elapsedRegularTime)}}%;"></div>
+                  <!-- <img id="soccerEvent_home_Goal_41" class="ball-soccer team-a" style="left: 46%; display: block;" src="/images/mobile/transparent.gif">
+                     <img id="soccerEvent_home_YellowCard_32" class="card-yellow team-a" style="left: 36%; display: block;" src="/images/mobile/transparent.gif">
+                     
+                     <img id="soccerEvent_home_Goal_28" class="ball-soccer team-a" style="left: 31%; display: block;" src="/images/mobile/transparent.gif"> -->
+                  <img id="soccerEvent_{{score.team}}_{{score.type}}_{{score.elapsedRegularTime}}"
+                     data-ng-repeat="score in fullScore.updateDetails track by $index"
+                     style="left: {{score.elapsedRegularTime+getCardTeam(score.elapsedRegularTime)}}%; display: block;"
+                     data-ng-class="getCardTeam(score.type,score.team)" src="images/transparent.gif" alt="teamimg">
+                  <!-- <img id="soccerEventTemplate" class="" style="left: 0%; display: none;" src="images/transparent.gif">
+                     <span id="sumTemplate" class="sum-status" style="left: 0%; display: none;"></span> -->
+               </div>
+               <!-- <div class="bg-progress_bar">
+                  <div id="progressPercent" class="progress_bar" style="width: 82%;"></div>
+                  
+                  <img id="soccerEvent_away_YellowCard_69" class="card-yellow team-b" style="left: 77%; display: block;" src="/images/mobile/transparent.gif">
+                  
+                  <img id="soccerEvent_home_YellowCard_67" class="card-yellow team-a" style="left: 74%; display: block;" src="/images/mobile/transparent.gif">
+                  
+                  <img id="soccerEvent_home_Goal_65" class="ball-soccer team-a" style="left: 72%; display: block;" src="/images/mobile/transparent.gif">
+                  
+                  <img id="soccerEvent_away_Goal_45" class="ball-soccer team-b" style="left: 50%; display: block;" src="/images/mobile/transparent.gif">
+                  
+                  
+                  
+                  <img id="soccerEvent_away_YellowCard_38" class="card-yellow team-b" style="left: 42%; display: block;" src="/images/mobile/transparent.gif"><img id="soccerEvent_away_Goal_36" class="ball-soccer team-b" style="left: 40%; display: block;" src="/images/mobile/transparent.gif">
+                  
+                  
+                  
+                  <img id="soccerEventTemplate" class="" style="left: 0%; display: none;" src="/images/mobile/transparent.gif">
+                  
+                  <span id="sumTemplate" class="sum-status" style="left: 0%; display: none;"></span>
+                  
+                  </div> -->
+               <!--  <div class="bg-progress_bar">
+                  <div id="progressPercent" class="progress_bar" style="width: 100%;"></div><img id="soccerEvent_away_YellowCard_90" class="card-yellow team-b" style="right: 0%; display: block;" src="/images/mobile/transparent.gif"><img id="soccerEvent_home_YellowCard_82" class="card-yellow team-a" style="left: 91%; display: block;" src="/images/mobile/transparent.gif"><img id="soccerEvent_home_Goal_68" class="ball-soccer team-a" style="left: 76%; display: block;" src="/images/mobile/transparent.gif"><img id="soccerEvent_away_Goal_58" class="ball-soccer team-b" style="left: 64%; display: block;" src="/images/mobile/transparent.gif"><img id="soccerEvent_home_YellowCard_32" class="card-yellow team-a" style="left: 36%; display: block;" src="/images/mobile/transparent.gif"><img id="soccerEvent_home_Goal_28" class="ball-soccer team-a" style="left: 31%; display: block;" src="/images/mobile/transparent.gif">
+                  
+                  
+                  
+                  <img id="soccerEventTemplate" class="" style="left: 0%; display: none;" src="/images/mobile/transparent.gif">
+                  
+                  <span id="sumTemplate" class="sum-status" style="left: 0%; display: none;"></span>
+                  
+                  </div> -->
+            </td>
+         </tr>
+      </tbody>
+   </table>
+   <div id="matchTrackerWrap" class="match-tracker-wrap" data-ng-if="scoreId!=0 && scorediv">
+      <div id="matchTrackerWidget" class="sr-widget" data-sr-widget="match.lmtplus" data-sr-loaded=""
+         data-sr-input-props="{&quot;layout&quot;:&quot;double&quot;,&quot;collapseTo&quot;:&quot;momentum&quot;,&quot;language&quot;:&quot;en&quot;,&quot;activeSwitcher&quot;:&quot;scoreDetails&quot;,&quot;matchId&quot;:&quot;22057047&quot;,&quot;momentum&quot;:&quot;extended&quot;}">
+         <div class="sr-wwrap srm-fullyloaded">
+            <div class="sr-bb sr-lmt-plus sr-ltr sr-lmt-plus--double-single"
+               data-responsive="{&quot;small&quot;:{&quot;width&quot;:&quot;- 310&quot;,&quot;classes&quot;:&quot;sr-lmt-plus--small&quot;},&quot;large&quot;:{&quot;width&quot;:&quot;420 -&quot;,&quot;classes&quot;:&quot;sr-lmt-plus--large&quot;},&quot;largeDouble&quot;:{&quot;width&quot;:&quot;- 560&quot;,&quot;classes&quot;:&quot;sr-lmt-plus--double-single&quot;}}"
+               data-responsive-key="lmt-plus" data-resp-id="1">
+               <div class="sr-loader__container">
+                  <div class="sr-loader__overlay"></div>
+                  <div class="sr-bb sr-simcrick sr-ltr sr-simcrick--xsmall sr-simcrick--small"
+                     data-responsive="{&quot;xsmall&quot;:{&quot;width&quot;:&quot;-380&quot;,&quot;classes&quot;:&quot;sr-simcrick--xsmall&quot;},&quot;small&quot;:{&quot;width&quot;:&quot;-520&quot;,&quot;classes&quot;:&quot;sr-simcrick--small&quot;},&quot;large&quot;:{&quot;width&quot;:&quot;520-&quot;,&quot;classes&quot;:&quot;sr-simcrick--large&quot;}}"
+                     data-responsive-key="simcrick" data-resp-id="2">
+                     <div class="sr-loader__container">
+                        <div class="sr-loader__overlay"></div>
+                        <div class="sr-simcrick srt-base-1">
+                           <div class="sr-simcrick__scb srm-border">
+                              <div class="sr-bb sr-simcrick-scb sr-ltr sr-scr-medium sr-scr-large"
+                                 data-responsive="{&quot;small&quot;:{&quot;width&quot;:&quot;-280&quot;,&quot;classes&quot;:&quot;sr-scr-small&quot;},&quot;medium&quot;:{&quot;width&quot;:&quot;280-420&quot;,&quot;classes&quot;:&quot;sr-scr-medium&quot;},&quot;large&quot;:{&quot;width&quot;:&quot;280-&quot;,&quot;classes&quot;:&quot;sr-scr-large&quot;}}"
+                                 data-responsive-key="simcrick-scb" data-resp-id="3">
+                                 <div class="sr-simcrick-scb__wrapper srt-base-1">
+                                    <div class="sr-simcrick-scb__team-wrapper srm-left">
+                                       <div class="sr-simcrick-scb__team srm-left">
+                                          <div class="sr-simcrick-scb__team-name">
+                                             {{sportEvent.categories[0].categoryValue}}
+                                          </div>
+                                       </div>
+                                       <div data-ng-if="scorecard" class="sr-simcrick-scb__result srm-left">
+                                          {{scorecard.innings[getInning(sportEvent.categories[0].categoryValue)].summary}}
+                                          <span
+                                             data-ng-if="!scorecard.innings[getInning(sportEvent.categories[0].categoryValue)]"
+                                             class="sr-simcrick-scb__result-title">Yet to bat</span>
+                                       </div>
+                                       <!-- <div data-ng-if="scorecard" class="sr-simcrick-scb__result srm-left">
+                                          {{scorecard.innings[1].summary}}
+                                          <span data-ng-if="!scorecard.innings[1]"
+                                             class="sr-simcrick-scb__result-title">Yet to bat</span>
+                                          </div> -->
+                                       <div data-ng-if="scorecard" class="sr-simcrick-scb__extra srm-left">
+                                          <span>CRR</span>
+                                          <span class="sr-simcrick-scb__extra-value">&nbsp;7.05</span>
+                                       </div>
+                                    </div>
+                                    <div class="sr-simcrick-scb__result-sep">:</div>
+                                    <div class="sr-simcrick-scb__team-wrapper srm-right">
+                                       <div class="sr-simcrick-scb__team srm-right">
+                                          <div class="sr-simcrick-scb__team-name">
+                                             {{sportEvent.categories[1].categoryValue}}
+                                          </div>
+                                       </div>
+                                       <div data-ng-if="scorecard" class="sr-simcrick-scb__result srm-right">
+                                          {{scorecard.innings[getInning(sportEvent.categories[1].categoryValue)].summary}}
+                                          <span
+                                             data-ng-if="!scorecard.innings[getInning(sportEvent.categories[1].categoryValue)]"
+                                             class="sr-simcrick-scb__result-title">Yet to bat</span>
+                                       </div>
+                                    </div>
+                                    <div class="sr-simcrick-scb__status srt-text-secondary srt-neutral-9">
+                                       <span class="sr-simcrick-scb__simulated-info">
+                                          Simulated match
+                                       </span>
+                                       <span>&nbsp;-&nbsp;</span>
+                                       <span data-ng-if="!scorecard">{{getMarketData.matchDate}}</span>
+                                       <span data-ng-if="scorecard">INN
+                                          {{scorecard.innings[scorecard.currentInningsNumber-1].inningsNumber}}</span>
+                                       <span data-ng-if="scorecard">&nbsp;|&nbsp;</span>
+                                       <span
+                                          data-ng-if="scorecard">{{scorecard.innings[scorecard.currentInningsNumber-1].overs}}&nbsp;</span>
+                                       <span data-ng-if="scorecard">OV</span>
+                                    </div>
+                                    <div data-ng-if="scorecard" class="sr-simcrick-scb__comment">
+                                       {{scorecard.matchCommentary}}
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="sr-simcrick__momentum" style="display: none;">
+                              <div
+                                 class="sr-bb sr-simcrick-mom sr-ltr sr-simcrick-mom--small sr-simcrick-mom-chart--small"
+                                 data-responsive="{&quot;small&quot;:{&quot;width&quot;:&quot; - 640&quot;,&quot;classes&quot;:&quot;sr-simcrick-mom--small sr-simcrick-mom-chart--small&quot;},&quot;large&quot;:{&quot;width&quot;:&quot;640 -&quot;,&quot;classes&quot;:&quot;sr-simcrick-mom--large sr-simcrick-mom-chart--large&quot;}}"
+                                 data-responsive-key="simcrick-mom" data-resp-id="4">
+                                 <div class="sr-simcrick-mom__wrapper srt-base-1">
+                                    <span class="sr-simcrick-mom__title srm-is-uppercase">Run rate</span>
+                                    <div class="sr-simcrick-mom__inning-switch">
+                                       <div class="sr-simcrick-mom__inning-btn srt-primary-1"><span>New Zealand
+                                             SRL</span><span> </span><span class="srm-is-uppercase">INNS</span>
+                                       </div>
+                                       <div class="sr-simcrick-mom__inning-btn srt-text-disabled"><span>South Africa
+                                             SRL</span><span> </span><span class="srm-is-uppercase">INNS</span>
+                                       </div>
+                                       <div
+                                          class="sr-dropdown srt-base-1 sr-simcrick-mom__dropdown srm-is-large-hidden">
+                                          <div class="sr-dropdown__button sr-simcrick-mom__dropdown-button">
+                                             <div class="sr-dropdown__display-value-wrapper"><span>New Zealand
+                                                   SRL</span><span> </span><span class="srm-is-uppercase">INNS</span>
+                                             </div>
+                                             <div class="sr-dropdown__arrow-wrapper">
+                                                <svg class="sr-dropdown__arrow sr-simcrick-mom__dropdown-arrow"
+                                                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
+                                                   <path
+                                                      d="M8 2.25c0-.273-.227-.5-.5-.5h-7c-.273 0-.5.227-.5.5 0 .133.055.258.148.352l3.5 3.5c.094.093.22.148.352.148s.258-.055.352-.148l3.5-3.5c.093-.094.148-.22.148-.352z">
+                                                   </path>
+                                                </svg>
+                                             </div>
+                                          </div>
+                                          <div class="sr-dropdown__wrapper srt-base-2 sr-dropdown__wrapper-height-0">
+                                             <div class="sr-scrollbars__container">
+                                                <div
+                                                   style="height: 100%; max-height: inherit; z-index: 0; overflow: hidden scroll;">
+                                                   <div class="sr-scrollbars__inner"
+                                                      style="direction: ltr; display: inline-block; width: 100%;">
+                                                      <ul class=""></ul>
+                                                   </div>
+                                                </div>
+                                                <div class="sr-dropdown__track-vertical"
+                                                   style="position: absolute; width: 6px; display: none;">
+                                                   <div
+                                                      style="position: relative; display: block; width: 100%; cursor: pointer; border-radius: inherit; background-color: rgba(0, 0, 0, 0.2);">
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="sr-simcrick-mom__chart-wrapper">
+                                       <div class="sr-simcrick-mom-chart__svg-wrapper">
+                                          <div class="sr-simcrick-mom-chart__svg-container">
+                                             <div class="sr-simcrick-mom-chart__svg-wrap">
+                                                <svg width="100%" height="100%" viewBox="0 0 1000 200"
+                                                   preserveAspectRatio="none" class="sr-simcrick-mom-chart__svg">
+                                                   <g>
+                                                      <line x1="2.5" x2="999.5" y1="198.5" y2="198.5"
+                                                         class="sr-simcrick-mom-chart__axis srt-stroke-neutral-10">
+                                                      </line>
+                                                      <line x1="2.5" x2="2.5" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__axis srt-stroke-neutral-10">
+                                                      </line>
+                                                      <line x1="999.5" x2="999.5" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__axis srt-stroke-neutral-10">
+                                                      </line>
+                                                   </g>
+                                                   <g>
+                                                      <line x1="0.5" x2="5.5" y1="198.5" y2="198.5"
+                                                         class="sr-simcrick-mom-chart__axis srt-stroke-neutral-10">
+                                                      </line>
+                                                      <line x1="0.5" x2="5.5" y1="149" y2="149"
+                                                         class="sr-simcrick-mom-chart__axis srt-stroke-neutral-10">
+                                                      </line>
+                                                      <line x1="0.5" x2="5.5" y1="99.5" y2="99.5"
+                                                         class="sr-simcrick-mom-chart__axis srt-stroke-neutral-10">
+                                                      </line>
+                                                      <line x1="0.5" x2="5.5" y1="50" y2="50"
+                                                         class="sr-simcrick-mom-chart__axis srt-stroke-neutral-10">
+                                                      </line>
+                                                      <line x1="0.5" x2="5.5" y1="1" y2="1"
+                                                         class="sr-simcrick-mom-chart__axis srt-stroke-neutral-10">
+                                                      </line>
+                                                   </g>
+                                                   <g>
+                                                      <line x1="102.1" x2="102.1" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="201.7" x2="201.7" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="301.3" x2="301.3" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="400.9" x2="400.9" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="500.5" x2="500.5" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="600.1" x2="600.1" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="699.7" x2="699.7" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="799.3" x2="799.3" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="898.9" x2="898.9" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                   </g>
+                                                   <g class="sr-simcrick-mom-chart__grids-x-minor">
+                                                      <line x1="52.3" x2="52.3" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="151.9" x2="151.9" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="251.5" x2="251.5" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="351.1" x2="351.1" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="450.7" x2="450.7" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="550.3" x2="550.3" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="649.9" x2="649.9" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="749.5" x2="749.5" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="849.1" x2="849.1" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                      <line x1="948.7" x2="948.7" y1="1" y2="199"
+                                                         class="sr-simcrick-mom-chart__grid srt-stroke-neutral-10 srm-dash">
+                                                      </line>
+                                                   </g>
+                                                   <path
+                                                      d="M 3 199 L 3 199 L 5 195.01 L 7 191.01 L 9 186.99 L 11 182.96 L 13 178.92 L 15 174.87 L 17 170.82 L 19 166.76 L 21 162.7 L 23 158.64 L 25 154.59 L 27 150.54 L 29 146.51 L 31 142.48 L 33 138.47 L 35 134.47 L 37 130.49 L 39 126.54 L 41 122.6 L 43 118.7 L 45 114.82 L 47 110.97 L 49 107.15 L 51 103.37 L 52.8 100 L 54.8 96.2 L 56.8 92.28 L 58.8 88.25 L 60.8 84.13 L 62.8 79.95 L 64.8 75.72 L 66.8 71.47 L 68.8 67.21 L 70.8 62.96 L 72.8 58.75 L 74.8 54.59 L 76.8 50.51 L 78.8 46.52 L 80.8 42.64 L 82.8 38.9 L 84.8 35.31 L 86.8 31.9 L 88.8 28.68 L 90.8 25.67 L 92.8 22.9 L 94.8 20.39 L 96.8 18.14 L 98.8 16.2 L 100.8 14.56 L 102.6 13.38 L 104.6 12.41 L 106.6 11.8 L 108.6 11.53 L 110.6 11.57 L 112.6 11.9 L 114.6 12.5 L 116.6 13.34 L 118.6 14.4 L 120.6 15.65 L 122.6 17.07 L 124.6 18.63 L 126.6 20.32 L 128.6 22.1 L 130.6 23.96 L 132.6 25.87 L 134.6 27.8 L 136.6 29.73 L 138.6 31.64 L 140.6 33.5 L 142.6 35.3 L 144.6 36.99 L 146.6 38.57 L 148.6 40 L 150.6 41.27 L 152.4 42.25 L 154.4 43.26 L 156.4 44.31 L 158.4 45.39 L 160.4 46.5 L 162.4 47.61 L 164.4 48.74 L 166.4 49.87 L 168.4 50.99 L 170.4 52.1 L 172.4 53.2 L 174.4 54.27 L 176.4 55.31 L 178.4 56.31 L 180.4 57.26 L 182.4 58.17 L 184.4 59.01 L 186.4 59.79 L 188.4 60.5 L 190.4 61.13 L 192.4 61.67 L 194.4 62.12 L 196.4 62.48 L 198.4 62.72 L 200.4 62.86 L 202.2 62.88 L 204.2 62.77 L 206.2 62.51 L 208.2 62.12 L 210.2 61.6 L 212.2 60.97 L 214.2 60.24 L 216.2 59.41 L 218.2 58.49 L 220.2 57.51 L 222.2 56.46 L 224.2 55.36 L 226.2 54.22 L 228.2 53.05 L 230.2 51.86 L 232.2 50.67 L 234.2 49.47 L 236.2 48.29 L 238.2 47.13 L 240.2 46 L 242.2 44.92 L 244.2 43.89 L 246.2 42.93 L 248.2 42.04 L 250.2 41.24 L 252 40.6 L 254 39.94 L 256 39.27 L 258 38.61 L 260 37.96 L 262 37.32 L 264 36.68 L 266 36.06 L 268 35.45 L 270 34.86 L 272 34.29 L 274 33.75 L 276 33.23 L 278 32.73 L 280 32.27 L 282 31.84 L 284 31.45 L 286 31.09 L 288 30.77 L 290 30.5 L 292 30.27 L 294 30.09 L 296 29.96 L 298 29.88 L 300 29.85 L 301.8 29.88 L 303.8 29.98 L 305.8 30.16 L 307.8 30.42 L 309.8 30.75 L 311.8 31.15 L 313.8 31.6 L 315.8 32.11 L 317.8 32.66 L 319.8 33.26 L 321.8 33.89 L 323.8 34.55 L 325.8 35.23 L 327.8 35.93 L 329.8 36.64 L 331.8 37.35 L 333.8 38.07 L 335.8 38.78 L 337.8 39.47 L 339.8 40.15 L 341.8 40.8 L 343.8 41.42 L 345.8 42 L 347.8 42.54 L 349.8 43.03 L 351.6 43.43 L 353.6 43.84 L 355.6 44.26 L 357.6 44.66 L 359.6 45.07 L 361.6 45.47 L 363.6 45.86 L 365.6 46.25 L 367.6 46.62 L 369.6 46.99 L 371.6 47.34 L 373.6 47.68 L 375.6 48.01 L 377.6 48.33 L 379.6 48.62 L 381.6 48.9 L 383.6 49.17 L 385.6 49.41 L 387.6 49.63 L 389.6 49.83 L 391.6 50.01 L 393.6 50.16 L 395.6 50.29 L 397.6 50.39 L 399.6 50.46 L 401.4 50.5 L 403.4 50.51 L 405.4 50.49 L 407.4 50.43 L 409.4 50.34 L 411.4 50.22 L 413.4 50.08 L 415.4 49.91 L 417.4 49.71 L 419.4 49.5 L 421.4 49.26 L 423.4 49.01 L 425.4 48.74 L 427.4 48.47 L 429.4 48.18 L 431.4 47.88 L 433.4 47.58 L 435.4 47.28 L 437.4 46.97 L 439.4 46.67 L 441.4 46.36 L 443.4 46.07 L 445.4 45.78 L 447.4 45.5 L 449.4 45.23 L 451.2 45 L 453.2 44.73 L 455.2 44.44 L 457.2 44.11 L 459.2 43.77 L 461.2 43.4 L 463.2 43.02 L 465.2 42.62 L 467.2 42.22 L 469.2 41.82 L 471.2 41.41 L 473.2 41.01 L 475.2 40.62 L 477.2 40.24 L 479.2 39.88 L 481.2 39.54 L 483.2 39.22 L 485.2 38.93 L 487.2 38.68 L 489.2 38.46 L 491.2 38.28 L 493.2 38.15 L 495.2 38.06 L 497.2 38.03 L 499.2 38.06 L 501 38.13 L 503 38.29 L 505 38.53 L 507 38.86 L 509 39.25 L 511 39.71 L 513 40.23 L 515 40.8 L 517 41.4 L 519 42.04 L 521 42.71 L 523 43.39 L 525 44.09 L 527 44.78 L 529 45.48 L 531 46.15 L 533 46.81 L 535 47.44 L 537 48.03 L 539 48.58 L 541 49.08 L 543 49.51 L 545 49.88 L 547 50.18 L 549 50.39 L 550.8 50.5 L 552.8 50.54 L 554.8 50.51 L 556.8 50.41 L 558.8 50.25 L 560.8 50.02 L 562.8 49.75 L 564.8 49.43 L 566.8 49.06 L 568.8 48.67 L 570.8 48.24 L 572.8 47.79 L 574.8 47.32 L 576.8 46.84 L 578.8 46.36 L 580.8 45.87 L 582.8 45.39 L 584.8 44.92 L 586.8 44.46 L 588.8 44.03 L 590.8 43.63 L 592.8 43.26 L 594.8 42.93 L 596.8 42.65 L 598.8 42.41 L 600.6 42.25 L 602.6 42.1 L 604.6 41.97 L 606.6 41.85 L 608.6 41.73 L 610.6 41.63 L 612.6 41.54 L 614.6 41.46 L 616.6 41.39 L 618.6 41.32 L 620.6 41.27 L 622.6 41.22 L 624.6 41.17 L 626.6 41.14 L 628.6 41.11 L 630.6 41.08 L 632.6 41.06 L 634.6 41.04 L 636.6 41.03 L 638.6 41.02 L 640.6 41.01 L 642.6 41 L 644.6 40.99 L 646.6 40.99 L 648.6 40.98 L 650.4 40.98 L 652.4 40.98 L 654.4 41 L 656.4 41.02 L 658.4 41.06 L 660.4 41.1 L 662.4 41.15 L 664.4 41.21 L 666.4 41.27 L 668.4 41.33 L 670.4 41.4 L 672.4 41.46 L 674.4 41.53 L 676.4 41.59 L 678.4 41.65 L 680.4 41.7 L 682.4 41.75 L 684.4 41.79 L 686.4 41.82 L 688.4 41.84 L 690.4 41.85 L 692.4 41.84 L 694.4 41.82 L 696.4 41.78 L 698.4 41.73 L 700.2 41.66 L 702.2 41.56 L 704.2 41.41 L 706.2 41.22 L 708.2 40.99 L 710.2 40.72 L 712.2 40.43 L 714.2 40.1 L 716.2 39.75 L 718.2 39.37 L 720.2 38.97 L 722.2 38.55 L 724.2 38.11 L 726.2 37.67 L 728.2 37.21 L 730.2 36.74 L 732.2 36.27 L 734.2 35.8 L 736.2 35.33 L 738.2 34.87 L 740.2 34.41 L 742.2 33.96 L 744.2 33.52 L 746.2 33.1 L 748.2 32.7 L 750 32.35"
+                                                      class="sr-simcrick-mom-chart__path srt-stroke-home-1" fill="none">
+                                                   </path>
+                                                   <path
+                                                      d="M 3 199 L 3 199 L 5 195.01 L 7 191.01 L 9 186.99 L 11 182.96 L 13 178.92 L 15 174.87 L 17 170.82 L 19 166.76 L 21 162.7 L 23 158.64 L 25 154.59 L 27 150.54 L 29 146.51 L 31 142.48 L 33 138.47 L 35 134.47 L 37 130.49 L 39 126.54 L 41 122.6 L 43 118.7 L 45 114.82 L 47 110.97 L 49 107.15 L 51 103.37 L 52.8 100 L 54.8 96.2 L 56.8 92.28 L 58.8 88.25 L 60.8 84.13 L 62.8 79.95 L 64.8 75.72 L 66.8 71.47 L 68.8 67.21 L 70.8 62.96 L 72.8 58.75 L 74.8 54.59 L 76.8 50.51 L 78.8 46.52 L 80.8 42.64 L 82.8 38.9 L 84.8 35.31 L 86.8 31.9 L 88.8 28.68 L 90.8 25.67 L 92.8 22.9 L 94.8 20.39 L 96.8 18.14 L 98.8 16.2 L 100.8 14.56 L 102.6 13.38 L 104.6 12.41 L 106.6 11.8 L 108.6 11.53 L 110.6 11.57 L 112.6 11.9 L 114.6 12.5 L 116.6 13.34 L 118.6 14.4 L 120.6 15.65 L 122.6 17.07 L 124.6 18.63 L 126.6 20.32 L 128.6 22.1 L 130.6 23.96 L 132.6 25.87 L 134.6 27.8 L 136.6 29.73 L 138.6 31.64 L 140.6 33.5 L 142.6 35.3 L 144.6 36.99 L 146.6 38.57 L 148.6 40 L 150.6 41.27 L 152.4 42.25 L 154.4 43.26 L 156.4 44.31 L 158.4 45.39 L 160.4 46.5 L 162.4 47.61 L 164.4 48.74 L 166.4 49.87 L 168.4 50.99 L 170.4 52.1 L 172.4 53.2 L 174.4 54.27 L 176.4 55.31 L 178.4 56.31 L 180.4 57.26 L 182.4 58.17 L 184.4 59.01 L 186.4 59.79 L 188.4 60.5 L 190.4 61.13 L 192.4 61.67 L 194.4 62.12 L 196.4 62.48 L 198.4 62.72 L 200.4 62.86 L 202.2 62.88 L 204.2 62.77 L 206.2 62.51 L 208.2 62.12 L 210.2 61.6 L 212.2 60.97 L 214.2 60.24 L 216.2 59.41 L 218.2 58.49 L 220.2 57.51 L 222.2 56.46 L 224.2 55.36 L 226.2 54.22 L 228.2 53.05 L 230.2 51.86 L 232.2 50.67 L 234.2 49.47 L 236.2 48.29 L 238.2 47.13 L 240.2 46 L 242.2 44.92 L 244.2 43.89 L 246.2 42.93 L 248.2 42.04 L 250.2 41.24 L 252 40.6 L 254 39.94 L 256 39.27 L 258 38.61 L 260 37.96 L 262 37.32 L 264 36.68 L 266 36.06 L 268 35.45 L 270 34.86 L 272 34.29 L 274 33.75 L 276 33.23 L 278 32.73 L 280 32.27 L 282 31.84 L 284 31.45 L 286 31.09 L 288 30.77 L 290 30.5 L 292 30.27 L 294 30.09 L 296 29.96 L 298 29.88 L 300 29.85 L 301.8 29.88 L 303.8 29.98 L 305.8 30.16 L 307.8 30.42 L 309.8 30.75 L 311.8 31.15 L 313.8 31.6 L 315.8 32.11 L 317.8 32.66 L 319.8 33.26 L 321.8 33.89 L 323.8 34.55 L 325.8 35.23 L 327.8 35.93 L 329.8 36.64 L 331.8 37.35 L 333.8 38.07 L 335.8 38.78 L 337.8 39.47 L 339.8 40.15 L 341.8 40.8 L 343.8 41.42 L 345.8 42 L 347.8 42.54 L 349.8 43.03 L 351.6 43.43 L 353.6 43.84 L 355.6 44.26 L 357.6 44.66 L 359.6 45.07 L 361.6 45.47 L 363.6 45.86 L 365.6 46.25 L 367.6 46.62 L 369.6 46.99 L 371.6 47.34 L 373.6 47.68 L 375.6 48.01 L 377.6 48.33 L 379.6 48.62 L 381.6 48.9 L 383.6 49.17 L 385.6 49.41 L 387.6 49.63 L 389.6 49.83 L 391.6 50.01 L 393.6 50.16 L 395.6 50.29 L 397.6 50.39 L 399.6 50.46 L 401.4 50.5 L 403.4 50.51 L 405.4 50.49 L 407.4 50.43 L 409.4 50.34 L 411.4 50.22 L 413.4 50.08 L 415.4 49.91 L 417.4 49.71 L 419.4 49.5 L 421.4 49.26 L 423.4 49.01 L 425.4 48.74 L 427.4 48.47 L 429.4 48.18 L 431.4 47.88 L 433.4 47.58 L 435.4 47.28 L 437.4 46.97 L 439.4 46.67 L 441.4 46.36 L 443.4 46.07 L 445.4 45.78 L 447.4 45.5 L 449.4 45.23 L 451.2 45 L 453.2 44.73 L 455.2 44.44 L 457.2 44.11 L 459.2 43.77 L 461.2 43.4 L 463.2 43.02 L 465.2 42.62 L 467.2 42.22 L 469.2 41.82 L 471.2 41.41 L 473.2 41.01 L 475.2 40.62 L 477.2 40.24 L 479.2 39.88 L 481.2 39.54 L 483.2 39.22 L 485.2 38.93 L 487.2 38.68 L 489.2 38.46 L 491.2 38.28 L 493.2 38.15 L 495.2 38.06 L 497.2 38.03 L 499.2 38.06 L 501 38.13 L 503 38.29 L 505 38.53 L 507 38.86 L 509 39.25 L 511 39.71 L 513 40.23 L 515 40.8 L 517 41.4 L 519 42.04 L 521 42.71 L 523 43.39 L 525 44.09 L 527 44.78 L 529 45.48 L 531 46.15 L 533 46.81 L 535 47.44 L 537 48.03 L 539 48.58 L 541 49.08 L 543 49.51 L 545 49.88 L 547 50.18 L 549 50.39 L 550.8 50.5 L 552.8 50.54 L 554.8 50.51 L 556.8 50.41 L 558.8 50.25 L 560.8 50.02 L 562.8 49.75 L 564.8 49.43 L 566.8 49.06 L 568.8 48.67 L 570.8 48.24 L 572.8 47.79 L 574.8 47.32 L 576.8 46.84 L 578.8 46.36 L 580.8 45.87 L 582.8 45.39 L 584.8 44.92 L 586.8 44.46 L 588.8 44.03 L 590.8 43.63 L 592.8 43.26 L 594.8 42.93 L 596.8 42.65 L 598.8 42.41 L 600.6 42.25 L 602.6 42.1 L 604.6 41.97 L 606.6 41.85 L 608.6 41.73 L 610.6 41.63 L 612.6 41.54 L 614.6 41.46 L 616.6 41.39 L 618.6 41.32 L 620.6 41.27 L 622.6 41.22 L 624.6 41.17 L 626.6 41.14 L 628.6 41.11 L 630.6 41.08 L 632.6 41.06 L 634.6 41.04 L 636.6 41.03 L 638.6 41.02 L 640.6 41.01 L 642.6 41 L 644.6 40.99 L 646.6 40.99 L 648.6 40.98 L 650.4 40.98 L 652.4 40.98 L 654.4 41 L 656.4 41.02 L 658.4 41.06 L 660.4 41.1 L 662.4 41.15 L 664.4 41.21 L 666.4 41.27 L 668.4 41.33 L 670.4 41.4 L 672.4 41.46 L 674.4 41.53 L 676.4 41.59 L 678.4 41.65 L 680.4 41.7 L 682.4 41.75 L 684.4 41.79 L 686.4 41.82 L 688.4 41.84 L 690.4 41.85 L 692.4 41.84 L 694.4 41.82 L 696.4 41.78 L 698.4 41.73 L 700.2 41.66 L 702.2 41.56 L 704.2 41.41 L 706.2 41.22 L 708.2 40.99 L 710.2 40.72 L 712.2 40.43 L 714.2 40.1 L 716.2 39.75 L 718.2 39.37 L 720.2 38.97 L 722.2 38.55 L 724.2 38.11 L 726.2 37.67 L 728.2 37.21 L 730.2 36.74 L 732.2 36.27 L 734.2 35.8 L 736.2 35.33 L 738.2 34.87 L 740.2 34.41 L 742.2 33.96 L 744.2 33.52 L 746.2 33.1 L 748.2 32.7 L 750 32.35 L 750 199"
+                                                      class="sr-simcrick-mom-chart__path-fill srt-fill-home-1"></path>
+                                                </svg>
+                                             </div>
+                                             <div class="sr-simcrick-mom-chart__labels-x">
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 89.79%;">2</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 79.83%;">4</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 69.87%;">6</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 59.91%;">8</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 49.95%;">10</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 39.99%;">12</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 30.03%;">14</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 20.07%;">16</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 10.11%;">18</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 0.15%;">20</div>
+                                             </div>
+                                             <div
+                                                class="sr-simcrick-mom-chart__labels-x sr-simcrick-mom-chart__labels-x-minor">
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 94.77%;">1</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 84.81%;">3</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 74.85%;">5</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 64.89%;">7</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 54.93%;">9</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 44.97%;">11</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 35.01%;">13</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 25.05%;">15</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 15.09%;">17</div>
+                                                <div class="sr-simcrick-mom-chart__label-x srt-text-disabled"
+                                                   style="right: 5.13%;">19</div>
+                                             </div>
+                                             <div class="sr-simcrick-mom-chart__labels-y">
+                                                <div class="sr-simcrick-mom-chart__label-y srt-text-disabled"
+                                                   style="top: 99.5%;">0</div>
+                                                <div class="sr-simcrick-mom-chart__label-y srt-text-disabled"
+                                                   style="top: 0.5%;">8</div>
+                                             </div>
+                                             <div class="sr-simcrick-mom-chart__labels-data">
+                                                <div class="sr-simcrick-mom-chart__group srt-base-1-background"
+                                                   style="bottom: 50%; right: 94.72%; transform: translateX(50%) translateY(5px);">
+                                                   <div>
+                                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 9"
+                                                         name="wicket"
+                                                         class="sr-simcrick-mom-chart__wicket-icon srt-fill-home-1 sr-simcrick-mom-chart__group-icon">
+                                                         <path
+                                                            d="M1 2v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"
+                                                            fill="#FFF"></path>
+                                                         <path
+                                                            d="M1 2a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5.9 2.95L6.07 2H4.93l-.84 3.02L3.57 2H2l1.24 5h1.39l.87-2.97L6.37 7h1.39L9 2H7.43L6.9 4.95z">
+                                                         </path>
+                                                      </svg>
+                                                   </div>
+                                                </div>
+                                                <div class="sr-simcrick-mom-chart__group srt-base-1-background"
+                                                   style="bottom: 78.875%; right: 84.76%; transform: translateX(50%) translateY(5px);">
+                                                   <div>
+                                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 9"
+                                                         name="wicket"
+                                                         class="sr-simcrick-mom-chart__wicket-icon srt-fill-home-1 sr-simcrick-mom-chart__group-icon">
+                                                         <path
+                                                            d="M1 2v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"
+                                                            fill="#FFF"></path>
+                                                         <path
+                                                            d="M1 2a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5.9 2.95L6.07 2H4.93l-.84 3.02L3.57 2H2l1.24 5h1.39l.87-2.97L6.37 7h1.39L9 2H7.43L6.9 4.95z">
+                                                         </path>
+                                                      </svg>
+                                                   </div>
+                                                </div>
+                                                <div class="sr-simcrick-mom-chart__group srt-base-1-background"
+                                                   style="bottom: 78.285%; right: 64.84%; transform: translateX(50%) translateY(5px);">
+                                                   <div>
+                                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 9"
+                                                         name="wicket"
+                                                         class="sr-simcrick-mom-chart__wicket-icon srt-fill-home-1 sr-simcrick-mom-chart__group-icon">
+                                                         <path
+                                                            d="M1 2v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"
+                                                            fill="#FFF"></path>
+                                                         <path
+                                                            d="M1 2a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5.9 2.95L6.07 2H4.93l-.84 3.02L3.57 2H2l1.24 5h1.39l.87-2.97L6.37 7h1.39L9 2H7.43L6.9 4.95z">
+                                                         </path>
+                                                      </svg>
+                                                   </div>
+                                                </div>
+                                                <div class="sr-simcrick-mom-chart__group srt-base-1-background"
+                                                   style="bottom: 74.75%; right: 44.92%; transform: translateX(50%) translateY(5px);">
+                                                   <div>
+                                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 9"
+                                                         name="wicket"
+                                                         class="sr-simcrick-mom-chart__wicket-icon srt-fill-home-1 sr-simcrick-mom-chart__group-icon">
+                                                         <path
+                                                            d="M1 2v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"
+                                                            fill="#FFF"></path>
+                                                         <path
+                                                            d="M1 2a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5.9 2.95L6.07 2H4.93l-.84 3.02L3.57 2H2l1.24 5h1.39l.87-2.97L6.37 7h1.39L9 2H7.43L6.9 4.95z">
+                                                         </path>
+                                                      </svg>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="sr-simcrick-mom__chart-switch">
+                                       <div
+                                          class="sr-simcrick-mom__chart-btn srm-is-selected srm-is-clickable srm-bottom-border">
+                                          <div class="sr-simcrick-mom__chart-btn-inner srt-base-1-primary">
+                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+                                                class="sr-simcrick-mom__chart-btn-icon srt-fill-primary-12">
+                                                <path
+                                                   d="M4.17 8.54A1.5 1.5 0 0 1 4 7.83c0-.8.6-1.43 1.34-1.43s1.35.63 1.35 1.42c0 .26-.07.51-.18.72l1 1.06a1.28 1.28 0 0 1 1.34 0l4.65-4.96a1.5 1.5 0 0 1-.18-.71c0-.8.6-1.43 1.35-1.43S16 3.14 16 3.93c0 .79-.6 1.43-1.34 1.43-.25 0-.49-.07-.68-.2l-4.65 4.96c.11.2.18.45.18.72 0 .78-.6 1.42-1.35 1.42-.74 0-1.34-.64-1.34-1.43 0-.26.07-.5.18-.72l-.99-1.05a1.28 1.28 0 0 1-1.35 0l-2.16 2.3c.12.2.19.45.19.71 0 .8-.6 1.43-1.35 1.43S0 12.86 0 12.07c0-.79.6-1.43 1.34-1.43.25 0 .48.07.68.2l2.15-2.3zm10.49-3.92c.36 0 .65-.3.65-.7 0-.38-.3-.69-.65-.69-.36 0-.66.31-.66.7 0 .38.3.7.66.7zM1.34 12.77c.36 0 .66-.31.66-.7 0-.38-.3-.7-.66-.7-.36 0-.65.32-.65.7 0 .38.3.7.65.7zm4-4.25c.36 0 .65-.31.65-.7 0-.38-.3-.69-.66-.69-.36 0-.65.31-.65.7 0 .38.3.69.65.69zm2.83 3.01c.35 0 .65-.31.65-.7 0-.38-.3-.69-.66-.69-.36 0-.65.31-.65.7 0 .38.3.69.65.69z">
+                                                </path>
+                                             </svg>
+                                          </div>
+                                       </div>
+                                       <div class="sr-simcrick-mom__chart-btn srm-is-clickable">
+                                          <div class="sr-simcrick-mom__chart-btn-inner">
+                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 10"
+                                                class="sr-simcrick-mom__chart-btn-icon srt-fill-neutral-1">
+                                                <path
+                                                   d="M1 4a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1zM4 2a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zM7 0a1 1 0 0 1 1 1v8a1 1 0 1 1-2 0V1a1 1 0 0 1 1-1zM10 2a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z">
+                                                </path>
+                                             </svg>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="sr-simcrick__tabs">
+                              <div class="sr-bb sr-lmt-plus-tabs sr-ltr sr-lmt-plus-tabs-xsmall"
+                                 data-responsive="{&quot;xsmall&quot;:{&quot;width&quot;:&quot;- 400&quot;,&quot;classes&quot;:&quot;sr-lmt-plus-tabs-xsmall&quot;},&quot;small&quot;:{&quot;width&quot;:&quot;400 - 560&quot;,&quot;classes&quot;:&quot;sr-lmt-plus-tabs-small&quot;},&quot;medium&quot;:{&quot;width&quot;:&quot;560 - 700&quot;,&quot;classes&quot;:&quot;sr-lmt-plus-tabs-medium&quot;},&quot;large&quot;:{&quot;width&quot;:&quot;700 - 800&quot;,&quot;classes&quot;:&quot;sr-lmt-plus-tabs-large&quot;},&quot;xlarge&quot;:{&quot;width&quot;:&quot;800 -&quot;,&quot;classes&quot;:&quot;sr-lmt-plus-tabs-xlarge&quot;},&quot;largeDouble&quot;:{&quot;width&quot;:&quot;560 -&quot;,&quot;classes&quot;:&quot;sr-lmt-plus-tabs-double-single&quot;}}"
+                                 data-responsive-key="lmt-plus-tabs" data-resp-id="5">
+                                 <div class="sr-lmt-plus-tabs__wrapper srt-base-1 srm-notDouble">
+                                    <div
+                                       class="sr-lmt-plus-tabs__wrapper-inner srt-base-1 srm-is-btm srm-has-2 srm-layout-undefined">
+                                       <div data-ng-click="selectedScoreTab('Pitch')"
+                                          class="sr-lmt-plus-tabs__tab srm-has-2 srm-tab-btm srm-tab-1">
+                                          <div class="sr-lmt-plus-tabs__tab-icon">
+                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
+                                                class="sr-lmt-plus-tabs__tab-icon srt-fill-primary-7">
+                                                <path fill-rule="nonzero"
+                                                   d="M0 5v21.84h6.85v-.88H.95v-4.3h5.78V10.2H1V5.9h14.63v5.12c-2.64.23-4.76 2.36-4.76 4.92s2.1 4.68 4.76 4.9v5.12h-7.5c-.87 0-1.28.03-1.28.07v.83h25.3V5H0zm5.78 6.1v9.68H.98V11.1h4.8zm9.83 8.83c-2.14-.22-3.8-1.92-3.8-4 0-2.07 1.66-3.76 3.8-4v8zm.97-8.02c2.14.25 3.8 1.96 3.8 4.04 0 2.04-1.66 3.77-3.8 4V11.9zM31.2 20.8h-4.83V11.1h4.83v9.68zm0-10.6h-5.77v11.48h5.77v4.3H16.57v-5.12c2.64-.22 4.75-2.36 4.75-4.9 0-2.58-2.08-4.7-4.74-4.92V5.9h14.64v4.3h-.02z">
+                                                </path>
+                                             </svg>
+                                          </div>
+                                          <div class="sr-lmt-plus-tabs__tab-name srt-base-1 srm-has-2 srm-is-uppercase">
+                                             <span>Pitch</span>
+                                          </div>
+                                          <div class="sr-lmt-plus-tabs__border srt-primary-7"
+                                             data-ng-class="{'srm-is-active':scoreTab=='Pitch'}"></div>
+                                       </div>
+                                       <div data-ng-click="selectedScoreTab('Scorecard')"
+                                          class="sr-lmt-plus-tabs__tab srm-has-2 srm-tab-btm srm-tab-2">
+                                          <div class="sr-lmt-plus-tabs__tab-icon">
+                                             <svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 17"
+                                                class="sr-lmt-plus-tabs__tab-icon srt-fill-primary-7">
+                                                <path
+                                                   d="M3.33 12H1.67C.75 12 0 12.78 0 13.75s.75 1.75 1.67 1.75h1.67c.91 0 1.66-.78 1.66-1.75S4.25 12 3.33 12zm0-6H1.67C.75 6 0 6.78 0 7.75S.75 9.5 1.67 9.5h1.67C4.25 9.5 5 8.72 5 7.75S4.25 6 3.33 6zm0-6H1.67C.75 0 0 .78 0 1.75S.75 3.5 1.67 3.5h1.67C4.25 3.5 5 2.72 5 1.75S4.25 0 3.33 0zm6.96 3.5h12.06c.95 0 1.72-.78 1.72-1.75S23.3 0 22.35 0H10.29c-.95 0-1.72.78-1.72 1.75s.77 1.75 1.72 1.75zM22.35 6H10.29c-.95 0-1.72.78-1.72 1.75s.77 1.75 1.72 1.75h12.06c.95 0 1.72-.78 1.72-1.75S23.3 6 22.35 6zm0 6H10.29c-.95 0-1.72.78-1.72 1.75s.77 1.75 1.72 1.75h12.06c.95 0 1.72-.78 1.72-1.75S23.3 12 22.35 12z">
+                                                </path>
+                                             </svg>
+                                          </div>
+                                          <div class="sr-lmt-plus-tabs__tab-name srt-base-1 srm-has-2 srm-is-uppercase">
+                                             <span>Scorecard</span>
+                                          </div>
+                                          <div class="sr-lmt-plus-tabs__border srt-primary-7"
+                                             data-ng-class="{'srm-is-active':scoreTab=='Scorecard'}"></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div data-ng-if="scoreTab=='Pitch'" class="sr-simcrick-overs">
+                              <div data-ng-if="!scorecard" class="sr-simcrick-infohead">
+                                 <div class="sr-simcrick-infohead__content">
+                                    <div class="sr-simcrick-infohead__title srm-is-uppercase">
+                                       <span>Match has not started</span>
+                                    </div>
+                                    <div class="sr-simcrick-infohead__sub">
+                                       <span>Starts at</span>
+                                       <span class="sr-simcrick-infohead__time"> 12:30 </span>
+                                       <span>IST</span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div data-ng-if="scorecard" class="sr-simcrick-overs__scroll">
+                                 <div class="sr-simcrick-overs__snap"></div>
+                                 <div
+                                    data-ng-repeat-start="ballByBall in scorecard.ballByBallSummaries track by $index">
+                                 </div>
+                                 <div data-ng-if="$first" class="sr-simcrick-overs__ball-wrap">
+                                    <div class="sr-simcrick-overs__ball srm-emptyy"></div>
+                                 </div>
+                                 <div data-ng-if="$first" class="sr-simcrick-overs__ball-wrap">
+                                    <div class="sr-simcrick-overs__ball srm-emptyy"></div>
+                                 </div>
+                                 <div data-ng-if="$first" class="sr-simcrick-overs__ball-wrap">
+                                    <div class="sr-simcrick-overs__ball srm-emptyy"></div>
+                                 </div>
+                                 <div
+                                    data-ng-repeat="ball in ballByBall.firstInnings.split(',').reverse() track by $index"
+                                    data-ng-if="scorecard.currentInningsNumber==1 && ballByBall.firstInnings!=''"
+                                    class="sr-simcrick-overs__ball-wrap">
+                                    <div data-ng-if="$index==0" class="sr-simcrick-overs__title srm-center">
+                                       <span>Over&nbsp;{{ballByBall.overNumber}}</span>
+                                       <!-- <span class="sr-simcrick-overs__num">&nbsp;{{ballByBall.overNumber}}</span> -->
+                                    </div>
+                                    <div class="sr-simcrick-overs__ball" data-ng-class="getBallClass(ball)">{{ball}}</div>
+                                 </div>
+                                 <div
+                                    data-ng-repeat="ball in ballByBall.secondInnings.split(',').reverse() track by $index"
+                                    data-ng-if="scorecard.currentInningsNumber==2 && ballByBall.secondInnings!=''"
+                                    class="sr-simcrick-overs__ball-wrap">
+                                    <div data-ng-if="$index==0" class="sr-simcrick-overs__title srm-center">
+                                       <span>Over&nbsp;{{ballByBall.overNumber}}</span>
+                                       <!-- <span class="sr-simcrick-overs__num">&nbsp;{{ballByBall.overNumber}}</span> -->
+                                    </div>
+                                    <div class="sr-simcrick-overs__ball" data-ng-class="getBallClass(ball)">{{ball}}</div>
+                                 </div>
+                                 <!-- <div data-ng-repeat-end  class="sr-simcrick-overs__vsep"></div> -->
+                                 <div data-ng-repeat-end
+                                    data-ng-if="(scorecard.currentInningsNumber==1 && ballByBall.firstInnings!='') || (scorecard.currentInningsNumber==2 && ballByBall.secondInnings!='')"
+                                    class="sr-simcrick-overs__vsep">
+                                 </div>
+                              </div>
+                              <div class="sr-simcrick-overs__detect">
+                                 <div class="sr-simcrick-overs__detect-in"></div>
+                              </div>
+                           </div>
+                           <div data-ng-if="scoreTab=='Pitch'" class="sr-simcrick-pitch">
+                              <div class="sr-simcrick-pitch__bg"
+                                 style="background-image: url(&quot;https://widgets.sir.sportradar.com/assets/9baa6e2b613b474df4ef1787e988e80f.png&quot;);">
+                              </div>
+                              <div class="sr-simcrick-pitch__img"
+                                 style="background-image: url(&quot;https://widgets.sir.sportradar.com/assets/f33297c14fdeca117d2e82a0d233f44d.png&quot;);">
+                              </div>
+                              <div class="sr-simcrick-pitch__overlay"></div>
+                              <div data-ng-if="!scorecard" class="sr-simcrick-infocount">
+                                 <div class="sr-simcrick-infocount__title srm-is-uppercase">Countdown</div>
+                                 <div class="sr-simcrick-infocount__countdown">
+                                    <div class="col">
+                                       <div class="sr-simcrick-infocount__box">{{day}}</div>
+                                       <span class="sr-simcrick-infocount__label srm-is-uppercase">days</span>
+                                    </div>
+                                    <div class="col">
+                                       <div class="sr-simcrick-infocount__box">{{hrs}}</div>
+                                       <span class="sr-simcrick-infocount__label srm-is-uppercase">hrs</span>
+                                    </div>
+                                    <div class="col">
+                                       <div class="sr-simcrick-infocount__box">{{minutes}}</div>
+                                       <span class="sr-simcrick-infocount__label srm-is-uppercase">mins</span>
+                                    </div>
+                                    <div class="col">
+                                       <div class="sr-simcrick-infocount__box">{{seconds}}</div>
+                                       <span class="sr-simcrick-infocount__label srm-is-uppercase">secs</span>
+                                    </div>
+                                 </div>
+                                 <div class="sr-simcrick-infocount__sub"><span>Simulated match</span></div>
+                              </div>
+                              <div data-ng-if="scorecard" class="sr-simcrick-pitch__content">
+                                 <div class="sr-simcrick-pitch__batsmen">
+                                    <table>
+                                       <thead>
+                                          <tr>
+                                             <th><span>Batsman</span></th>
+                                             <th class="sr-simcrick-pitch__mid"><span>R</span></th>
+                                             <th class="sr-simcrick-pitch__mid"><span>B</span></th>
+                                             <th class="sr-simcrick-pitch__mid"><span>4S</span></th>
+                                             <th class="sr-simcrick-pitch__mid"><span>6S</span></th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr data-ng-repeat="batsmen in scorecard.innings[scorecard.currentInningsNumber-1].batsmen track by $index"
+                                             data-ng-if="batsmen.active">
+                                             <td class="sr-simcrick-pitch__mark">
+                                                {{batsmen.batsmanName}}
+                                                <svg data-ng-if="batsmen.onStrike" viewBox="0 0 24 24"
+                                                   xmlns="http://www.w3.org/2000/svg" class="sr-simcrick-pitch__icon">
+                                                   <path
+                                                      d="M15.57 7.04l.3-.15 6.8-6.8c.1-.13.3-.13.42-.02l.82.83c.1.13.1.32-.02.44l-6.8 6.8-.15.3.35.33c.46.46.42 1.24-.08 1.74L4.32 23.4c-.74.75-1.9.8-2.6.1L.5 22.28c-.7-.7-.63-1.85.12-2.6l12.9-12.9c.5-.5 1.27-.53 1.73-.07l.34.34zM2.5 14C1.12 14 0 12.88 0 11.5S1.12 9 2.5 9 5 10.12 5 11.5 3.88 14 2.5 14z"
+                                                      fill-rule="evenodd"></path>
+                                                </svg>
+                                             </td>
+                                             <td class="sr-simcrick-pitch__mark sr-simcrick-pitch__mid">{{batsmen.runs}}
+                                             </td>
+                                             <td class="sr-simcrick-pitch__mid">{{batsmen.balls}}</td>
+                                             <td class="sr-simcrick-pitch__mid">{{batsmen.fours}}</td>
+                                             <td class="sr-simcrick-pitch__mid">{{batsmen.sixes}}</td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                                 <div class="sr-simcrick-pitch__content2">
+                                    <div class="sr-simcrick-pitch__bowler">
+                                       <table>
+                                          <thead>
+                                             <tr>
+                                                <th><span>Current</span><span>&nbsp;</span><span>Bowler</span></th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr data-ng-repeat="bowlers in scorecard.innings[scorecard.currentInningsNumber-1].bowlers track by $index"
+                                                data-ng-if="bowlers.isActiveBowler">
+                                                <td class="sr-simcrick-pitch__mark">
+                                                   {{bowlers.bowlerName}}
+                                                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                      class="sr-simcrick-pitch__icon">
+                                                      <path
+                                                         d="M22.8 14.2l-.2.28c-.15.22-.45.28-.67.13-.22-.14-.27-.44-.12-.66.2-.26.36-.52.5-.78.15-.23.44-.3.67-.16.03-.33.04-.66.04-1 0-.46-.02-.9-.07-1.36-.13.34-.3.7-.48 1.06-.87 1.73-2.22 3.45-4.13 5.05-.75.64-1.6 1.24-2.5 1.8-3.73 2.35-6.9 3.13-9.38 2.95.36.2.73.4 1.1.57.04 0 .08 0 .1-.02.18 0 .5-.05.93-.12.26-.04.5.13.55.4 0 .1 0 .2-.05.28.93.27 1.92.4 2.93.4 5.33 0 9.78-3.78 10.8-8.8zm-.04-4.55c-.2-.88-.5-1.7-.87-2.5-.12.4-.28.82-.48 1.26-.7 1.6-1.8 3.16-3.43 4.63-1.2 1.06-2.6 2.03-4.25 2.88-4.7 2.4-8.25 2.98-10.72 2.48.7.97 1.53 1.82 2.5 2.52h.04c2.47.46 5.87-.16 10-2.74.9-.56 1.7-1.15 2.44-1.78 1.87-1.56 3.18-3.23 4.02-4.9.3-.58.5-1.1.66-1.6l.07-.23zm-1.2-3.12c-.16-.28-.34-.56-.52-.82-.05.3-.12.63-.22.96-.07.25-.34.4-.6.32-.25-.08-.4-.34-.32-.6.1-.3.16-.6.2-.86.03-.25.24-.42.5-.4-.22-.26-.43-.5-.65-.73 0 .06-.03.14-.05.2-.06.27-.32.42-.58.36-.25-.06-.4-.32-.35-.58.06-.24.12-.58.14-.78C17.2 1.97 14.7 1 12 1 5.92 1 1 5.9 1 12c0 .5.03 1.02.1 1.5.15.1.4.2.73.32.25.08.5.15.8.2.25.06.4.32.36.58-.07.26-.32.42-.58.37-.32-.07-.6-.15-.9-.24l-.2-.08c.06.28.14.55.23.82l.06.03c.1.07.3.18.65.3l.1.02c.25.08.4.35.32.6-.08.26-.35.4-.6.32.16.36.36.7.57 1.05l.35.1c2.35.5 5.85-.02 10.53-2.42 1.62-.83 3-1.78 4.14-2.8 1.57-1.43 2.65-2.95 3.32-4.46.22-.53.4-1.02.5-1.46l.05-.23zM12 23.97C5.4 23.97.03 18.6.03 12 .03 5.4 5.4.03 12 .03 18.6.03 23.97 5.4 23.97 12c0 6.6-5.36 11.97-11.97 11.97zm-7.58-8.8c-.26 0-.48-.2-.47-.48 0-.27.2-.48.48-.48.58 0 1.2-.04 1.83-.14.26-.04.5.14.55.4.05.26-.13.5-.4.54-.68.1-1.35.16-1.98.16zm3.92-.58c-.26.06-.52-.08-.6-.34-.07-.25.07-.52.32-.6.57-.16 1.16-.37 1.76-.62.24-.1.52.02.62.26.1.24 0 .52-.25.62-.64.27-1.26.5-1.86.66zm3.63-1.52c-.23.12-.52.03-.64-.2s-.04-.52.2-.65c.14-.07.3-.15.44-.24l1.18-.7c.23-.15.52-.08.66.14.15.22.1.52-.13.66-.4.25-.8.5-1.23.73-.16.1-.3.17-.47.25zm3.3-2.1c-.2.16-.5.12-.67-.1-.16-.2-.12-.5.1-.66.5-.4.97-.8 1.4-1.22.18-.18.5-.18.67 0 .2.2.18.5 0 .7-.46.43-.95.86-1.5 1.28zM18.1 8.2c-.17.22-.48.25-.68.1-.2-.17-.25-.47-.1-.68.4-.5.73-1.03 1-1.54.12-.23.4-.32.64-.2s.33.4.2.64c-.28.56-.64 1.12-1.07 1.7zM4.07 17.08c-.26 0-.47-.24-.46-.5 0-.26.24-.47.5-.46.3.02.6.02.9 0 .28 0 .5.2.52.46 0 .26-.2.5-.46.5-.34.02-.68.02-1 0zm2.97-.27c-.26.06-.5-.1-.56-.37-.06-.26.1-.5.36-.57l.9-.2c.26-.07.53.08.6.33.06.25-.1.5-.35.58-.3.1-.63.16-.95.22zM9.9 16c-.26.08-.54-.05-.63-.3-.1-.25.04-.52.3-.6l.86-.35c.24-.1.52 0 .63.26.1.25-.02.53-.26.63l-.9.36zm2.68-1.18c-.24.12-.53.02-.64-.22-.12-.23-.02-.52.2-.64.23-.1.44-.22.66-.33l.2-.1c.23-.13.52-.04.64.2.12.23.04.52-.2.64l-.2.1c-.22.13-.44.24-.66.35zm2.55-1.44c-.22.15-.52.08-.66-.14-.15-.22-.08-.52.14-.66.28-.17.54-.35.78-.53.22-.15.52-.1.67.1.16.23.1.53-.1.68-.27.2-.54.37-.82.55zm2.36-1.78c-.2.17-.5.16-.7-.04-.17-.2-.15-.5.04-.68.24-.2.46-.42.67-.64.2-.2.5-.2.7 0 .18.18.18.48 0 .67-.23.24-.46.47-.72.7zm1.98-2.22c-.16.2-.46.27-.67.12-.2-.16-.26-.45-.1-.67.17-.26.33-.5.48-.77.13-.23.42-.3.65-.18.23.13.3.42.18.65-.15.3-.33.57-.52.85zm-8.85 13.1c-.26.07-.52-.1-.58-.35-.06-.25.1-.5.35-.58l.9-.24c.27-.06.53.1.6.34.07.26-.07.52-.33.6-.3.1-.63.17-.94.24zm2.8-.85c-.24.1-.52-.04-.6-.28-.1-.25.02-.53.27-.62.3-.1.58-.22.87-.34.24-.1.53 0 .63.24.1.25 0 .53-.26.63l-.9.36zm2.7-1.2c-.24.12-.53.03-.66-.2-.12-.23-.03-.52.2-.65l.8-.46c.23-.14.53-.07.66.15.14.23.07.52-.16.66l-.85.5zm2.48-1.63c-.2.16-.5.12-.67-.08-.16-.2-.12-.5.08-.67.26-.2.5-.4.73-.6.2-.18.5-.16.67.04.18.2.16.5-.04.67l-.75.63zm2.17-2c-.18.18-.48.2-.68 0-.2-.17-.2-.47-.03-.66l.6-.7c.18-.2.48-.23.68-.07.2.17.23.47.06.68-.2.25-.4.5-.63.74z"
+                                                         fill-rule="evenodd">
+                                                      </path>
+                                                   </svg>
+                                                </td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <div class="sr-simcrick-pitch__stats">
+                                       <table>
+                                          <thead>
+                                             <tr>
+                                                <th colspan="2">
+                                                   <span>Innings</span><span>&nbsp;</span><span>Stats</span>
+                                                </th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr>
+                                                <td class="sr-simcrick-pitch__mark">Fours</td>
+                                                <td class="sr-simcrick-pitch__far">{{fours}}</td>
+                                             </tr>
+                                             <tr>
+                                                <td class="sr-simcrick-pitch__mark">Sixes</td>
+                                                <td class="sr-simcrick-pitch__far">{{sixes}}</td>
+                                             </tr>
+                                             <tr>
+                                                <td class="sr-simcrick-pitch__mark"><span>Extras</span></td>
+                                                <td class="sr-simcrick-pitch__far">{{extrasSummary}}</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div data-ng-if="scoreTab=='Scorecard'" class="sr-simcrick__comps-space">
+                              <div class="sr-simcrick__comps">
+                                 <div class="sr-simcrick-scc__wrapper">
+                                    <div class="sr-simcrick-scc__title srm-is-uppercase">
+                                       <span>Scorecard</span>
+                                    </div>
+                                    <div class="sr-simcrick-scc__tabs srt-base-1 srm-is-uppercase">
+                                       <div
+                                          data-ng-click="getInning(sportEvent.categories[0].categoryValue)!=-1?selctedInning(getInning(sportEvent.categories[0].categoryValue)):''"
+                                          class="sr-simcrick-scc__tab "
+                                          data-ng-class="{'srm-is-disabled srt-text-disabled srt-text-secondary':!scorecard || getInning(sportEvent.categories[0].categoryValue)==-1,'srt-base-1-primary srm-is-active':scorecard && inningTab==getInning(sportEvent.categories[0].categoryValue)}">
+                                          <span>{{sportEvent.categories[0].categoryValue}}&nbsp;</span><span>INNS</span>
+                                       </div>
+                                       <div
+                                          data-ng-click="getInning(sportEvent.categories[1].categoryValue)!=-1?selctedInning(getInning(sportEvent.categories[1].categoryValue)):''"
+                                          class="sr-simcrick-scc__tab "
+                                          data-ng-class="{'srm-is-disabled srt-text-disabled srt-text-secondary':!scorecard || getInning(sportEvent.categories[1].categoryValue)==-1,'srt-base-1-primary srm-is-active':scorecard && inningTab==getInning(sportEvent.categories[1].categoryValue)}">
+                                          <span>{{sportEvent.categories[1].categoryValue}}&nbsp;</span><span>INNS</span>
+                                       </div>
+                                    </div>
+                                    <div class="sr-scrollbars__container sr-simcrick-scc__scroller-wrapper">
+                                       <div
+                                          style="height: 100%; max-height: inherit; z-index: 0; overflow: hidden scroll;">
+                                          <div class="sr-scrollbars__inner"
+                                             style="direction: ltr; display: inline-block; width: 100%;">
+                                             <div class="sr-simcrick-scc__scroller-inner">
+                                                <div data-ng-if="scorecard" ass="sr-simcrick-scc__inn-wrap">
+                                                   <div class="sr-simcrick-scc__inn-wrap">
+                                                      <table class="sr-simcrick-scc__table">
+                                                         <thead>
+                                                            <tr class="sr-simcrick-scc__t-row">
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border srm-first">
+                                                                  <span class="srt-text-tertiary">Batsman</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border srm-significant">
+                                                                  <span class="srt-text-tertiary">R</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border">
+                                                                  <span class="srt-text-tertiary">B</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border srm-hidden">
+                                                                  <span class="srt-text-tertiary">4S</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border srm-hidden">
+                                                                  <span class="srt-text-tertiary">6S</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border srm-col45">
+                                                                  <span class="srt-text-tertiary">S/R</span>
+                                                               </td>
+                                                            </tr>
+                                                         </thead>
+                                                         <tbody>
+                                                            <tr class="sr-simcrick-scc__t-row"
+                                                               data-ng-repeat-start="batsmen in scorecard.innings[inningTab].batsmen track by $index">
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-first">
+                                                                  {{batsmen.batsmanName}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-significant">
+                                                                  {{batsmen.runs}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data">
+                                                                  {{batsmen.balls}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-hidden">
+                                                                  {{batsmen.fours}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-hidden">
+                                                                  {{batsmen.sixes}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-col45">
+                                                                  {{StrikeRate(batsmen)}}
+                                                               </td>
+                                                            </tr>
+                                                            <tr data-ng-repeat-end class="sr-simcrick-scc__t-row">
+                                                               <td colspan="7"
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__c-details srm-border srm-border">
+                                                                  <span data-ng-if="batsmen.toCome">Yet to bat</span>
+                                                                  <span data-ng-if="batsmen.fielderName">c</span>
+                                                                  <span
+                                                                     data-ng-if="!batsmen.fielderName && batsmen.description"
+                                                                     class="sr-simcrick-scc__dis-desc"
+                                                                     data-ng-class="{'srt-base-1-primary-1 srm-not-out':batsmen.active}">
+                                                                     <span>{{batsmen.description}}</span>
+                                                                  </span>
+                                                                  <span>&nbsp;</span>
+                                                                  <span data-ng-if="batsmen.bowlerName">b</span>
+                                                                  <span
+                                                                     data-ng-if="batsmen.bowlerName">&nbsp;{{batsmen.bowlerName}}</span>
+                                                               </td>
+                                                            </tr>
+                                                            <tr class="sr-simcrick-scc__t-row">
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-first">
+                                                                  <span>Extras</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-stats srm-significant">
+                                                                  {{scorecard.innings[inningTab].extrasSummary.byes+
+                                                                  scorecard.innings[inningTab].extrasSummary.legByes+
+                                                                  scorecard.innings[inningTab].extrasSummary.noBalls+
+                                                                  scorecard.innings[inningTab].extrasSummary.wides}}
+                                                               </td>
+                                                               <td colspan="5" class="sr-simcrick-scc__t-cell"></td>
+                                                            </tr>
+                                                            <tr class="sr-simcrick-scc__t-row">
+                                                               <td colspan="7"
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__c-details srt-base-6 srm-border">
+                                                                  <span class="srt-text-secondary">
+                                                                     <span>
+                                                                        <span>b</span>:&nbsp;{{scorecard.innings[inningTab].extrasSummary.byes}}
+                                                                     </span>
+                                                                     <span>,&nbsp;</span>
+                                                                     <span>
+                                                                        <span>lb</span>:&nbsp;{{scorecard.innings[inningTab].extrasSummary.legByes}}
+                                                                     </span>
+                                                                     <span>,&nbsp;</span>
+                                                                     <span>
+                                                                        <span>nb</span>:&nbsp;{{scorecard.innings[inningTab].extrasSummary.noBalls}}
+                                                                     </span>
+                                                                     <span>,&nbsp;</span>
+                                                                     <span>
+                                                                        <span>w</span>:&nbsp;{{scorecard.innings[inningTab].extrasSummary.wides}}
+                                                                     </span>
+                                                                  </span>
+                                                               </td>
+                                                            </tr>
+                                                            <tr class="sr-simcrick-scc__t-row">
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-first">
+                                                                  <span class="srt-base-1-primary-1">Total</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-significant">
+                                                                  {{scorecard.innings[inningTab].runs}}
+                                                               </td>
+                                                               <td colspan="5" class="sr-simcrick-scc__t-cell"></td>
+                                                            </tr>
+                                                            <tr class="sr-simcrick-scc__t-row">
+                                                               <td colspan="7"
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__c-details srt-base-6 srm-border">
+                                                                  <span class="srt-text-secondary">
+                                                                     <span>{{scorecard.innings[inningTab].wickets}}&nbsp;<span>Out</span>,
+                                                                        &nbsp;{{scorecard.innings[inningTab].overs}}&nbsp;
+                                                                        <span>Over</span>,
+                                                                        &nbsp;<span>RR</span>&nbsp;8.60</span>
+                                                                  </span>
+                                                               </td>
+                                                            </tr>
+                                                         </tbody>
+                                                      </table>
+                                                   </div>
+                                                   <div class="sr-simcrick-scc__fall-of-wickets">
+                                                      <span
+                                                         class="sr-simcrick-scc__section-title sr-simcrick-scc__dspan">Fall
+                                                         of wickets</span>
+                                                      <span class="srt-text-secondary">&nbsp;|&nbsp;</span>
+                                                      <span
+                                                         class="srt-text-secondary">{{scorecard.innings[inningTab].fallOfwickets}}
+                                                      </span>
+                                                   </div>
+                                                   <div class="sr-simcrick-scc__inn-wrap">
+                                                      <table class="sr-simcrick-scc__table">
+                                                         <thead>
+                                                            <tr class="sr-simcrick-scc__t-row">
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border srm-first">
+                                                                  <span class="srt-text-tertiary">Bowling</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border srm-significant">
+                                                                  <span class="srt-text-tertiary">O</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border srm-hidden">
+                                                                  <span class="srt-text-tertiary">M</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border">
+                                                                  <span class="srt-text-tertiary">R</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border">
+                                                                  <span class="srt-text-tertiary">W</span>
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-header srm-is-uppercase srt-base-6 srm-border srm-col45">
+                                                                  <span class="srt-text-tertiary">ECON</span>
+                                                               </td>
+                                                            </tr>
+                                                         </thead>
+                                                         <tbody>
+                                                            <tr class="sr-simcrick-scc__t-row"
+                                                               data-ng-repeat="bowlers in scorecard.innings[inningTab].bowlers track by $index"
+                                                               data-ng-if="bowlers.overs!=0 && bowlers.runs!=0">
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-border srm-first">
+                                                                  {{bowlers.bowlerName}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-border srm-significant">
+                                                                  {{bowlers.overs}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-border srm-hidden">
+                                                                  {{bowlers.maidens}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-border">
+                                                                  {{bowlers.runs}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-border">
+                                                                  {{bowlers.wickets}}
+                                                               </td>
+                                                               <td
+                                                                  class="sr-simcrick-scc__t-cell sr-simcrick-scc__r-data srm-border srm-col45">
+                                                                  {{economy(bowlers)}}
+                                                               </td>
+                                                            </tr>
+                                                         </tbody>
+                                                      </table>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div
+                                          style="position: absolute; width: 6px; transition: opacity 200ms ease 0s; opacity: 0; display: none; right: 2px; bottom: 2px; top: 2px; border-radius: 3px;">
+                                          <div
+                                             style="position: relative; display: block; width: 100%; cursor: pointer; border-radius: inherit; background-color: rgba(0, 0, 0, 0.2);">
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- <ul class="match-btn">
+         <li><a id="liveMultiMarketPin" style="cursor:pointer" name="gameHeadPin" class="btn-pin"
+               title="Add to Multi Markets" eventtype="4" eventid="-10011115" marketid="-10011123">Pin</a></li>
+         <li><a style="cursor:pointer" class="btn-refresh"
+               onclick="$j('#loading').show();setTimeout(function () {$j('#loading').hide()}, 1000);">Refresh</a></li>
+         </ul> -->
+   </div>
+</div>
+<div id="naviMarket" class="market-type ps ps--theme_default" data-ps-id="832f0911-42c9-9a14-faaf-093194d96fdc">
+   <ul id="naviMarketList">
+      <li id="naviMarket_{{mkt.bfId | removeSpace}}" data-ng-class="mkt.bfId==bfId?'select':''"
+         data-ng-repeat="mkt in allMarketData track by mkt.bfId" style="display: list-item;">
+         <a
+            data-ng-href="#!fullmarket/{{sportId}}/{{mtBfId}}/{{matchId}}/{{mkt.marketId}}/{{mkt.bfId}}{{tourId!=undefined?'/'+tourId:''}}">{{mkt.marketName}}</a>
+      </li>
+   </ul>
+   <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+      <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+   </div>
+   <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+      <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+   </div>
+</div>
+<div id="marketBetsWrap" class="bets-wrap" data-ng-class="checkDateTime(getMarketData.matchDate,curTime)?'disable':''">
+   <dl class="bets-selections-head">
+      <dt>
+         <!-- <a class="a-depth" data-ng-click="openMarketDepth(getMarketData)" id="marketDepthBtn">Markets Depth</a> -->
+         <p>
+            <!-- <span>Matched</span>
+            <strong id="totalMatched"> {{totalMatched | number:0}}</strong> -->
+            <span class="ng-binding">Min Stake: {{getMarketData.minStake}}</span>
+            <span class="ng-binding">Max Stake: {{getMarketData.maxStake}}</span>
+         </p>
+      </dt>
+      <dd class="mode-land"></dd>
+      <dd class="mode-land"></dd>
+      <dd>Back</dd>
+      <dd>Lay</dd>
+      <dd class="mode-land"></dd>
+      <dd class="mode-land"></dd>
+   </dl>
+   <dl id="selection_{{marketId}}_{{runner.runnerName | removeSpace}}"
+      data-ng-repeat-start="runner in getMarketData.runnerData track by runner.runnerName" class="bets-selections">
+      <dt>
+         <h4>{{runner.runnerName}}</h4>
+         <ul>
+            <li id="withoutBetMktExp_{{marketId}}_{{runner.runnerName | removeSpace}}" style="display: list-item;"></li>
+            <li id="withBetMktExp_{{marketId}}_{{runner.runnerName | removeSpace}}" style="display: list-item;"></li>
+         </ul>
+      </dt>
+      <dd class="suspend" data-ng-if="getMarketData.matchStatus!='OPEN'">
+         <p>{{getMarketData.matchStatus}}
+         </p>
+      </dd>
+      <dd class="mode-land">
+         <a class="back-3"
+            data-ng-click="getMarketData.matchStatus!='OPEN' || runner.back3==null || runner.back3=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Back',runner.back3,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.back3 | oddDecimal}}<span>{{runner.backSize3 | volume | number:0}}{{runner.backSize3>500000?'+':''}}</span></a>
+      </dd>
+      <dd class="mode-land">
+         <a class="back-2"
+            data-ng-click="getMarketData.matchStatus!='OPEN' || runner.back2==null || runner.back2=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Back',runner.back2,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.back2 | oddDecimal}}<span>{{runner.backSize2 | volume | number:0}}{{runner.backSize2>500000?'+':''}}</span></a>
+      </dd>
+      <dd>
+         <a class="back-1"
+            data-ng-click="getMarketData.matchStatus!='OPEN' || runner.back1==null || runner.back1=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Back',runner.back1,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.back1 | oddDecimal}}<span>{{runner.backSize1 | volume | number:0}}{{runner.backSize1>500000?'+':''}}</span></a>
+      </dd>
+      <dd>
+         <a class="lay-1"
+            data-ng-click="getMarketData.matchStatus!='OPEN' || runner.lay1==null || runner.lay1=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Lay',runner.lay1,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.lay1 | oddDecimal}}<span>
+               {{runner.laySize1 | volume | number:0}}{{runner.laySize1>500000?'+':''}}</span></a>
+      </dd>
+      <dd class="mode-land">
+         <a class="lay-2"
+            data-ng-click="getMarketData.matchStatus!='OPEN' || runner.lay2==null || runner.lay2=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Lay',runner.lay2,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.lay2 | oddDecimal}}<span>
+               {{runner.laySize2 | volume | number:0}}{{runner.laySize2>500000?'+':''}}</span></a>
+      </dd>
+      <dd class="mode-land">
+         <a class="lay-3"
+            data-ng-click="getMarketData.matchStatus!='OPEN' || runner.lay3==null || runner.lay3=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Lay',runner.lay3,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.lay3 | oddDecimal}}<span>
+               {{runner.laySize3 | volume | number:0}}{{runner.laySize3>500000?'+':''}}</span></a>
+      </dd>
+   </dl>
+   <div id="betBoard_{{marketId}}_{{runner.runnerName | removeSpace}}"
+      data-ng-if="runner.runnerName==placeMarketData.runnerName && getMarketData.matchStatus=='OPEN'"
+      class="bet_slip-wrap {{placeMarketData.backlay | lowercase}}" style="display: block;" data-ng-repeat-end>
+      <ul class="btn-list">
+         <li>
+            <div class="input-num input-odds">
+               <a data-ng-click="oddsDown(placeMarketData)" class="icon-minus"></a>
+               <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                  data-ng-click="typingSign('odds',placeMarketData)">{{placeMarketData.odds}}</span>
+               <a data-ng-click="oddsUp(placeMarketData)" class="icon-plus"></a>
+            </div>
+         </li>
+         <li>
+            <div class="input-num input-stake">
+               <a data-ng-click="stakeDown(placeMarketData)" class="icon-minus"></a>
+               <span data-ng-class="stakeTyping?'typeing':'typed'"
+                  data-ng-click="typingSign('stake',placeMarketData)">{{placeMarketData.stake}}</span>
+               <a data-ng-click="stakeUp(placeMarketData)" class="icon-plus"></a>
+            </div>
+         </li>
+      </ul>
+      <ul class="coin-list">
+         <li><a data-stake="{{settingsData.betStake.stake1}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake1,placeMarketData)">
+               {{settingsData.betStake.stake1}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake2}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake2,placeMarketData)">
+               {{settingsData.betStake.stake2}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake3}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake3,placeMarketData)">
+               {{settingsData.betStake.stake3}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake4}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake4,placeMarketData)">
+               {{settingsData.betStake.stake4}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake5}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake5,placeMarketData)">
+               {{settingsData.betStake.stake5}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake6}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake6,placeMarketData)">
+               {{settingsData.betStake.stake6}}</a></li>
+      </ul>
+      <div class="keyboard-wrap">
+         <ul class="btn-tel">
+            <li><a data-ng-click="buttonInput('1',placeMarketData)">1</a></li>
+            <li><a data-ng-click="buttonInput('2',placeMarketData)">2</a></li>
+            <li><a data-ng-click="buttonInput('3',placeMarketData)">3</a></li>
+            <li><a data-ng-click="buttonInput('4',placeMarketData)">4</a></li>
+            <li><a data-ng-click="buttonInput('5',placeMarketData)">5</a></li>
+            <li><a data-ng-click="buttonInput('6',placeMarketData)">6</a></li>
+            <li><a data-ng-click="buttonInput('7',placeMarketData)">7</a></li>
+            <li><a data-ng-click="buttonInput('8',placeMarketData)">8</a></li>
+            <li><a data-ng-click="buttonInput('9',placeMarketData)">9</a></li>
+            <li><a data-ng-click="buttonInput('0',placeMarketData)">0</a></li>
+            <li><a data-ng-click="buttonInput('00',placeMarketData)">00</a></li>
+            <li><a data-ng-click="buttonInput('.',placeMarketData)">.</a></li>
+         </ul>
+         <a data-ng-click="buttonDelete(placeMarketData)" class="btn-delete"></a>
+      </div>
+      <ul class="btn-list">
+         <li>
+            <a data-ng-click="cancelBetslip()" class="btn">Cancel</a>
+         </li>
+         <li>
+            <a data-ng-click="placeMarketData.stake=='' || placeMarketData.odds==''?'':confirmBetPop(placeMarketData)"
+               class="btn-send" data-ng-class="placeMarketData.stake=='' || placeMarketData.odds==''?'disable':''">Place
+               Bet</a>
+         </li>
+      </ul>
+   </div>
+</div>
+<div id="bookRateBetsWrap" class="bets-wrap" data-ng-repeat="bokRate in bookMakingData track by $index">
+
+   <dl class="bets-selections-head">
+      <dt style="font-size: 3.93333vw;">
+         <p>
+            <strong>{{bokRate.name}} </strong>
+         </p>
+      </dt>
+      <dd class="mode-land"></dd>
+      <dd class="mode-land"></dd>
+      <dd>Back
+      </dd>
+      <dd>Lay
+      </dd>
+      <dd class="mode-land"></dd>
+      <dd class="mode-land"></dd>
+   </dl>
+   <dl id="selection_{{runner.id}}_{{runner.name | removeSpace}}"
+      data-ng-repeat-start="runner in bokRate.runnerData track by runner.name" class="bets-selections">
+      <dt>
+         <h4>{{runner.name}}</h4>
+         <ul>
+            <li id="withoutBetBMExp_{{bokRate.id}}_{{runner.name | removeSpace}}"></li>
+            <li id="withBetBMExp_{{bokRate.id}}_{{runner.name | removeSpace}}"></li>
+         </ul>
+      </dt>
+      <dd class="suspend" data-ng-if="runner.ballStatus!=''">
+         <p>{{runner.ballStatus}}
+         </p>
+      </dd>
+      <dd class="mode-land">
+      </dd>
+      <dd class="mode-land">
+      </dd>
+      <dd>
+         <a class="back-1"
+            data-ng-click="runner.backSize=='-' || runner.backSize==''?'':openBookBetSlip($event,'Back',runner.backPrice,runner.name,runner.id,bokRate.id,bokRate.name,bokRate.type,matchId,marketId)">{{runner.backPrice}}<span>{{runner.backSize}}</span></a>
+      </dd>
+      <dd>
+         <a class="lay-1"
+            data-ng-click="runner.layPrice=='-' || runner.layPrice==''?'':openBookBetSlip($event,'Lay',runner.layPrice,runner.name,runner.id,bokRate.id,bokRate.name,bokRate.type,matchId,marketId)">{{runner.layPrice}}<span>
+               {{runner.laySize}}</span></a>
+      </dd>
+      <dd class="mode-land">
+      </dd>
+      <dd class="mode-land">
+      </dd>
+   </dl>
+   <div id="betBoard_{{runner.id}}_{{runner.name | removeSpace}}"
+      data-ng-if="runner.id==placeBookData.runnerId && runner.ballStatus==''"
+      class="bet_slip-wrap {{placeMarketData.backlay | lowercase}}" style="display: block;" data-ng-repeat-end>
+      <ul class="btn-list">
+         <li>
+            <div class="input-num disable">
+               <span class="typed">{{placeBookData.odds}}</span>
+            </div>
+         </li>
+         <li>
+            <div class="input-num input-stake">
+               <a data-ng-click="stakeDown(placeBookData)" class="icon-minus"></a>
+               <span data-ng-class="stakeTyping?'typeing':'typed'"
+                  data-ng-click="typingSign('stake',placeBookData)">{{placeBookData.stake}}</span>
+               <a data-ng-click="stakeUp(placeBookData)" class="icon-plus"></a>
+            </div>
+         </li>
+      </ul>
+      <ul class="coin-list">
+         <li><a data-stake="{{settingsData.betStake.stake1}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake1,placeBookData)">
+               {{settingsData.betStake.stake1}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake2}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake2,placeBookData)">
+               {{settingsData.betStake.stake2}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake3}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake3,placeBookData)">
+               {{settingsData.betStake.stake3}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake4}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake4,placeBookData)">
+               {{settingsData.betStake.stake4}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake5}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake5,placeBookData)">
+               {{settingsData.betStake.stake5}}</a></li>
+         <li><a data-stake="{{settingsData.betStake.stake6}}"
+               data-ng-click="stakeChange(settingsData.betStake.stake6,placeBookData)">
+               {{settingsData.betStake.stake6}}</a></li>
+      </ul>
+      <div class="keyboard-wrap">
+         <ul class="btn-tel">
+            <li><a data-ng-click="buttonInput('1',placeBookData)">1</a></li>
+            <li><a data-ng-click="buttonInput('2',placeBookData)">2</a></li>
+            <li><a data-ng-click="buttonInput('3',placeBookData)">3</a></li>
+            <li><a data-ng-click="buttonInput('4',placeBookData)">4</a></li>
+            <li><a data-ng-click="buttonInput('5',placeBookData)">5</a></li>
+            <li><a data-ng-click="buttonInput('6',placeBookData)">6</a></li>
+            <li><a data-ng-click="buttonInput('7',placeBookData)">7</a></li>
+            <li><a data-ng-click="buttonInput('8',placeBookData)">8</a></li>
+            <li><a data-ng-click="buttonInput('9',placeBookData)">9</a></li>
+            <li><a data-ng-click="buttonInput('0',placeBookData)">0</a></li>
+            <li><a data-ng-click="buttonInput('00',placeBookData)">00</a></li>
+            <li><a data-ng-click="buttonInput('.',placeBookData)">.</a></li>
+         </ul>
+         <a data-ng-click="buttonDelete(placeBookData)" class="btn-delete"></a>
+      </div>
+      <ul class="btn-list">
+         <li>
+            <a data-ng-click="cancelBetslip()" class="btn">Cancel
+            </a>
+         </li>
+         <li>
+            <a data-ng-click="placeBookData.stake==''?'':placeBMBet(placeBookData)" class="btn-send"
+               data-ng-class="placeBookData.stake==''?'disable':''">Place Bet
+            </a>
+         </li>
+      </ul>
+   </div>
+</div>
+<div id="fancyBetTable_29119662" style="" data-ng-if="getFancyData.length!=0 && getFancyData!=undefined">
+   <div id="fancyBetHead" class="fancy_bet-head" style="">
+      <h4 class="in-play">
+         <!-- <a id="multiMarketPin" class="pin-off">Pin to Muilti Markets</a> -->
+         <a data-ng-class="isMultiAdded(getMarketData.matchBfId)?'pin-off':'pin-on'"
+            title="{{isMultiAdded(getMarketData.matchBfId)?'Add to Multi Markets':'Remove from Multi Markets'}}"
+            data-ng-click="isMultiAdded(getMarketData.matchBfId)?addMultiMarket(getMarketData.matchBfId):removeMultiMarket(getMarketData.matchBfId)">Pin
+            to Muilti Markets</a>
+         <span>
+            <pre>in-play</pre>
+            Fancy Bet
+         </span>
+         <a class="btn-fancybet_rules" data-ng-click="showOverlayInfo('fancyBetRulesWrap')">Rules</a>
+      </h4>
+   </div>
+   <div id="fancyBetWrap" class="bets-wrap multi fancy" style="">
+      <dl id="marketHead" class="bets-selections-head">
+         <dt id="fancyBetNoBet" style="display: none;"></dt>
+         <dt></dt>
+         <dd>No</dd>
+         <dd>Yes</dd>
+         <dd class="mode-land"></dd>
+      </dl>
+      <dl id="fancyBetMarket_{{fancy.id}}" data-ng-repeat-start="fancy in getFancyData track by fancy.id"
+         class="bets-selections" style="display: flex;">
+         <dt class="line_market-selection">
+            <h4 id="marketName">{{fancy.name}}</h4>
+            <ul>
+               <!-- <li id="before" class="win" style="display: none;"></li>
+                  <li id="after" class="to-lose" style="display: none;"></li> -->
+               <li id="beforeFancyExpo_{{fancy.id}}" style="display: flex;"><span></span></li>
+               <li id="afterFancyExpo_{{fancy.id}}" style="display: -webkit-inline-box;"><span></span></li>
+            </ul>
+            <!--  <ul>
+               <li id="before" class="lose" style="display: flex;"><span class="red">( 2.00)</span></li>
+               
+               <li id="after" class="to-lose" style="display: flex;"><span class="red">( 502.00)</span></li>
+               
+               </ul> -->
+            <a id="fancyBetBookBtn_{{fancy.id}}" class="btn-book"
+               data-ng-click="getFancyBook(matchId,fancy.id,fancy.name)" style="display: none;">Book</a>
+         </dt>
+         <!-- Suspend for Fancy Bet -->
+         <dd class="suspend-fancy" data-ng-if="fancy.ballStatus!=''">
+            <p>{{fancy.ballStatus}}</p>
+         </dd>
+         <dd>
+            <a class="lay-1"
+               data-ng-click="fancy.ballStatus!='' || fancy.noScore==''?'':openFancyBetSlip($event,'No',fancy.noScore,fancy.noRate,fancy.name,fancy.id,matchId,bfId,marketId)">{{fancy.noScore | number:0}}<span>{{fancy.noRate | number:0}}</span></a>
+         </dd>
+         <dd>
+            <a class="back-1"
+               data-ng-click="fancy.ballStatus!='' || fancy.yesScore==''?'':openFancyBetSlip($event,'Yes',fancy.yesScore,fancy.yesRate,fancy.name,fancy.id,matchId,bfId,marketId)">{{fancy.yesScore | number:0}}<span>{{fancy.yesRate | number:0}}</span></a>
+         </dd>
+         <dd class="mode-land">
+            <a data-ng-click="openCloseFancyInfo(fancy)" class="btn-fancy_info">fancybet info</a>
+            <div id="fancy_popup_{{fancy.id}}" class="fancy_info-popup"
+               data-ng-style="{'display':(fancyInfo==undefined)?'':(fancy.id==fancyInfo.id)?'flex':'none'}">
+               <dl>
+                  <dt>Min / Max</dt>
+                  <dd id="minMax"> {{fancy.minStake | number:2}} / {{fancy.maxStake | number:2}}</dd>
+               </dl>
+               <a id="close-fancy_info__{{fancy.id}}" data-ng-click="openCloseFancyInfo()" class="close">Close</a>
+            </div>
+         </dd>
+      </dl>
+      <div id="betBoard_{{fancy.id}}" data-ng-if="fancy.id==placeFancyData.fancyId && fancy.ballStatus==''"
+         class="bet_slip-wrap {{placeFancyData.yesno=='Yes'?'back':'lay'}}" style="display: block;" data-ng-repeat-end>
+         <ul class="btn-list">
+            <li>
+               <div class="input-num disable">
+                  <!-- <a class="icon-minus"></a> -->
+                  <span class="typed">{{placeFancyData.score}} / {{placeFancyData.rate}}</span>
+                  <!-- <a class="icon-plus"></a> -->
+               </div>
+            </li>
+            <li>
+               <div class="input-num input-stake">
+                  <a data-ng-click="stakeDown(placeFancyData)" class="icon-minus"></a>
+                  <span data-ng-class="stakeTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('stake',placeFancyData)">{{placeFancyData.stake}}</span>
+                  <a data-ng-click="stakeUp(placeFancyData)" class="icon-plus"></a>
+               </div>
+            </li>
+         </ul>
+         <ul class="coin-list">
+            <li><a data-stake="{{settingsData.betStake.stake1}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake1,placeFancyData)">
+                  {{settingsData.betStake.stake1}}</a></li>
+            <li><a data-stake="{{settingsData.betStake.stake2}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake2,placeFancyData)">
+                  {{settingsData.betStake.stake2}}</a></li>
+            <li><a data-stake="{{settingsData.betStake.stake3}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake3,placeFancyData)">
+                  {{settingsData.betStake.stake3}}</a></li>
+            <li><a data-stake="{{settingsData.betStake.stake4}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake4,placeFancyData)">
+                  {{settingsData.betStake.stake4}}</a></li>
+            <li><a data-stake="{{settingsData.betStake.stake5}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake5,placeFancyData)">
+                  {{settingsData.betStake.stake5}}</a></li>
+            <li><a data-stake="{{settingsData.betStake.stake6}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake6,placeFancyData)">
+                  {{settingsData.betStake.stake6}}</a></li>
+         </ul>
+         <div class="keyboard-wrap">
+            <ul class="btn-tel">
+               <li><a data-ng-click="buttonInput('1',placeFancyData)">1</a></li>
+               <li><a data-ng-click="buttonInput('2',placeFancyData)">2</a></li>
+               <li><a data-ng-click="buttonInput('3',placeFancyData)">3</a></li>
+               <li><a data-ng-click="buttonInput('4',placeFancyData)">4</a></li>
+               <li><a data-ng-click="buttonInput('5',placeFancyData)">5</a></li>
+               <li><a data-ng-click="buttonInput('6',placeFancyData)">6</a></li>
+               <li><a data-ng-click="buttonInput('7',placeFancyData)">7</a></li>
+               <li><a data-ng-click="buttonInput('8',placeFancyData)">8</a></li>
+               <li><a data-ng-click="buttonInput('9',placeFancyData)">9</a></li>
+               <li><a data-ng-click="buttonInput('0',placeFancyData)">0</a></li>
+               <li><a data-ng-click="buttonInput('00',placeFancyData)">00</a></li>
+               <li><a data-ng-click="buttonInput('.',placeFancyData)">.</a></li>
+            </ul>
+            <a data-ng-click="buttonDelete(placeFancyData)" class="btn-delete"></a>
+         </div>
+         <ul class="btn-list">
+            <li>
+               <a data-ng-click="cancelBetslip()" class="btn">Cancel
+               </a>
+            </li>
+            <li>
+               <a data-ng-click="placeFancyData.stake==''?'':placeFancyBet(placeFancyData)" class="btn-send"
+                  data-ng-class="placeFancyData.stake==''?'disable':''">Place Bet
+               </a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>

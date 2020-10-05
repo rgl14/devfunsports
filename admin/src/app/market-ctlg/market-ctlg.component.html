@@ -1,0 +1,58 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Markets Catalogue</h5>
+      </div>
+      <div class="ibox-content table-responsive">
+        <div class="row">
+          <div class="offset-9"></div>
+          <div class="col-md-3">
+            <select [(ngModel)]="selectedPkg" class="form-control mb-2">
+              <option value="">Select Packages</option>
+              <option [ngValue]="package.id" *ngFor="let package of MktSettingsPckgList">{{package.label}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="loading-overlay" style="display: flex;" id="loading">
+          <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let sport of marketCtlgData">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{sport.name}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-expansion-panel *ngFor="let tournament of sport.tournaments">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{tournament.name}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <mat-expansion-panel *ngFor="let match of tournament.matches">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{match.name}} [{{match.startDate}}]
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-action-row *ngFor="let market of match.markets">
+                  <mat-panel-title>
+                    {{market.name}}
+                  </mat-panel-title>
+                  <button mat-button color="primary" mat-raised-button
+                    (click)="ImportMarket(sport.name,sport.id,tournament.name,tournament.id,match.name,match.id,match.startDate,market.name,market.id)">
+                    Import
+                  </button>
+                </mat-action-row>
+              </mat-expansion-panel>
+            </mat-expansion-panel>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</div>

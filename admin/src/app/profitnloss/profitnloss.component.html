@@ -1,0 +1,186 @@
+<div class="row"></div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Summary</h5>
+        </div>
+        <div class="ibox-content table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>All Time Total</th>
+                <th [ngClass]="allTimeTotal >= 0 ? 'profit' : 'loss'">
+                  {{ allTimeTotal | number: "1.2-2" }}
+                </th>
+              </tr>
+              <tr>
+                <th>Match Earnings</th>
+                <th [ngClass]="matchEarnings >= 0 ? 'profit' : 'loss'">
+                  {{ matchEarnings | number: "1.2-2" }}
+                </th>
+              </tr>
+              <tr>
+                <th>Selected Total</th>
+                <th [ngClass]="selectedTotal >= 0 ? 'profit' : 'loss'">
+                  {{ selectedTotal | number: "1.2-2" }}
+                </th>
+              </tr>
+              <tr>
+                <th>Total Earnings</th>
+                <th [ngClass]="totalEarnings >= 0 ? 'profit' : 'loss'">
+                  {{ totalEarnings | number: "1.2-2" }}
+                </th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Earning Report</h5>
+        </div>
+        <div class="ibox-content-table table-responsive">
+          <div class="col-md-12 search-div row" style="padding: 15px;">
+            <div class="col-md-4">
+              <angular2-multiselect
+                [data]="dropdownList"
+                [(ngModel)]="selectedItems"
+                [settings]="dropdownSettings"
+                (onSelect)="onItemSelect($event)"
+                (onDeSelect)="OnItemDeSelect($event)"
+                (onSelectAll)="onSelectAll($event)"
+                (onDeSelectAll)="onDeSelectAll($event)"
+              >
+              </angular2-multiselect>
+            </div>
+            <div class="col-md-4 mt-3 mt-md-0">
+              <input
+                type="text"
+                placeholder="From"
+                class="form-control"
+                bsDatepicker
+                [(ngModel)]="selectfromdate"
+                (bsValueChange)="fromDateChange($event)"
+                [bsConfig]="{
+                  dateInputFormat: 'DD-MM-YYYY',
+                  containerClass: 'theme-default',
+                  isAnimated: true
+                }"
+              />
+
+              <div class="mx-auto">
+                <timepicker
+                  hoursPlaceholder="HH"
+                  minutesPlaceholder="MM"
+                  secondsPlaceholder="SS"
+                  showSeconds="true"
+                  [showMeridian]="false"
+                  [(ngModel)]="selectfromtime"
+                  (ngModelChange)="fromTimeChange($event)"
+                ></timepicker>
+              </div>
+            </div>
+
+            <div class="col-md-4 mt-3 mt-md-0">
+              <input
+                type="text"
+                placeholder="To"
+                class="form-control"
+                bsDatepicker
+                [(ngModel)]="selecttodate"
+                (bsValueChange)="toDateChange($event)"
+                [bsConfig]="{
+                  dateInputFormat: 'DD-MM-YYYY',
+                  containerClass: 'theme-default',
+                  isAnimated: true
+                }"
+              />
+
+              <div class="mx-auto">
+                <timepicker
+                  hoursPlaceholder="HH"
+                  minutesPlaceholder="MM"
+                  secondsPlaceholder="SS"
+                  showSeconds="true"
+                  [showMeridian]="false"
+                  [(ngModel)]="selecttotime"
+                  (ngModelChange)="toTimeChange($event)"
+                ></timepicker>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 row">
+            <div class="col-md-2 offset-8 offset-md-11">
+              <button class="btn btn-dark" (click)="profitandloss()">
+                Submit
+              </button>
+            </div>
+          </div>
+          <div
+            class="col-md-12 search-div row"
+            style="margin-bottom: 15px;"
+          ></div>
+
+          <div class="table-container mat-elevation-z8">
+            <div class="Table-Title">
+              <mat-form-field class="search-form-field" floatLabel="never">
+                <input
+                  matInput
+                  id="filter-text-box"
+                  placeholder="Search"
+                  autocomplete="off"
+                  (keyup)="onFilterTextBoxChanged()"
+                />
+              </mat-form-field>
+              <mat-form-field class="select-page-size">
+                <mat-label>Page Size</mat-label>
+                <select
+                  matNativeControl
+                  (change)="onPageSizeChanged($event)"
+                  id="page-size"
+                >
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option value="500">500</option>
+                  <option value="1000">1000</option>
+                </select>
+              </mat-form-field>
+              <div style="float: right; padding: 0px 10px 0px 0px;">
+                <button
+                  matNativeControl
+                  class="btn btn-outline-success waves-effect waves-light"
+                  type="button"
+                  excelDwd
+                >
+                  <span class="mr-1"><i class="fa fa-file-excel-o"></i></span>
+                </button>
+              </div>
+            </div>
+            <ag-grid-angular
+              style="width: 100%; height: 450px;"
+              class="ag-theme-balham"
+              [gridOptions]="gridOptions"
+              [rowData]="rowData"
+              [overlayLoadingTemplate]="overlayLoadingTemplate"
+              [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+              [animateRows]="true"
+              [pagination]="true"
+              [defaultColDef]="defaultColDef"
+              (gridReady)="onGridReady($event)"
+              (gridSizeChanged)="onGridSizeChanged($event)"
+            >
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

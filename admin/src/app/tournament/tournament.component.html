@@ -1,0 +1,45 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Upcoming Events</h5>
+      </div>
+      <div class="ibox-content table-responsive">
+        <div class="loading-overlay" style="display: none;" id="loading">
+          <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let sport of marketCtlgData">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{sport.name}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-expansion-panel *ngFor="let tournament of sport.tournaments">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{tournament.name}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <mat-expansion-panel *ngFor="let match of tournament.matches">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{match.name}} [{{match.startDate}}]
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-action-row *ngFor="let market of match.markets">
+                  <mat-panel-title>
+                    {{market.name}}
+                  </mat-panel-title>
+                </mat-action-row>
+              </mat-expansion-panel>
+            </mat-expansion-panel>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</div>

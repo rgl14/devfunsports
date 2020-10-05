@@ -1,0 +1,479 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>New Agent</h5>
+        </div>
+
+        <div class="ibox-content-form table-responsive">
+          <form
+            [formGroup]="agentform"
+            (ngSubmit)="onSubmit()"
+            *ngIf="agentform"
+            class="form-horizontal"
+          >
+            <div class="form-group">
+              <label class="col-sm-2 control-label">User Name</label>
+              <div class="col-sm-10">
+                <input
+                  class="form-control"
+                  formControlName="username"
+                  name="user_name"
+                  placeholder="User Name"
+                  type="text"
+                  (keyup)="ValidateUsername()"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.username.errors,
+                    'is-invalid': f.username.valid
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.username.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.username.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+                <div *ngIf="f.username.valid" class="invalid-feedback">
+                  <mat-error *ngIf="isUsernameAvail" style="color: green"
+                    >Username available.</mat-error
+                  >
+                  <mat-error *ngIf="!isUsernameAvail"
+                    >Username Already Exits.</mat-error
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Full Name</label>
+              <div class="col-sm-10">
+                <input
+                  formControlName="firstName"
+                  appInputRestriction="noSpecialChars"
+                  class="form-control"
+                  name="firstname"
+                  [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+                  placeholder="Full Name"
+                  type="text"
+                />
+
+                <div
+                  *ngIf="submitted && f.firstName.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.firstName.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">My Share</label>
+              <div class="col-sm-10">
+                <input
+                  formControlName="myShare"
+                  onkeypress="return event.charCode >= 48"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.myShare.errors }"
+                  max="100"
+                  min="0"
+                  name="share"
+                  placeholder="My Share"
+                  type="number"
+                />
+                <div
+                  *ngIf="submitted && f.myShare.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.myShare.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+                <mat-hint class="hint"
+                  ><b>Note:</b> Max Company Share + My Share + Downline Share
+                  should be set equal to
+                  <b>{{ accountInfo.maxMyShare }}</b></mat-hint
+                >
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Max Downline Share</label>
+              <div class="col-sm-10">
+                <input
+                  formControlName="Agentshare"
+                  onkeypress="return event.charCode >= 48"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.Agentshare.errors }"
+                  max="100"
+                  min="0"
+                  name="maximum_share"
+                  placeholder="Downline Share"
+                  type="number"
+                />
+                <div
+                  *ngIf="submitted && f.Agentshare.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.Agentshare.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+                <!-- <mat-hint class="hint" ><b>Note:</b>Max Agent Share + My Share should be set below or equal to <b>{{accountInfo.minCompanyShare}}</b></mat-hint> -->
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label"
+                >Agent Initial Balance</label
+              >
+              <div class="col-sm-10">
+                <input
+                  formControlName="fixLimit"
+                  onkeypress="return event.charCode >= 48"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.fixLimit.errors }"
+                  min="0"
+                  name="fix_limit"
+                  placeholder="Agent Initial Balance"
+                  type="number"
+                />
+                <div
+                  *ngIf="submitted && f.fixLimit.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.fixLimit.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+                <mat-hint class="hint"
+                  ><b>Note</b> : Agent Initial Balance set below or equal to
+                  <b>{{
+                    accountInfo.remainingLimit - totalremaininglimit
+                      | number: "1.2"
+                  }}</b></mat-hint
+                >
+              </div>
+            </div>
+            <div class="hr-line-dashed" *ngIf="!iscommissionedit"></div>
+            <div class="form-group" *ngIf="!iscommissionedit">
+              <label class="col-sm-2 control-label">Agent Exposure Limit</label>
+              <div class="col-sm-10">
+                <input
+                  formControlName="expoLimit"
+                  onkeypress="return event.charCode >= 48"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.expoLimit.errors
+                  }"
+                  min="0"
+                  name="exposure_limit"
+                  placeholder="Agent Exposure Limit"
+                  type="number"
+                  value="0.0"
+                />
+                <div
+                  *ngIf="submitted && f.expoLimit.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.expoLimit.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed" *ngIf="!iscommissionedit"></div>
+            <div class="form-group" *ngIf="!iscommissionedit">
+              <label class="col-sm-2 control-label"
+                >Agent Match Fixed Fees</label
+              >
+              <div class="col-sm-10">
+                <input
+                  formControlName="fixedfees"
+                  onkeypress="return event.charCode >= 48"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.fixedfees.errors }"
+                  max="100"
+                  min="0"
+                  name="match_commission"
+                  placeholder="Agent Match Fixed Fees"
+                  type="number"
+                />
+                <div
+                  *ngIf="submitted && f.fixedfees.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.fixedfees.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+                <!-- <mat-hint class="hint"><b>Note</b> : Agent Match Fixed Fees set below or equal to <b>{{accountInfo.matchComm}}</b>
+                          </mat-hint> -->
+              </div>
+            </div>
+
+            <div class="hr-line-dashed" *ngIf="!iscommissionedit"></div>
+            <div class="form-group" *ngIf="!iscommissionedit">
+              <label class="col-sm-2 control-label"
+                >Agent Match Commission</label
+              >
+              <div class="col-sm-10">
+                <input
+                  formControlName="MComm"
+                  onkeypress="return event.charCode >= 48"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.MComm.errors }"
+                  max="100"
+                  min="0"
+                  name="match_commission"
+                  placeholder="Agent Match Commission"
+                  type="number"
+                />
+                <div
+                  *ngIf="submitted && f.MComm.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.MComm.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+                <mat-hint class="hint"
+                  ><b>Note</b> : Agent Match Commission set below or equal to
+                  <b>{{ accountInfo.matchComm }}</b></mat-hint
+                >
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label"
+                >Agent Session Transaction Commission</label
+              >
+              <div class="col-sm-10">
+                <input
+                  formControlName="SComm"
+                  onkeypress="return event.charCode >= 48"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.SComm.errors }"
+                  max="100"
+                  min="0"
+                  name="session_commission"
+                  placeholder="Agent Transaction Commission"
+                  type="number"
+                />
+                <div
+                  *ngIf="submitted && f.SComm.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.SComm.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+                <mat-hint class="hint"
+                  ><b>Note</b> : Agent Session Transaction Commission set below
+                  or equal to <b>{{ accountInfo.sessionComm }}</b></mat-hint
+                >
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label"
+                >Agent Match Losing Commission</label
+              >
+              <div class="col-sm-10">
+                <input
+                  formControlName="MloseComm"
+                  onkeypress="return event.charCode >= 48"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.MloseComm.errors }"
+                  max="100"
+                  min="0"
+                  name="session_commission"
+                  placeholder="Agent Match Losing Commission"
+                  type="number"
+                />
+                <div
+                  *ngIf="submitted && f.MloseComm.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.MloseComm.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+                <mat-hint class="hint"
+                  ><b>Note</b> : Agent Match Losing Commission set below or
+                  equal to
+                  <b>{{ accountInfo.mLossingComm }}</b>
+                </mat-hint>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label"
+                >Agent Session Losing Commission</label
+              >
+              <div class="col-sm-10">
+                <input
+                  formControlName="SloseComm"
+                  onkeypress="return event.charCode >= 48"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.SloseComm.errors }"
+                  max="100"
+                  min="0"
+                  name="session_commission"
+                  placeholder="Agent Session Losing Commission"
+                  type="number"
+                />
+                <div
+                  *ngIf="submitted && f.SloseComm.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.SloseComm.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                </div>
+                <mat-hint class="hint"
+                  ><b>Note</b> : Agent Session Losing Commission set below or
+                  equal to
+                  <b>{{ accountInfo.sLossingComm }}</b>
+                </mat-hint>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Password</label>
+              <div class="col-sm-10">
+                <input
+                  formControlName="password"
+                  specialIsAlphaNumeric
+                  autocomplete="on"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                  name="password"
+                  placeholder="Password"
+                  type="password"
+                />
+                <div
+                  *ngIf="submitted && f.password.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.password.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                  <mat-error *ngIf="f.password.errors.minlength"
+                    >Password must be at least 6 characters</mat-error
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Confirm Password</label>
+              <div class="col-sm-10">
+                <input
+                  formControlName="confirmPassword"
+                  specialIsAlphaNumeric
+                  autocomplete="on"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.confirmPassword.errors
+                  }"
+                  name="confirmpassword"
+                  placeholder="Confirm Password"
+                  type="password"
+                />
+                <div
+                  *ngIf="submitted && f.confirmPassword.errors"
+                  class="invalid-feedback"
+                >
+                  <mat-error *ngIf="f.confirmPassword.errors.required"
+                    >This field is mandatory.</mat-error
+                  >
+                  <mat-error *ngIf="f.confirmPassword.errors.mustMatch"
+                    >Passwords must match</mat-error
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed" *ngIf="!iscommissionedit"></div>
+            <div class="form-group" *ngIf="!iscommissionedit">
+              <label class="col-sm-2 control-label">Book Display Type</label>
+              <div class="col-md-10 col-sm-3 mat-radio-top-margin">
+                <mat-radio-group
+                  formControlName="bookdisplaytype"
+                  aria-label="Select an option"
+                >
+                  <mat-radio-button value="1">Sharing Wise</mat-radio-button>
+                  <mat-radio-button value="2"
+                    >All Hierarchy 100%</mat-radio-button
+                  >
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <!-- <div class="hr-line-dashed"></div>
+
+                       <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                          <mat-checkbox formControlName="isMComm">Is Market Commission</mat-checkbox>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                          <mat-checkbox formControlName="isSComm">Is Session Commission</mat-checkbox>
+                        </div>
+                      </div> -->
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group col-sm-4 col-sm-offset-2 button-row">
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="onCancel()"
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="!userId"
+                type="submit"
+              >
+                Save
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="userId"
+                type="submit"
+              >
+                Update Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

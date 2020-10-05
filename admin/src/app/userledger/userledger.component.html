@@ -1,0 +1,61 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>{{ name }} Ledger</h5>
+        </div>
+        <div class="ibox-content-table table-responsive">
+          <div class="table-container mat-elevation-z8">
+            <div class="Table-Title">
+              <mat-form-field class="search-form-field" floatLabel="never">
+                <input
+                  matInput
+                  id="filter-text-box"
+                  placeholder="Search"
+                  autocomplete="off"
+                  (keyup)="onFilterTextBoxChanged()"
+                />
+              </mat-form-field>
+              <mat-form-field class="select-page-size">
+                <mat-label>Page Size</mat-label>
+                <select
+                  matNativeControl
+                  (change)="onPageSizeChanged($event)"
+                  id="page-size"
+                >
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option value="500">500</option>
+                  <option value="1000">1000</option>
+                </select>
+              </mat-form-field>
+              <div style="float: right; padding: 0px 10px 0px 0px;">
+                <button
+                  matNativeControl
+                  class="btn btn-outline-success waves-effect waves-light"
+                  type="button"
+                  excelDwd
+                >
+                  <span class="mr-1"><i class="fa fa-file-excel-o"></i></span>
+                </button>
+              </div>
+            </div>
+            <ag-grid-angular
+              style="width: 100%; height: 450px;"
+              class="ag-theme-balham"
+              [gridOptions]="gridOptions"
+              [rowData]="rowData"
+              [overlayLoadingTemplate]="overlayLoadingTemplate"
+              [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+              [animateRows]="true"
+              [pagination]="true"
+              (gridReady)="onGridReady($event)"
+            >
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

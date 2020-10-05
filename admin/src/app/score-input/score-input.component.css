@@ -1,0 +1,38 @@
+
+.runner {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.row div:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.mat-raised-button {
+    width: 100%;
+}
+
+.form-check label {
+    margin-left: 4px;
+}
+
+.btn-run {
+  margin-right: 3px;
+}
+
+.shortcut {
+  text-align: center;
+  min-width: 38px;
+}
+button.col  {
+  margin-right: 3px;
+}
+.Margin{
+  margin-left: 5px;
+}
+.card{
+  margin:5px;
+}
+.active-Score{
+  background: #9ed40873;
+}

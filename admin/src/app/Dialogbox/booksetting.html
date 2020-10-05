@@ -1,0 +1,96 @@
+<h1 mat-dialog-title *ngIf="data.fancyCode">{{data.fancyName}}</h1>
+<h1 mat-dialog-title *ngIf="!data.fancyCode">Book Maker Setting</h1>
+<div mat-dialog-content>
+  <div class="form-group block_3" *ngIf="data.fancyCode">
+    <label>Bet Delay</label>
+    <input
+      type="number"
+      min="0"
+      max="60"
+      class="form-control"
+      [(ngModel)]="data.betDelay"
+    />
+  </div>
+  <div class="form-group block_3" *ngIf="!data.fancyCode">
+    <label>Min Rate</label>
+    <input
+      type="number"
+      min="1.00"
+      max="100.00"
+      class="form-control"
+      [(ngModel)]="data.minRate"
+    />
+  </div>
+  <div class="form-group block_3" *ngIf="!data.fancyCode">
+    <label>Max Rate</label>
+    <input
+      type="number"
+      min="1.00"
+      max="100.00"
+      class="form-control"
+      [(ngModel)]="data.maxRate"
+    />
+  </div>
+  <div class="form-group block_3">
+    <label>Min Stake</label>
+    <input
+      type="number"
+      min="0"
+      max="10000"
+      class="form-control"
+      [(ngModel)]="data.minStake"
+    />
+  </div>
+  <div class="form-group block_3">
+    <label>Max Stake</label>
+    <input
+      type="number"
+      min="0"
+      max="1000000000"
+      class="form-control"
+      [(ngModel)]="data.maxStake"
+    />
+  </div>
+
+  <div class="form-group block_3">
+    <label>Max Stake Per Rate</label>
+    <input
+      type="number"
+      min="0"
+      max="1000000000"
+      class="form-control"
+      [(ngModel)]="data.maxStakePerRate"
+    />
+  </div>
+  <div class="form-group block_3">
+    <label>Rate Difference</label>
+    <input
+      type="number"
+      min="0"
+      max="100"
+      class="form-control"
+      [(ngModel)]="data.rateDifference"
+    />
+  </div>
+  <div class="form-group block_3" *ngIf="data.fancyCode">
+    <label>Rate Range</label>
+    <input
+      type="number"
+      min="0"
+      max="100"
+      class="form-control"
+      [(ngModel)]="data.rateRange"
+    />
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+  >
+    Update
+  </button>
+</div>

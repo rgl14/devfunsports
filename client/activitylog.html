@@ -1,0 +1,151 @@
+<style type="text/css">
+  table {
+    font-size: 12px;
+  }
+</style>
+
+<!-- Left Column -->
+<div class="col-left">
+  <!-- Sub Menu and Path -->
+  <div class="sub_path">
+    <!-- Path -->
+    <div class="path">
+      <!--<a href="#path-pop" class="path-back">...</a>-->
+      <ul>
+        <li class="path-last"><a href="javascript:void(0)">My Account</a></li>
+      </ul>
+    </div>
+    <!-- Path Pop Up-->
+    <ul id="path-pop" class="path-pop"></ul>
+    <!-- Sub Menu -->
+    <ul class="menu-list">
+      <li><a id="sub_menu_detail" href="#!homeAccount">My Profile</a></li>
+      <li>
+        <a id="sub_menu_summary" href="#!balance_Overview">Balance Overview</a>
+      </li>
+      <li>
+        <a id="sub_menu_accountCashStatement_log" href="#!accountStatement"
+          >Account Statement</a
+        >
+      </li>
+      <!-- <li><a id="sub_menu_accountCashStatement_log" href="#!casinoreport">Casino Report</a></li> -->
+      <li><a id="sub_menu_my_bets" href="#!mybets">My Bets</a></li>
+      <li>
+        <a id="sub_menu_activity_log" href="#!loghistory" class="select"
+          >Activity Log</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- Center Column -->
+<!-- Center Column -->
+<div class="col-center report" data-ng-init="getActivityLog()">
+  <!-- Loading Wrap -->
+  <div
+    id="loading"
+    class="loading-wrap"
+    style="display: none; margin-top: 100px"
+  >
+    <ul class="loading">
+      <li><img src="images/loading40.gif" alt="load" /></li>
+      <li>Loading...</li>
+    </ul>
+  </div>
+  <!-- Message -->
+  <div id="message" class="message-wrap success">
+    <a class="btn-close">Close</a>
+    <p></p>
+  </div>
+  <!-- <script language="JavaScript" type="text/javascript">
+               (function () {
+                 $j('.btn-close').click(function () {
+                   $j('#message').hide();
+                 });
+               })();
+            </script> -->
+  <h2>Activity Log</h2>
+  <table style="display: none">
+    <tbody>
+      <tr>
+        <td class="align-L" id="loginDate"></td>
+        <td class="align-L"><span class="green"></span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Report Table -->
+  <table class="table01">
+    <tbody>
+      <tr>
+        <th style="width: 18%" class="align-L">Login Date &amp; Time</th>
+        <th style="width: 30%" class="align-L">Login Status</th>
+        <th style="width: 15%">IP Address</th>
+        <th style="width: 28%">ISP</th>
+        <th>City/State/Country</th>
+      </tr>
+    </tbody>
+    <tbody id="content">
+      <tr data-ng-if="ActivityDataList.length==0">
+        <td class="no-data" colspan="5">
+          <p>No Data Found</p>
+        </td>
+      </tr>
+      <!-- <tr data-ng-if="loading==true">
+                     <td class="no-data" colspan="5">
+                        <h3 style="text-align: center;">Loading....</h3>
+                     </td>
+                  </tr> -->
+      <tr data-ng-repeat="ActivityData in ActivityDataList">
+        <td class="align-L">{{ActivityData.loginDatetime}}</td>
+        <td class="align-L green">{{ActivityData.loginStatus}}</td>
+        <td>{{ActivityData.ipaddress}}</td>
+        <td>
+          {{(ActivityData.isp==null || ActivityData.isp=="")?' - ':
+          ActivityData.isp}}
+        </td>
+        <td>
+          {{(ActivityData.cityStateCountry==null ||
+          ActivityData.cityStateCountry=="")?'-':ActivityData.cityStateCountry}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Pages List -->
+  <!--  <script type="text/javascript" src="/js/util/PageUtil.js?v=20180111_1515639000000"></script> -->
+  <div>
+    <ul style="display: none">
+      <li><a href="javascript:void(0);">Prev</a></li>
+      <li><a href="javascript:void(0);">Next</a></li>
+      <li><a href="javascript:void(0);"></a></li>
+      <li id="more"><a href="javascript:void(0);">...</a></li>
+    </ul>
+    <ul id="pageNumberContent" class="pages" style="display: none">
+      <li id="prev">
+        <a
+          href="javascript:void(0);"
+          class="disable"
+          style="pointer-events: none"
+          >Prev</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:void(0);"
+          class="select"
+          style="pointer-events: none"
+          >1</a
+        >
+      </li>
+      <li><a href="javascript:void(0);">2</a></li>
+      <li><a href="javascript:void(0);">3</a></li>
+      <li><a href="javascript:void(0);">4</a></li>
+      <li><a href="javascript:void(0);">5</a></li>
+      <li><a href="javascript:void(0);">6</a></li>
+      <li><a href="javascript:void(0);">7</a></li>
+      <li id="next"><a href="javascript:void(0);">Next</a></li>
+    </ul>
+  </div>
+</div>

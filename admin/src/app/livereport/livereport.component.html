@@ -1,0 +1,193 @@
+
+      <div id="render-live-report10">
+     <div class="wrapper wrapper-content">
+        <div class="row">
+           <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+                 <div class="row">
+                    <div class="ldg-tbl-col col-lg-9 col-xs-8 col-md-9 col-sm-8 score-event-box match-status-table" style="padding-left: 0px;padding-right: 3px !important;">
+                       <p class="inplay-show-tbl-td match-status-text" style="background-color: #3A61A2;text-align: center; font-size:15px;" id="score_table_5308">
+                          <!-- Tasmania	 210/10 (44.4 Ovs)<br>
+                          Western Australia	 312/10 (50.0 Ovs)	<br>
+                          Western Australia won by 102 runs -->
+                       </p>
+                    </div>
+                    <div class="ldg-tbl-col col-lg-3 col-xs-4 col-md-3 col-sm-4 current-event-box bet_status_box" style="padding-right: 5px;padding-left: 3px !important;">
+                       <div class="inplay-show-place-bet" style="background-color: #3A61A2;color:#fff;" id="event_table_5308"></div>
+                    </div>
+                 </div>
+                 <div class="row scroll-form table-responsive">
+                       <table class="table table-bordered" *ngFor="let market of AllMarkets;trackBy:identify;">
+                          <thead>
+                                   <tr>
+                                      <th colspan="4" class="bet-place-tbl-th align-left" style="background-color:#6E8FC9;">Market : {{market.name}}</th>
+                                   </tr>
+                                   <tr>
+                                      <th class="bet-place-tbl-th" style="background-color: #49494A;">RUNNER</th>
+                                      <th class="bet-odds-type bet-place-tbl-th">LAGAI</th>
+                                      <th class="bet-odds-type bet-place-tbl-th">KHAI</th>
+                                      <th class="bet-place-tbl-th" style="background-color: #49494A;">POSITION</th>
+                                   </tr>
+                          </thead>
+                          <tbody>
+                                <tr id="selection_{{runner.runnerName | removeSpace}}" *ngFor="let runner of market.runnerData;trackBy:identify;let index=index">
+                                   <td  data-column="runner_name" class="bet-place-tbl-td" style="text-align:left;">{{runner.runnerName}}</td>
+                                   <td  data-column="back" class="MarketTable bet-place-tbl-td first-runner-bet-odds-yes-value cursor-pointer back-1" odd-val="1.01" market-id="66443" runner-id="55669" match-id="5308" data-id="LAGAI" id="runner-{{index}}-back1">{{runner.back1}}</td>
+                                   <td  data-column="lay" class="MarketTable bet-place-tbl-td first-runner-bet-odds-no-value cursor-pointer lay-1" odd-val="1.01" market-id="66443" runner-id="55669" match-id="5308" data-id="KHAI" id="runner-{{index}}-lay1">{{runner.lay1}}</td>
+                                   <td  data-column="position" class="bet-place-tbl-td  bet-val-cent" [ngClass]="(runner.book>=0)?'profit':'loss'" data-position="0.0">{{runner.book | number:'1.2-2'}}</td>
+                                </tr>
+                          </tbody>
+                       </table>
+                 </div>
+                       <div class="row session-resp-tbl table-responsive" *ngIf="fancyList.length!=0">
+                          <table class="table table-bordered">
+                             <thead>
+                                <tr><th colspan="10" class="bet-place-tbl-th market_type_row session-th-strip align-left">PENDING SESSIONS</th>
+                                </tr><tr>
+                                   <th class="bet-place-tbl-th" style="background-color: #49494A;"> SESSION</th>
+                                   <th class="bet-odds-type bet-place-tbl-th">No</th>
+                                   <th class="bet-place-tbl-th" style="background-color: #49494A;">RATE</th>
+                                   <th class="bet-odds-type bet-place-tbl-th">Yes</th>
+                                   <th class="bet-place-tbl-th" style="background-color: #49494A;">RATE</th>
+                                   <!-- <th class="bet-odds-type bet-place-tbl-th">Position NO</th>
+                                   <th class="bet-odds-type bet-place-tbl-th">Position Yes</th> -->
+                                   <th class="bet-place-tbl-th" style="background-color: #49494A;">Action</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                                <ng-container *ngFor="let fancy of fancyList;trackBy:trackByfancyId;">
+                                 <tr>
+                                    <td data-column="session_title" class="bet-place-tbl-td" style="text-align:left;">{{fancy.name}}</td>
+                                    <td data-column="no_runs" class="SessionTable bet-place-tbl-td first-runner-bet-odds-yes-value cursor-pointer close-status" data-id="NO" match-id="5308" session-run-id="553201" session-id="14652" id="14652_no">{{fancy.noScore}}</td>
+                                    <td data-column="no_rate" id="14652_no_rate" class="no_rate bet-place-tbl-td bet-val-cent close-status">{{fancy.noRate}}</td>
+                                    <td data-column="yes_runs" class="SessionTable bet-place-tbl-td first-runner-bet-odds-no-value cursor-pointer close-status" data-id="YES" match-id="5308" session-run-id="553201" session-id="14652" id="14652_yes">{{fancy.yesScore}}</td>
+                                    <td data-column="yes_rate" class="yes_rate bet-place-tbl-td bet-val-cent close-status" id="14652_yes_rate">{{fancy.yesRate}}</td>
+                                    <!-- <td class="bet-place-tbl-td bet-val-cent" id="session_no_runns_14652">
+                                        0
+                                    </td>
+                                    <td class="bet-place-tbl-td bet-val-cent" id="session_yes_runns_14652">
+                                       0
+                                    </td> -->
+                                    <td class="bet-place-tbl-td">
+                                       <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">POSITION</button> -->
+                                       <a class="btn btn-info" data-method="get" data-remote="true" data-toggle="modal" data-target="#exampleModalLong" style="color: #fff!important;" (click)="getAnalysisfancyBook(fancy.id,fancy.name)">POSITION</a>
+                                    </td>
+                                 </tr>
+                                </ng-container>
+                                   
+                                   
+                             </tbody>
+                          </table>
+                       </div>
+              </div>
+           </div>
+        </div>
+        <div class="">
+         <div class="row">
+            <div class="col-md-4 col-xs-8">
+               <!-- <form>
+                  <input type="text" placeholder="Search here..." data-ng-model="searchpnl" class="form-control"   style="height: 30px;">
+               </form> -->
+            </div>
+         </div>
+         <!-- <div class="ibox float-e-margins" [ngStyle]="SessionPNldata.length>6?{'overflow-y': 'auto','-webkit-overflow-scrolling':'touch', 'height': '170px'}:''"> -->
+            <div class="ibox float-e-margins" >
+            <div class="table-responsive">
+               <table  class="table tblpad table-striped table-bordered table-hover">
+                     <thead>
+                        <tr>
+                           <th colspan="4" class="bet-place-tbl-th align-left" style="background-color:#6E8FC9;">Settled Markets</th>
+                        </tr>
+                        <tr>
+                           <th>Market Name</th>
+                           <th>Result</th>
+                           <th>Profit & Loss</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr >
+                           <td title="'Market name'" class="tbltd" style="text-align: left;"><b>10 Over Runs</b></td>
+                           <td title="'Result'"  class="Cursor-pointer tbltd"><b>110</b></td>
+                           <td title="'P | L'"  class="Cursor-pointer tbltd"><b>20000.00</b></td>
+                        </tr>
+                        <tr >
+                           <td title="'Market name'" class="tbltd" style="text-align: left;"><b>15 Over Runs</b></td>
+                           <td title="'Result'"  class="Cursor-pointer tbltd"><b>145</b></td>
+                           <td title="'P | L'"  class="Cursor-pointer tbltd"><b>20000.00</b></td>
+                        </tr>
+                        <tr >
+                           <td title="'Market name'" class="tbltd" style="text-align: left;"><b>20 Over Runs</b></td>
+                           <td title="'Result'"  class="Cursor-pointer tbltd"><b>160</b></td>
+                           <td title="'P | L'"  class="Cursor-pointer tbltd"><b>20000.00</b></td>
+                        </tr>
+                           <tr >
+                              <td colspan="3">No Data Found...</td>
+                           </tr>
+                     </tbody>
+                     <tfoot>
+                        <tr>
+                           <th colspan="2" style="text-align: right;">Declared Market Total</th>
+                           <th>60000.00</th>
+                        </tr>
+                     </tfoot>
+                     
+               </table>
+            </div>
+         </div>
+      </div>
+     
+        <!-- <div class="row" style="margin: 0 !important;">
+           <div class="match-index-row header-top-spacing">
+              <div class="row" style="padding-bottom: 30px;margin: auto auto;"></div>
+           </div>
+        </div>
+        <div class="wrapper wrapper-content">
+           <div class="row">
+              <div class="col-lg-12">
+              </div>
+           </div>
+        </div> -->
+     </div>
+     </div>
+     <div id="dynamic_modal">
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" >{{fancyname}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>RUNS</th>
+                  <th>POSITION</th>
+                </tr>
+              </thead>
+              <tbody>
+                 <ng-container *ngIf="fancybook.length!=0">
+                  <tr *ngFor="let fbook of fancybook">
+                     <td>{{fbook.Key}}</td>
+                     <td>{{fbook.Value}}</td>
+                  </tr>
+                 </ng-container>
+                 <ng-container *ngIf="fancybook.length==0">
+                  <tr>
+                     <td colspan="2" style="text-align: center;"><b>No Book Available...</b></td>
+                  </tr>
+                 </ng-container>
+                 
+              </tbody>
+            </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+          

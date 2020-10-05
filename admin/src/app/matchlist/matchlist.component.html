@@ -1,0 +1,56 @@
+<div class="wrapper wrapper-content">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                <h5>Match List</h5>
+              </div>
+              <div class="ibox-content-table table-responsive">
+                  <div class="form-group row mt-2">
+                      <div class="col-md-4 top_marg">
+                        <select [(ngModel)]="sport" (change)="GetTournamentList(sport)" class="form-control">
+                          <option value="">Select Sport</option>
+                          <option [ngValue]="sport" *ngFor="let sport of sportsList">{{sport.sportName}}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4 top_marg">
+                        <select [(ngModel)]="tournament" (change)="GetMatchList(sport,tournament,status)" class="form-control">
+                          <option value="">Select Tournaments</option>
+                          <option [ngValue]="tournament" *ngFor="let tournament of tournamentList">{{tournament.tournamentName}}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-md-4 top_marg">
+                          <select [(ngModel)]="status" (change)="GetMatchList(sport,tournament,status)" class="form-control">
+                            <option value="">Select Status</option>
+                            <option [ngValue]="status" *ngFor="let status of statusList">{{status.value}}</option>
+                          </select>
+                        </div>
+                    </div>
+                  <div class="search-div">
+                      <mat-form-field class="search-form-field" floatLabel="never">
+                        <input matInput id="filter-text-box" placeholder="Search" autocomplete="off" (keyup)="onFilterTextBoxChanged()">
+                      </mat-form-field>
+                      <button class="create-button" mat-raised-button [routerLink]="'addmatch'">
+                        Add Match
+                      </button>
+                    </div>
+                    <div class="table-container mat-elevation-z8">
+                        <ag-grid-angular 
+                          style="width: 100%; height: 450px"
+                          class="ag-theme-balham"
+                          [gridOptions]="gridOptions"
+                          [rowData]="rowData" 
+                          [overlayLoadingTemplate]="overlayLoadingTemplate"
+                          [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+                          [animateRows]="true"
+                          [pagination]="true"
+                          (gridReady)="onGridReady($event)"
+                          >
+                        </ag-grid-angular>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

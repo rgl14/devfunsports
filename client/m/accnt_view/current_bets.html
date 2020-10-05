@@ -1,0 +1,455 @@
+<link href="css/acc_style.css" rel="stylesheet" type="text/css" />
+<h3>My Bets</h3>
+
+<ul class="tab col3">
+  <li><a class="select" href="#!current_bets">Current Bets</a></li>
+
+  <li><a href="#!bet_history">Bets History</a></li>
+
+  <li><a href="#!pnl">Profit &amp; Loss</a></li>
+</ul>
+
+<!-- function -->
+
+<div class="function-wrap">
+  <ul class="input-list">
+    <li><label>Bet Status</label></li>
+
+    <li>
+      <select data-ng-model="betStatus" data-ng-change="getCurrentBets()">
+        <option value="All">All</option>
+
+        <option value="Matched">Matched</option>
+
+        <option value="Unmatched">Unmatched</option>
+      </select>
+    </li>
+
+    <li></li>
+
+    <li><label>Order By</label></li>
+
+    <li>
+      <input id="orderBetPlaced" type="checkbox" checked="" /><label
+        for="orderBetPlaced"
+        >Bet placed</label
+      >
+
+      <input id="orderMarket" type="checkbox" /><label for="orderMarket"
+        >Market</label
+      >
+    </li>
+  </ul>
+</div>
+
+<!-- function end-->
+
+<table style="display: none">
+  <tbody>
+    <tr>
+      <td class="align-L">
+        <img
+          id="arrow"
+          class="fromto"
+          src="images/account/transparent.gif"
+          alt="arrow"
+        />
+      </td>
+    </tr>
+
+    <tr id="tempTr">
+      <td class="align-L"><label id="title"></label></td>
+
+      <td id="selection"></td>
+
+      <td><span id="type"></span></td>
+
+      <td><a id="betId"></a></td>
+
+      <td><span id="betPlaced" class="small-date"></span></td>
+
+      <td id="oddsReq"></td>
+
+      <td id="matched"></td>
+
+      <td id="unMatched"></td>
+
+      <td id="avgOdds"></td>
+
+      <td><span id="dateMatched" class="small-date"></span></td>
+    </tr>
+
+    <tr id="tempDetailTr" class="expand" style="display: none">
+      <td colspan="3"></td>
+
+      <td colspan="7">
+        <img
+          class="expand-arrow"
+          src="images/account/transparent.gif"
+          alt="expand-arrow"
+        />
+
+        <table>
+          <tbody>
+            <tr>
+              <th>Bet taken</th>
+
+              <th style="width: 16%">Odds req.</th>
+
+              <th style="width: 17%">Stake</th>
+
+              <th style="width: 24%">Liability</th>
+
+              <th style="width: 24%">Odds matched</th>
+            </tr>
+          </tbody>
+
+          <tbody id="sub_content"></tbody>
+        </table>
+      </td>
+    </tr>
+
+    <tr id="tempSubTr">
+      <td><span id="betTaken" class="small-date"></span></td>
+
+      <td id="txOddsReq"></td>
+
+      <td id="txStake"></td>
+
+      <td id="txLiability"></td>
+
+      <td id="txOddsMatched"></td>
+    </tr>
+
+    <tr>
+      <td>
+        <input type="checkbox" />
+      </td>
+    </tr>
+
+    <!-- Cancel Button -->
+
+    <tr>
+      <td colspan="4">
+        <ul class="btn-wrap">
+          <li><a class="btn" href="#">Cancel</a></li>
+        </ul>
+      </td>
+
+      <td colspan="6"></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="table-container">
+  <table
+  id="Unmatched_Table"
+  class="table-s"
+  data-ng-if="betStatus=='All' || betStatus=='Unmatched'"
+>
+  <caption>
+    Unmatched
+  </caption>
+
+  <tbody>
+    <tr>
+      <th id="Unmatched_market" class="align-L">
+        <input
+          id="checkAll"
+          type="checkbox"
+          data-ng-click="allUnmatchedSelected(selectedAll)"
+          data-ng-model="selectedAll"
+          data-ng-style="(unMatchedbetsList.length==0)?{'display': 'none'}:{'display': 'table-row'}"
+        />Market
+      </th>
+
+      <th id="Unmatched_selection" style="width: 10%">Selection</th>
+
+      <th id="Unmatched_type" style="width: 3%">Type</th>
+
+      <th id="Unmatched_betId" style="width: 9%">Bet ID</th>
+
+      <th id="Unmatched_betPlaced" style="width: 8%">Bet placed</th>
+
+      <th id="Unmatched_oddsReq" style="width: 8%">Odds req.</th>
+
+      <th id="Unmatched_matched" style="width: 9%">Matched</th>
+
+      <th id="Unmatched_unMatched" style="width: 10%">Unmatched</th>
+
+      <!-- <th id="Unmatched_avgOdds" style="width: 10%" style="display: none;">Avg. odds matched</th> -->
+
+      <th id="Unmatched_dateMatched" style="width: 10%">Date matched</th>
+    </tr>
+  </tbody>
+
+  <tbody id="Unmatched_Content">
+    <tr
+      data-ng-repeat-start="unmatchBet in unMatchedbetsList track by unmatchBet.betId"
+    >
+      <td class="align-L">
+        <input
+          id="cancelCheckBox"
+          data-ng-checked="existUnmatched(unmatchBet)"
+          data-ng-click="toggleUnmatchedSelection(unmatchBet)"
+          type="checkbox"
+          data-id="8664862"
+          data-marketid="1.140919486"
+          data-eventid="28618075"
+        />
+
+        <label
+          >{{unmatchBet.sport}}<img
+            class="fromto"
+            src="images/account/transparent.gif"
+            alt="fromto"
+          />
+
+          <strong>{{unmatchBet.matchName}}</strong
+          ><img
+            class="fromto"
+            src="images/account/transparent.gif"
+            alt="marketName"
+          />{{unmatchBet.marketName}}</label
+        >
+      </td>
+
+      <td style="width: 10%">{{unmatchBet.selection}}</td>
+
+      <td style="width: 3%">
+        <span class="{{unmatchBet.type}}">{{unmatchBet.type}}</span>
+      </td>
+
+      <td style="width: 9%">
+        <a data-ng-click="betDetails(unmatchBet.betId)">{{unmatchBet.betId}}</a>
+      </td>
+
+      <td style="width: 8%">
+        <span class="small-date">{{unmatchBet.placedDate}}</span>
+      </td>
+
+      <td style="width: 8%">{{unmatchBet.odds | oddDecimal}}</td>
+
+      <td style="width: 9%">{{unmatchBet.matchedStake | number:2}}</td>
+
+      <td style="width: 10%">{{unmatchBet.unMatchedStake | number:2}}</td>
+
+      <!-- <td style="width: 10%" style="display: none;">{{unmatchBet.avgOdds}}</td> -->
+
+      <td style="width: 10%">
+        <span class="small-date">{{unmatchBet.dateMatched}}</span>
+      </td>
+    </tr>
+
+    <tr
+      data-ng-repeat-end
+      id="bet_{{unmatchBet.betId}}"
+      class="expand"
+      style="display: none"
+    >
+      <td colspan="3"></td>
+
+      <td colspan="7">
+        <img
+          class="expand-arrow"
+          src="images/account/transparent.gif"
+          alt="loading"
+        />
+
+        <table style="text-align: right">
+          <tbody>
+            <tr>
+              <th>Bet taken</th>
+
+              <th style="width: 16%">Odds req.</th>
+
+              <th style="width: 17%">Stake</th>
+
+              <th style="width: 24%">Liability</th>
+
+              <th style="width: 24%">Odds matched</th>
+            </tr>
+
+            <tr class="even">
+              <td>
+                <span class="small-date">{{unmatchBet.dateMatched}}</span>
+              </td>
+
+              <td>{{unmatchBet.odds | oddDecimal}}</td>
+
+              <td>{{unmatchBet.matchedStake | number:2}}</td>
+
+              <td>--</td>
+
+              <td>{{unmatchBet.avgOdds}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+    <tr id="cancelContent" data-ng-if="unMatchedbetsList.length!=0">
+      <td colspan="4">
+        <ul class="btn-wrap">
+          <li>
+            <a id="cancelBtn" class="btn" data-ng-click="cancelBet()">Cancel</a>
+          </li>
+        </ul>
+      </td>
+
+      <td colspan="6"></td>
+    </tr>
+
+    <tr data-ng-if="unMatchedbetsList.length==0" style="display: table-row">
+      <td class="no-data" colspan="9">
+        <p>You have no bets in this time period.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+<div class="table-container">
+  <table
+  id="Matched_Table"
+  class="table-s"
+  data-ng-if="betStatus=='All' || betStatus=='Matched'"
+  style="font-size: 13px"
+>
+  <caption>
+    Matched
+  </caption>
+
+  <tbody>
+    <tr>
+      <th id="Matched_market" class="align-L">Market</th>
+
+      <th id="Matched_selection" style="width: 10%">Selection</th>
+
+      <th id="Matched_type" style="width: 3%">Type</th>
+
+      <th id="Matched_betId" style="width: 9%">Bet ID</th>
+
+      <th id="Matched_betPlaced" style="width: 8%">Bet placed</th>
+
+      <th id="Matched_oddsReq" style="width: 8%">Odds req.</th>
+
+      <th id="Matched_matched" style="width: 9%">Matched</th>
+
+      <!-- <th id="Matched_unMatched" style="width: 10%" style="display: none;">Unmatched </th> -->
+
+      <th id="Matched_avgOdds" style="width: 10%">Avg. odds matched</th>
+
+      <th id="Matched_dateMatched" style="width: 10%">Date matched</th>
+    </tr>
+  </tbody>
+
+  <tbody id="Matched_Content">
+    <tr
+      data-ng-repeat-start="matchBet in matchedbetsList track by matchBet.betId"
+    >
+      <td class="align-L">
+        <label
+          >{{matchBet.sport}}<img
+            class="fromto"
+            src="images/account/transparent.gif"
+            alt="matchbet"
+          />
+
+          <strong>{{matchBet.matchName}}</strong
+          ><img
+            class="fromto"
+            src="images/account/transparent.gif"
+            alt="load"
+          />{{matchBet.marketName}}</label
+        >
+      </td>
+
+      <td>{{matchBet.selection}}</td>
+
+      <td><span class="{{matchBet.type}}">{{matchBet.type}}</span></td>
+
+      <td>
+        <a data-ng-click="betDetails(matchBet.betId)">{{matchBet.betId}}</a>
+      </td>
+
+      <td><span class="small-date">{{matchBet.placedDate}}</span></td>
+
+      <td>{{matchBet.odds | oddDecimal}}</td>
+
+      <td>{{matchBet.matchedStake | number:2}}</td>
+
+      <!-- <td style="display: none;">Unmatched </td> -->
+
+      <td>{{matchBet.avgOdds | oddDecimal}}</td>
+
+      <td><span class="small-date">{{matchBet.dateMatched}}</span></td>
+    </tr>
+
+    <tr
+      data-ng-repeat-end
+      id="bet_{{matchBet.betId}}"
+      class="expand"
+      style="display: none"
+    >
+      <td colspan="3"></td>
+
+      <td colspan="7">
+        <img
+          class="expand-arrow"
+          src="images/account/transparent.gif"
+          alt="loading"
+        />
+
+        <table style="text-align: right">
+          <tbody>
+            <tr>
+              <th>Bet taken</th>
+
+              <th style="width: 16%">Odds req.</th>
+
+              <th style="width: 17%">Stake</th>
+
+              <th style="width: 24%">Liability</th>
+
+              <th style="width: 24%">Odds matched</th>
+            </tr>
+
+            <tr class="even">
+              <td><span class="small-date">{{matchBet.dateMatched}}</span></td>
+
+              <td>{{matchBet.odds | oddDecimal}}</td>
+
+              <td>{{matchBet.matchedStake | number:2}}</td>
+
+              <td>--</td>
+
+              <td>{{matchBet.avgOdds | oddDecimal}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+    <tr
+      id="noDataTemplate"
+      data-ng-if="matchedbetsList.length==0"
+      style="display: table-row"
+    >
+      <td class="no-data" colspan="9">
+        <p>You have no bets in this time period.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<table style="display: none">
+  <tbody>
+    <tr style="display: none">
+      <td class="no-data">
+        <p>You have no bets in this time period.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>

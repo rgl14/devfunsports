@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>{{data.fancyName}}</h1>
+<hr />
+<div mat-dialog-content>
+  <div class="form-group">
+    <label class="col-sm-12 control-label">Runs</label>
+    <div class="col-sm-12">
+      <input class="form-control" name="settle" [(ngModel)]="data.note" placeholder="Enter Result" type="text">
+    </div>
+  </div>
+</div>
+<hr />
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial
+    [disabled]="!data.note">Settle Fancy</button>
+</div>

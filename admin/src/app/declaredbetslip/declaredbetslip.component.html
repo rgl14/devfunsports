@@ -1,0 +1,224 @@
+<div class="row margin-top">
+  <div class="col-lg-3">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Total Bets</h5>
+      </div>
+      <div class="ibox-content">
+        <h1 class="no-margins">{{ rowData.length }}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Settled Bets</h5>
+      </div>
+      <div class="ibox-content">
+        <h1 class="no-margins">{{ rowData.length }}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Unsettled Bets</h5>
+      </div>
+      <div class="ibox-content">
+        <h1 class="no-margins">0</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Reverted Bets</h5>
+      </div>
+      <div class="ibox-content">
+        <h1 class="no-margins">0</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <!-- <div class="row">
+    <div class="col-sm-5 m-b-xs">
+        <select class="input-sm form-control input-s-sm inline" id="user_ids" name="user_id" style="height: 34px;"><option value="">All Users</option><option value="2961">sp2961</option>
+            <option value="2962">sp2962</option>
+            <option value="5213">sp5213</option>
+            <option value="5228">sp5228</option>
+            <option value="5407">sp5407</option>
+        </select>
+    </div>
+    <div class="col-sm-5 m-b-xs">
+        <select class="input-sm form-control input-s-sm inline" id="market_ids" name="model[field]" style="height: 34px;"><option value="">All Markets</option><option value="66443">Match Winner</option>
+            <option value="66459">Western Australia 10 Over Last Digit Even Odd</option>
+            <option value="66460">Western Australia 10 Over Ending Digit</option>
+        </select>
+     </div>
+ </div> -->
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <!-- <div class="row" *ngIf="bookData!=null">
+           <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+                 <div class="ibox-title">
+                    <h5>Market Position - {{title}}</h5>
+                    <div class="ibox-tools">
+                    </div>
+                 </div>
+                 <div class="ibox-content table-responsive">
+                    <table class="table">
+                       <thead>
+                          <tr>
+                             <th>RUNNER</th>
+                             <th>POSITION</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td>{{bookData.runner1name}}</td>
+                             <td [ngClass]="(bookData.runner1Book>=0)?'text-success':'text-danger'">{{bookData.runner1Book | number:'1.2-2'}}</td>
+                          </tr>
+                          <tr>
+                             <td>{{bookData.runner2name}}</td>
+                             <td [ngClass]="(bookData.runner2Book>=0)?'text-success':'text-danger'">{{bookData.runner2Book | number:'1.2-2'}}</td>
+                          </tr>
+                          <tr *ngIf="bookData.runner3name!=null">
+                             <td>{{bookData.runner3name}}</td>
+                             <td [ngClass]="(bookData.runner3Book>=0)?'text-success':'text-danger'">{{bookData.runner3Book | number:'1.2-2'}}</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                 </div>
+              </div>
+           </div>
+        </div> -->
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Bet Slips - {{ title }}</h5>
+          <div class="ibox-tools"></div>
+        </div>
+
+        <div class="ibox-content table-responsive">
+          <!-- <table class="table table-bordered table-striped">
+                      <thead>
+                          <tr>
+                             <th colspan="10">Bet</th>
+                             <th colspan="3">My Share / Position</th>
+                             <th colspan="2">Settlement</th>
+                          </tr>
+                       </thead>
+ 
+                       <thead>
+                          <tr>
+                             <th>Bet ID</th>
+                             <th>DATE</th>
+                             <th>Market Title</th>
+                             <th>RATE</th>
+                             <th>AMOUNT</th>
+                             <th>MODE</th>
+                             <th>Runner Name</th>
+                             <th>User</th>
+                               <th>Western Australia  </th>
+                               <th>Tasmania</th>
+                             <th>My Share</th>
+                               <th>Western Australia  </th>
+                               <th>Tasmania</th>
+                             <th>Status</th>
+                             <th>Plus / Minus</th>
+                          </tr>
+                       </thead>
+ 
+                       <tbody>
+                          <tr>
+                             <td>19027365</td>
+                             <td><i class="fa fa-clock-o"></i>&nbsp;Sep 25, 12:13:58 PM</td>
+                             <td>Match Winner</td>
+                             <td>0.16</td>
+                             <td>500</td>
+                             <td>LAGAI</td>
+                             <td>  
+                                  Western Australia  
+   
+                             </td>
+                             <td>sp19541</td>
+                             
+                               <th>80.0</th>
+                               <th>-500.0</th>
+ 
+                             <td>0.0 %</td>
+                               <th class="runner-sum">0.0</th>
+                               <th class="runner-sum">-0.0</th>
+                            
+                             <td>
+                                 <span class="label label-primary">settle</span>
+                             </td>
+                              <td>0.0</td>
+                          </tr>
+                       </tbody>
+                       <tfoot>
+                         <tr>
+                             <th></th>
+                             <th></th>
+                             <th></th>
+                             <th></th>
+                              <th></th>
+                             <th></th>
+                             <th></th>
+                             <th>Total</th>
+                                   <th>400.0 </th>
+                                   <th>-2500.0 </th>
+                             <th> </th>
+                                   <th>0.0 </th>
+                                   <th>0.0 </th>
+                             <th></th>
+                             <th>0.0</th>
+                       </tr>
+                       </tfoot>
+                    </table> -->
+          <div class="search-div">
+            <mat-form-field class="search-form-field" floatLabel="never">
+              <input
+                matInput
+                id="filter-text-box"
+                placeholder="Search"
+                autocomplete="off"
+                (keyup)="onFilterTextBoxChanged()"
+              />
+            </mat-form-field>
+            <div style="float: right; padding: 0px 10px 0px 0px">
+              <button
+                matNativeControl
+                class="btn btn-outline-success waves-effect waves-light"
+                type="button"
+                excelDwd
+              >
+                <span class="mr-1"><i class="fa fa-file-excel-o"></i></span>
+              </button>
+            </div>
+          </div>
+          <div class="table-container mat-elevation-z8">
+            <ag-grid-angular
+              style="width: 100%; height: 450px"
+              class="ag-theme-balham"
+              [gridOptions]="gridOptions"
+              [rowData]="rowData"
+              [overlayLoadingTemplate]="overlayLoadingTemplate"
+              [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+              (gridSizeChanged)="onGridSizeChanged($event)"
+              [animateRows]="true"
+              (gridReady)="onGridReady($event)"
+            >
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

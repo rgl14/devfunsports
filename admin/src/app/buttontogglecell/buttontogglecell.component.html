@@ -1,0 +1,18 @@
+<mat-slide-toggle *ngIf="showUpdateToggle" class="example-margin"
+  [checked]="isActive" 
+  [disabled]="disabled"
+  (click)="update()"
+  >
+</mat-slide-toggle>
+<mat-slide-toggle *ngIf="showOpenDialogToggle" class="example-margin"
+  [checked]="isActive" 
+  [disabled]="disabled"
+  (click)="openDialog()"
+  >
+</mat-slide-toggle>
+<!-- <mat-slide-toggle *ngIf="currentroute=='/admin/'+userId || currentroute=='/supermaster/'+userId || currentroute=='/master/'+userId || currentroute=='/superagent/'+userId || currentroute=='/agent/'+userId || currentroute=='/clients/'+userId" class="example-margin" [color]="warn" 
+  [checked]="isActive" 
+  [disabled]="disabled"
+  (click)="openDialog()"
+  >
+</mat-slide-toggle> -->

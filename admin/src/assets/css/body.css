@@ -1,0 +1,241 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+/*
+ *
+ *   INSPINIA - Responsive Admin Theme
+ *   version 2.7
+ *
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 100;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+h5 {
+    font-size: 12px;
+}
+
+h6 {
+    font-size: 10px;
+}
+
+h3,
+h4,
+h5 {
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/* WRAPPERS */
+#wrapper {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    padding: 0 20px;
+}
+
+.wrapper-content {
+    /*padding: 20px 10px 40px;*/
+    padding: 5px 10px 20px;
+}
+
+#page-wrapper {
+    padding: 0 15px;
+    min-height: 568px;
+    position: relative !important;
+}
+
+
+/*NEEDED*/
+
+
+
+
+/* PANELS */
+.page-heading {
+    border-top: 0;
+    /*padding: 0 10px 20px 10px;*/
+    padding: 0 10px 10px 10px;
+}
+
+/*NEEDED-----------------------------------------------*/
+
+
+
+
+/* GLOBAL  */
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-left-padding {
+    padding-left: 0 !important;
+}
+
+.no-right-padding {
+    padding-right: 0 !important;
+}
+
+.no-top-padding {
+    padding-top: 0 !important;
+}
+
+.no-bottom-padding {
+    padding-bottom: 0 !important;
+}
+
+.no-borders {
+    border: none !important;
+}
+
+.no-margins {
+    margin: 0 !important;
+}
+
+.no-left-margin {
+    margin-left: 0 !important;
+}
+
+.no-right-margin {
+    margin-right: 0 !important;
+}
+
+.no-top-margin {
+    margin-top: 0 !important;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0 !important;
+}
+
+.no-top-border {
+    border-top: 0 !important;
+}
+
+.ibox-content.text-box {
+    padding-bottom: 0;
+    padding-top: 15px;
+}
+
+.border-left-right {
+    border-left: 1px solid #e7eaec;
+    border-right: 1px solid #e7eaec;
+}
+
+.border-top-bottom {
+    border-top: 1px solid #e7eaec;
+    border-bottom: 1px solid #e7eaec;
+}
+
+.border-left {
+    border-left: 1px solid #e7eaec;
+}
+
+.border-right {
+    border-right: 1px solid #e7eaec;
+}
+
+.border-top {
+    border-top: 1px solid #e7eaec;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e7eaec !important;
+}
+
+.border-size-sm {
+    border-width: 3px;
+}
+
+.border-size-md {
+    border-width: 6px;
+}
+
+.border-size-lg {
+    border-width: 9px;
+}
+
+.border-size-xl {
+    border-width: 12px;
+}
+
+/*---------------------------------------------*/
+
+
+
+
+
+
+.ibox-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    /*border-width: 1px 0;*/
+    border-width: 0px 0;
+}
+
+/*-------------------------*/
+
+
+
+
+/* BACKGROUNDS */
+.gray-bg,
+.bg-muted {
+    background-color: #f3f3f4;
+}
+
+.white-bg {
+    background-color: #ffffff;
+}
+
+.red-bg,
+.bg-danger {
+    background-color: #ed5565;
+    color: #ffffff;
+}
+
+.ratespan
+{
+    line-height:30px;
+    vertical-align:middle;
+    min-height:100%;
+    min-width:100%;
+    font-weight:700;
+    padding: 5px 13px;
+    letter-spacing: 1px;
+}
+
+
+.modal-content .checkbox, .radio 
+{
+    margin-top:5px;
+}
+
+
+

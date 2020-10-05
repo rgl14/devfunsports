@@ -1,0 +1,62 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+     <div class="col-lg-12">
+         <div class="ibox float-e-margins">
+             <div class="ibox-title">
+                 <h5>New Tournament</h5>
+             </div>
+             
+             <div class="ibox-content-form table-responsive">
+                
+                 
+                 <form [formGroup]="addtournamentform" (ngSubmit)="onSubmit()"  class="form-horizontal" >
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Sport Name<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                        <select formControlName="sport"  class="form-control" [ngClass]="{ 'is-invalid': f.sport.invalid && f.sport.touched}">
+                                                <option value="">Select Sport</option>
+                                                <option [ngValue]="sport" *ngFor="let sport of sportsList">{{sport.sportName}}</option>
+                                              </select>
+                                              <div *ngIf="f.sport.invalid && f.sport.touched" class="invalid-feedback">
+                                                  <mat-error>This field is mandatory.
+                                                  </mat-error>
+                                              </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Tournament Name<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                  <input formControlName="tourname" appInputRestriction="noSpecialChars" class="form-control" name="username" [ngClass]="{ 'is-invalid': submitted && f.tourname.errors && f.tourname.touched}"  placeholder="" type="text" >
+                                  
+                                  <div *ngIf="submitted && f.tourname.errors && f.tourname.touched" class="invalid-feedback">
+                                     <mat-error *ngIf="f.tourname.errors.required">This field is mandatory.</mat-error>
+                                 </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Betfair ID<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                        <input formControlName="tourbfid" appInputRestriction="integer" class="form-control" name="fullname" [ngClass]="{ 'is-invalid': submitted && f.tourbfid.errors && f.tourbfid.touched}"  placeholder="" type="text" >
+                                  
+                                  <div *ngIf="submitted && f.tourbfid.errors && f.tourbfid.touched" class="invalid-feedback">
+                                     <mat-error *ngIf="f.tourbfid.errors.required">This field is mandatory.</mat-error>
+                                 </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 label-control"></label>
+                            <div class="col-md-6">
+                                    <mat-checkbox formControlName="isactive">Is Active</mat-checkbox>
+                            </div>
+                        </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="button-row" style="text-align: center">
+                        <button mat-raised-button color="warn" (click)="onCancel()" type="button">Cancel</button>
+                        <button mat-raised-button color="primary"  type="submit">Save</button>
+                    </div>
+</form>                        
+</div>
+         </div>         
+     </div>
+ </div>
+</div>

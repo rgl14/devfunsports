@@ -1,0 +1,120 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+@media screen and (max-width: 600px) {
+    .menu-bar {display: none;}
+}
+
+.menu-bar{
+    background: #000;
+    border-top: 4px solid #70c3f3;
+    /* text-align: center; */
+}
+.menu-bar ul{
+    display:inline-flex;
+    /* color:#fff; */
+    color:rgba(255,255,255,.5);
+    list-style: none;
+}
+.menu-bar ul li{
+    /* width: 160px; */
+    /* padding: 5px; */
+    width: auto;
+    padding: 10px;
+    margin: 5px;
+}
+.menu-bar ul li a{
+    text-decoration:none;
+    color: rgba(255,255,255,.5);
+}
+.menu-bar>ul>li:hover>a{
+    color:#fff;
+}
+.menu-bar ul li:hover{
+    background-color: #1c1c1c;
+    border-radius: 5px 0 0 0;
+    box-shadow: inset 5px 0px 0 -2px #70c3f3;
+}
+.sub-menu-1{
+    display: none;
+}
+.menu-bar ul li:hover .sub-menu-1 {
+    display: block;
+    position: absolute;
+    /* background: #181824; */
+    background:#000;
+    margin:7px;
+    margin-left:-15px;
+    border-radius: 5px;
+    z-index: 100;
+    border: 1px solid #3f51b5;
+    border-bottom: 5px solid #3f51b5;
+    box-shadow: 0 10px 10px -5px #141414;
+}
+.sub-menu-1:before,.sub-menu-1:after{
+    content: "";
+    position: absolute;
+    border: 10px solid transparent;
+    border-top: 0;
+    left:10px;
+}
+.sub-menu-1:before{
+    top:-8px;
+    border-bottom-color:#181824;
+}
+.sub-menu-1:after{
+    top:-10px;
+    border-bottom-color: gray;
+    z-index: -1;
+}
+.menu-bar ul li:hover .sub-menu-1 ul{
+    display: block;
+    margin: 10px;
+}
+.active{
+    color:#fff;
+}
+/* 
+.sub-menu-1 li{
+    opacity: 0;
+    transform: rotateY(90deg);
+    transition: opacity .4s,transform .5s;
+}
+.menu-bar> li:hover .sub-menu-1,.menu-bar> li:focus .sub-menu-1{
+    max-height: 2000px;
+    z-index: 10;
+}
+.menu-bar> li:hover .sub-menu-1 li,.menu-bar> li:focus .sub-menu-1 li{
+    opacity:1;
+    transform: none;
+} */
+
+.menu-bar ul li:hover .sub-menu-1 ul li{
+    width: 160px;
+    border-bottom: 2px solid #3f51b5;
+    background: transparent;
+    border-radius:0;
+    text-align:left;
+    padding-top: 4px;
+}
+.menu-bar ul li:hover .sub-menu-1 ul li:last-child{
+    border-bottom: none;
+}
+.sub-menu-1>ul>li:hover a{
+    color:#70c3f3;
+}
+.sub-menu-2{
+    display: none;
+}
+.hover-me:hover .sub-menu-2{
+    display: block;
+    position: absolute;
+    margin-top: -40px;
+    margin-left: 160px;
+    background: #181824;
+}
+.fa .fa-caret-down{
+    float: right;
+}

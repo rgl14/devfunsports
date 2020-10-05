@@ -1,0 +1,112 @@
+<link href="css/acc_style.css" rel="stylesheet" type="text/css" />
+<h3>Account Details</h3>
+
+<div class="event-left">
+  <div class="profile-wrap">
+    <h3>About You</h3>
+
+    <dl>
+      <dt>First Name</dt>
+
+      <dd>{{user.name}}</dd>
+
+      <dt>Last Name</dt>
+
+      <dd></dd>
+
+      <dt>Birthday</dt>
+
+      <dd>--</dd>
+
+      <dt>E-mail</dt>
+
+      <dd>--</dd>
+
+      <dt>Password</dt>
+
+      <dd>
+        ********************************
+
+        <a class="favor-set" data-ng-click="openChangePass()">Edit</a>
+      </dd>
+
+      <dt>Languages</dt>
+
+      <dd>
+        <select id="lang">
+          <option value="en" selected="">English</option>
+
+          <!-- <option value="cn">中文
+
+                  </option> -->
+        </select>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="profile-wrap">
+    <h3>Address</h3>
+
+    <dl>
+      <dt>Address</dt>
+
+      <dd>--</dd>
+
+      <dt>Town/City</dt>
+
+      <dd>--</dd>
+
+      <dt>Country</dt>
+
+      <dd>--</dd>
+
+      <dt>Country/State</dt>
+
+      <dd>--</dd>
+
+      <dt>Postcode</dt>
+
+      <dd>--</dd>
+
+      <dt>Timezone</dt>
+
+      <dd>IST</dd>
+    </dl>
+  </div>
+</div>
+
+<div class="event-right">
+  <div class="profile-wrap">
+    <h3>Contact Details</h3>
+
+    <dl>
+      <dt>Primary number</dt>
+
+      <dd>--</dd>
+    </dl>
+  </div>
+
+  <div class="profile-wrap">
+    <h3>Setting</h3>
+
+    <dl>
+      <dt>Currency</dt>
+
+      <dd>{{currency}}</dd>
+
+      <dt>Odds Format</dt>
+
+      <dd>--</dd>
+    </dl>
+  </div>
+
+  <div class="profile-wrap">
+    <h3>Commission</h3>
+
+    <dl>
+      <dt>Comm charged</dt>
+
+      <dd>2.0 %</dd>
+    </dl>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<link href="css/acc_style.css" rel="stylesheet" type="text/css" />
+<h3>Activity Log</h3>
+
+<table style="display: none">
+  <tbody>
+    <tr>
+      <td class="align-L" id="loginDate"></td>
+
+      <td class="align-L"><span class="green"></span></td>
+
+      <td></td>
+
+      <td></td>
+
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Report Table -->
+
+<div class="table-container">
+  <table class="table01 table">
+    <tbody>
+      <tr>
+        <th class="align-L" style="width: 18%">Login Date &amp; Time</th>
+
+        <th class="align-L" style="width: 30%">Login Status</th>
+
+        <th style="width: 15%">IP Address</th>
+
+        <th style="width: 28%">ISP</th>
+
+        <th>City/State/Country</th>
+      </tr>
+    </tbody>
+
+    <tbody id="content">
+      <tr data-ng-if="ActivityDataList.length==0">
+        <td class="no-data" colspan="5">
+          <p>No Data Found</p>
+        </td>
+      </tr>
+
+      <!-- <tr ng-if="loading==true">
+
+            <td class="no-data" colspan="5">
+
+               <h3 style="text-align: center;">Loading....</h3>
+
+            </td>
+
+            </tr> -->
+
+      <tr data-ng-repeat="ActivityData in ActivityDataList">
+        <td class="align-L">{{ActivityData.loginDatetime}}</td>
+
+        <td class="align-L green" id="loginMessage">
+          {{ActivityData.loginStatus}}
+        </td>
+
+        <td id="ipAddress">{{ActivityData.ipaddress}}</td>
+
+        <td id="isp">
+          {{(ActivityData.isp==null || ActivityData.isp=="")?' - ':
+          ActivityData.isp}}
+        </td>
+
+        <td id="location">
+          {{(ActivityData.cityStateCountry==null ||
+          ActivityData.cityStateCountry=="")?'-':ActivityData.cityStateCountry}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pages List -->
+
+  <div style="display: none">
+    <ul style="display: none">
+      <li><a href="javascript:void(0);">Prev</a></li>
+
+      <li><a href="javascript:void(0);">Next</a></li>
+
+      <li><a href="javascript:void(0);"></a></li>
+
+      <li id="more"><a href="javascript:void(0);">...</a></li>
+    </ul>
+
+    <ul id="pageNumberContent" class="pages">
+      <li id="prev">
+        <a
+          href="javascript:void(0);"
+          class="disable"
+          style="pointer-events: none"
+          >Prev</a
+        >
+      </li>
+
+      <li>
+        <a
+          href="javascript:void(0);"
+          class="select"
+          style="pointer-events: none"
+          >1</a
+        >
+      </li>
+
+      <li><a href="javascript:void(0);">2</a></li>
+
+      <li><a href="javascript:void(0);">3</a></li>
+
+      <li><a href="javascript:void(0);">4</a></li>
+
+      <li><a href="javascript:void(0);">5</a></li>
+
+      <li><a href="javascript:void(0);">6</a></li>
+
+      <li><a href="javascript:void(0);">7</a></li>
+
+      <li id="next"><a href="javascript:void(0);">Next</a></li>
+    </ul>
+  </div>
+</div>

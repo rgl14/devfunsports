@@ -1,0 +1,63 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Import Rate List</h5>
+        </div>
+        <div class="ibox-content-table table-responsive">
+          <div class="form-group row mt-2">
+            <div class="col-md-3 top_marg">
+              <select [(ngModel)]="sport" (change)="GetTournamentList()" class="form-control">
+                <option value="">Select Sport</option>
+                <option [ngValue]="sport" *ngFor="let sport of sportsList">{{sport.sportName}}</option>
+              </select>
+            </div>
+            <div class="col-md-3 top_marg">
+              <select [(ngModel)]="tournament" (change)="GetMatchList()" class="form-control">
+                <option value="">Select Tournaments</option>
+                <option [ngValue]="tournament" *ngFor="let tournament of tournamentList">{{tournament.tournamentName}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-3 top_marg">
+              <select [(ngModel)]="match" (change)="getMarketList()" class="form-control">
+                <option value="">Select Match</option>
+                <option [ngValue]="match" *ngFor="let match of matchList">{{match.matchName}} / {{match.matchDate}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-3 top_marg">
+              <select [(ngModel)]="market" (change)="GetImportRateList()" class="form-control">
+                <option value="">Select Market</option>
+                <option [ngValue]="market" *ngFor="let market of marketList">{{
+                      market.mktName
+                    }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="search-div">
+            <mat-form-field class="search-form-field" floatLabel="never">
+              <input matInput id="filter-text-box" placeholder="Search" autocomplete="off"
+                (keyup)="onFilterTextBoxChanged()">
+            </mat-form-field>
+          </div>
+          <div class="table-container mat-elevation-z8">
+            <ag-grid-angular 
+                  style="width: 100%; height: 450px"
+                  class="ag-theme-balham"
+                  [gridOptions]="gridOptions"
+                  [rowData]="rowData" 
+                  [overlayLoadingTemplate]="overlayLoadingTemplate"
+                  [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+                  [animateRows]="true"
+                  [pagination]="true"
+                  (gridReady)="onGridReady($event)"
+                  >
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

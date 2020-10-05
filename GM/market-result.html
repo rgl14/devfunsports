@@ -1,0 +1,81 @@
+
+<style type="text/css">
+.ajax_loader{
+       position:absolute;
+       width:100%;
+       height:100%;
+       left:0;
+       top:0;
+       background:rgba(0,0,0,.5);
+   }
+   .ajax_loader.hidden{
+    display: block;
+    visibility: hidden;
+   }
+   .ajax_loader i{
+       position:absolute;    
+       left:50%;
+       top:45%;
+      color: white;
+      font-size: 25px;
+   }
+   .loader_spinner{
+      position: absolute; 
+      left: 45%; 
+      top: 50%; 
+      font-size: 32px; 
+      color: white;
+   }
+</style>
+<div class="container-fluid" ng-init="GetActiveMarkets();">
+
+<!-- <table ng-table="tableParams" show-filter="true" id="fancyListTable" class="table table-striped table-bordered ng-scope ng-table">
+    <thead>
+      <tr>
+        <th>MarketId</th>
+        <th>MarketName</th>
+        <th>runnerList</th>
+        <th>Update</th>
+      </tr>
+    </thead>
+    <tbody style="text-align: center;">
+      <tr ng-repeat="getdata in GetTvSubcriptionData">
+        <td>{{getdata.marketId}}</td>
+         <td>{{getdata.marketName}}</td>
+        <td>{{getdata.runners}}</td>
+        <td> <button class="btn-danger" data-toggle="modal" data-target="#settle-sessin-modal" ng-click="UpdateTokenmodal(getdata.id)">Update</button> </td>
+       
+      </tr>
+      <tr ng-if="GetTvSubcriptionData.length==0" class="ng-scope"><th colspan="13">No Data Found...</th></tr>
+     
+    </tbody>
+  </table>
+ -->
+  <div class="table-responsive">
+                                    <table ng-cloak ng-table="tableParams" show-filter="true" class="table table-striped table-bordered noWhiteSpace">
+                                    
+                                      <tr class="text-center" ng-repeat="fancylist in $data">
+                                            <td title="'Market Id'" filter="{ marketId: 'number'}" sortable="'marketId'">{{fancylist.marketId}}</td>
+                                            <td title="'Market Name'" filter="{ marketName: 'text'}" sortable="'marketName'">{{fancylist.marketName}}</td>
+                                            <td title="'runnerList'" filter="{ runners: 'text'}" sortable="'runners'">
+                                                <!-- <span style="font-weight: bolder">{{fancylist.runnerList}}</span> -->
+                                        <select chosen  ng-model="matchData" ng-options="item as item for item in fancylist.runners" class="form-control chosen-select" ng-change="selectoption(matchData)">
+                                        <option label="Select Match" selected="selected">Select Runner</option>
+                                       </select>
+
+
+                                            </td>
+                                            <td title="'Update'">
+                                                <button ng-click="UpdateStatus(fancylist.marketId,runner)" class="btn btn-warning btn-sm">Update</button>
+                                            </td>
+                                            <td title="'Removed'">
+                                                <button ng-click="removeStatus(fancylist.marketId)" class="btn btn-warning btn-sm">Removed</button>
+                                            </td>
+                                            
+                                        </tr>
+                                    
+                                </table>
+                                </div>
+
+</div>
+

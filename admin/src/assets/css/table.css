@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+/*
+ *
+ *   INSPINIA - Responsive Admin Theme
+ *   version 2.7
+ *
+*/
+h1,
+h2,
+
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 100;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+h5 {
+    font-size: 12px;
+}
+
+h6 {
+    font-size: 10px;
+}
+
+h3,
+h4,
+h5 {
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/* INPUTS */
+.form-control,
+.single-line {
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #4a1a77;
+    border-radius: 1px;
+    color: inherit;
+    display: block;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+    font-size: 14px;
+}
+/*---------------*/
+  
+/* GLOBAL Shrinks */
+.no-padding {
+    padding: 0 !important;
+}
+
+/*BACGROUND COLOUR*/
+.navy-bg,
+.bg-primary {
+    background-color: #1ab394;
+    color: #ffffff;
+}
+/*Numbers*/
+.sessionfixkeyword{
+    line-height:30px;
+    letter-spacing:1px;
+    font-weight:700
+}
+.bottom-padding-5px {
+    padding-bottom: 5px !important;
+}
+
+.top-padding-5px {
+    padding-top: 5px !important;
+}
+.color-black{
+    color:#000;
+}
+
+.text-decoration-line-through
+{
+    text-decoration: line-through;
+}
+
+.setpaddingtxtRate {
+    padding: 5px;
+}
+
+/*Alignment*/
+.col-cus-10 {
+    width: 10%;
+    float: left;
+}
+
+.clscommission
+{
+    background-color:#027a62 !important;
+}
+
+.inline {
+    display: inline-block !important;
+}

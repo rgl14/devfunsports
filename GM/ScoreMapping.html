@@ -1,0 +1,39 @@
+
+<div class="container-fluid" >
+    <div class="row pb-2">
+        <!-- <div class="col-md-12"> -->
+            <div class="col-md-3">
+                <input type="text" name="eventid" placeholder="Enter Event Id" class="form-control" ng-model="eventid">
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="scoreid" class="form-control" placeholder="Enter Score Id" ng-model="scoreid">
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-success" ng-click="UpdateStatus()">Save</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-danger" ng-click="RemoveSkyScore()">Remove Score</button>
+            </div>
+        <!-- </div> -->
+    </div>
+
+<table class="table table-striped table-bordered" style="text-align: center;">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>EventId</th>
+        <th>ScoreId</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr ng-repeat="match in GetList">
+         <td>{{match.id}}</td>
+        <td>{{match.eventId}}</td>
+        <td>{{match.scoreId}}</td>
+      </tr>
+      <tr ng-if="GetList.length==0" class="ng-scope"><th colspan="13">No Data Found...</th></tr>
+     
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,266 @@
+<mat-toolbar id="mainToolbar" class="bg-header">
+  <!-- <mat-icon
+    (click)="onToolbarMenuToggle()"
+    id="toolbarMenu">subject</mat-icon> -->
+  <!-- <sup>Exch</sup> -->
+  <div class="logo" [routerLink]="'/home'">
+    <img src="assets/img/logo.png" height="55px" alt="funsport">
+  </div>
+  <span class="toolbar-spacer"></span>
+  <div class="userInfo" [matMenuTriggerFor]="UserMenu">
+    <!-- <span class="username" *ngIf="AccountInfo">{{AccountInfo.userName}} / {{AccountInfo.myLevel}} / {{currencyType}}</span>
+    <span class="balance" *ngIf="AccountInfo">{{availbalance}}</span> -->
+    <span class="username" *ngIf="AccountInfo">{{AccountInfo.userName}} [ Level : {{AccountInfo.myLevel}} ]</span>
+    <span class="balance" *ngIf="AccountInfo">{{currencyType}} {{AccountInfo.remainingLimit | number : '1.2-2'}}</span>
+  </div>
+  <div class="userdrop"></div>
+  <div class="buttons">
+    <button class="button-play" title="Betting Off" (click)="openconfirmDialog(0)" mat-mini-fab
+      *ngIf="userType==1 && betingstatus==1">
+      <i class="fa fa-play"></i>
+    </button>
+    <button class="button-pause" title="Betting On" (click)="openconfirmDialog(1)" mat-mini-fab
+      *ngIf="userType==1 && betingstatus==0">
+      <i class="fa fa-pause"></i>
+    </button>
+    <button [matMenuTriggerFor]="menu" class="toolbar-avatar" mat-mini-fab color="primary" *ngIf="userType==1">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <button (click)="Logout()" class="toolbar-avatar" mat-mini-fab color="warn"
+      *ngIf="userType==2 || userType==3 || userType==4 || userType==5 || userType==6">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+
+
+  <!-- class="fa fa-play" -->
+  <mat-menu #menu="matMenu">
+    <!-- <i matListIcon class="fa fa-thumbs-up"></i>
+    <i matListIcon class="fa fa-thumbs-up"></i>
+    <i matListIcon class="fa fa-thumbs-up"></i>
+    <i matListIcon class="fa fa-thumbs-up"></i> -->
+    <div>
+      <mat-nav-list class="bottom-sheet-nav-list">
+        <!-- <div class="account-overview" *ngIf="AccountInfo">
+            <p class="login-name ">{{AccountInfo.userName}}</p>
+            <div class="menu-item">
+                <p class="label"> 	<i matListIcon class="fa fa-university"></i>&nbsp;
+                    <span>Account Information</span>
+                </p>
+                <div class="content">
+                    <div class="group">
+                        <div>Level:</div> <span><strong>{{AccountInfo.myLevel}}</strong></span>
+                    </div>
+                    <div class="group">
+                      <div>Currency:</div> <span><strong>{{currencyType}}</strong></span>
+                  </div>
+                    <div class="group">
+                        <div>Fix Limit:</div> <span [ngClass]="(AccountInfo.fixLimit >= 0)?'text-success':'text-danger'" >{{AccountInfo.fixLimit | number : '1.2-2'}}</span>
+                    </div>
+                    <div class="group">
+                        <div>Net Exposure:</div> <span [ngClass]="(AccountInfo.remainingLimit >= 0)?'text-success':'text-danger'" >{{AccountInfo.remainingLimit | number : '1.2-2'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <mat-list-item [routerLink]="'/userAnalysis'">
+          <i matListIcon class="fa fa-list-ul"></i>
+          <h3 matLine>User Analysis</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/betting/index'">
+          <i matListIcon class="fa fa-thumbs-up"></i>
+          <h3 matLine>Betting</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/fancy/index'">
+          <i matListIcon class="fa fa-thumbs-up"></i>
+          <h3 matLine>Fancy</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/bookmaker/index'">
+          <i matListIcon class="fa fa-thumbs-up"></i>
+          <h3 matLine>Book Maker</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/packages/index'">
+          <i matListIcon class="fa fa-cogs"></i>
+          <h3 matLine>Packages Settings</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/markets_ctlg'">
+          <i matListIcon class="fa fa-thumbs-up"></i>
+          <h3 matLine>Markets Catalogue</h3>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item [routerLink]="'/administration/index'">
+          <i matListIcon class="fa fa-user-secret"></i>
+          <h3 matLine>Administration</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/importrate'">
+          <i matListIcon class="fa fa-download"></i>
+          <h3 matLine>Import Rate</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/newsticker/index'">
+          <i matListIcon class="fa fa-newspaper-o"></i>
+          <h3 matLine>News Ticker</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/rules'">
+          <i matListIcon class="fa fa-server"></i>
+          <h3 matLine>Rules</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/Scorelist'">
+          <i matListIcon class="fa fa-microphone"></i>
+          <h3 matLine>Live Commentry</h3>
+        </mat-list-item>
+        <mat-list-item [routerLink]="'/changepassword'">
+          <i matListIcon class="fa fa-lock"></i>
+          <h3 matLine>Change Password</h3>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+    <div>
+      <mat-nav-list>
+        <mat-divider></mat-divider>
+        <mat-list-item (click)="Logout()">
+          <i matListIcon class="fa fa-sign-out"></i>
+          <h3 matLine>Logout</h3>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+    <div style="height:100px;width: 275px"></div>
+  </mat-menu>
+
+  <mat-menu #UserMenu="matMenu">
+    <div>
+      <mat-nav-list class="bottom-sheet-nav-list">
+        <div class="account-overview" *ngIf="AccountInfo">
+          <p class="login-name ">{{AccountInfo.userName}}</p>
+          <mat-divider></mat-divider>
+          <div class="menu-item">
+            <p class="label"> <i matListIcon class="fa fa-university"></i>&nbsp;
+              <span>Account Information</span>
+            </p>
+            <div class="content">
+              <div class="group">
+                <div>Level:</div> <span><strong>{{AccountInfo.myLevel}}</strong></span>
+              </div>
+              <div class="group">
+                <div>Currency:</div> <span><strong>{{currencyType}}</strong></span>
+              </div>
+              <div class="group">
+                <div>Fix Limit:</div> <span
+                  [ngClass]="(AccountInfo.fixLimit >= 0)?'text-success':'text-danger'">{{AccountInfo.fixLimit | number : '1.2-2'}}</span>
+              </div>
+              <div class="group">
+                <div>Net Exposure:</div> <span
+                  [ngClass]="(AccountInfo.remainingLimit >= 0)?'text-success':'text-danger'">{{AccountInfo.remainingLimit | number : '1.2-2'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-nav-list>
+    </div>
+    <div style="height:10px;width: 275px"></div>
+  </mat-menu>
+</mat-toolbar>
+
+<!-- <mat-sidenav-container
+  id="sidenavContainer"
+ fullscreen>
+  <mat-sidenav
+    mode="side"
+    #sidenav
+    id="sidenav"
+    [class.menu-open]="isMenuOpen"
+    [class.menu-close]="!isMenuOpen"
+    opened>
+    
+    <mat-list id="menus">
+      <mat-card>
+        <mat-card-header>
+          <div 
+            mat-card-avatar 
+            class="avatar"></div>
+
+          <mat-card-title>John Doe</mat-card-title>
+          <mat-card-subtitle>Internal</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+      <mat-list-item>
+        <button 
+        class="menu-item"
+          mat-flat-button>
+          <mat-icon>dashboard</mat-icon>
+        Dashboard</button>
+      </mat-list-item>
+
+      <mat-list-item>
+          <button 
+          class="menu-item"
+            mat-flat-button>
+            <mat-icon>work</mat-icon>
+          Project</button>
+        </mat-list-item>
+
+        <mat-list-item>
+            <button 
+            class="menu-item"
+              mat-flat-button>
+              <mat-icon>settings_application</mat-icon>
+            Settings</button>
+          </mat-list-item>
+
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content
+  [ngStyle]="{ 'margin-left.px': contentMargin }"
+  >
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
+<!-- <app-header></app-header> -->
+<!-- <app-markets></app-markets> -->
+<mat-card class="ticker">
+  <marquee class="marq">
+    <div *ngFor="let ticker of tickerList">{{ticker.title}}</div>
+  </marquee>
+</mat-card>
+<app-sidebar></app-sidebar>
+<breadcrumb #parent>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <mat-icon style="font-size: 18px; line-height: 1.1; width: 20px;">home</mat-icon> <a routerLink="/">Home</a>
+    </li>
+    <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+      <li *ngIf="!route.terminal" class="breadcrumb-item">
+        <a [routerLink]="[route.url]">{{route.displayName}} </a>
+      </li>
+      <li *ngIf="route.terminal" class="breadcrumb-item active">
+        {{route.displayName}}
+      </li>
+    </ng-template>
+  </ol>
+</breadcrumb>
+<router-outlet></router-outlet>
+<nav class="Bottomnav">
+  <ul style="display: inline-flex">
+    <li id="home"><button [routerLink]="'/home'" mat-button routerLinkActive="select">
+        <mat-icon>home</mat-icon><br><span>Home</span>
+      </button></li>
+    <li id="inplay"><button [routerLink]="'/agentlist'" routerLinkActive="select" mat-button>
+        <mat-icon>account_tree</mat-icon><br><span>Agent</span>
+      </button></li>
+    <li id="sports"><button [routerLink]="'/sport/inplaylist'" routerLinkActive="select" mat-button>
+        <mat-icon>play_circle_outline</mat-icon><br><span>In-Play</span>
+      </button></li>
+    <li id="multiMarket"><button [routerLink]="'/sportslist'" routerLinkActive="select" mat-button>
+        <mat-icon>gamepad</mat-icon><br><span>Sports</span>
+      </button></li>
+    <li id="account"><button [routerLink]="'/reportlist'" routerLinkActive="select" mat-button>
+        <mat-icon>table_chart</mat-icon><br><span>Report</span>
+      </button></li>
+  </ul>
+</nav>
+<!-- <div class="footer">
+              <div class="pull-right">
+                 Stockist Panel <strong>v1.0.0</strong>
+              </div>
+              <div>
+                  <strong>BSF777</strong> | Powered By <strong> BSF Gaming </strong> | Copyright © 2014-2019 </div>
+          </div> -->

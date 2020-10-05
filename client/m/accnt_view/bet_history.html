@@ -1,0 +1,327 @@
+<link href="css/acc_style.css" rel="stylesheet" type="text/css" />
+<style>
+  .table-container table.table01, .table-container table.table-s {
+    width: 220%;
+  }
+</style>
+<h3>My Bets</h3>
+
+<ul class="tab col3">
+  <li><a href="#!current_bets">Current Bets</a></li>
+
+  <li><a class="select" href="#!bet_history">Bets History</a></li>
+
+  <li><a href="#!pnl">Profit &amp; Loss</a></li>
+</ul>
+
+<!-- function -->
+
+<div class="function-wrap">
+  <ul class="input-list">
+    <div id="statusCondition" style="">
+      <li><label>Bet Status:</label></li>
+
+      <li>
+        <select data-ng-model="betStatus" data-ng-change="getBetHistory()">
+          <option value="4">Settled</option>
+
+          <option value="3">Cancelled</option>
+
+          <!-- <option value="4">Voided</option> -->
+        </select>
+      </li>
+    </div>
+
+    <li><label>Period</label></li>
+
+    <li>
+      <input
+        id="startDate"
+        class="cal-input"
+        type="text"
+        style="width: 150px"
+        placeholder="YYYY-MM-DD"
+      />
+
+      <!-- <input id="startTime" class="time-input " type="text" placeholder="HH:MM:SS"> -->
+
+      to
+
+      <input
+        id="endDate"
+        class="cal-input"
+        type="text"
+        style="width: 150px"
+        placeholder="YYYY-MM-DD"
+      />
+
+      <!-- <input id="endTime" class="time-input " type="text" placeholder="HH:MM:SS"> -->
+    </li>
+
+    <li style="display: none">(TimeZone:IST)</li>
+  </ul>
+
+  <ul class="input-list">
+    <li>
+      <a id="today" data-ng-click="getBetHistoryDate('today')" class="btn"
+        >Just For Today</a
+      >
+    </li>
+
+    <li>
+      <a
+        id="yesterday"
+        data-ng-click="getBetHistoryDate('yesterday')"
+        class="btn"
+        >From Yesterday</a
+      >
+    </li>
+
+    <li>
+      <a id="getPL" data-ng-click="getBetHistory()" class="btn-send"
+        >Get History</a
+      >
+    </li>
+  </ul>
+</div>
+
+<!-- No Report Message -->
+
+<div id="noReportMessage" data-ng-if="getBetHistoryList.length==0">
+  <p>
+    Betting History enables you to review the bets you have placed.
+    <br />Specify the time period during which your bets were placed, the type
+    of markets on which the bets were placed, and the sport.
+  </p>
+
+  <p>Betting History is available online for the past 3 months.</p>
+</div>
+
+<!-- function end-->
+
+<!-- Report Table -->
+
+<!-- Report Table -->
+
+<div id="report" class="table-container">
+  <table
+    class="table-s"
+    style="display: table; font-size: 13px"
+    data-ng-if="getBetHistoryList.length!=0"
+  >
+    <tbody>
+      <tr>
+        <th style="width: 9%" class="align-L">Bet ID</th>
+
+        <th style="width: 9%" class="align-L">PL ID</th>
+
+        <th class="align-L">Market</th>
+
+        <th style="width: 12%">Selection</th>
+
+        <th style="width: 4%">Type</th>
+
+        <th style="width: 8%">Bet placed</th>
+
+        <th style="width: 7%">Odds req.</th>
+
+        <th style="width: 8%">Stake</th>
+
+        <th style="width: 8%">Avg. odds matched</th>
+
+        <th style="width: 10%">Profit/Loss</th>
+      </tr>
+
+      <tr
+        data-ng-repeat-start="betHistory in getBetHistoryList track by betHistory.betId"
+      >
+        <td class="align-L">
+          <a
+            data-ng-if="betStatus=='4'"
+            id="{{betHistory.betId}}"
+            data-ng-click="betDetails(betHistory.betId)"
+            class="expand-close"
+            style="font-size: 13px"
+            >{{betHistory.betId}}</a
+          >
+
+          <a data-ng-if="betStatus=='3'" style="font-size: 13px"
+            >{{betHistory.betId}}</a
+          >
+        </td>
+
+        <td class="align-L" id="playerID">{{betHistory.plId}}</td>
+
+        <td id="matchTitle" class="align-L">
+          {{betHistory.market.split('>')[0]}}<img
+            class="fromto"
+            src="images/account/transparent.gif"
+            alt="betHistory"
+          /><strong>{{betHistory.market.split('>')[1]}}</strong
+          ><img
+            class="fromto"
+            src="images/account/transparent.gif"
+            alt="market"
+          />{{betHistory.market.split('>')[2]}}
+        </td>
+
+        <td id="matchSelection">{{betHistory.selection}}</td>
+
+        <td>
+          <span
+            id="matchType"
+            data-ng-class="betHistory.type=='Back' || betHistory.type=='Yes'?'back':'lay'"
+            >{{betHistory.type}}</span
+          >
+        </td>
+
+        <td>
+          <span id="betPlaced" class="small-date"
+            >{{betHistory.betPlaced}}</span
+          >
+        </td>
+
+        <td id="matchOddsReq">{{betHistory.odds}}</td>
+
+        <td id="matchStake">{{betHistory.stake | number:2}}</td>
+
+        <td id="matchAvgOdds">
+          {{(betStatus=='4' && (betHistory.type=='Back' ||
+          betHistory.type=='Lay'))?betHistory.avgOdds:'-'}}
+        </td>
+
+        <td>
+          <span data-ng-if="betStatus!='4'">Cancelled</span>
+
+          <span
+            data-ng-if="betStatus=='4' && betHistory.pnl<0"
+            data-ng-class="betHistory.pnl<0?'red':''"
+            >({{betHistory.pnl | number:2}})</span
+          >
+
+          <span
+            data-ng-if="betStatus=='4' && betHistory.pnl>=0"
+            data-ng-class="betHistory.pnl<0?'red':''"
+            >{{betHistory.pnl | number:2}}</span
+          >
+        </td>
+      </tr>
+
+      <tr
+        data-ng-repeat-end
+        id="bet_{{betHistory.betId}}"
+        class="expand"
+        style="display: none"
+      >
+        <td colspan="2"></td>
+
+        <td colspan="8">
+          <img
+            class="expand-arrow"
+            src="images/account/transparent.gif"
+            alt="account"
+          />
+
+          <table style="text-align: right">
+            <tbody>
+              <tr>
+                <th>Bet taken</th>
+
+                <th style="width: 16%">Odds req.</th>
+
+                <th style="width: 17%">Stake</th>
+
+                <th style="width: 24%">Liability</th>
+
+                <th style="width: 24%">Odds matched</th>
+              </tr>
+
+              <tr class="even">
+                <td>
+                  <span id="betTaken" class="small-date"
+                    >{{betHistory.betPlaced}}</span
+                  >
+                </td>
+
+                <td id="txOddsReq">{{betHistory.odds | oddDecimal}}</td>
+
+                <td id="txStake">{{betHistory.stake | number:2}}</td>
+
+                <td
+                  id="txLiability"
+                  data-ng-if="betHistory.type=='Back' || betHistory.type=='Yes'"
+                >
+                  -
+                </td>
+
+                <td
+                  class="red"
+                  data-ng-if="betHistory.type=='Lay' || betHistory.type=='No'"
+                >
+                  ({{betHistory.type=='Lay'?(betHistory.odds-1)*betHistory.stake:(betHistory.odds.split('@')[1]*betHistory.stake)/100
+                  | number:2}})
+                </td>
+
+                <td id="txOddsMatched">{{betHistory.avgOdds | oddDecimal}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="table-other" data-ng-if="getBetHistoryList.length!=0">
+    Betting History is shown net of commission.
+  </p>
+
+  <pagination
+    ng-model="currentPage"
+    total-items="todos.length"
+    max-size="maxSize"
+    boundary-links="true"
+  >
+  </pagination>
+
+  <ul class="pages">
+    <!-- <li id="prev"><a href="javascript:void(0);">Prev</a></li> -->
+
+    <!-- <li id="prev"><a href="javascript:void(0);" class="disable" style="pointer-events: none;">First</a></li>
+
+            <li id="prev"><a href="javascript:void(0);" class="disable" style="pointer-events: none;">Prev</a></li>
+
+            <li id="pageNumber"><a href="javascript:void(0);" class="select" style="pointer-events: none;">1</a></li>
+
+            <li id="next"><a href="javascript:void(0);" class="disable" style="pointer-events: none;">Next</a></li>
+
+            <li id="prev"><a href="javascript:void(0);" class="disable" style="pointer-events: none;">Last</a></li> -->
+  </ul>
+
+  <!-- <script type="text/javascript" src="/js/util/PageUtil.js?v=20180111_1515639000000"></script> -->
+
+  <div>
+    <ul style="display: none">
+      <li id="prev"><a href="javascript:void(0);">Prev</a></li>
+
+      <li id="next"><a href="javascript:void(0);">Next</a></li>
+
+      <li id="pageNumber"><a href="javascript:void(0);"></a></li>
+
+      <li id="more"><a href="javascript:void(0);">...</a></li>
+    </ul>
+
+    <ul id="pageNumberContent" class="pages"></ul>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $("#startDate").datetimepicker({
+      format: "Y-m-d H:i:s",
+    });
+
+    $("#endDate").datetimepicker({
+      format: "Y-m-d H:i:s",
+    });
+  });
+</script>

@@ -1,0 +1,735 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title" style="text-align: center">
+          <h1>Match Dashboard - {{ title }}</h1>
+        </div>
+        <div class="button-row ibox-content mob-button">
+          <!-- <button mat-raised-button color="primary" *ngIf="sprtID!=null"
+                  [routerLink]="['/betslips',sprtID,mtbfID,title]">Odds Bet Slips</button>
+               <button mat-raised-button color="primary" *ngIf="sprtID==null"
+                  [routerLink]="['/declaredbetslips',matchId,MktId,title]">Odds Bet Slips</button>
+               <button mat-raised-button color="primary" *ngIf="sprtID!=null"
+                  [routerLink]="['/sessionbetslips',sprtID,mtbfID,title]">Fancy Bet Slips</button>
+               <button mat-raised-button color="primary" *ngIf="sprtID=='4'"
+                  [routerLink]="['/bmbetslips',sprtID,mtbfID,title]">BookMaker Bet Slips</button>
+               <button mat-raised-button color="primary" *ngIf="sprtID==null"
+                  [routerLink]="['/declaredsessionbetslips',matchId,MktId,title]">Fancy Bet Slip</button>
+               <button mat-raised-button color="primary" *ngIf="sprtID!=null"
+                  [routerLink]="['/analysismarket',sprtID,mtbfID,matchId,'1']">Live Report</button> -->
+          <!-- <button
+            mat-raised-button
+            color="primary"
+            *ngIf="sprtID != null"
+            [routerLink]="[
+              '/sport/AllMatch/marketreport',
+              sprtID,
+              mtbfID,
+              title
+            ]"
+          >
+            Market Report
+          </button> -->
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="sprtID == null"
+            [routerLink]="[
+              '/sport/matches/companyreport',
+              matchId,
+              MktId,
+              title
+            ]"
+          >
+            Company Report
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="sprtID == null"
+            [routerLink]="[
+              '/sport/matches/clientreport',
+              matchId,
+              MktId,
+              title
+            ]"
+          >
+            Client Report
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="sprtID == null"
+            [routerLink]="[
+              '/sport/matches/clientcollectionreport',
+              matchId,
+              title
+            ]"
+          >
+            Collection Report
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="sprtID == null"
+            [routerLink]="[
+              '/sport/matches/sessionearningrepport',
+              matchId,
+              title
+            ]"
+          >
+            Session Earning Report
+          </button>
+        </div>
+        <div class="row" *ngIf="sprtID != null">
+          <div class="col-xs-12 col-lg-12 no-padding">
+            <div class="row">
+              <div
+                class="col-md-5 no-padding"
+                style="padding-right: 5px !important"
+              >
+                <div class="col-xs-12 no-padding">
+                  <div class="matchdiv">
+                    <div
+                      class="matchOpenBox_"
+                      *ngFor="let mkt of AllMarkets; trackBy: trackByFn"
+                    >
+                      <div class="fullrow fullrownew">
+                        <div class="pre-text">
+                          {{ mkt.name }} [{{ Event.eventDate }}]
+                        </div>
+                      </div>
+                      <div
+                        class="fullrow MatchIndentB"
+                        style="position: relative"
+                      >
+                        <table class="table table-striped bulk_actions">
+                          <tbody>
+                            <tr class="headings mobile_heading">
+                              <th class="fix_heading color_red">
+                                <!-- {{ mkt.name }} -->
+                              </th>
+                              <th></th>
+                              <th></th>
+                              <th class="back_heading_color">BACK</th>
+                              <th class="lay_heading_color">LAY</th>
+                              <th></th>
+                              <th></th>
+                            </tr>
+                            <tr
+                              class="back_lay_color"
+                              *ngFor="
+                                let runner of mkt.runnerData;
+                                trackBy: trackByFn
+                              "
+                              id="selection_{{
+                                runner.runnerName | removeSpace
+                              }}"
+                            >
+                              <td>
+                                <p class="runner_text">
+                                  {{ runner.runnerName }}
+                                </p>
+                                <span
+                                  class="runner_amount"
+                                  [ngClass]="{
+                                    'text-danger': runner.book < 0,
+                                    'text-success': runner.book >= 0
+                                  }"
+                                  ><b>{{
+                                    runner.book | number: "1.2-2"
+                                  }}</b></span
+                                >
+                              </td>
+                              <td class="back-3 hidden-xs">
+                                <span>{{ runner.back3 }}</span>
+                                <span>{{ runner.backSize3 }}</span>
+                              </td>
+                              <td class="back-2 hidden-xs">
+                                <span>{{ runner.back2 }}</span>
+                                <span>{{ runner.backSize2 }}</span>
+                              </td>
+                              <td class="back-1 mark-back">
+                                <span>{{ runner.back1 }}</span>
+                                <span>{{ runner.backSize1 }}</span>
+                              </td>
+                              <!--- availableToLay -->
+                              <td class="lay-1 mark-lay">
+                                <span>{{ runner.lay1 }}</span>
+                                <span>{{ runner.laySize1 }}</span>
+                              </td>
+                              <td class="lay-2 hidden-xs">
+                                <span>{{ runner.lay2 }}</span>
+                                <span>{{ runner.laySize2 }}</span>
+                              </td>
+                              <td class="lay-3 hidden-xs">
+                                <span>{{ runner.lay3 }}</span>
+                                <span>{{ runner.laySize3 }}</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div
+                    class="fullrow fullrownew"
+                    *ngFor="let book of BookRates; trackBy: trackByFn"
+                  >
+                    <div class="pre-text">
+                      <span class="inplay_txt" *ngIf="Event.isInplay == 1">
+                        In-play
+                      </span>
+                      {{ book.name }}
+                    </div>
+
+                    <div
+                      class="fullrow MatchIndentB"
+                      style="position: relative"
+                    >
+                      <table class="table table-striped bulk_actions">
+                        <tbody>
+                          <tr class="headings mobile_heading">
+                            <th class="fix_heading color_red">
+                              Min stake:{{ book.minStake }}<br />Max stake:{{
+                                book.maxStake
+                              }}
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th class="back_heading_color">BACK</th>
+                            <th class="lay_heading_color">LAY</th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                          <tr
+                            class="back_lay_color BmBook"
+                            *ngFor="
+                              let runner of book.runnerData;
+                              trackBy: trackByName
+                            "
+                          >
+                            <td>
+                              <p class="runner_text">{{ runner.name }}</p>
+                              <span
+                                class="runner_amount"
+                                [ngClass]="{
+                                  'text-danger': runner.book < 0,
+                                  'text-success': runner.book >= 0
+                                }"
+                                ><b>{{
+                                  runner.book | number: "1.2-2"
+                                }}</b></span
+                              >
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td
+                              *ngIf="runner.ballStatus != ''"
+                              colspan="2"
+                              style="
+                                background: #00000026;
+                                padding-top: 15px !important;
+                              "
+                            >
+                              SUSPENDED
+                            </td>
+                            <td
+                              *ngIf="runner.ballStatus == ''"
+                              class="mark-back"
+                            >
+                              <span>{{ runner.backPrice }}</span>
+                              <span>{{ runner.backSize }}</span>
+                            </td>
+                            <td
+                              *ngIf="runner.ballStatus == ''"
+                              class="mark-lay"
+                            >
+                              <span>{{ runner.layPrice }}</span>
+                              <span>{{ runner.laySize }}</span>
+                            </td>
+                            <td style="background: transparent"></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="divmarketbody">
+                    <div class="divmarketbody">
+                      <div class="table-responsive">
+                        <table
+                          class="table table-striped table-bordered table-hover"
+                          *ngIf="fancyData.length > 0"
+                          style="font-weight: bolder"
+                        >
+                          <thead>
+                            <tr>
+                              <th class="col-xs-6 text-left">Sessions</th>
+                              <!-- <th class="col-xs-3 text-center layheader">No [K]</th>
+                                          <th class="col-xs-3 text-center backheader">Yes [L]</th> -->
+                              <!-- <th class="col-xs-1 no-padding hidden-xs"></th>
+                              <th class="col-xs-1 no-padding hidden-xs"></th> -->
+                              <th class="col-xs-1 backheader text-center">
+                                No
+                              </th>
+                              <th class="col-xs-1 layheader text-center">
+                                Yes
+                              </th>
+                              <th class="col-xs-1 no-padding hidden-xs"></th>
+                              <!-- <th class="col-xs-1 no-padding hidden-xs"></th> -->
+                            </tr>
+                          </thead>
+                          <tbody
+                            style=""
+                            *ngFor="let fancy of fancyData; trackBy: trackByFn"
+                          >
+                            <!-- <tr>
+                                          <td colspan="2" style="background: #000;color: #fff;font-weight: bolder;font-size: 12px">{{fancy.name}}</td>
+                                      </tr> -->
+                            <tr>
+                              <td
+                                class="col-xs-6 text-left"
+                                style="font-size: 12px; line-height: 1.128571"
+                              >
+                                <p style="margin: 0">
+                                  <img
+                                    *ngIf="fancy.isActive == 0 && userId == 1"
+                                    src="assets/img/play.ico"
+                                    height="20px"
+                                    alt="play_icon"
+                                    (click)="UpdateFancyStatus(fancy.id, 1)"
+                                  />
+                                  <img
+                                    *ngIf="fancy.isActive == 1 && userId == 1"
+                                    src="assets/img/pause.ico"
+                                    alt="pause_icon"
+                                    height="20px"
+                                    style="margin-right: 5px"
+                                    (click)="UpdateFancyStatus(fancy.id, 0)"
+                                  />
+                                  {{ fancy.name }}
+                                  <button
+                                    class="btn btn-xs btn-danger"
+                                    (click)="openfancybookDialog(fancy)"
+                                    style="float: right; padding: 6px"
+                                  >
+                                    Book
+                                  </button>
+                                </p>
+                                <p style="margin: 0; margin-top: 3px">
+                                  <span
+                                    class="sessionlibility no-padding"
+                                    style="color: #ff0000"
+                                    >Libility :
+                                    <b
+                                      [ngClass]="{
+                                        'text-danger': fancy.book < 0,
+                                        'text-success': fancy.book >= 0
+                                      }"
+                                    >
+                                      {{ fancy.book | number: "1.2-2":0 }}
+                                    </b>
+                                  </span>
+                                </p>
+                              </td>
+                              <!-- <td
+                                *ngIf="fancy.ballStatus == ''"
+                                class="col-xs-1 no-padding hidden-xs"
+                              ></td>
+                              <td
+                                *ngIf="fancy.ballStatus == ''"
+                                class="col-xs-1 no-padding hidden-xs"
+                              ></td> -->
+                              <td
+                                *ngIf="fancy.ballStatus == ''"
+                                class="col-xs-1 text-center sessionbetbox Laycolor"
+                                style="
+                                  background-color: rgb(255, 202, 213);
+                                  line-height: 1.128571;
+                                "
+                              >
+                                <p style="margin: 0">
+                                  {{ fancy.noScore }}
+                                </p>
+                                <p
+                                  style="
+                                    margin: 0;
+                                    margin-top: 2px;
+                                    font-size: 10px;
+                                  "
+                                >
+                                  {{ fancy.noRate }}
+                                </p>
+                              </td>
+                              <td
+                                *ngIf="fancy.ballStatus == ''"
+                                class="col-xs-1 text-center sessionbetbox BackColor"
+                                style="
+                                  background-color: rgb(174, 219, 251);
+                                  line-height: 1.128571;
+                                "
+                              >
+                                <p style="margin: 0">
+                                  {{ fancy.yesScore }}
+                                </p>
+                                <p
+                                  style="
+                                    margin: 0;
+                                    margin-top: 2px;
+                                    font-size: 10px;
+                                  "
+                                >
+                                  {{ fancy.yesRate }}
+                                </p>
+                              </td>
+                              <td
+                                *ngIf="fancy.ballStatus == ''"
+                                class="col-xs-1 no-padding hidden-xs"
+                              >
+                                Min: {{ fancy.minStake }}<br />Max:
+                                {{ fancy.maxStake }}
+                              </td>
+                              <!-- <td
+                                *ngIf="fancy.ballStatus == ''"
+                                class="col-xs-1 no-padding hidden-xs"
+                              ></td> -->
+                              <!-- <td
+                                *ngIf="fancy.ballStatus == ''"
+                                class="col-xs-1 no-padding hidden-xs"
+                              ></td> -->
+                              <td
+                                *ngIf="fancy.ballStatus != ''"
+                                class="col-xs-6 no-padding"
+                                colspan="4"
+                                style="
+                                  font-weight: bold;
+                                  color: red;
+                                  text-align: center;
+                                  vertical-align: middle;
+                                "
+                              >
+                                {{ fancy.ballStatus }}
+                              </td>
+                            </tr>
+                            <!--  <tr data-ng-if="fancy.ballStatus=='SUSPENDED'">
+                                          <td colspan="2" style="font-weight: bold;color: red">SUSPENDED...</td>
+                                      </tr>
+                                      <tr data-ng-if="fancy.ballStatus=='INACTIVE'">
+                                          <td colspan="2" style="font-weight: bold;color: red">INACTIVE...</td>
+                                      </tr>
+                                      <tr data-ng-if="fancy.ballStatus=='BALL RUNNING...'">
+                                          <td colspan="2" style="font-weight: bold;color: red">BALL START...</td>
+                                      </tr> -->
+                            <!-- <tr>
+                                          <td>
+                                              <div class="col-xs-12 no-padding">
+                                                  <div class="col-xs-8 no-padding">
+                                                      <span class="sessionlibility no-padding" style="color: #ff0000;">Libility : <b id="fancy_book_{{fancy.id}}"></b></span>
+                                                  </div>
+                                                  <div class="col-xs-4 no-padding">
+                                                      <span class="label label-danger cursor-pointer" data-toggle="modal" data-target="#FancybookModal" data-ng-click="GetAnalysisFancyBook(fancy.id)">Book</span>
+                                                  </div>
+                                              </div>
+                                          </td>
+                                          <td>
+                                              <div class="col-xs-12 no-padding">
+                                                  <div class="no-padding"><span class="">Min / Max:</span> <span class="label label-warning cursor-pointer">{{fancy.minStake}}<b>-</b>{{fancy.maxStake}}</span></div>
+                                              </div>
+                                          </td>
+                                      </tr> -->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7 no-padding">
+                <div class="col no-padding">
+                  <div class="tabs">
+                    <div class="tab">
+                      <input type="checkbox" (change)="openTv()" id="chck2" />
+                      <label class="tab-label" for="chck2">Live TV</label>
+                      <div class="tab-content" style="height: 280px">
+                        <div
+                          id="streamingBox"
+                          class="tv-fix"
+                          style="display: none"
+                        >
+                          <div class="tv-wrap" style="text-align: center">
+                            <iframe
+                              id="iframeTv"
+                              style="height: 270px; width: 520px"
+                            ></iframe>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="tab">
+                      <input type="checkbox" id="chck1" />
+                      <label class="tab-label" for="chck1"
+                        >UnMatch Bets[{{
+                          unMatchedBetdata?.length != 0
+                            ? unMatchedBetdata?.length
+                            : 0
+                        }}]</label
+                      >
+                      <div class="tab-content">
+                        <div
+                          class="ibox float-e-margins"
+                          style="overflow-y: auto; height: 250px;"
+                        >
+                          <div class="table-responsive">
+                            <table class="table table-bordered">
+                              <tbody>
+                                <tr class="heading_user_table">
+                                  <td>No.</td>
+                                  <td>Runner</td>
+                                  <td>Bet type</td>
+                                  <td>Client</td>
+                                  <td>Odds</td>
+                                  <td>Stake</td>
+                                  <td>P&amp;L</td>
+                                  <td>Time</td>
+                                  <td>ID</td>
+                                  <td>Action</td>
+                                  <td>IP</td>
+                                  <td>Master</td>
+                                  <td>Dealer</td>
+                                </tr>
+                                <tr
+                                  class="mark-back content_user_table"
+                                  *ngFor="
+                                    let bet of unMatchedBetdata;
+                                    let index = index
+                                  "
+                                >
+                                  <td class="mark-back">{{ index }}</td>
+                                  <td class="mark-back">
+                                    {{ bet.runnerName }}
+                                  </td>
+                                  <td class="mark-back">
+                                    {{ bet.backLay }}
+                                  </td>
+                                  <td class="mark-back">
+                                    {{ bet.clUsername }}
+                                  </td>
+                                  <td class="mark-back">{{ bet.odds }}</td>
+                                  <td class="mark-back">{{ bet.stake }}</td>
+                                  <td class="mark-back">
+                                    {{
+                                      (bet.odds - 1) * bet.stake
+                                        | number: "2.2-2"
+                                    }}
+                                  </td>
+                                  <td class="mark-back redtext">
+                                    {{ bet.date }}
+                                  </td>
+                                  <td class="mark-back">{{ bet.id }}</td>
+                                  <td class="mark-back">
+                                    <i
+                                      class="fa fa-trash"
+                                      aria-hidden="true"
+                                      style="color: red;"
+                                      (click)="openDeleteBetDialog(bet)"
+                                    ></i>
+                                  </td>
+                                  <td
+                                    class="mark-back"
+                                    title="{{ bet.sourceInfo }}"
+                                  >
+                                    {{ bet.sourceInfo.split("IP: ")[1] }}
+                                  </td>
+                                  <td class="mark-back">
+                                    {{ bet.masterUsername }}
+                                  </td>
+                                  <td class="mark-back">
+                                    {{ bet.agentUsername }}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+
+                    <div class="tab">
+                      <input type="checkbox" id="chck3" />
+                      <label class="tab-label" for="chck3"
+                        >Match Odds Bets[{{
+                          MObetdata?.length != 0 ? MObetdata?.length : 0
+                        }}]</label
+                      >
+                      <div class="tab-content">
+                        <betList
+                          [data]="allBetCols"
+                          [rowData]="MObetdata"
+                          [type]="userId"
+                        >
+                        </betList>
+                      </div>
+                    </div>
+
+                    <div class="tab">
+                      <input type="checkbox" id="chck4" />
+                      <label class="tab-label" for="chck4"
+                        >Fancy Bets[{{
+                          fancyBetdata?.length != 0 ? fancyBetdata?.length : 0
+                        }}]</label
+                      >
+                      <div class="tab-content">
+                        <betList [data]="fancyBetCols" [rowData]="fancyBetdata">
+                        </betList>
+                      </div>
+                    </div>
+
+                    <div class="tab">
+                      <input type="checkbox" id="chck5" />
+                      <label class="tab-label" for="chck5"
+                        >Book Making Bets[{{
+                          bmBetdata?.length != 0 ? bmBetdata?.length : 0
+                        }}]</label
+                      >
+                      <div class="tab-content">
+                        <betList [data]="bmBetCols" [rowData]="bmBetdata">
+                        </betList>
+                      </div>
+                    </div>
+
+                    <div class="tab">
+                      <input type="checkbox" id="chck6" />
+                      <label class="tab-label" for="chck6">Admin Book</label>
+                      <div class="tab-content">
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <tbody>
+                              <tr class="heading_user_table">
+                                <td>MDL &nbsp;<small>[ UserName ]</small></td>
+                                <td>Runner</td>
+                                <td>Bet type</td>
+                                <td>Bet type</td>
+                              </tr>
+                              <!-- <tr class="mark-back content_user_table" *ngFor="
+                                let book of bmBetdata;
+                                let index = index
+                              ">
+                                  <td>MDL &nbsp;<small>[ UserName ]</small></td>
+                                  <td>Runner</td>
+                                  <td>Bet type</td>
+                                  <td>Bet type</td>
+                                </tr> -->
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab">
+                      <input type="checkbox" id="chck7" />
+                      <label class="tab-label" for="chck7">Admin BM Book</label>
+                      <div class="tab-content">
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <tbody>
+                              <tr class="heading_user_table">
+                                <td>MDL &nbsp;<small>[ UserName ]</small></td>
+                                <td>Runner</td>
+                                <td>Bet type</td>
+                                <td>Bet type</td>
+                              </tr>
+                              <!-- <tr class="mark-back content_user_table" *ngFor="
+                                let book of bmBetdata;
+                                let index = index
+                              ">
+                                  <td>MDL &nbsp;<small>[ UserName ]</small></td>
+                                  <td>Runner</td>
+                                  <td>Bet type</td>
+                                  <td>Bet type</td>
+                                </tr> -->
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab">
+                      <input type="checkbox" id="chck8" />
+                      <label class="tab-label" for="chck8"
+                        >Settled Markets[{{
+                          sessionpnlreport?.length != 0
+                            ? sessionpnlreport?.length
+                            : 0
+                        }}]</label
+                      >
+                      <div class="tab-content">
+                        <div
+                          class="ibox float-e-margins"
+                          style="overflow-y: auto; height: 250px"
+                        >
+                          <div class="table-responsive">
+                            <div class="table-responsive">
+                              <table class="table table-bordered">
+                                <tbody>
+                                  <tr class="heading_user_table">
+                                    <td>Market Name</td>
+                                    <td>Result</td>
+                                    <td>P|L</td>
+                                  </tr>
+                                  <tr
+                                    class="mark-back content_user_table"
+                                    *ngFor="
+                                      let item of sessionpnlreport;
+                                      let index = index
+                                    "
+                                  >
+                                    <td>
+                                      {{ item.market }}
+                                    </td>
+                                    <td>{{ item.result }}</td>
+                                    <td
+                                      [ngClass]="
+                                        item.position >= 0
+                                          ? 'text-success'
+                                          : 'text-danger'
+                                      "
+                                    >
+                                      {{ item.position }}
+                                    </td>
+                                  </tr>
+                                  <tr class="heading_user_table">
+                                    <td>Declared Market Total</td>
+                                    <td></td>
+                                    <td
+                                      [ngClass]="
+                                        totalsessionpnl >= 0
+                                          ? 'text-success'
+                                          : 'text-danger'
+                                      "
+                                    >
+                                      {{ totalsessionpnl }}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

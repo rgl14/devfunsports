@@ -1,0 +1,81 @@
+<!-- <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Log in</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="loginForm" (ngSubmit)="!loginForm.invalid && login()" class="example-form">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input type="text" matInput placeholder="Username" formControlName="username">
+        </mat-form-field>
+        <mat-error *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].invalid">
+          Username is required
+        </mat-error>
+
+        <mat-form-field class="example-full-width">
+          <input type="password" matInput placeholder="Password" formControlName="pwd">
+        </mat-form-field>
+        <mat-error *ngIf="loginForm.controls['pwd'].touched && loginForm.controls['pwd'].invalid">
+          Password is required
+        </mat-error>
+      </mat-card-content>
+      <button type="submit" mat-stroked-button color="accent" class="btn-block" [disabled]="loginForm.invalid">Log
+        in</button>
+    </form>
+  </mat-card>
+
+</div> -->
+<div id="loginBackground">
+  <!-- <div id="loginRoot" > -->
+  <div id="formRoot">
+    <form
+      id="loginForm"
+      [formGroup]="loginForm"
+      (ngSubmit)="!loginForm.invalid && login()"
+    >
+      <div class="logo">
+        <img src="assets/img/logo.png" alt="GameX" />
+      </div>
+      <div class="input-group">
+        <input
+          style="padding-right: 50px"
+          class="form-input"
+          formControlName="username"
+          [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+          type="text"
+          name="username"
+          placeholder="Username"
+          autocomplete="off"
+        />
+      </div>
+      <div class="input-group">
+        <input
+          class="form-input form-control"
+          formControlName="pwd"
+          [type]="show ? 'text' : 'password'"
+          [ngClass]="{ 'is-invalid': submitted && f.pwd.errors }"
+          name="pwd"
+          id="pwd"
+          placeholder="Password"
+        />
+        <div class="input-group-append">
+          <span (click)="showPassword()" class="input-group-text">
+            <i class="fa fa-eye-slash" style="color: #fff"></i>
+          </span>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-width"
+        [ngClass]="loginForm.valid ? 'raised' : ''"
+        [disabled]="!loginForm.valid"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+  <!-- </div> -->
+</div>

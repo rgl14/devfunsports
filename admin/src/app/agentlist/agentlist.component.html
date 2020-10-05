@@ -1,0 +1,81 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Agent List</h5>
+        </div>
+        <div class="ibox-content-list table-responsive">
+          <mat-nav-list>
+            <mat-list-item
+              [routerLink]="'/manage-clients/0/admin'"
+              *ngIf="userType == '1'"
+            >
+              <i matListIcon class="fa fa-user-secret"></i>
+              <h3 matLine>Double Super</h3>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item
+              [routerLink]="'/manage-clients/0/supermaster'"
+              *ngIf="userType == '1' || userType == '2'"
+            >
+              <i matListIcon class="fa fa-user"></i>
+              <h3 matLine>Super Master</h3>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item
+              [routerLink]="'/manage-clients/0/master'"
+              *ngIf="userType == '1' || userType == '2' || userType == '3'"
+            >
+              <i matListIcon class="fa fa-user-md"></i>
+              <h3 matLine>Master</h3>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item
+              [routerLink]="'/manage-clients/0/superagent'"
+              *ngIf="
+                userType == '1' ||
+                userType == '2' ||
+                userType == '3' ||
+                userType == '4'
+              "
+            >
+              <i matListIcon class="fa fa-user-circle-o"></i>
+              <h3 matLine>Agent</h3>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <!-- <mat-list-item [routerLink]="'/agent'" *ngIf="userType=='2' || userType=='3' || userType=='4' || userType=='5'">
+                                          <i matListIcon class="fa fa-user-o"></i>
+                                          <h3 matLine>Agent</h3>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider> -->
+            <mat-list-item
+              [routerLink]="'/manage-clients/allclients'"
+              *ngIf="userType == '1'"
+            >
+              <i matListIcon class="fa fa-users"></i>
+              <h3 matLine>All Client</h3>
+            </mat-list-item>
+            <mat-list-item
+              [routerLink]="'/manage-clients/0/clients'"
+              *ngIf="userType == '3' || userType == '4' || userType == '5'"
+            >
+              <i matListIcon class="fa fa-users"></i>
+              <h3 matLine>Client</h3>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="'/manage-clients/updatelimit'">
+              <i matListIcon class="fa fa-wrench"></i>
+              <h3 matLine>Update Limit</h3>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="'/manage-clients/blockedclient'">
+              <i matListIcon class="fa fa-ban"></i>
+              <h3 matLine>Blocked Clients</h3>
+            </mat-list-item>
+          </mat-nav-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

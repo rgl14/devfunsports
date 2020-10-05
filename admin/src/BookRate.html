@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="apple-touch-icon" href="images/favicon.png">
+      <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+      <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+     
+      <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/body.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/table.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/table2.css">
+      <link rel="stylesheet" href="assets/css/jquery.toast.min.css">
+      <style>
+         .input-group .form-control{
+         text-align: left;
+         }
+         p {
+         margin: 0 0 5px;
+         }
+         .sessiontextbox input[type="text"] {
+         line-height: 40px;
+         font-size: 18px;
+         letter-spacing: 1px;
+         font-weight: 700;
+         padding-left: 5px;
+         padding-right: 5px;
+         border: 1px solid lightgrey;
+         border-radius: 2px;
+         }
+         .checkbox {
+         padding-left: 20px;
+         }
+         .checkbox label {
+         display: inline-block;
+         vertical-align: middle;
+         position: relative;
+         padding-left: 5px;
+         }
+         .checkbox label::before {
+         content: "";
+         display: inline-block;
+         position: absolute;
+         width: 17px;
+         height: 17px;
+         left: 0;
+         margin-left: -20px;
+         border: 1px solid #cccccc;
+         border-radius: 3px;
+         background-color: #fff;
+         -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+         -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+         transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+         }
+         .checkbox label::after {
+         display: inline-block;
+         position: absolute;
+         width: 16px;
+         height: 16px;
+         left: 0;
+         top: 0;
+         margin-left: -20px;
+         padding-left: 3px;
+         padding-top: 1px;
+         font-size: 11px;
+         color: #555555;
+         }
+         .input-group-addon{
+         padding: 5px 5px;
+         }
+         .checkbox input[type="checkbox"],
+         .checkbox input[type="radio"] {
+         opacity: 0;
+         z-index: 1;
+         }
+         .checkbox input[type="checkbox"]:focus + label::before,
+         .checkbox input[type="radio"]:focus + label::before {
+         outline: thin dotted;
+         outline: 5px auto -webkit-focus-ring-color;
+         outline-offset: -2px;
+         }
+         .checkbox input[type="checkbox"]:checked + label::after,
+         .checkbox input[type="radio"]:checked + label::after {
+         font-family: "FontAwesome";
+         content: "\f00c";
+         }
+         .checkbox input[type="checkbox"]:disabled + label,
+         .checkbox input[type="radio"]:disabled + label {
+         opacity: 0.65;
+         }
+         .checkbox input[type="checkbox"]:disabled + label::before,
+         .checkbox input[type="radio"]:disabled + label::before {
+         background-color: #eeeeee;
+         cursor: not-allowed;
+         }
+         .checkbox.checkbox-circle label::before {
+         border-radius: 50%;
+         }
+         .checkbox.checkbox-inline {
+         margin-top: 0;
+         }
+         .checkbox-primary input[type="checkbox"]:checked + label::before,
+         .checkbox-primary input[type="radio"]:checked + label::before {
+         background-color: #337ab7;
+         border-color: #337ab7;
+         }
+         .checkbox-primary input[type="checkbox"]:checked + label::after,
+         .checkbox-primary input[type="radio"]:checked + label::after {
+         color: #fff;
+         }
+         .checkbox-danger input[type="checkbox"]:checked + label::before,
+         .checkbox-danger input[type="radio"]:checked + label::before {
+         background-color: #d9534f;
+         border-color: #d9534f;
+         }
+         .checkbox-danger input[type="checkbox"]:checked + label::after,
+         .checkbox-danger input[type="radio"]:checked + label::after {
+         color: #fff;
+         }
+         .checkbox-info input[type="checkbox"]:checked + label::before,
+         .checkbox-info input[type="radio"]:checked + label::before {
+         background-color: #5bc0de;
+         border-color: #5bc0de;
+         }
+         .checkbox-info input[type="checkbox"]:checked + label::after,
+         .checkbox-info input[type="radio"]:checked + label::after {
+         color: #fff;
+         }
+         .checkbox-warning input[type="checkbox"]:checked + label::before,
+         .checkbox-warning input[type="radio"]:checked + label::before {
+         background-color: #f0ad4e;
+         border-color: #f0ad4e;
+         }
+         .checkbox-warning input[type="checkbox"]:checked + label::after,
+         .checkbox-warning input[type="radio"]:checked + label::after {
+         color: #fff;
+         }
+         .checkbox-success input[type="checkbox"]:checked + label::before,
+         .checkbox-success input[type="radio"]:checked + label::before {
+         background-color: #5cb85c;
+         border-color: #5cb85c;
+         }
+         .checkbox-success input[type="checkbox"]:checked + label::after,
+         .checkbox-success input[type="radio"]:checked + label::after {
+         color: #fff;
+         }
+         .radio {
+         padding-left: 20px;
+         }
+         .radio label {
+         display: inline-block;
+         vertical-align: middle;
+         position: relative;
+         padding-left: 5px;
+         }
+         .radio label::before {
+         content: "";
+         display: inline-block;
+         position: absolute;
+         width: 17px;
+         height: 17px;
+         left: 0;
+         margin-left: -20px;
+         border: 1px solid #cccccc;
+         border-radius: 50%;
+         background-color: #fff;
+         -webkit-transition: border 0.15s ease-in-out;
+         -o-transition: border 0.15s ease-in-out;
+         transition: border 0.15s ease-in-out;
+         }
+         .radio label::after {
+         display: inline-block;
+         position: absolute;
+         content: " ";
+         width: 11px;
+         height: 11px;
+         left: 3px;
+         top: 3px;
+         margin-left: -20px;
+         border-radius: 50%;
+         background-color: #555555;
+         -webkit-transform: scale(0, 0);
+         -ms-transform: scale(0, 0);
+         -o-transform: scale(0, 0);
+         transform: scale(0, 0);
+         -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+         -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+         -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+         transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+         }
+         .radio input[type="radio"] {
+         opacity: 0;
+         z-index: 1;
+         }
+         .radio input[type="radio"]:focus + label::before {
+         outline: thin dotted;
+         outline: 5px auto -webkit-focus-ring-color;
+         outline-offset: -2px;
+         }
+         .radio input[type="radio"]:checked + label::after {
+         -webkit-transform: scale(1, 1);
+         -ms-transform: scale(1, 1);
+         -o-transform: scale(1, 1);
+         transform: scale(1, 1);
+         }
+         .radio input[type="radio"]:disabled + label {
+         opacity: 0.65;
+         }
+         .radio input[type="radio"]:disabled + label::before {
+         cursor: not-allowed;
+         }
+         .radio.radio-inline {
+         margin-top: 0;
+         }
+         .radio-primary input[type="radio"] + label::after {
+         background-color: #337ab7;
+         }
+         .radio-primary input[type="radio"]:checked + label::before {
+         border-color: #337ab7;
+         }
+         .radio-primary input[type="radio"]:checked + label::after {
+         background-color: #337ab7;
+         }
+         .radio-danger input[type="radio"] + label::after {
+         background-color: #d9534f;
+         }
+         .radio-danger input[type="radio"]:checked + label::before {
+         border-color: #d9534f;
+         }
+         .radio-danger input[type="radio"]:checked + label::after {
+         background-color: #d9534f;
+         }
+         .radio-info input[type="radio"] + label::after {
+         background-color: #5bc0de;
+         }
+         .radio-info input[type="radio"]:checked + label::before {
+         border-color: #5bc0de;
+         }
+         .radio-info input[type="radio"]:checked + label::after {
+         background-color: #5bc0de;
+         }
+         .radio-warning input[type="radio"] + label::after {
+         background-color: #f0ad4e;
+         }
+         .radio-warning input[type="radio"]:checked + label::before {
+         border-color: #f0ad4e;
+         }
+         .radio-warning input[type="radio"]:checked + label::after {
+         background-color: #f0ad4e;
+         }
+         .radio-success input[type="radio"] + label::after {
+         background-color: #5cb85c;
+         }
+         .radio-success input[type="radio"]:checked + label::before {
+         border-color: #5cb85c;
+         }
+         .radio-success input[type="radio"]:checked + label::after {
+         background-color: #5cb85c;
+         }
+         input[type="checkbox"].styled:checked + label:after,
+         input[type="radio"].styled:checked + label:after {
+         font-family: 'FontAwesome';
+         content: "\f00c";
+         }
+         input[type="checkbox"] .styled:checked + label::before,
+         input[type="radio"] .styled:checked + label::before {
+         color: #fff;
+         }
+         input[type="checkbox"] .styled:checked + label::after,
+         input[type="radio"] .styled:checked + label::after {
+         color: #fff;
+         }
+         .label-success,
+         .badge-success {
+         background-color: #1c84c6;
+         color: #FFFFFF;
+         }
+         .label-danger,
+         .badge-danger {
+         background-color: #ed5565;
+         color: #FFFFFF;
+         }
+         .fixedwithlbl {
+         min-width: 20px;
+         padding: 5px 10px;
+         }
+         .label-warning,
+         .badge-warning {
+         background-color: #f8ac59;
+         color: #FFFFFF;
+         }
+         #trMarket3600_bets_52:hover{
+         background-color: lightpink;
+         }
+         #trMarket3600_bets_51:hover{
+         background-color: lightblue;
+         }
+         .tr1{
+         background-color:#ffffff;
+         }
+         #save-shortcut-key{
+         background-color: #fd9a2e;
+         }
+         .BACK{
+         background-color: #a6d8ff; 
+         }
+         .LAY{
+         background-color: #f694aa;  
+         }
+      </style>
+      <title>
+         Book Making
+      </title>
+      <style type="text/css">
+         th,td{
+         white-space: nowrap;
+         text-align: center;
+         }
+         .redval{
+         color: red;
+         }
+         .greenval{
+         color: green;
+         }
+      </style>
+   </head>
+   <body ng-app="myBookmaking" ng-controller="Booksettingcontroller" class="fixed-sidebar no-skin-config full-height-layout pace-done body-small">
+      <div class="pace  pace-inactive">
+      <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);"></div>
+      <div id="wrapper">
+      <div class="gray-bg">
+      <div class="row wrapper border-bottom white-bg page-heading">
+         <div class="col-lg-12">
+            <input type="hidden" ng-model="eventId" name="">
+            <h2><span><span>{{sport}}</span> &gt; <span>{{competition}}</span> &gt; <span>{{eventName}}</span> &gt; <span>{{headerName}}</span></span></h2>
+         </div>
+      </div>
+      <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+      <div class="col-lg-12 no-padding">
+      <div class="ibox" id="divfancyentry">
+      <div class="ibox-content">
+      <div class="row">
+         <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-1 col-sm-2 col-xs-6 no-padding">
+               <div class="radio radio-danger inline">
+                  <input type="radio" name="rbtnstatus" id="rbtInactive" ng-model="Inactivestatus" value="active" ng-click="EditBookStatus(2)">
+                  <label for="Inactivestatus">
+                  Inactive
+                  </label>
+                  <input type="text" ng-model="Fancyid" name="" hidden>
+               </div>
+            </div>
+            <div class="col-md-1 col-sm-2 col-xs-6 no-padding">
+               <div class="radio radio-danger inline">
+                  <input type="radio" name="rbtnstatus" id="rbtclosed" ng-model="Closedstatus" value="closed" ng-click="EditBookStatus(6)">
+                  <label for="Closedstatus">
+                  Close
+                  </label>
+               </div>
+            </div>
+            <div class="col-md-1 col-sm-2 col-xs-6 no-padding">
+               <div class="checkbox checkbox-success no-bottom-margin inline" style="margin-top: 5px !important">
+                  <input ng-model="ChkIsBetAllow" ng-if="chkbxbetallow==1" ng-click="EditBetStatus(0)" type="checkbox" checked>
+                  <input ng-model="ChkIsBetAllow" ng-if="chkbxbetallow==0" ng-click="EditBetStatus(1)" type="checkbox">
+                  <label for="ChkIsBetAllow">
+                  Bet Allow
+                  </label>
+               </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 no-padding">
+               <div class="form-group">
+                  <div class="input-daterange input-group">
+                     <input type="number" id="betDelay" ng-model="betDelay" ng-blur="EditBookSettings()" class="input-sm form-control text-right clsOpenClass" min="1" max="100">
+                     <span class="input-group-addon gray-bg">Bet Delay</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-2 col-sm-4 col-xs-6">
+               <div class="form-group">
+                  <div class="input-daterange input-group">
+                     <input type="number" id="Text-Rate_difference" ng-model="txt_Rate_difference" ng-blur="EditBookSettings()" class="input-sm form-control text-right clsOpenClass" step="0.01" min="0.25" max="100">
+                     <span class="input-group-addon gray-bg ">Rate Different</span>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+               <div class="form-group">
+                  <div class="input-daterange input-group">
+                     <input type="number" maxlength="10" id="Max-Stake-PerRate" ng-model="maxstakeperrate" ng-blur="EditBookSettings()" class="input-sm form-control text-right clsOpenClass" min="1" max="5000000000">
+                     <span class="input-group-addon gray-bg ">Max Stake/Rate</span>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+               <div class="form-group">
+                  <div class="input-daterange input-group">
+                     <input type="number" id="Minimum-Stake" ng-model="txtMinStack" ng-blur="EditBookSettings()" class="input-sm form-control text-right clsOpenClass" min="1" max="1000000000">
+                     <span class="input-group-addon gray-bg">Min Stake</span>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+               <div class="form-group">
+                  <div class="input-daterange input-group">
+                     <input type="number" id="Maximum-Stake" ng-model="txtMaxStack" ng-blur="EditBookSettings()" class="input-sm form-control text-right clsOpenClass" min="1" max="1000000000">
+                     <span class="input-group-addon gray-bg">Max Stake</span>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+               <div class="form-group">
+                  <div class="input-daterange input-group">
+                     <input type="number" id="Minimum-Rate" step="0.01" ng-model="txtMinRate" ng-blur="EditBookSettings()" class="input-sm form-control text-right clsOpenClass" step="0.01" min="0.01" max="100">
+                     <span class="input-group-addon gray-bg">Min Rate</span>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+               <div class="form-group">
+                  <div class="input-daterange input-group">
+                     <input type="number" id="Maximum-Rate" maxlength="15" ng-model="txtMaxRate" ng-blur="EditBookSettings()" class="input-sm form-control text-right clsOpenClass" step="0.01" min="0.01" max="99999999">
+                     <span class="input-group-addon gray-bg">Max Rate</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="clearfix"></div>
+         <div class="clearfix"></div>
+         <div class="col-md-6 col-sm-12 col-xs-12 no-padding top-margin-5px ">
+            <div class="col-md-12 col-sm-12 col-xs-12" id="divmarket">
+               <form>
+                  <table class="col-md-12 col-sm-12 col-xs-12 table table-bordered">
+                     <thead class="matchOddTh">
+                        <tr>
+                           <th class="col-md-3 col-sm-12 col-xs-12 sessionfixkeyword" style="
+                              background:  lightgrey;">Runner Name</th>
+                           <th class="col-md-2 col-sm-12 col-xs-12 sessionfixkeyword bg-YesRate">Back</th>
+                           <th class="col-md-2 col-sm-12 col-xs-12 sessionfixkeyword bg-NoRate">Lay</th>
+                           <th class="col-md-12 col-sm-12 col-xs-12 sessionfixkeyword  blue-bg" colspan="4" style="text-align: center">
+                              ACTION 
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr class="ng-scope" style="" ng-repeat="runner in runnerdata">
+                           <td class="teamA">
+                              <p style="font-weight: bold;font-size: 12px" class="ng-binding">{{runner.name}}</p>
+                              <p class="" id="BmBook-{{$index}}">0</p>
+                           </td>
+                           <td class="matchOdds back BACK" role="button" tabindex="0">
+                              <strong id="BackPrice-{{runner.id}}" class="Odds ng-binding">--</strong>
+                              <br>
+                              <span id="BackSize-{{runner.id}}" class="volume ng-binding">
+                              --
+                              </span>
+                           </td>
+                           <td class="matchOdds lay LAY" role="button" tabindex="0">
+                              <strong id="LayPrice-{{runner.id}}" class="Odds ng-binding">--</strong><br>
+                              <span id="LaySize-{{runner.id}}" class="volume ng-binding">
+                              --
+                              </span>
+                           </td>
+                           <td colspan="4" ng-class="runner0-back" class="matchOdds back1" role="button" tabindex="0">
+                              <div class="col-md-4 col-sm-12 col-xs-12 no-padding sessiontextbox">
+                                 <input type="text" maxlength="12" id="txt-{{runner.id}}" ng-model="txtRateformula" class="input-sm form-control inline text-right clsOpenClass setPlaceRateFontsize" ng-keypress="$event.keyCode == 13 ? BookRate(runner.id,1) : null" ng-keydown="($event.keyCode === 18 || $event.keyCode==17) ? BookRate(runner.id,0) : null" style="text-transform:uppercase">
+                              </div>
+                              <div class="col-md-3 col-sm-12 col-xs-12">
+                                 <div class="radio radio-danger inline">
+                                    <input type="radio" ng-model="rbtnstatus" value="Act-{{runner.id}}" id="rbtact-{{runner.id}}" ng-click="UpdRunnerStatus(runner.id,1)" disabled="disabled">
+                                    <label for="rbtact-{{runner.id}}">
+                                    Active
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-md-5 col-sm-12 col-xs-12">
+                                 <div class="radio radio-danger inline">
+                                    <input type="radio" ng-model="rbtnstatus" value="Ball-{{runner.id}}" id="rbtball-{{runner.id}}" ng-click="UpdRunnerStatus(runner.id,3)" disabled="disabled">
+                                    <label for="rbtball-{{runner.id}}">
+                                    Suspended
+                                    </label>
+                                 </div>
+                              </div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </form>
+            </div>
+         </div>
+         <div class="col-md-6 col-sm-12 col-xs-12" id="divClienbetslisting" style="overflow-x: auto;">
+            <!-- <div class="ibox float-e-margins">
+               <div class="ibox-title">
+                  <div class="ibox-tools">
+                     <a class="collapse-link">
+                     <i class="fa ffdebua-chevron-up"></i>
+                     </a>
+                  </div>
+               </div>
+               <div class="row col-sm-2">
+                  <button class="btn btn-danger" id="Reject-Bet-btn" data-toggle="modal" data-target="#Reject-Multiple-Bet" ng-click="rejectbetids()" style="display: none;margin: 10px;">Reject All Bets</button>
+               </div>
+               <div>
+                  <form>
+                     <table ng-table="tableParams" show-filter="true" class="table table-bordered">
+                        <tr class="{{user.backLay | uppercase}}" ng-repeat="user in $data track by user.id">
+                           <td header="'ng-table/headers/checkbox.html'">
+                              <input ng-checked="checkboxes.items[user.id]" name="rejectmultibet" value="{{user.id}}" type="checkbox">
+                           </td>
+                           <td title="'Action'"><button class="btn btn-xs btn-danger" ng-click="RejectBookmakingBets(user.id)">X</button></td>
+                           <td title="'MDL Name'" filter="{ mdlName: 'text'}" sortable="'mdlName'">
+                              {{user.mdlName}}
+                           </td>
+                           <td title="'DL Name'" filter="{ dlName: 'text'}" sortable="'dlName'">
+                              {{user.dlName}}
+                           </td>
+                           <td title="'Client'" filter="{ clientName: 'text'}" sortable="'userName'">
+                              {{user.userName}}
+                           </td>
+                           <td title="'Selection'" filter="{ fancyName: 'text'}">{{user.fancyName}}</td>
+                           <td title="'Back/Lay'" filter="{ backLay: 'text'}" sortable="'backLay'">
+                              {{user.backLay}}
+                           </td>
+                           <td title="'Odds'" filter="{ rate: 'number'}" sortable="'rate'">
+                              {{user.rate}}
+                           </td>
+                           <td title="'Stake'" filter="{ stake: 'number'}" sortable="'stake'">
+                              {{user.stake}}
+                           </td>
+                           <td title="'Matched Time'" filter="{ matchedTime: 'number'}" sortable="'matchedTime'">
+                              {{user.matchedTime}}
+                           </td>
+                           <td title="'Info'" class="text-center bg-white">
+                              <a ng-if="user.source=='web'" href="javascript:void(0)" data-placement="left" title="" style="font-weight:bolder" data-original-title="{{user.sourceInfo}}"><i class="fa fa-tv fa-2x" title="{{user.sourceInfo}}" aria-hidden="true"></i></a>
+                              <a ng-if="user.source!='web'" href="javascript:void(0)" data-placement="left" title="" style="font-weight:bolder" data-original-title="{{user.sourceInfo}}"><i class="fa fa-mobile fa-2x" title="{{user.sourceInfo}}" aria-hidden="true"></i></a>
+                           </td>
+                        </tr>
+                        <tr ng-if="$data.length < 1">
+                           <td colspan="11">No Data Found</td>
+                        </tr>
+                        <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+                           <input type="checkbox" ng-model="checkboxes.checked" id="select_all" ng-click="rejectbetchkbox()" name="filter-checkbox" value="" />
+                        </script>
+                     </table>
+                  </form>
+                  <div class="modal fade text-xs-left" id="Reject-Multiple-Bet" tabindex="-1" role="dialog" aria-labelledby="Reject-Bet" aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h3 class="modal-title">Reject Bet</h3>
+                           </div>
+                           <div class="modal-body row">
+                              <div id="" class="col-md-12">
+                                 <div class="col-lg-3">
+                                    <label class="label-control">Bet ID :</label>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <input type="text" class="form-control" id="rejectmultibetid" readonly="true" style="color: rgb(255, 0, 0);margin-bottom: 5px;">
+                                 </div>
+                              </div>
+                              <div class="col-md-12">
+                                 <div class="col-lg-3">
+                                    <label class="label-control">Password :</label>
+                                 </div>
+                                 <div class="col-lg-3">
+                                    <input type="Password" maxlength="8" autocomplete="off" ng-model="FancyMultiPassword" class="form-control" name="">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="modal-footer">
+                              <input type="reset" class="btn btn-primary btn-lg" data-dismiss="modal" value="close">
+                              <input type="submit" class="btn btn-danger btn-lg" ng-click="RejectBetsMulti()" value="Reject Multiple Bets">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div> -->
+         </div>
+      </div>
+      <script src="common_adm.js"></script>
+      <script src="bookmaking.js"></script>
+   </body>
+</html>

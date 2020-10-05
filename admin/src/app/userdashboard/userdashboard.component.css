@@ -1,0 +1,9 @@
+.button-row{
+    text-align: center
+}
+.button-row button,
+.button-row a {
+  background-color: #1FABB5;
+  margin-right: 8px;
+  margin-top:5px;
+}

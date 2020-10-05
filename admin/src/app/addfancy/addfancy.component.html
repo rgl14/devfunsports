@@ -1,0 +1,213 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>New Book Maker</h5>
+                </div>
+
+                <div class="ibox-content-form table-responsive">
+                    <form [formGroup]="fancyForm" (ngSubmit)="fancyForm.valid && savefancyDetails()" class="form-horizontal">
+                        <div class="form form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group row">
+                                    <label class="col-md-2 label-control">Fancy Type <span
+                                            class="danger">*</span></label>
+                                    <div class="col-md-3">
+                                        <select formControlName="fancyType" class="form-control"
+                                            [ngClass]="{ 'is-invalid': f.fancyType.invalid && f.fancyType.touched}">
+                                            <option value="">Select Fancy Type</option>
+                                            <option [ngValue]="fancyType" *ngFor="let fancyType of fancyTypesList">
+                                                {{fancyType}}</option>
+                                        </select>
+                                        <div *ngIf="f.fancyType.invalid && f.fancyType.touched"
+                                            class="invalid-feedback">
+                                            <mat-error>This field is mandatory.
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 label-control">Sport Name <span
+                                            class="danger">*</span></label>
+                                    <div class="col-md-3">
+                                        <select formControlName="sport" (change)="GetTournamentList()"
+                                            class="form-control"
+                                            [ngClass]="{ 'is-invalid': f.sport.invalid && f.sport.touched}">
+                                            <option value="">Select Sport</option>
+                                            <option [ngValue]="sport" *ngFor="let sport of sportsList">
+                                                {{sport.sportName}}</option>
+                                        </select>
+                                        <div *ngIf="f.sport.invalid && f.sport.touched" class="invalid-feedback">
+                                            <mat-error>This field is mandatory.
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 top_marg">
+                                        <select formControlName="tournament" (change)="getMatchList()"
+                                            class="form-control"
+                                            [ngClass]="{ 'is-invalid': f.tournament.invalid && f.tournament.touched}">
+                                            <option value="">Select Tournament</option>
+                                            <option [ngValue]="tournament" *ngFor="let tournament of tournamentList">
+                                                {{tournament.tournamentName}}</option>
+                                        </select>
+                                        <div *ngIf="f.tournament.invalid && f.tournament.touched"
+                                            class="invalid-feedback">
+                                            <mat-error>This field is mandatory.
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 top_marg">
+                                        <select formControlName="match" class="form-control"
+                                            [ngClass]="{ 'is-invalid': f.match.invalid && f.match.touched}">
+                                            <option value="">Select Match</option>
+                                            <option [ngValue]="match" *ngFor="let match of matchList">
+                                                {{match.matchName}}</option>
+                                        </select>
+                                        <div *ngIf="f.match.invalid && f.match.touched" class="invalid-feedback">
+                                            <mat-error>This field is mandatory.
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 label-control">Fancy Name <span
+                                            class="danger">*</span></label>
+                                    <div class="col-md-3">
+                                        <input type="text" appInputRestriction="noSpecialChars"  formControlName="betName" class="form-control"
+                                            [ngClass]="{ 'is-invalid': f.betName.invalid && f.betName.touched}">
+                                        <div *ngIf="f.betName.invalid && f.betName.touched" class="invalid-feedback">
+                                            <mat-error>This field is mandatory.
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 label-control">Min Stake <span
+                                            class="danger">*</span></label>
+                                    <div class="col-md-3">
+                                        <input type="number" formControlName="minStake" appInputRestriction="integer" min="1" max="1000000000" class="form-control"
+                                            [ngClass]="{ 'is-invalid': f.minStake.invalid && f.minStake.touched}">
+                                        <div *ngIf="f.minStake.invalid && f.minStake.touched" class="invalid-feedback">
+                                            <mat-error>This field is Invalid (1-1000000000).</mat-error>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 label-control">Max Stake <span
+                                            class="danger">*</span></label>
+                                    <div class="col-md-3">
+                                        <input type="number" formControlName="maxStake" appInputRestriction="integer" min="1" max="1000000000" class="form-control"
+                                            [ngClass]="{ 'is-invalid': f.maxStake.invalid && f.maxStake.touched}">
+                                        <div *ngIf="f.maxStake.invalid && f.maxStake.touched" class="invalid-feedback">
+                                            <mat-error>This field is Invalid (1-1000000000).</mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 label-control">Max Profit <span
+                                            class="danger">*</span></label>
+                                    <div class="col-md-3">
+                                        <input type="number" formControlName="maxProfit" appInputRestriction="integer" min="1" max="1000000000" class="form-control"
+                                            [ngClass]="{ 'is-invalid': f.maxProfit.invalid && f.maxProfit.touched}">
+                                        <div *ngIf="f.maxProfit.invalid && f.maxProfit.touched"
+                                            class="invalid-feedback">
+                                            <mat-error>This field is Invalid (1-1000000000).</mat-error>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 label-control">Max Loss <span class="danger">*</span></label>
+                                    <div class="col-md-3">
+                                        <input type="number" formControlName="maxLoss" appInputRestriction="integer" min="1" max="1000000000" class="form-control"
+                                            [ngClass]="{ 'is-invalid': f.maxLoss.invalid && f.maxLoss.touched}">
+                                        <div *ngIf="f.maxLoss.invalid && f.maxLoss.touched" class="invalid-feedback">
+                                            <mat-error>This field is Invalid (1-1000000000).</mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 label-control">Is Active </label>
+                                    <div class="col-md-6">
+                                        <mat-checkbox class="example-margin" formControlName="isActive">IsActive
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 label-control">Is Apply Commision </label>
+                                    <div class="col-md-6">
+                                        <mat-checkbox class="example-margin" formControlName="isApplyComm">isApplyComm
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 label-control">Fancy Bet delay<span
+                                        class="danger">*</span></label>
+                                <div class="col-md-3">
+                                    <input type="number" formControlName="betDelay" appInputRestriction="integer" min="1" max="60" class="form-control"
+                                        [ngClass]="{ 'is-invalid': f.betDelay.invalid && f.betDelay.touched}">
+                                    <div *ngIf="f.betDelay.invalid && f.betDelay.touched" class="invalid-feedback">
+                                        <mat-error>This field is Invalid (1-60).</mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 label-control">Rate Difference<span
+                                        class="danger">*</span></label>
+                                <div class="col-md-3">
+                                    <input type="number" formControlName="rateDifference" appInputRestriction="integer" min="1" max="100" class="form-control"
+                                        [ngClass]="{ 'is-invalid': f.rateDifference.invalid && f.rateDifference.touched}">
+                                    <div *ngIf="f.rateDifference.invalid && f.rateDifference.touched"
+                                        class="invalid-feedback">
+                                        <mat-error>This field is Invalid (1-100).</mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 label-control">Rate Range<span class="danger">*</span></label>
+                                <div class="col-md-3">
+                                    <input type="number" formControlName="rateRange" appInputRestriction="integer" min="1" max="100" class="form-control"
+                                        [ngClass]="{ 'is-invalid': f.rateRange.invalid && f.rateRange.touched}">
+                                    <div *ngIf="f.rateRange.invalid && f.rateRange.touched" class="invalid-feedback">
+                                        <mat-error>This field is Invalid (1-100).</mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 label-control">Max Stake Per Rate<span
+                                        class="danger">*</span></label>
+                                <div class="col-md-3">
+                                    <input type="number" formControlName="maxStakePerRate" appInputRestriction="integer" min="1" max="1000000000" class="form-control"
+                                        [ngClass]="{ 'is-invalid': f.maxStakePerRate.invalid && f.maxStakePerRate.touched}">
+                                    <div *ngIf="f.maxStakePerRate.invalid && f.maxStakePerRate.touched"
+                                        class="invalid-feedback">
+                                        <mat-error>This field is Invalid (1-1000000000).</mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 label-control">position<span class="danger">*</span></label>
+                                <div class="col-md-3">
+                                    <input type="number" formControlName="position" appInputRestriction="integer"  min="1" max="100" class="form-control"
+                                        [ngClass]="{ 'is-invalid': f.position.invalid && f.position.touched}">
+                                    <div *ngIf="f.position.invalid && f.position.touched" class="invalid-feedback">
+                                        <mat-error>This field is Invalid (1-100).</mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 label-control">Notes</label>
+                                <div class="col-md-6">
+                                    <input type="text" appInputRestriction="noSpecialChars" formControlName="note" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group col-sm-4 col-sm-offset-2 button-row">
+                            <button mat-raised-button color="warn" type="reset" (click)="onCancel()">Cancel</button>
+                            <button mat-raised-button color="primary" type="submit" [disabled]="fancyForm.invalid">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

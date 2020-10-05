@@ -1,0 +1,30 @@
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Blocked Client List</h5>
+          </div>
+          <div class="ibox-content-table table-responsive">
+            <div class="table-container mat-elevation-z8">
+                <ag-grid-angular
+                  [ngStyle]="{ 'height': innerHeight-185 + 'px' }" 
+                  style="width: 100%;"
+                  class="ag-theme-balham"
+                  [gridOptions]="gridOptions"
+                  [rowData]="rowData" 
+                  [overlayLoadingTemplate]="overlayLoadingTemplate"
+                  (gridSizeChanged)="onGridSizeChanged($event)"
+                  [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+                  [animateRows]="true"
+                  [pagination]="true"
+                  (gridReady)="onGridReady($event)"
+                  >
+                </ag-grid-angular>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

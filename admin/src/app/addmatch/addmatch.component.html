@@ -1,0 +1,114 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+     <div class="col-lg-12">
+         <div class="ibox float-e-margins">
+             <div class="ibox-title">
+                 <h5>New Match</h5>
+             </div>
+             
+             <div class="ibox-content-form table-responsive">
+                
+                 
+                 <form [formGroup]="addmatchform" (ngSubmit)="onSubmit()"  class="form-horizontal" >
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Sport Name<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                             <select formControlName="sport" (change)="GetTournamentList()" class="form-control" [ngClass]="{ 'is-invalid': f.sport.invalid && f.sport.touched}">
+                                                <option value="">Select Sport</option>
+                                                <option [ngValue]="sport" *ngFor="let sport of sportsList">{{sport.sportName}}</option>
+                                              </select>
+                                              <div *ngIf="f.sport.invalid && f.sport.touched" class="invalid-feedback">
+                                                  <mat-error>This field is mandatory.
+                                                  </mat-error>
+                                              </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Tournament Name<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                        <select formControlName="tournament" class="form-control" [ngClass]="{ 'is-invalid': f.tournament.invalid && f.tournament.touched}">
+                                                <option value="">Select Tournaments</option>
+                                                <option [ngValue]="tournament" *ngFor="let tournament of tournamentList">{{tournament.tournamentName}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="f.tournament.invalid && f.tournament.touched"
+                                                    class="invalid-feedback">
+                                                    <mat-error>This field is mandatory.
+                                                    </mat-error>
+                                            </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Match Name<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                  <input formControlName="matchname" appInputRestriction="noSpecialChars" class="form-control" name="Matchname" [ngClass]="{ 'is-invalid': submitted && f.matchname.errors }"  placeholder="" type="text" >
+                                  
+                                  <div *ngIf="submitted && f.matchname.errors" class="invalid-feedback">
+                                     <mat-error *ngIf="f.matchname.errors.required">This field is mandatory.</mat-error>
+                                 </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Match Date<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3"> 
+                                        <input  formControlName="matchDate" specialIsAlphaNumeric type="text" 
+                                            placeholder="Select Date Here..."
+                                            [ngClass]="{ 'is-invalid': submitted && f.matchDate.errors }"
+                                            class="form-control"
+                                            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD HH:mm:ss', containerClass: 'theme-default',isAnimated: true }"
+                                            bsDatepicker>  
+                                        <div class="date-icon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <div *ngIf="submitted && f.matchDate.errors" class="invalid-feedback">
+                                           <mat-error *ngIf="f.matchDate.errors.required">This field is mandatory.</mat-error>
+                                       </div>
+                               </div>
+                               
+                        </div>
+                        
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Betfair ID<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                        <input formControlName="matchbfid" appInputRestriction="integer" class="form-control" name="Matchbfid" [ngClass]="{ 'is-invalid': submitted && f.matchbfid.errors }"  placeholder="" type="text" >
+                                  <div *ngIf="submitted && f.matchbfid.errors" class="invalid-feedback">
+                                     <mat-error *ngIf="f.matchbfid.errors.required">This field is mandatory.</mat-error>
+                                 </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Match Status<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                        <select formControlName="status" class="form-control" [ngClass]="{ 'is-invalid': f.status.invalid && f.status.touched}">
+                                                <option value="">Select Status</option>
+                                                <option [ngValue]="status" *ngFor="let status of statusList">{{status.value}}</option>
+                                            </select>
+                                            <div *ngIf="f.status.invalid && f.status.touched" class="invalid-feedback">
+                                                <mat-error>This field is mandatory.
+                                                </mat-error>
+                                            </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 label-control"></label>
+                            <div class="col-md-6">
+                                    <mat-checkbox formControlName="isactive">Is Active</mat-checkbox>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control"></label>
+                                <div class="col-md-6">
+                                    <mat-checkbox formControlName="isinplay">Is Inplay</mat-checkbox>
+                                </div>
+                            </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="button-row" style="text-align: center">
+                        <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+                        <button mat-raised-button color="primary"  type="submit">Save</button>
+                    </div>
+                </form>                        
+</div>
+         </div>         
+     </div>
+ </div>
+</div>

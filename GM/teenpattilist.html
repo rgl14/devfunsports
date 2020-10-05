@@ -1,0 +1,306 @@
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<style type="text/css">
+.ajax_loader{
+       position:absolute;
+       width:100%;
+       height:100%;
+       left:0;
+       top:0;
+       background:rgba(0,0,0,.5);
+   }
+   .ajax_loader.hidden{
+    display: block;
+    visibility: hidden;
+   }
+   .ajax_loader i{
+       position:absolute;    
+       left:50%;
+       top:45%;
+      color: white;
+      font-size: 25px;
+   }
+   .loader_spinner{
+      position: absolute; 
+      left: 45%; 
+      top: 50%; 
+      font-size: 32px; 
+      color: white;
+   }
+ 
+.thcenter{
+    text-align: center;
+}
+.project-tab #tabs{
+    background: #007b5e;
+    color: #eee;
+}
+.project-tab #tabs h6.section-title{
+    color: #eee;
+}
+.project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #0062cc;
+    background-color: transparent;
+    border-color: transparent transparent #f3f3f3;
+    border-bottom: 3px solid !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+.project-tab .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #0062cc;
+    font-size: 16px;
+    font-weight: 600;
+}
+.project-tab .nav-link:hover {
+    border: none;
+}
+.project-tab thead{
+    background: #f3f3f3;
+    color: #333;
+}
+.project-tab a{
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+</style>
+<div id="tabs" class="project-tab">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist" style="cursor: pointer;">
+                                
+                                <a class="nav-item nav-link" data-ng-class="selectedindex==$index?'active':''" data-ng-repeat="site in TPsites track by $index" id="nav-contact-tab" data-toggle="tab" data-target="#tab1" role="tab" aria-controls="nav-contact" ng-click="GetGameList($index)" aria-selected="false">FUNSPORTS</a>
+                               
+
+                                 <a class="nav-item nav-link"  id="nav-contact-tab" data-toggle="tab" data-target="#tab2" role="tab" aria-controls="nav-contact"  aria-selected="false">LUCKY 7 Settle</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div ng-cloak class="ajax_loader hidden" style="z-index: 10000000000;"><span class="loader_spinner">Please wait...</span> <i class="fa fa-spinner fa-spin"></i></div>
+                           
+                                                    
+                            <div class="tab-pane fade active show" id="tab1" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                                 <div class="row" style="padding: 10px">
+                                  <div class="col-sm-2">
+                                    <select chosen  ng-model="Gametype" class="form-control chosen-container" ng-change="GetGameList(selectedindex)">
+                                        <option value="0" selected="selected">Select Game Type</option>
+                                        <option value="1" selected="selected">20 - 20 Teenpatti</option>
+                                        <option value="2" selected="selected">1 Day Teenpatti</option>
+                                    </select>
+                            </div>
+                            <div class="col-sm-2">
+                                    <select chosen  ng-model="selectStatus" class="form-control chosen-container" ng-change="GetGameList(selectedindex)">
+                                        <option value="0" selected="selected">Select Game Status</option>
+                                        <option value="1" selected="selected">Open</option>
+                                        <option value="4" selected="selected">Settled</option>
+                                    </select>
+                            </div>
+                             <div class="col-sm-4">
+                             </div>
+                                 <div class="col-sm-4" style="float: right;">
+                                    <button ng-click="getFlushData()" class="btn btn-success btn-sm">Flush Data</button>
+                                    <button ng-click="getCancleTpBet()" class="btn btn-danger btn-sm">Cancel TP Bets</button>
+                                </div>  
+                            </div>
+
+                                <table class="table" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th class="thcenter">FUNSPORTS CASINO SETTLEMENT&nbsp;&nbsp;<button ng-click="GetGameList(selectedindex)" type="button" title="Refresh" class="btn btn-outline-danger"><i class="fa fa-refresh fa-spin" style="font-size:12px"></i></button></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div class="table-responsive">
+                                    <table ng-cloak ng-table="tableParams" show-filter="true" class="table table-striped table-bordered noWhiteSpace">
+                                    
+                                      <tr style="height:0.5rem;text-align: center;" data-ng-repeat="game in $data" >
+                                    <td title="'Id'">{{game.id}}</td>
+                                    <td title="'Game Code'" data-filter="{gameCode:'text'}" >{{game.gameCode}}</td>
+                                    <td title="'Game Type'" data-filter="{gameType:'text'}">{{game.gameType}}</td>
+                                    <td title="'BetStatus'" >{{(game.betStatus==1)?'Open':'Settled'}}</td>
+                                    <td title="'Active'">
+                                       <a ng-if="game.isActive==1" ng-click="UpdateGameStatus(game.id,0,selectedindex)" href="javascript:void(0);" class="ng-scope"><i class="fa fa-check-square-o fa-2x" style="color: green" aria-hidden="true" title="IsActive"></i></a>
+                                       <a ng-if="game.isActive==0" ng-click="UpdateGameStatus(game.id,1,selectedindex)"  href="javascript:void(0);" class="ng-scope"><i class="fa fa-window-close fa-2x" style="color: red" aria-hidden="true" title="Inactive"></i></a>
+                                    </td>
+                                    <td title="'AllowBet'">
+                                          <a ng-if="game.isBetAllow==1" ng-click="UpdateGameBetStatus(game.id,0,selectedindex)" href="javascript:void(0);" class="ng-scope"><i class="fa fa-check-square-o fa-2x" style="color: green" aria-hidden="true" title="IsActive"></i></a>
+                                          <a ng-if="game.isBetAllow==0" ng-click="UpdateGameBetStatus(game.id,1,selectedindex)"  href="javascript:void(0);" class="ng-scope"><i class="fa fa-window-close fa-2x" style="color: red" aria-hidden="true" title="Inactive"></i></a>
+                                    </td>
+                                    <td title="'Settle'" ng-if="selectStatus=='1' || selectStatus=='0'"> 
+                                       <div class="col-xs-12" style="display: inline-flex;">
+                                          <div class="col-xs-10" >
+                                             <select data-chosen class="form-control chosen-container col-xs-2"  id="Runners-{{game.gameCode}}">
+                                                <option selected="selected" value="Select Runner">Select Runner</option>
+                                                <option value="Player A">Player A</option>
+                                                <option value="Player B">Player B</option>
+                                             </select>
+                                          </div>
+                                          <div class="col-xs-2">
+                                             <button class="btn btn-danger btn-xs" data-ng-disabled="pending_SttleBook" data-ng-click="SettleGame(game.gameCode,game.id,game.gameType,selectedindex)">S</button>
+                                          </div>
+                                       </div>
+                                    </td>
+                                    <td title="'Tie'" ng-if="selectStatus=='1' || selectStatus=='0'">
+                                             <button class="btn btn-danger btn-xs" data-ng-disabled="pending_SttleBook" data-ng-click="SettleGameTie(game.id,game.gameType,selectedindex)">Tie</button>
+                                    </td>
+                                    <td title="'Result'" ng-if="selectStatus=='4'" data-filter="{result:'text'}">{{game.result}}</td>
+
+                                 </tr>
+                                    <tr data-ng-if="$data.length<1">
+                                       <td  colspan="8" style="text-align: center;">
+                                        No Data Found...
+                                       </td>
+                                    </tr>
+                                    
+                                </table>
+                                </div>
+                            </div>
+
+                             <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="row" style="padding: 10px">
+                                  <div class="col-sm-2">
+                                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="gid" placeholder="GAME ID" ng-model="gameid">
+                                  </div>
+                                  <div class="col-sm-2">
+                                          <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="c1" placeholder="C1" ng-model="c1">
+                                  </div>
+                            
+                                   <div class="col-sm-2">
+                                      <button class="form-control btn btn-success btn-sm" ng-click="updateCard(gameid,c1)">UPDATE CARD</button>
+                                      
+                                  </div>  
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade in ng-scope" id="settle-sessin-modal" role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 100px;">
+            <div class="modal-header">
+            <h6 id="settle-session-title" class="modal-title ng-binding">{{fancyname}}</h6>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+            <div class="row" style="margin: 0">
+            <div class="alert alert-success" style="padding: 0; margin: 0;border: 0;margin-bottom: 10px;"></div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+            <input type="hidden" ng-model="Fancycod" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  name="fid">
+            <input type="hidden" ng-model="matchid" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  name="mtid">
+            <input type="hidden" ng-model="appname" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  name="application">
+            <input type="text" ng-model="settleRate" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Enter Settlement Score" name="settleRate">
+            <!-- <input type="hidden" ng-model="matchId" autocomplete="off" class="ng-pristine ng-untouched ng-valid ng-empty"> -->
+            <!-- <input type="hidden" ng-model="fancyId" autocomplete="off" class="ng-pristine ng-untouched ng-valid ng-empty"> -->
+            </div>
+            <div class="col-md-6">
+            <button class="btn btn-warning" ng-disabled="settlesessionbtn" ng-click="SettleFancy2(appname)" style="width: inherit;">Settle</button>
+            </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+            </div>
+        </div>
+
+
+
+         <!-- Modal -->
+  <div class="modal fade" id="cancelFancyModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="font-size: 16px;">{{fname}}</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+            <input type="Password" name="Password" ng-model="Password" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Enter Password" style="text-align: center;">
+            </div>
+            <div class="col-md-6"> 
+            <button ng-click="cancelFancy()" class="btn btn-warning" style="width: inherit;">Ok</button>
+          </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="modal fade" id="cancelFancywithoutbetModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="font-size: 16px;">Cancel Fancy without bets all Sites</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+            <input type="Password" name="Password" ng-model="Password" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Enter Password" style="text-align: center;">
+            </div>
+            <div class="col-md-6"> 
+            <button ng-click="CancelFancyAllSites()" class="btn btn-warning" style="width: inherit;">Ok</button>
+          </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+  <div class="modal fade" id="fancyWithModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="font-size: 16px;">Fancy with bets match wise</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+                <table class="table" ng-if="fancyWithBets.length>0">
+                    <thead>
+                        <tr><th>Fancy Name</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in fancyWithBets"><td>{{item}}</td></tr>
+                    </tbody>
+                </table>
+                <h4 ng-if="fancyWithBets.length==0">No fancy data found</h4>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+</div>

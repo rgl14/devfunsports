@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html data-ng-app="accountApp" lang="en">
+  <head>
+    <style>
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak,
+      .ng-hide {
+        display: none !important;
+      }
+    </style>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+
+    <title>Account Details</title>
+
+    <link rel="SHORTCUT ICON" href="images/favicon.png" />
+
+    <link href="css/acc_style.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="css/jquery.datetimepicker.css" />
+  </head>
+
+  <body
+    class="funsports"
+    data-ng-controller="profileController"
+    data-ng-init="userDescription()"
+    disable-right-click
+    data-ng-cloak
+  >
+    <div
+      id="changePasswordModal"
+      class="pop_bg"
+      data-ng-style="{'display':changePassView?'block':'none'}"
+    >
+      <div class="pop_box">
+        <a class="close_pop" data-ng-click="openChangePass()">close_pop</a>
+
+        <h3>Change Password</h3>
+
+        <dl class="form_list">
+          <dt>New Password</dt>
+
+          <dd>
+            <input
+              id="newPassword"
+              type="password"
+              data-ng-model="password"
+              placeholder="Enter"
+            />
+
+            <span class="must">＊</span>
+
+            <span
+              id="newPasswordErrorText"
+              data-ng-if="password==''"
+              class="error-text"
+              style="display: block"
+              >Check new password invalid</span
+            >
+          </dd>
+
+          <dt>New Password Confirm</dt>
+
+          <dd>
+            <input
+              id="newPasswordConfirm"
+              type="password"
+              data-ng-model="newPassword"
+              placeholder="Enter"
+            />
+
+            <span class="must">＊</span>
+
+            <span
+              id="newPasswordConfirmErrorText"
+              data-ng-if="newPassword=='' || password!=newPassword"
+              class="error-text"
+              >Check new password confirm invalid</span
+            >
+          </dd>
+
+          <dt>Your Password</dt>
+
+          <dd>
+            <input
+              id="changePassword"
+              type="password"
+              data-ng-model="oldPassword"
+              placeholder="Enter"
+            />
+
+            <span class="must">＊</span>
+          </dd>
+
+          <dd>
+            <a
+              id="changePasswordBtn"
+              data-ng-click="ChangePwd()"
+              class="btn-send"
+              >Change</a
+            >
+          </dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Top start -->
+
+    <div class="top">
+      <div class="header full-wrap">
+        <h1>
+          <a
+            href="index.html"
+            style="
+              background-image: url(images/logo.png);
+              height: 65px;
+              margin-left: -5px;
+              margin-top: -5px;
+              background-repeat: no-repeat;
+              background-size: contain;
+            "
+            >Funsports
+          </a>
+        </h1>
+
+        <div id="searchWrap" class="search-wrap" style="display: none">
+          <div>
+            <input
+              id="searchInput"
+              class="search-input"
+              type="text"
+              placeholder="Search Events"
+            />
+
+            <button
+              id="searchClear"
+              class="search-clear"
+              style="display: none"
+            ></button>
+          </div>
+
+          <div id="searchResult" class="suggestion-wrap" style="display: none">
+            <ul id="searchList">
+              <li id="noMatching" style="display: none">
+                <p class="no-matching">No events found matching ...</p>
+              </li>
+
+              <li id="resultTemplate" style="display: none"><a></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <ul class="account-wrap">
+          <li id="accountCredit" data-ng-if="fundsCalls">
+            Main
+
+            <strong id="betCredit" data-ng-if="availBal"
+              >{{currency}} {{availBal | number:2}}</strong
+            >
+
+            &nbsp;Exposure
+
+            <strong id="totalExposure" data-ng-if="exposure" class="red"
+              >{{exposure | number:2}}</strong
+            >
+          </li>
+
+          <li
+            id="menuRefreshIcon"
+            data-ng-if="!fundsCalls"
+            style="display: block"
+          >
+            <img
+              class="refresh-bar"
+              src="images/account/transparent.gif"
+              alt="refresh"
+            />
+          </li>
+
+          <li class="head-refresh">
+            <a id="menuRefresh" data-ng-click="Fund()" style="cursor: pointer"
+              >Refresh</a
+            >
+          </li>
+
+          <li class="account">
+            <a
+              id="accountPopup"
+              style="cursor: pointer"
+              data-ng-click="opencloseMenu()"
+              >My Account</a
+            >
+
+            <ul
+              id="account_pop"
+              data-ng-style="{'display':(openClose)?'block':'none'}"
+            >
+              <li>
+                <h4>
+                  {{name}}
+
+                  <span class="gmt" title="Time Zone">GMT+5:30</span>
+                </h4>
+              </li>
+
+              <li><a href="#!profile" target="_blank">My Profile</a></li>
+
+              <li>
+                <a href="#!bal_overview" target="_blank">Balance Overview</a>
+              </li>
+
+              <li>
+                <a href="#!statement" target="_blank">Account Statement</a>
+              </li>
+              <!-- <li><a href="#!CasinoReport" target="_blank">Casino Report</a></li> -->
+              <li><a href="#!current_bets" target="_blank">My Bets</a></li>
+
+              <li><a href="#!bet_history" target="_blank">Bets History</a></li>
+
+              <li><a href="#!pnl" target="_blank">Profit &amp; Loss </a></li>
+
+              <li>
+                <a href="#!activity_log" target="_blank">Activity Log </a>
+              </li>
+
+              <li class="logout">
+                <a id="logout" data-ng-click="logout()"
+                  >LOGOUT<img src="images/account/transparent.gif" alt="logout"
+                /></a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Menu Wrap -->
+
+      <div class="menu-wrap" data-ng-click="opencloseMenu(1)">
+        <div class="full-wrap">
+          <ul id="tabMenu" class="menu">
+            <li>
+              <a href="index.html"
+                ><i
+                  class="fa fa-home"
+                  aria-hidden="true"
+                  style="margin-top: 2px"
+                ></i
+                >&nbsp; Home</a
+              >
+            </li>
+
+            <li>
+              <a href="index.html#!/inplay"
+                ><i
+                  class="fa fa-play"
+                  aria-hidden="true"
+                  style="margin-top: 2px"
+                ></i
+                >&nbsp; In-Play</a
+              >
+            </li>
+
+            <li>
+              <a href="index.html#!/multiMarket"
+                ><i
+                  class="fa fa-thumb-tack"
+                  aria-hidden="true"
+                  style="margin-top: 2px"
+                ></i
+                >&nbsp; Multi Markets</a
+              >
+            </li>
+
+            <li>
+              <a href="index.html#!"
+                ><i
+                  class="fa fa-trophy"
+                  aria-hidden="true"
+                  style="margin-top: 2px"
+                ></i
+                >&nbsp; Cricket</a
+              >
+            </li>
+
+            <li>
+              <a href="index.html#!"
+                ><i
+                  class="fa fa-futbol-o"
+                  aria-hidden="true"
+                  style="margin-top: 2px"
+                ></i
+                >&nbsp; Soccer</a
+              >
+            </li>
+
+            <li>
+              <a href="index.html#!"
+                ><i
+                  class="fa fa-dribbble"
+                  aria-hidden="true"
+                  style="margin-top: 2px"
+                ></i
+                >&nbsp; Tennis</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top end -->
+
+    <div class="main_wrap" data-ng-click="opencloseMenu(1)">
+      <!-- Left Column -->
+
+      <div class="col-left">
+        <!-- Sub Menu and Path -->
+
+        <div class="sub_path">
+          <!-- Path -->
+
+          <div class="path">
+            <!-- <a href="#path-pop" class="path-back">...</a> -->
+
+            <ul>
+              <li class="path-last"><a href="#">My Account</a></li>
+            </ul>
+          </div>
+
+          <!-- Path Pop Up-->
+
+          <ul id="path-pop" class="path-pop"></ul>
+
+          <!-- Sub Menu -->
+
+          <ul class="menu-list">
+            <li>
+              <a
+                id="sub_menu_detail"
+                href="#!profile"
+                data-ng-click="selectedMenu('profile')"
+                data-ng-class="selectMenu=='profile'?'select':''"
+                >My Profile</a
+              >
+            </li>
+
+            <li>
+              <a
+                id="sub_menu_summary"
+                href="#!bal_overview"
+                data-ng-click="selectedMenu('bal_overview')"
+                data-ng-class="selectMenu=='bal_overview'?'select':''"
+                >Balance Overview</a
+              >
+            </li>
+
+            <li>
+              <a
+                id="sub_menu_accountCashStatement_log"
+                href="#!statement"
+                data-ng-click="selectedMenu('statement')"
+                data-ng-class="selectMenu=='statement'?'select':''"
+                >Account Statement
+              </a>
+            </li>
+            <li>
+              <a
+                id="sub_menu_casino"
+                href="#!casinoreport"
+                data-ng-click="selectedMenu('casino')"
+                data-ng-class="selectMenu=='casino'?'select':''"
+                >Casino Report</a
+              >
+            </li>
+
+            <!-- <li><a id="Casino_report" href="#!CasinoReport" data-ng-click="selectedMenu('Casino_Report')" data-ng-class="selectMenu=='Casino_Report'?'select':''" >Casino Report</a></li> -->
+
+            <li>
+              <a
+                id="sub_menu_my_bets"
+                href="#!current_bets"
+                data-ng-click="selectedMenu('current_bets')"
+                data-ng-class="selectMenu=='current_bets'?'select':''"
+                >My Bets</a
+              >
+            </li>
+
+            <li>
+              <a
+                id="sub_menu_activity_log"
+                href="#!activity_log"
+                data-ng-click="selectedMenu('activity_log')"
+                data-ng-class="selectMenu=='activity_log'?'select':''"
+                >Activity Log</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-center report">
+        <!-- Loading Wrap -->
+
+        <div id="loading" class="loading-wrap" style="display: none">
+          <ul class="loading">
+            <li><img src="images/account/loading40.gif" alt="account" /></li>
+
+            <li>Loading...</li>
+          </ul>
+        </div>
+
+        <!-- Message -->
+
+        <div
+          id="message"
+          class="message-wrap"
+          data-ng-if="result!=null"
+          data-ng-class="result.status=='Success'?'success':'error'"
+          style="display: block"
+        >
+          <a class="btn-close" data-ng-click="closeMsg()">Close</a>
+
+          <p>{{result.result}}</p>
+        </div>
+
+        <ng-view></ng-view>
+      </div>
+    </div>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
+    <script src="js/pollyfill.js"></script>
+
+    <script src="js/jquery.datetimepicker.full.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular-cookies.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular-route.min.js"></script> -->
+
+    <script src="scripts/account.js"></script>
+  </body>
+</html>

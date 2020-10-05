@@ -1,0 +1,732 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<style type="text/css">
+    .ajax_loader {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: rgba(0, 0, 0, .5);
+    }
+
+    .ajax_loader.hidden {
+        display: block;
+        visibility: hidden;
+    }
+
+    .ajax_loader i {
+        position: absolute;
+        left: 50%;
+        top: 45%;
+        color: white;
+        font-size: 25px;
+    }
+
+    .loader_spinner {
+        position: absolute;
+        left: 45%;
+        top: 50%;
+        font-size: 32px;
+        color: white;
+    }
+
+    .thcenter {
+        text-align: center;
+    }
+
+    .project-tab #tabs {
+        background: #007b5e;
+        color: #eee;
+    }
+
+    .project-tab #tabs h6.section-title {
+        color: #eee;
+    }
+
+    .project-tab #tabs .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        color: #0062cc;
+        background-color: transparent;
+        border-color: transparent transparent #f3f3f3;
+        border-bottom: 3px solid !important;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .project-tab .nav-link {
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        color: #0062cc;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .project-tab .nav-link:hover {
+        border: none;
+    }
+
+    .project-tab thead {
+        background: #f3f3f3;
+        color: #333;
+    }
+
+    .project-tab a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .tab-content {
+        padding: 8px 0;
+    }
+
+    .cancel-button {
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: 42px;
+        background: transparent;
+        color: #505050;
+        border: 0;
+        outline: none;
+    }
+
+    .typeahead__container.cancel:not(.loading) .typeahead__cancel-button, .typeahead__label .typeahead__cancel-button {
+        visibility: hidden;
+    }
+
+    .cancel-button:focus {
+        outline: none;
+    }
+
+</style>
+<div id="tabs" class="project-tab">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist" style="cursor: pointer;">
+                        <a class="nav-item nav-link active" id="nav-contact-tab" data-toggle="tab" data-target="#tab1"
+                            role="tab" aria-controls="nav-contact" ng-click="ApplicationTab('FunSports')"
+                            aria-selected="false">FunSports</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#tab2"
+                            role="tab" aria-controls="nav-contact" ng-click="ApplicationTab('USDFunSports')"
+                            aria-selected="false">USDFunSports</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#tab3"
+                            role="tab" aria-controls="nav-contact" ng-click="ApplicationTab('HKDFunSports')"
+                            aria-selected="false">HKDFunSports</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#tab4"
+                            role="tab" aria-controls="nav-contact" ng-click="ApplicationTab('FunSportsonline')"
+                            aria-selected="false">FunSportsonline</a>
+
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div ng-cloak class="ajax_loader hidden" style="z-index: 10000000000;">
+                        <span class="loader_spinner">Please
+                            wait...</span> <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12 col-md-4">
+                            <!-- <select  ng-model="Tourname" ng-options="item.tourname as item.tourname for item in tournamentstr"  class="form-control">
+                                    <option selected="selected" value="">Select Tournament</option>
+                                </select> -->
+
+                            <select ng-model="selectedMatch" ng-options="item.name for item in matchNameIdArray"
+                                class="form-control chosen-select" ng-change="selectoption(selectedMatch);">
+                                <option label="All Events" value="">All Events</option>
+                            </select>
+                        </div>
+                        <!-- <div class="col-4"> -->
+                        <!-- </div> -->
+
+                        <div class="col-12 col-md-4">
+                            <!-- <input type="text" id="fancy-search" class="typeahead"> -->
+                            <!-- <select ng-model="selectedFancy" ng-options="item.name for item in fancyNameIdArray" class="form-control chosen-select" ng-change="selectFancy(selectedFancy)">
+                                <option label="All Fancy" value="">All Fancy</option>
+                            </select> -->
+                            <form ng-submit="selectFancy(filter.fancyName)">
+                                <div class="typeahead__container">
+                                    <div class="typeahead__field">
+                                        <div class="typeahead__query">
+                                            <button class="cancel-button" ng-if="filter.fancyName.length !== 0" ng-click="clearInput();" style="z-index: 1;">x</button>
+                                            <input id="fancy-search" class="js-typeahead-country_v1"
+                                                ng-model="filter.fancyName" name="country_v1[query]"
+                                                placeholder="Search Fancy" autocomplete="off"
+                                                ng-change="selectFancy(filter.fancyName)">
+                                        </div>
+                                        <div class="typeahead__button">
+                                            <button type="submit">
+                                                <i class="typeahead__search-icon"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <input type="text" ng-model="selectedDate" class="form-control date-picker"
+                                placeholder="YYYY-MM-DD HH:mm:ss" autocomplete="off"
+                                ng-change="selectDate(selectedDate)">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div style="float: right;">
+                                <button ng-click="getFancyWithBets()" class="btn btn-success btn-sm">Fancy with bets
+                                    match
+                                    wise</button>
+                                <button ng-click="CancelFancyAllSiteAlert()" class="btn btn-danger btn-sm">Cancel Fancy
+                                    without bets all
+                                    Sites</button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-12 tab-pane fade active show" id="tab1" role="tabpanel"
+                        aria-labelledby="nav-home-tab">
+                        <table class="table" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th class="thcenter">FUNSPORTS FANCY SETTLEMENT&nbsp;&nbsp;<button
+                                            ng-click="ApplicationTab('FunSports')" type="button" title="Refresh"
+                                            class="btn btn-outline-danger"><i class="fa fa-refresh fa"
+                                                style="font-size:12px"></i></button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <input type="checkbox" ng-model="Settled"
+                                ng-click="ApplicationTab('FunSports')">&nbsp;<label for="Settled">Settled</label>
+
+                        </table>
+                        <form>
+                            <div class="table-responsive">
+                                <table ng-cloak ng-table="tableParams" show-filter="false"
+                                    class="table table-striped table-bordered noWhiteSpace">
+
+                                    <tr class="text-center" ng-repeat="fancylist in $data track by $index">
+                                        <td title="'Fancy Name'" sortable="'fancyName'">
+                                            {{fancylist.fancyName}}
+                                        </td>
+                                        <td title="'Match'" sortable="'matchName'">
+                                            {{fancylist.matchName}}
+                                        </td>
+                                        <td title="'MatchDate'" sortable="'matchDate'">
+                                            <span style="font-weight: bolder">{{fancylist.matchDate}}</span></td>
+                                        <td ng-if="!Settled" title="'Active'">
+                                            <a ng-if="fancylist.isActive==1"
+                                                ng-click="UpdateFancyStatus2(fancylist,fancylist.fancyCode,0,'FunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-check-square-o fa-2x" style="color: green"
+                                                    aria-hidden="true" title="IsActive"></i></a>
+                                            <a ng-if="fancylist.isActive==0"
+                                                ng-click="UpdateFancyStatus2(fancylist,fancylist.fancyCode,1,'FunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-window-close fa-2x" style="color: red"
+                                                    aria-hidden="true" title="Inactive"></i></a>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Fancy Status All Sites'">
+                                            <button ng-if="fancylist.isActive==0"
+                                                ng-click="c(fancylist,fancylist.matchName,fancylist.fancyName,1)"
+                                                title="Update Fancy Status to Active"
+                                                class="btn btn-success btn-sm">Update FS</button>
+                                            <button ng-if="fancylist.isActive==1"
+                                                ng-click="UpdFancyStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,0)"
+                                                title="Update Fancy Status to DeActive"
+                                                class="btn btn-danger btn-sm">Update FS</button>
+                                        </td>
+
+                                        <td ng-if="!Settled" title="'BetAllow'">
+                                            <a ng-if="fancylist.isBetAllow==1"
+                                                ng-click="UpdateFancyBetStatus2(fancylist,fancylist.fancyCode,0,'FunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-check-square-o fa-2x" style="color: green"
+                                                    aria-hidden="true" title="IsActive"></i></a>
+                                            <a ng-if="fancylist.isBetAllow==0"
+                                                ng-click="UpdateFancyBetStatus2(fancylist,fancylist.fancyCode,1,'FunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-window-close fa-2x" style="color: red"
+                                                    aria-hidden="true" title="Inactive"></i></a>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Bet Status All Sites'">
+                                            <button ng-if="fancylist.isBetAllow==0"
+                                                ng-click="UpdFancyBetStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,1)"
+                                                title="Update Bet Status to Allow Bet"
+                                                class="btn btn-success btn-sm">Update BS</button>
+                                            <button ng-if="fancylist.isBetAllow==1"
+                                                ng-click="UpdFancyBetStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,0)"
+                                                title="Update Bet Status to DisAllow Bet"
+                                                class="btn btn-danger btn-sm">Update BS</button>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Settle'"><button
+                                                ng-click="SettleFancymodal(fancylist.fancyName,fancylist.fancyCode,fancylist.matchId,'FunSports')"
+                                                class="btn btn-warning btn-sm" data-toggle="modal"
+                                                data-target="#settle-sessin-modal" ng-click="">Settle
+                                                Session</button>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Cancel'"><button
+                                                ng-click="CancelFancyAlert(fancylist.fancyName,fancylist.fancyCode,fancylist.matchId,'FunSports')"
+                                                class="btn btn-danger btn-sm">Cancel</button></td>
+
+                                        <td ng-if="Settled" title="'Result(Score)'" filter="{ result: 'number'}"
+                                            sortable="'result'">
+                                            {{fancylist.result}}</td>
+
+                                            <td ng-if="Settled" title="'Action'" filter="{ action: 'number'}"
+                                            sortable="'action'">
+                                            <button  title="Reverse" class="btn btn-danger btn-sm">Reverse</button></td>
+                                        <!-- <td><button ng-click="" class="btn btn-danger btn-sm">cancel bet</button></td> -->
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <table class="table" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th class="thcenter">USD_FUNSPORTS FANCY SETTLEMENT&nbsp;&nbsp;<button
+                                            ng-click="ApplicationTab('USDFunSports')" type="button" title="Refresh"
+                                            class="btn btn-outline-danger"><i class="fa fa-refresh fa"
+                                                style="font-size:12px"></i></button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <input type="checkbox" ng-model="Settled"
+                                ng-click="ApplicationTab('USDFunSports')">&nbsp;<label for="Settled">Settled</label>
+
+                        </table>
+                        <form>
+                            <div class="table-responsive">
+                                <table ng-cloak ng-table="tableParams" show-filter="false"
+                                    class="table table-striped table-bordered noWhiteSpace">
+
+                                    <tr class="text-center" ng-repeat="fancylist in $data track by $index">
+                                        <td title="'Fancy Name'" sortable="'fancyName'">
+                                            {{fancylist.fancyName}}
+                                        </td>
+                                        <td title="'Match'" sortable="'matchName'">
+                                            {{fancylist.matchName}}
+                                        </td>
+                                        <td title="'MatchDate'" sortable="'matchDate'">
+                                            <span style="font-weight: bolder">{{fancylist.matchDate}}</span></td>
+                                        <td ng-if="!Settled" title="'Active'">
+                                            <a ng-if="fancylist.isActive==1"
+                                                ng-click="UpdateFancyStatus2(fancylist,fancylist.fancyCode,0,'USDFunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-check-square-o fa-2x" style="color: green"
+                                                    aria-hidden="true" title="IsActive"></i></a>
+                                            <a ng-if="fancylist.isActive==0"
+                                                ng-click="UpdateFancyStatus2(fancylist,fancylist.fancyCode,1,'USDFunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-window-close fa-2x" style="color: red"
+                                                    aria-hidden="true" title="Inactive"></i></a>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Fancy Status All Sites'">
+                                            <button ng-if="fancylist.isActive==0"
+                                                ng-click="UpdFancyStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,1)"
+                                                title="Update Fancy Status to Active"
+                                                class="btn btn-success btn-sm">Update FS</button>
+                                            <button ng-if="fancylist.isActive==1"
+                                                ng-click="UpdFancyStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,0)"
+                                                title="Update Fancy Status to DeActive"
+                                                class="btn btn-danger btn-sm">Update FS</button>
+                                        </td>
+
+                                        <td ng-if="!Settled" title="'BetAllow'">
+                                            <a ng-if="fancylist.isBetAllow==1"
+                                                ng-click="UpdateFancyBetStatus2(fancylist,fancylist.fancyCode,0,'USDFunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-check-square-o fa-2x" style="color: green"
+                                                    aria-hidden="true" title="IsActive"></i></a>
+                                            <a ng-if="fancylist.isBetAllow==0"
+                                                ng-click="UpdateFancyBetStatus2(fancylist,fancylist.fancyCode,1,'USDFunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-window-close fa-2x" style="color: red"
+                                                    aria-hidden="true" title="Inactive"></i></a>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Bet Status All Sites'">
+                                            <button ng-if="fancylist.isBetAllow==0"
+                                                ng-click="UpdFancyBetStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,1)"
+                                                title="Update Bet Status to Allow Bet"
+                                                class="btn btn-success btn-sm">Update BS</button>
+                                            <button ng-if="fancylist.isBetAllow==1"
+                                                ng-click="UpdFancyBetStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,0)"
+                                                title="Update Bet Status to DisAllow Bet"
+                                                class="btn btn-danger btn-sm">Update BS</button>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Settle'"><button
+                                                ng-click="SettleFancymodal(fancylist.fancyName,fancylist.fancyCode,fancylist.matchId,'USDFunSports')"
+                                                class="btn btn-warning btn-sm" data-toggle="modal"
+                                                data-target="#settle-sessin-modal" ng-click="">Settle
+                                                Session</button>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Cancel'"><button
+                                                ng-click="CancelFancyAlert(fancylist.fancyName,fancylist.fancyCode,fancylist.matchId,'USDFunSports')"
+                                                class="btn btn-danger btn-sm">Cancel</button></td>
+
+                                        <td ng-if="Settled" title="'Result(Score)'" filter="{ result: 'number'}"
+                                            sortable="'result'">
+                                            {{fancylist.result}}</td>
+
+                                            <td ng-if="Settled" title="'Action'" filter="{ action: 'number'}"
+                                            sortable="'action'">
+                                            <button  title="Reverse" class="btn btn-danger btn-sm">Reverse</button></td>
+                                        <!-- <td><button ng-click="" class="btn btn-danger btn-sm">cancel bet</button></td> -->
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <table class="table" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th class="thcenter">HKD_FUNSPORTS FANCY SETTLEMENT&nbsp;&nbsp;<button
+                                            ng-click="ApplicationTab('HKDFunSports')" type="button" title="Refresh"
+                                            class="btn btn-outline-danger"><i class="fa fa-refresh fa"
+                                                style="font-size:12px"></i></button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <input type="checkbox" ng-model="Settled"
+                                ng-click="ApplicationTab('HKDFunSports')">&nbsp;<label for="Settled">Settled</label>
+
+                        </table>
+                        <form>
+                            <div class="table-responsive">
+                                <table ng-cloak ng-table="tableParams" show-filter="false"
+                                    class="table table-striped table-bordered noWhiteSpace">
+
+                                    <tr class="text-center" ng-repeat="fancylist in $data track by $index">
+                                        <td title="'Fancy Name'" sortable="'fancyName'">
+                                            {{fancylist.fancyName}}
+                                        </td>
+                                        <td title="'Match'" sortable="'matchName'">
+                                            {{fancylist.matchName}}
+                                        </td>
+                                        <td title="'MatchDate'" sortable="'matchDate'">
+                                            <span style="font-weight: bolder">{{fancylist.matchDate}}</span></td>
+                                        <td ng-if="!Settled" title="'Active'">
+                                            <a ng-if="fancylist.isActive==1"
+                                                ng-click="UpdateFancyStatus2(fancylist,fancylist.fancyCode,0,'HKDFunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-check-square-o fa-2x" style="color: green"
+                                                    aria-hidden="true" title="IsActive"></i></a>
+                                            <a ng-if="fancylist.isActive==0"
+                                                ng-click="UpdateFancyStatus2(fancylist,fancylist.fancyCode,1,'HKDFunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-window-close fa-2x" style="color: red"
+                                                    aria-hidden="true" title="Inactive"></i></a>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Fancy Status All Sites'">
+                                            <button ng-if="fancylist.isActive==0"
+                                                ng-click="UpdFancyStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,1)"
+                                                title="Update Fancy Status to Active"
+                                                class="btn btn-success btn-sm">Update FS</button>
+                                            <button ng-if="fancylist.isActive==1"
+                                                ng-click="UpdFancyStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,0)"
+                                                title="Update Fancy Status to DeActive"
+                                                class="btn btn-danger btn-sm">Update FS</button>
+                                        </td>
+
+                                        <td ng-if="!Settled" title="'BetAllow'">
+                                            <a ng-if="fancylist.isBetAllow==1"
+                                                ng-click="UpdateFancyBetStatus2(fancylist,fancylist.fancyCode,0,'HKDFunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-check-square-o fa-2x" style="color: green"
+                                                    aria-hidden="true" title="IsActive"></i></a>
+                                            <a ng-if="fancylist.isBetAllow==0"
+                                                ng-click="UpdateFancyBetStatus2(fancylist,fancylist.fancyCode,1,'HKDFunSports')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-window-close fa-2x" style="color: red"
+                                                    aria-hidden="true" title="Inactive"></i></a>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Bet Status All Sites'">
+                                            <button ng-if="fancylist.isBetAllow==0"
+                                                ng-click="UpdFancyBetStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,1)"
+                                                title="Update Bet Status to Allow Bet"
+                                                class="btn btn-success btn-sm">Update BS</button>
+                                            <button ng-if="fancylist.isBetAllow==1"
+                                                ng-click="UpdFancyBetStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,0)"
+                                                title="Update Bet Status to DisAllow Bet"
+                                                class="btn btn-danger btn-sm">Update BS</button>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Settle'"><button
+                                                ng-click="SettleFancymodal(fancylist.fancyName,fancylist.fancyCode,fancylist.matchId,'HKDFunSports')"
+                                                class="btn btn-warning btn-sm" data-toggle="modal"
+                                                data-target="#settle-sessin-modal" ng-click="">Settle
+                                                Session</button>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Cancel'"><button
+                                                ng-click="CancelFancyAlert(fancylist.fancyName,fancylist.fancyCode,fancylist.matchId,'HKDFunSports')"
+                                                class="btn btn-danger btn-sm">Cancel</button></td>
+
+                                        <td ng-if="Settled" title="'Result(Score)'" filter="{ result: 'number'}"
+                                            sortable="'result'">
+                                            {{fancylist.result}}</td>
+
+                                            <td ng-if="Settled" title="'Action'" filter="{ action: 'number'}"
+                                            sortable="'action'">
+                                            <button  title="Reverse" class="btn btn-danger btn-sm">Reverse</button></td>
+                                        <!-- <td><button ng-click="" class="btn btn-danger btn-sm">cancel bet</button></td> -->
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <table class="table" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th class="thcenter">FUNSPORTS ONLINE FANCY SETTLEMENT&nbsp;&nbsp;<button
+                                            ng-click="ApplicationTab('FunSportsonline')" type="button" title="Refresh"
+                                            class="btn btn-outline-danger"><i class="fa fa-refresh fa"
+                                                style="font-size:12px"></i></button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <input type="checkbox" ng-model="Settled"
+                                ng-click="ApplicationTab('FunSportsonline')">&nbsp;<label for="Settled">Settled</label>
+
+                        </table>
+                        <form>
+                            <div class="table-responsive">
+                                <table ng-cloak ng-table="tableParams" show-filter="false"
+                                    class="table table-striped table-bordered noWhiteSpace">
+
+                                    <tr class="text-center" ng-repeat="fancylist in $data track by $index">
+                                        <td title="'Fancy Name'" sortable="'fancyName'">
+                                            {{fancylist.fancyName}}
+                                        </td>
+                                        <td title="'Match'" sortable="'matchName'">
+                                            {{fancylist.matchName}}
+                                        </td>
+                                        <td title="'MatchDate'" sortable="'matchDate'">
+                                            <span style="font-weight: bolder">{{fancylist.matchDate}}</span></td>
+                                        <td ng-if="!Settled" title="'Active'">
+                                            <a ng-if="fancylist.isActive==1"
+                                                ng-click="UpdateFancyStatus2(fancylist,fancylist.fancyCode,0,'FunSportsonline')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-check-square-o fa-2x" style="color: green"
+                                                    aria-hidden="true" title="IsActive"></i></a>
+                                            <a ng-if="fancylist.isActive==0"
+                                                ng-click="UpdateFancyStatus2(fancylist,fancylist.fancyCode,1,'FunSportsonline')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-window-close fa-2x" style="color: red"
+                                                    aria-hidden="true" title="Inactive"></i></a>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Fancy Status All Sites'">
+                                            <button ng-if="fancylist.isActive==0"
+                                                ng-click="UpdFancyStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,1)"
+                                                title="Update Fancy Status to Active"
+                                                class="btn btn-success btn-sm">Update FS</button>
+                                            <button ng-if="fancylist.isActive==1"
+                                                ng-click="UpdFancyStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,0)"
+                                                title="Update Fancy Status to DeActive"
+                                                class="btn btn-danger btn-sm">Update FS</button>
+                                        </td>
+
+                                        <td ng-if="!Settled" title="'BetAllow'">
+                                            <a ng-if="fancylist.isBetAllow==1"
+                                                ng-click="UpdateFancyBetStatus2(fancylist,fancylist.fancyCode,0,'FunSportsonline')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-check-square-o fa-2x" style="color: green"
+                                                    aria-hidden="true" title="IsActive"></i></a>
+                                            <a ng-if="fancylist.isBetAllow==0"
+                                                ng-click="UpdateFancyBetStatus2(fancylist,fancylist.fancyCode,1,'FunSportsonline')"
+                                                href="javascript:void(0);" class="ng-scope"><i
+                                                    class="fa fa-window-close fa-2x" style="color: red"
+                                                    aria-hidden="true" title="Inactive"></i></a>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Bet Status All Sites'">
+                                            <button ng-if="fancylist.isBetAllow==0"
+                                                ng-click="UpdFancyBetStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,1)"
+                                                title="Update Bet Status to Allow Bet"
+                                                class="btn btn-success btn-sm">Update BS</button>
+                                            <button ng-if="fancylist.isBetAllow==1"
+                                                ng-click="UpdFancyBetStatusAllSites(fancylist,fancylist.matchName,fancylist.fancyName,0)"
+                                                title="Update Bet Status to DisAllow Bet"
+                                                class="btn btn-danger btn-sm">Update BS</button>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Settle'"><button
+                                                ng-click="SettleFancymodal(fancylist.fancyName,fancylist.fancyCode,fancylist.matchId,'FunSportsonline')"
+                                                class="btn btn-warning btn-sm" data-toggle="modal"
+                                                data-target="#settle-sessin-modal" ng-click="">Settle
+                                                Session</button>
+                                        </td>
+                                        <td ng-if="!Settled" title="'Cancel'"><button
+                                                ng-click="CancelFancyAlert(fancylist.fancyName,fancylist.fancyCode,fancylist.matchId,'FunSportsonline')"
+                                                class="btn btn-danger btn-sm">Cancel</button></td>
+
+                                        <td ng-if="Settled" title="'Result(Score)'" filter="{ result: 'number'}"
+                                            sortable="'result'">
+                                            {{fancylist.result}}</td>
+
+                                            <td ng-if="Settled" title="'Action'" filter="{ action: 'number'}"
+                                            sortable="'action'">
+                                            <button  title="Reverse" class="btn btn-danger btn-sm">Reverse</button></td>
+                                        <!-- <td><button ng-click="" class="btn btn-danger btn-sm">cancel bet</button></td> -->
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade in ng-scope" id="settle-sessin-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top: 100px;">
+            <div class="modal-header">
+                <h6 id="settle-session-title" class="modal-title ng-binding">{{fancyname}}</h6>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin: 0">
+                    <div class="alert alert-success" style="padding: 0; margin: 0;border: 0;margin-bottom: 10px;"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="hidden" ng-model="Fancycod" class="form-controlc" name="fid">
+                        <input type="hidden" ng-model="matchid" class="form-control" name="mtid">
+                        <input type="hidden" ng-model="appname" class="form-control" name="application">
+                        <input type="text" ng-model="settleRate" class="form-control"
+                            placeholder="Enter Settlement Score" name="settleRate">
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-warning" ng-disabled="settlesessionbtn" ng-click="SettleFancy2(appname)"
+                            style="width: inherit;">Settle</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="cancelFancyModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="font-size: 16px;">{{fname}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="Password" name="Password" ng-model="Password" class="form-control"
+                            placeholder="Enter Password" style="text-align: center;">
+                    </div>
+                    <div class="col-md-6">
+                        <button ng-click="cancelFancy()" class="btn btn-warning" style="width: inherit;">Ok</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="cancelFancywithoutbetModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="font-size: 16px;">Cancel Fancy without bets all Sites</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="Password" name="Password" ng-model="Password" class="form-control"
+                            placeholder="Enter Password" style="text-align: center;">
+                    </div>
+                    <div class="col-md-6">
+                        <button ng-click="CancelFancyAllSites()" class="btn btn-warning"
+                            style="width: inherit;">Ok</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="fancyWithModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="font-size: 16px;">Fancy with bets match wise</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table" ng-if="fancyWithBets.length>0">
+                            <thead>
+                                <tr>
+                                    <th>Fancy Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in fancyWithBets">
+                                    <td>{{item}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h4 ng-if="fancyWithBets.length==0">No fancy data found</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $('.date-picker').datetimepicker({
+        width: '100%',
+        format: 'Y-m-d H:i:00',
+        step: 15,
+        onSelectDate: function (ct, input) {
+            input[0].value = input[0].value.split(" ")[0];
+        },
+        validateOnBlur: false
+    });
+</script>

@@ -1,0 +1,229 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+/*
+ *
+ *   INSPINIA - Responsive Admin Theme
+ *   version 2.7
+ *
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 100;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+h5 {
+    font-size: 12px;
+}
+
+h6 {
+    font-size: 10px;
+}
+
+h3,
+h4,
+h5 {
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/*Fonts of table2*/
+body {
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #2f4050;
+    font-size: 12px;
+    color: #000000;
+    overflow-x: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.border-left {
+    border-left: 1px solid #e7eaec;
+}
+
+.border-right {
+    border-right: 1px solid #e7eaec;
+}
+
+.border-top {
+    border-top: 1px solid #e7eaec;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e7eaec !important;
+}
+
+
+
+
+
+
+/* BACKGROUNDS */
+/*ACTION COLOUR BLUE*/
+.blue-bg,
+.bg-success {
+    background-color: #1c84c6;
+    color: #ffffff;
+}
+
+
+/*RED COLOUR ON NOTE*/
+
+.red-bg,
+.bg-danger {
+    background-color: #ed5565;
+    color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+.top-margin-5px {
+    margin-top: 5px !important;
+}
+
+.top-margin-10px {
+    margin-top: 10px !important;
+}
+
+
+
+
+
+.bottom-margin-4px {
+    margin-bottom: 4px !important;
+}
+/*----------------------------*/
+
+
+
+
+
+/*header of table2*/
+.sessionfixkeyword{
+    line-height:30px;
+    letter-spacing:1px;
+    font-weight:700
+}
+/*column of NO*/
+.bg-NoRate{
+    background-color: #ff6e8b;
+    color: #ffffff;
+}
+/*column of YES*/
+.bg-YesRate{
+    background-color: rgb(24, 159, 255);
+    color: #ffffff;
+}
+/*spacing between table2 inside*/
+.sessiontextbox{
+    margin:5px 0px;
+}
+
+.sessiontextbox input[type="text"]{
+    line-height:40px;
+    font-size:18px;
+    letter-spacing:1px;
+    font-weight:700;
+    padding-left:5px;
+    padding-right:5px;
+    border:0px;
+    border-radius:2px;
+}
+/*colour inside table2*/
+.nobgcolor .sessiontextbox input[type="text"]{
+  background-color: #ffe6eb;
+}
+
+.yesbgcolor .sessiontextbox input[type="text"]{
+background-color: rgba(174, 219, 251, 0.45);
+}
+
+.enterybgcolor .sessiontextbox input[type="text"]{
+background-color:#5e5e5e;
+color:#fff;
+}
+
+@media screen and (max-width:768px) and (min-width: 480px) {
+    .col-cus-10 {
+        width: 30%;
+        float: left;
+    }
+    .setPlaceRateFontsize{
+        padding:3px;
+        font-size:1em !important;
+    }
+}
+
+
+
+/*BACKGROUND COLOUR*/
+
+    body:not(.mini-navbar) {
+        -webkit-transition: background-color 500ms linear;
+        -moz-transition: background-color 500ms linear;
+        -o-transition: background-color 500ms linear;
+        -ms-transition: background-color 500ms linear;
+        transition: background-color 500ms linear;
+        background-color: #f3f3f4;
+    }
+}
+

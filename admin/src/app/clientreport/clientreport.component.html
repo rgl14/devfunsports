@@ -1,0 +1,104 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+           <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+                 <div class="ibox-title">
+                    <h5>Client Report - {{title}}</h5>
+                 </div>
+                 <div class="ibox-content table-responsive">
+                    <table class="table table-bordered table-striped">
+                       <thead>
+                          <tr>
+                             <th>User Name</th>
+                             <th>Match Plus Minus</th>
+                             <th>Session Plus Minus</th>
+                             <th>Total</th>
+                             <th>Match Commission</th>
+                             <th>Session Commission</th>
+                             <th>Total Commission</th>
+                             <th>Net</th>
+                             <th>OTHERS</th>
+                             <th>Final</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                          <tr *ngFor="let rpt of clientmatchreport; trackBy: trackByFn">
+                             <td>{{rpt.userName}}</td>
+                             <td [ngClass]="{'text-danger': rpt.matchPlusMinus < 0, 'text-success': rpt.matchPlusMinus >= 0}">{{rpt.matchPlusMinus | number:'1.2-2'}}</td>
+                             <td [ngClass]="{'text-danger': rpt.sessionPlusMinus < 0, 'text-success': rpt.sessionPlusMinus >= 0}">{{rpt.sessionPlusMinus | number:'1.2-2'}}</td>
+                             <th [ngClass]="{'text-danger': rpt.plusMinusTotal < 0, 'text-success': rpt.plusMinusTotal >= 0}">{{rpt.plusMinusTotal | number:'1.2-2'}}</th>
+                             <td [ngClass]="{'text-danger': rpt.matchComm < 0, 'text-success': rpt.matchComm >= 0}">{{rpt.matchComm | number:'1.2-2'}}</td>
+                             <td [ngClass]="{'text-danger': rpt.sessionComm < 0, 'text-success': rpt.sessionComm >= 0}">{{rpt.sessionComm | number:'1.2-2'}}</td>
+                             <th [ngClass]="{'text-danger': rpt.totalComm < 0, 'text-success': rpt.totalComm >= 0}">{{rpt.totalComm | number:'1.2-2'}}</th>
+                             <th [ngClass]="{'text-danger': rpt.net < 0, 'text-success': rpt.net >= 0}">{{rpt.net | number:'1.2-2'}}</th>
+                             <td [ngClass]="{'text-danger': rpt.others < 0, 'text-success': rpt.others >= 0}">{{rpt.others | number:'1.2-2'}}</td>
+                             <th [ngClass]="{'text-danger': rpt.final < 0, 'text-success': rpt.final >= 0}">{{rpt.final | number:'1.2-2'}}</th>
+                          </tr>
+                       </tbody>
+                       <thead>
+                          <tr>
+                             <th>Total</th>
+                             <th [ngClass]="{'text-danger': matchPlusMinustotal < 0, 'text-success': matchPlusMinustotal >= 0}">{{matchPlusMinustotal | number : '1.2-2'}}</th>
+                             <th [ngClass]="{'text-danger': sessionPlusMinustotal < 0, 'text-success': sessionPlusMinustotal >= 0}">{{sessionPlusMinustotal | number : '1.2-2'}}</th>
+                             <th [ngClass]="{'text-danger': plusMinusTotaltotal < 0, 'text-success': plusMinusTotaltotal >= 0}">{{plusMinusTotaltotal | number : '1.2-2'}}</th>
+                             <th [ngClass]="{'text-danger': matchCommtotal < 0, 'text-success': matchCommtotal >= 0}">{{matchCommtotal | number : '1.2-2'}}</th>
+                             <th [ngClass]="{'text-danger': sessionCommtotal < 0, 'text-success': sessionCommtotal >= 0}">{{sessionCommtotal | number : '1.2-2'}}</th>
+                             <th [ngClass]="{'text-danger': totalCommissiontotal < 0, 'text-success': totalCommissiontotal >= 0}">{{totalCommissiontotal | number : '1.2-2'}}</th>
+                             <th [ngClass]="{'text-danger': nettotal < 0, 'text-success': nettotal >= 0}">{{nettotal | number : '1.2-2'}}</th>
+                             <th [ngClass]="{'text-danger': otherstotal < 0, 'text-success': otherstotal >= 0}">{{otherstotal | number : '1.2-2'}}</th>
+                             <th [ngClass]="{'text-danger': finaltotal < 0, 'text-success': finaltotal >= 0}">{{finaltotal | number : '1.2-2'}}</th>
+                          </tr>
+                       </thead>
+                    </table>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="ibox float-e-margins">
+                     <div class="ibox-title">
+                        <h5>Agent Report</h5>
+                     </div>
+                     <div class="ibox-content table-responsive">
+                        <table class="table table-bordered table-striped">
+                           <thead>
+                              <tr>
+                                 <th>User Name</th>
+                                 <th>Match Plus Minus</th>
+                                 <th>Session Plus Minus</th>
+                                 <th>Total</th>
+                                 <th>Match Commission</th>
+                                 <th>Session Commission</th>
+                                 <th>Total Commission</th>
+                                 <th>Net</th>
+                                 <th>Agent Share</th>
+                                 <th>OTHERS</th>
+                                 <th>Final</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                           <thead>
+                              <tr>
+                                 <th>Total</th>
+                                 <th>0</th>
+                                 <th>0</th>
+                                 <th>0</th>
+                                 <th>0</th>
+                                 <th>0</th>
+                                 <th>0</th>
+                                 <th>0</th>
+                                 <th>0</th>
+                                 <th>0</th>
+                                 <th>0</th>
+                              </tr>
+                           </thead>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>

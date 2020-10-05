@@ -1,0 +1,150 @@
+<html data-ng-app="loginApp" lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Funsports GM</title>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="SHORTCUT ICON" href="favicon.png" />
+
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700');
+
+    * {
+      margin: 0;
+      padding: 0;
+      outline: none;
+      box-sizing: border-box;
+      font-family: 'Raleway', sans-serif;
+      margin-top: 25px;
+    }
+
+    body {
+      /* background: #abdff3; */
+      background: linear-gradient(to left, #70c3f3 0%, #32424c 100%);
+    }
+
+    .cont {
+      position: relative;
+      width: 25%;
+      height: 400px;
+      padding: 10px 25px;
+      margin: 10vh auto;
+      background: #fff;
+      border-radius: 8px;
+    }
+
+    .form {
+      width: 100%;
+      height: 100%;
+    }
+
+    h1,
+    h2,
+    .user,
+    .pass {
+      text-align: center;
+      display: block;
+    }
+
+    h1 {
+      color: #606060;
+      font-weight: bold;
+      font-size: 40px;
+      margin: 30px auto;
+    }
+
+    .user,
+    .pass,
+    .login {
+      width: 100%;
+      height: 45px;
+      border: none;
+      border-radius: 5px;
+      font-size: 20px;
+      font-weight: lighter;
+      margin-bottom: 30px;
+    }
+
+    .user,
+    .pass {
+      background: #ecf0f1;
+    }
+
+    .login {
+      color: #fff;
+      cursor: pointer;
+      margin-top: 20px;
+      background: #3598dc;
+      transition: background 0.4s ease;
+    }
+
+    .login:hover {
+      background: #3570dc;
+    }
+
+    @media only screen and (min-width : 280px) {
+      .cont {
+        width: 90%
+      }
+    }
+
+    @media only screen and (min-width : 480px) {
+      .cont {
+        width: 60%
+      }
+    }
+
+    @media only screen and (min-width : 768px) {
+      .cont {
+        width: 40%
+      }
+    }
+
+    @media only screen and (min-width : 992px) {
+      .cont {
+        width: 30%
+      }
+    }
+
+    h2 {
+      color: #fff;
+      margin-top: 25px;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="jquery.toast.css">
+
+</head>
+
+<body data-ng-controller="loginController">
+  <div class="cont">
+
+    <div class="form">
+      <form ng-submit="login()">
+
+        <h1>GLOBAL MANAGEMENT</h1>
+
+        <input type="text" autocomplete="off" name="loginName" data-ng-model="username" class="user"
+          placeholder="Username" />
+
+        <input type="password" autocomplete="off" class="pass" name="password" data-ng-model="password"
+          placeholder="Password" />
+
+        <button class="login" type="submit">Login</button>
+
+      </form>
+
+    </div>
+
+
+
+  </div>
+
+  <script src="loginPollyfill.js"></script>
+  <script src="jquery.toast.js"></script>
+
+
+  <script src="login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<mat-card class="bottom-sheet-header"> 
+    
+    Account
+</mat-card>
+  
+
+  <mat-card class="user-info-card">
+    <div class="account-type">
+        <button
+        class="toolbar-avatar"
+        mat-mini-fab
+        color="primary"
+      ><i class="fa fa-user-secret"></i></button>
+    </div>
+    <div class="account-info">
+        <span mat-line>Username : SST3 (Dummy)</span><br>
+        <span mat-line>Level :  Stockists</span>
+    </div>
+  </mat-card>
+  <mat-divider></mat-divider>
+  <div>
+      <!-- <mat-nav-list class="bottom-sheet-nav-list">
+          <a [routerLink]="'/home'" mat-list-item (click)="openLink($event)">
+            <span mat-line><i class="fa fa-user-secret"></i> &nbsp;Administration</span>
+          </a>
+          <a [routerLink]="'/home'" mat-list-item (click)="openLink($event)">
+            <span mat-line><i class="fa fa-thumbs-up"></i> &nbsp;Betting</span>
+          </a>
+          <a [routerLink]="'/home'" mat-list-item (click)="openLink($event)">
+            <span mat-line><i class="fa fa-cogs"></i> &nbsp;Match Setting</span>
+          </a>
+          <a [routerLink]="'/home'" mat-list-item (click)="openLink($event)">
+            <span mat-line><i class="fa fa-cog"></i> &nbsp;Settings</span>
+          </a>
+        </mat-nav-list> -->
+        <mat-nav-list class="bottom-sheet-nav-list">
+            <mat-list-item [routerLink]="'/home'" (click)="openLink($event)">
+              <i matListIcon class="fa fa-user-secret"></i>
+                <h3 matLine>Administration</h3>
+            </mat-list-item>
+            <mat-list-item [routerLink]="'/home'" (click)="openLink($event)">
+                  <i matListIcon class="fa fa-thumbs-up"></i>
+                  <h3 matLine>Betting</h3>
+            </mat-list-item>
+            <mat-list-item [routerLink]="'/home'" (click)="openLink($event)">
+                  <i matListIcon class="fa fa-cogs"></i>
+                  <h3 matLine>Match Setting</h3>
+            </mat-list-item>
+            <mat-list-item [routerLink]="'/home'" (click)="openLink($event)">
+                  <i matListIcon class="fa fa-cog"></i>
+                  <h3 matLine>Settings</h3>
+            </mat-list-item>
+        </mat-nav-list>
+  </div> 
+  <div>
+          <mat-nav-list>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="'/home'" (click)="openLink($event)">
+                  <i matListIcon class="fa fa-sign-out"></i>
+                  <h3 matLine>Logout</h3>
+            </mat-list-item>
+          </mat-nav-list>
+  </div>
+      
+        

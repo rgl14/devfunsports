@@ -1,0 +1,618 @@
+<div class="card">
+  <div class="ipe-LiveAlertsControlContainer" *ngIf="Event">
+    <div id="LiveMatchAlertHeader" class="ip-LiveAlertsHeader InPlayNotificationsHeader ">
+        <div class="ip-LiveAlertsHeaderButtons InPlayMyBetsButtonContainer ip-LiveAlertsHeaderButtons_NoMediaToggleBorder ">
+            <div class="ip-LiveAlertsHeaderButtons_Left ">
+                <div class="ipe-EventViewMarketTabs ">
+                    <div class="ipe-EventViewTabLink ipe-EventViewTabLink-selected " *ngIf="Event.isInplay==1">Inplay</div>
+                    <div class="ipe-EventViewTabLink ">{{Event.name}}</div>
+                    <span class="ipe-EventViewMarketTabs_Slider ipe-EventViewMarketTabs_Slider-Animate " *ngIf="Event.isInplay==1" style="left: 10px; width: 35px; transform-origin: left center;"></span>
+                </div>
+            <div class="ip-LiveAlertsHeaderButtons_Right ">
+                <div class="ipe-MediaToggle ">
+                    <div class="ipe-MediaToggle_Video "><mat-icon style="color: #fff;cursor:pointer" (click)="openTv()" aria-hidden="true">live_tv</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PlaceHolderLiveMatchAlertsMenu" class="ip-LiveAlertsMenu "></div>
+</div>
+<div id="streamingBox" class="tv-fix" style="display: none;">
+  <div class="tv-wrap">
+     <iframe id="iframeTv" [ngStyle]="{ 'width': TvWidth + 'px' }" style="height: 220px;"></iframe>
+  </div>
+</div>
+</div>
+
+ <!-- Auto Score From 365 Design -->
+ <ng-container *ngIf="BSFscore">
+  <div class="circket_wrapper">
+     <header>
+        <div class="main_score_wrap">
+           <div class="header_left">
+              <div class="header_team_block">
+                 <div class="team_block_left">
+                    <span class="ball_img" *ngIf="BSFscore.teamHome.isPlay==true"><img alt="" src="https://bw.sixlogics.com/cricket/assets/images/green_bat.png"></span>
+                    <span class="ball_img" *ngIf="BSFscore.teamHome.isPlay==false"><img alt="" src="https://bw.sixlogics.com/cricket/assets/images/red_ball.png?v=1.0"></span>
+                 </div>
+                 <div class="team_block_right">
+                    <h3><span>{{BSFscore.teamHome.teamName}}</span>
+                    </h3>
+                    <span class="score" *ngIf="BSFscore.teamHome.score!=''"
+                       >{{BSFscore.teamHome.score}}
+                       <span class="over" *ngIf="BSFscore.teamHome.overs!=''"
+                          >({{BSFscore.teamHome.overs}})</span></span>
+                 </div>
+              </div>
+           </div>
+           <div class="header_center">
+              <span>{{BSFscore.betStatus}}</span></div>
+           <div class="header_right">
+              <div class="header_team_block">
+                 <div class="team_block_left">
+                    <h3 *ngIf="BSFscore==undefined"><span
+                          class="mobile">{{BSFscore.teamAway.teamName}}</span></h3>
+                    <h3 *ngIf="BSFscore!=undefined"><span class="mobile">{{BSFscore.teamAway.teamName}}</span>
+                    </h3>
+                    <span class="score" *ngIf="BSFscore.teamAway.score!=''"
+                       >{{BSFscore.teamAway.score}}
+                       <span class="over" *ngIf="BSFscore.teamAway.overs!=''"
+                          >({{BSFscore.teamAway.overs}})</span></span>
+                 </div>
+                 <div class="team_block_right">
+                    <span class="ball_img" *ngIf="BSFscore.teamAway.isPlay==true"><img alt="" src="https://bw.sixlogics.com/cricket/assets/images/green_bat.png"></span>
+                    <span class="ball_img" *ngIf="BSFscore.teamAway.isPlay==false"><img alt="" src="https://bw.sixlogics.com/cricket/assets/images/red_ball.png?v=1.0"></span>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </header>
+     <div class="live_footer_content">
+        <div class="live_footer_top">
+           <div class="live_footer_left" *ngIf="BSFscore.teamHome.overs!=''">
+              <h4>Overs:{{BSFscore.teamHome.overs}}
+                 </h4>
+           </div>
+           <div class="live_footer_left" *ngIf="BSFscore.teamAway.overs!=''">
+              <h4>Overs:{{BSFscore.teamAway.overs}}
+                 </h4>
+           </div>
+           <div class="live_footer_right">
+              <!-- <ul class="footer_status_list">
+                        <li><span class="footer_status_left">Balls Remaining:</span><span class="footer_status_right">0</span></li>
+                        <li><span class="footer_status_left">Runs required:</span><span class="footer_status_right">23</span></li>
+                    </ul>
+                    <ul class="recent_over_list">
+                       <li class="no-class"> <span>1</span> </li>
+                       <li class="no-class"> <span>0</span> </li>
+                       <li class="no-class"> <span>1</span> </li>
+                       <li class="no-class"> <span>1</span> </li>
+                       <li class="wicket"> <span>W</span> </li>
+                       <li class="no-class"> <span>0</span> </li>
+                   </ul> -->
+           </div>
+        </div>
+        <!-- <div class="live_footer_bot">
+                <div class="last_recent_overs">
+                    <h4>Last 3 Overs:</h4>
+                    <ul>
+                        <li><span class="no-class"> 2 </span><span class="no-class"> 1 </span><span class="no-class"> 1 </span><span class="no-class"> 1 </span><span class="no-class"> 1 </span><span class="no-class"> 1 </span></li>
+                        <li><span class="no-class"> 1 </span><span class="no-class"> 1 </span><span class="no-class"> 2 </span><span class="no-class"> 2 </span><span class="no-class"> 1<sub>lb</sub> </span><span class="no-class"> 1<sub>lb</sub> </span></li>
+                        <li><span class="wicket"> W </span><span class="no-class"> 1 </span><span class="wicket"> W </span><span class="no-class"> 1 </span><span class="no-class"> 0 </span><span class="no-class"> 1 </span></li>
+                    </ul>
+                </div>
+            </div> -->
+     </div>
+  </div>
+</ng-container>
+
+<!-- Manual Score Design -->
+<ng-container *ngIf="liveScore">
+<div class="circket_wrapper">
+  <header>
+     <div class="main_score_wrap">
+        <div class="header_left">
+           <div class="header_team_block">
+              <div class="team_block_left">
+                 <span class="ball_img" *ngIf="liveScore.data[0].status==1"><img alt="" src="https://bw.sixlogics.com/cricket/assets/images/green_bat.png"></span>
+                 <span class="ball_img" *ngIf="liveScore.data[0].status==0"><img alt="" src="https://bw.sixlogics.com/cricket/assets/images/red_ball.png?v=1.0"></span>
+             </div>
+              <div class="team_block_right">
+                 <h3>
+                   <span>{{liveScore.data[0].teamName}}</span>
+                 </h3>
+                   <span class="score">{{liveScore.data[0].score}} / {{liveScore.data[0].wickets}}
+                   <span class="over">({{liveScore.data[0].overs}})</span>
+                 </span>
+              </div>
+           </div>
+        </div>
+        <div class="header_center">
+           <span>{{liveScore.tossResult}}</span><br>
+           <span *ngIf="liveScore.data[0].status==1">{{liveScore.data[0].lastScore}} {{liveScore.comments}}</span>
+           <span *ngIf="liveScore.data[1].status==1">{{liveScore.data[1].lastScore}} {{liveScore.comments}}</span><br>
+           <span>{{liveScore.matchResult}}</span>
+         </div>
+        <div class="header_right">
+           <div class="header_team_block">
+              <div class="team_block_left">
+                 <h3>
+                   <span>{{liveScore.data[1].teamName}}</span>
+                 </h3>
+                 <span class="score">{{liveScore.data[1].score}} / {{liveScore.data[1].wickets}}
+                   <span class="over">({{liveScore.data[1].overs}})</span>
+                 </span>
+              </div>
+              <div class="team_block_right">
+                 <span class="ball_img" *ngIf="liveScore.data[1].status==1"><img alt="" src="https://bw.sixlogics.com/cricket/assets/images/green_bat.png"></span>
+                 <span class="ball_img" *ngIf="liveScore.data[1].status==0"><img alt="" src="https://bw.sixlogics.com/cricket/assets/images/red_ball.png?v=1.0"></span>
+             </div>
+           </div>
+        </div>
+     </div>
+  </header>
+  <div class="live_footer_content">
+     <div class="live_footer_top">
+        <div class="live_footer_left" >
+           <h4 *ngIf="liveScore.data[0].status==1">Overs: {{liveScore.data[0].overs}}</h4>
+           <h4 *ngIf="liveScore.data[1].status==1">Overs: {{liveScore.data[1].overs}}</h4>
+        </div>
+        <!-- <div class="live_footer_right">
+           <ul class="footer_status_list">
+                     <li><span class="footer_status_left">Balls Remaining:</span><span class="footer_status_right">0</span></li>
+                     <li><span class="footer_status_left">Runs required:</span><span class="footer_status_right">23</span></li>
+                 </ul>
+                 <ul class="recent_over_list">
+                    <li class="no-class"> <span>1</span> </li>
+                    <li class="no-class"> <span>0</span> </li>
+                    <li class="no-class"> <span>1</span> </li>
+                    <li class="no-class"> <span>1</span> </li>
+                    <li class="wicket"> <span>W</span> </li>
+                    <li class="no-class"> <span>0</span> </li>
+                </ul>
+        </div> -->
+     </div>
+     <!-- <div class="live_footer_bot">
+             <div class="last_recent_overs">
+                 <h4>Last 3 Overs:</h4>
+                 <ul>
+                     <li><span class="no-class"> 2 </span><span class="no-class"> 1 </span><span class="no-class"> 1 </span><span class="no-class"> 1 </span><span class="no-class"> 1 </span><span class="no-class"> 1 </span></li>
+                     <li><span class="no-class"> 1 </span><span class="no-class"> 1 </span><span class="no-class"> 2 </span><span class="no-class"> 2 </span><span class="no-class"> 1<sub>lb</sub> </span><span class="no-class"> 1<sub>lb</sub> </span></li>
+                     <li><span class="wicket"> W </span><span class="no-class"> 1 </span><span class="wicket"> W </span><span class="no-class"> 1 </span><span class="no-class"> 0 </span><span class="no-class"> 1 </span></li>
+                 </ul>
+             </div>
+     </div> -->
+  </div>
+</div>
+</ng-container>
+
+    <div class="tile_count" *ngIf="Event">
+      <div class="col-md-12 col-sm-12 col-xs-12" id="UpCommingData" style="display: none;"></div>
+      <div class="row">
+        <div class="col-md-12" id="MatchOddInfo">
+          <div class="matchBoxMain">
+            <div class="modal-dialog-staff">
+              <div class="score_area"><span class="matchScore" id="matchScore"> </span> </div>
+              <div class="modal-body">
+                <div class="matchClosedBox_1153815307" style="display:none">
+                  <div class="fullrow fullrownew">
+                    <div class="pre-text">
+                      Match Odds <br>
+                      <span class="match-colsed"> Closed </span>
+                    </div>
+                    <div class="matchTime">
+                      {{Event.eventDate}}
+                    </div>
+                  </div>
+                  <div>
+                    <div class="closedBox">
+                      <h1>Closed</h1>
+                    </div>
+                  </div>
+                </div>
+                <ng-container *ngIf="Flag=='1'">
+                  <div class="matchOpenBox_" *ngFor="let mkt of AllMarkets;trackBy:trackByFn">
+                    <div class="fullrow fullrownew">
+                      <div class="pre-text">
+                        <!-- <span class="inplay_txt" *ngIf="Event.isInplay==1"> In-play </span> -->
+                        <!-- <br> -->
+                        <img style="display:none;" src="assets/img/play.ico" height="20px" alt="play_icon">
+                        <img style="display:inline;" src="assets/img/pause.ico" height="20px" alt="pause_icon">
+                        {{mkt.name}} [{{Event.eventDate}}]
+                      </div>
+                    </div>
+                    <div class="fullrow MatchIndentB" style="position:relative;">
+                      <table class="table table-striped  bulk_actions">
+                        <tbody>
+                          <tr class="headings mobile_heading">
+                            <th class="fix_heading color_red">Min stake:1000<br>Max stake:100000</th>
+                            <th> </th>
+                            <th> </th>
+                            <th class="back_heading_color">BACK </th>
+                            <th class="lay_heading_color">LAY </th>
+                            <th> </th>
+                            <th> </th>
+                          </tr>
+                          <tr class="back_lay_color" *ngFor="let runner of mkt.runnerData;trackBy:trackByFn">
+                            <td>
+                              <p class="runner_text">{{runner.runnerName}} </p>
+                              <span class="runner_amount"
+                                [ngClass]="{'text-danger':runner.book<0,'text-success':runner.book>=0}"><b>{{runner.book | number:'1.2-2'}}</b></span>
+                            </td>
+                            <td class="hidden-xs">
+                              <span>{{runner.back3}}</span>
+                              <span>{{runner.backSize3}}</span>
+                            </td>
+                            <td class="hidden-xs">
+                              <span>{{runner.back2}}</span>
+                              <span>{{runner.backSize2}}</span>
+                            </td>
+                            <td class="mark-back">
+                              <span>{{runner.back1}}</span>
+                              <span>{{runner.backSize1}}</span>
+                            </td>
+                            <!--- availableToLay -->
+                            <td class="mark-lay">
+                              <span>{{runner.lay1}}</span>
+                              <span>{{runner.laySize1}}</span>
+                            </td>
+                            <td class="hidden-xs">
+                              <span>{{runner.lay2}}</span>
+                              <span>{{runner.laySize2}}</span>
+                            </td>
+                            <td class="hidden-xs">
+                              <span>{{runner.lay3}}</span>
+                              <span>{{runner.laySize3}}</span>
+                            </td>
+                          </tr>
+      
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="Flag=='0'">
+                  <div class="fullrow fullrownew"*ngFor="let book of BookRates;trackBy:trackByFn">
+                    <div class="pre-text">
+                      <!-- <span class="inplay_txt" *ngIf="Event.isInplay==1"> In-play </span> -->
+                      <img style="display:none;" src="assets/img/play.ico" height="20px" alt="play_icon">
+                      <img style="display:inline;" src="assets/img/pause.ico" height="20px" alt="pause_icon">
+                       {{book.name}}
+                    </div>
+                    
+                  <div class="fullrow MatchIndentB" style="position:relative;">
+                    <table class="table table-striped  bulk_actions">
+                      <tbody>
+                        <tr class="headings mobile_heading">
+                          <th class="fix_heading color_red">Min stake:{{book.minStake}}<br>Max stake:{{book.maxStake}}</th>
+                          <th> </th>
+                          <th> </th>
+                          <th class="back_heading_color">BACK </th>
+                          <th class="lay_heading_color">LAY </th>
+                          <th> </th>
+                          <th> </th>
+                        </tr>
+                        <tr class="back_lay_color BmBook" *ngFor="let runner of book.runnerData;trackBy:trackByName">
+                          <td>
+                            <p class="runner_text">{{runner.name}} </p>
+                            <span class="runner_amount"
+                              [ngClass]="{'text-danger':runner.book<0,'text-success':runner.book>=0}"><b>{{runner.book | number:'1.2-2'}}</b></span>
+                          </td>
+                          <td></td>
+                          <td></td>
+                          <td *ngIf="runner.ballStatus!=''" colspan="2"
+                            style="background: #00000026;padding-top: 15px!important;">SUSPENDED</td>
+                          <td *ngIf="runner.ballStatus==''" class="mark-back">
+                            <span>{{runner.backPrice}}</span>
+                            <span>{{runner.backSize}}</span>
+                          </td>
+                          <td *ngIf="runner.ballStatus==''" class="mark-lay">
+                            <span>{{runner.layPrice}}</span>
+                            <span>{{runner.laySize}}</span>
+                          </td>
+                          <td style="background: transparent;"></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                </ng-container>
+                <div class="fullrow margin_bottom fancybox" *ngIf="fancyData.length!=0">
+                  <table class="table table-striped  bulk_actions margin_null">
+                    <tbody>
+                      <tr class="headings mobile_heading">
+                        <th class="fix_heading">
+                          <a href="javascript:void(0)">Fancy ON/OFF</a>
+                        </th>
+                        <th> </th>
+                        <th> </th>
+                        <th class="lay_heading_color"> NO [ L ] </th>
+                        <th class="back_heading_color">YES [ B ] </th>
+                        <th> </th>
+                        <th> </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="block_box1" *ngFor="let fancy of fancyData;trackBy:trackByFn">
+                    <ul class="sport-high fancyListDiv">
+                      <li>
+                        <div class="ses-fan-box">
+                          <table class="table table-striped  bulk_actions">
+                            <tbody>
+                              <tr class="session_content">
+                                <td>
+                                  <span>
+                                    <img src="assets/img/pause.ico" alt="pause_icon" height="20px" *ngIf="userId==1" style="margin-right: 5px;">
+                                    {{fancy.name}}
+                                  </span>
+                                  <b [ngClass]="{'text-danger':fancy.book<0,'text-success':fancy.book>=0}">{{fancy.book | number:'1.2-2'}}</b>
+                                  <p class="position_btn"><button class="btn btn-xs btn-danger"
+                                      (click)="openfancybookDialog(fancy)">Book</button>
+                                  </p>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td class="fancy_lay">
+                                  <button class="lay-cell cell-btn">{{fancy.noScore}}</button>
+                                  <button class="disab-btn">{{fancy.noRate}}</button>
+                                </td>
+                                <td class="fancy_back">
+                                  <button class="back-cell cell-btn">{{fancy.yesScore}}</button>
+                                  <button class="disab-btn">{{fancy.yesRate}}</button>
+                                </td>
+                                <!-- <td colspan="2">Min: {{fancy.minStake}}<br>Max: {{fancy.maxStake}}</td> -->
+                                <td></td>
+                                <td></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="ball-msg-box" *ngIf="fancy.ballStatus!=''">
+                            <h1>{{fancy.ballStatus}}</h1>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="ibox float-e-margins" *ngIf="sessionpnlreport.length!=0">
+                  <div class="table-responsive">
+                     <table  class="table tblpad table-striped table-bordered table-hover">
+                           <thead>
+                              <tr>
+                                 <th colspan="4" class="bet-place-tbl-th align-left" style="background-color: #474747;color: #fff;">Settled Markets</th>
+                              </tr>
+                              <tr>
+                                 <th>Market Name</th>
+                                 <th>Result</th>
+                                 <th>Profit & Loss</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr *ngFor="let pnl of sessionpnlreport;trackBy:trackByindex">
+                                 <td title="'Market name'" class="tbltd" style="text-align: left;"><b>{{pnl.market}}</b></td>
+                                 <td title="'Result'"  class="Cursor-pointer tbltd"><b>{{pnl.result}}</b></td>
+                                 <td title="'P | L'"  class="Cursor-pointer tbltd" [ngClass]="(pnl.position>=0)?'text-success':'text-danger'"><b>{{pnl.position | number:'1.2-2'}}</b></td>
+                              </tr>
+                           </tbody>
+                           <tfoot>
+                              <tr>
+                                 <th colspan="2" style="text-align: right;">Declared Market Total</th>
+                                 <th [ngClass]="(totalsessionpnl>=0)?'text-success':'text-danger'">{{totalsessionpnl | number:'1.2-2'}}</th>
+                              </tr>
+                           </tfoot>
+                           
+                     </table>
+                  </div>
+               </div>
+              </div>
+            </div>
+          </div>
+        <!-- <div class="col-md-5 matchBox">
+          <div class="overlay_mobile in"></div>
+          <div class="betSlipBox">
+    
+            <div class="match_tv">
+              <div class="form-title">
+                <span id="tital_change">
+                  Live TV
+                </span>
+                <h3 class="MatchTvHide" (click)="ToggleAccordian('1')"><i class="MatchTvHideDown down"
+                    [ngClass]="{'down':MatchTvHide,'up':!MatchTvHide}"></i></h3>
+              </div>
+              <div class="MatchTvHideShow" *ngIf="MatchTvHide">
+    
+                <div style="margin-top:0px" class="featured-box featured-box-secundary default">
+                  <div style="padding-left:0px;padding-top:30px;">
+                    <iframe allowfullscreen="true" [src]="liveUrlSafe" style="border: none;height: 290px;"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div id="MatchUnMatchBetaData">
+            <div role="main">
+              <div class="fullrow">
+                <div class="modal-dialog-staff">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <span id="msg_error"></span><span id="errmsg"></span>
+                      <div class="match_tv match_heading">
+                        <div class="form-title">
+                          <span><a>Match Bets (<span>{{MObetdata.length}}</span>)</a></span>
+                          <input type="text" name="searchId" [(ngModel)]="searchMO" style="color:#000">
+                          <button class="btn btn-primary btn-xs" (click)="reset()">Reset</button>
+                          <h3 class="MatchBetHide" (click)="ToggleAccordian('2')"><i class="MatchTvHideDown"
+                              [ngClass]="{'down':MatchBetHide,'up':!MatchBetHide}"></i></h3>
+                        </div>
+                      </div>
+                      <div class="match_bets MachShowHide" *ngIf="MatchBetHide">
+                        <table class="table table-bordered">
+                          <tbody>
+                            <tr class="heading_user_table">
+                              <td>No.</td>
+                              <td>Runner</td>
+                              <td>Bet type</td>
+                              <td> Client</td>
+                              <td>Odds</td>
+                              <td>Stake</td>
+                              <td>P&amp;L</td>
+                              <td>Time</td>
+                              <td>ID</td>
+                              <td> Action</td>
+                              <td> IP</td>
+                              <td> Master</td>
+                              <td> Dealer</td>
+                            </tr>
+                            <tr class="mark-back content_user_table"
+                              *ngFor="let bet of MObetdata;let index=index">
+                              <td class="mark-back">{{index}}</td>
+                              <td class="mark-back">{{bet.runnerName}}</td>
+                              <td class="mark-back">{{bet.backLay}}</td>
+                              <td class="mark-back">{{bet.clUsername}}</td>
+                              <td class="mark-back">{{bet.odds}}</td>
+                              <td class="mark-back">{{bet.stake}}</td>
+                              <td class="mark-back">{{(bet.odds-1)*bet.stake | number:'2.2-2'}}</td>
+                              <td class="mark-back redtext">{{bet.date}}</td>
+                              <td class="mark-back">{{bet.id}}</td>
+                              <td class="mark-back"><i class="fa fa-trash" aria-hidden="true" style="color:red;"
+                                  (click)="openDeleteBetDialog(bet)"></i>
+                              </td>
+                              <td class="mark-back" title="{{bet.sourceInfo}}">{{bet.sourceInfo.split('IP: ')[1]}}</td>
+                              <td class="mark-back">{{bet.masterUsername}}</td>
+                              <td class="mark-back">{{bet.agentUsername}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div role="main">
+              <div class="fullrow">
+                <div class="modal-dialog-staff">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <span id="msg_error"></span><span id="errmsg"></span>
+                      <div class="match_tv match_heading">
+                        <div class=" form-title">
+                          <span><a>Fancy Bets (<span>{{fancyBetdata.length}}</span>)</a></span>
+                          <input type="text" name="searchId" [(ngModel)]="searchFancy" style="color:#000">
+                          <button class="btn btn-primary btn-xs" (click)="reset()">Reset</button>
+                          <h3 class="MatchBetHide" (click)="ToggleAccordian('3')"><i class="MatchTvHideDown"
+                              [ngClass]="{'down':fancyBetHide,'up':!fancyBetHide}"></i></h3>
+                        </div>
+                      </div>
+                      <div class="match_bets fancyShowHide" *ngIf="fancyBetHide">
+                        <table class="table table-bordered">
+                          <tbody>
+                            <tr class="heading_user_table">
+                              <td>No.</td>
+                              <td>Runner</td>
+                              <td>Bet type</td>
+                              <td> Client</td>
+                              <td>Score/Rate</td>
+                              <td>stake</td>
+                              <td>P&amp;L</td>
+                              <td>Time</td>
+                              <td>ID</td>
+                              <td> Action</td>
+                              <td>IP</td>
+                            </tr>
+                            <tr class="mark-back content_user_table"
+                              *ngFor="let bet of fancyBetdata;let index=index">
+                              <td class="mark-back">{{index}}</td>
+                              <td class="mark-back">{{bet.runnerName}}</td>
+                              <td class="mark-back">{{bet.backLay}}</td>
+                              <td class="mark-back">{{bet.clUsername}}</td>
+                              <td class="mark-back">{{bet.score}}/{{bet.odds}}</td>
+                              <td class="mark-back">{{bet.stake}}</td>
+                              <td class="mark-back">{{(bet.odds/100)*bet.stake | number:'2.2-2'}}</td>
+                              <td class="mark-back redtext">{{bet.date}}</td>
+                              <td class="mark-back">{{bet.id}}</td>
+                              <td class="mark-back"><i class="fa fa-trash" aria-hidden="true" style="color:red;"
+                                  (click)="openDeleteBetDialog(bet)"></i>
+                              </td>
+                              <td class="mark-back" title="{{bet.sourceInfo}}">{{bet.sourceInfo.split('IP: ')[1]}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div role="main">
+              <div class="fullrow">
+                <div class="modal-dialog-staff">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <span id="msg_error"></span><span id="errmsg"></span>
+                      <div class="match_tv match_heading">
+                        <div class=" form-title">
+                          <span><a>Book Making Bets (<span>{{bmBetdata.length}}</span>)</a></span>
+                          <input type="text" name="searchId" [(ngModel)]="searchBm" style="color:#000">
+                          <button class="btn btn-primary btn-xs">Search</button>
+                          <button class="btn btn-primary btn-xs" (click)="reset()">Reset</button>
+                          <h3 class="MatchBetHide" (click)="ToggleAccordian('4')"><i class="MatchTvHideDown"
+                              [ngClass]="{'down':bmBetHide,'up':!bmBetHide}"></i></h3>
+                        </div>
+                      </div>
+                      <div class="match_bets MachShowHide" *ngIf="bmBetHide">
+                        <table class="table table-bordered">
+                          <tbody>
+                            <tr class="heading_user_table">
+                              <td>No.</td>
+                              <td>Runner</td>
+                              <td>Bet type</td>
+                              <td> Client</td>
+                              <td>Odds</td>
+                              <td>Stake</td>
+                              <td>P&amp;L</td>
+                              <td>Time</td>
+                              <td>ID</td>
+                              <td> Action</td>
+                              <td> IP</td>
+                              <td> Master</td>
+                              <td> Dealer</td>
+                            </tr>
+                            <tr class="mark-back content_user_table"
+                              *ngFor="let bet of bmBetdata;let index=index">
+                              <td class="mark-back">{{index}}</td>
+                              <td class="mark-back">{{bet.runnerName}}</td>
+                              <td class="mark-back">{{bet.backLay}}</td>
+                              <td class="mark-back">{{bet.clUsername}}</td>
+                              <td class="mark-back">{{bet.odds}}</td>
+                              <td class="mark-back">{{bet.stake}}</td>
+                              <td class="mark-back">{{(bet.odds/100)*bet.stake | number:'2.2-2'}}</td>
+                              <td class="mark-back redtext">{{bet.date}}</td>
+                              <td class="mark-back">{{bet.id}}</td>
+                              <td class="mark-back"><i class="fa fa-trash" aria-hidden="true" style="color:red;"
+                                  (click)="openDeleteBetDialog(bet)"></i>
+                              </td>
+                              <td class="mark-back" title="{{bet.sourceInfo}}">{{bet.sourceInfo.split('IP: ')[1]}}</td>
+                              <td class="mark-back">{{bet.masterUsername}}</td>
+                              <td class="mark-back">{{bet.agentUsername}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  </div>

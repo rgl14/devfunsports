@@ -1,0 +1,197 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+           <div class="col-lg-4">
+              <div class="ibox float-e-margins">
+                 <div class="ibox-title">
+                    <h5>PAYMENT RECEIVING FROM (Lena He)</h5>
+                    <!-- <div class="ibox-tools">
+
+                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                          <i class="fa fa-wrench"></i>
+                       </a>
+                       <ul class="dropdown-menu dropdown-user">
+                           <li><a target="_blank" href="/agent/ledgers/collection_report_pdf.pdf">Export PDF</a>
+                           </li>
+                       </ul>
+                    </div> -->
+                 </div>
+                 <div class="ibox-content table-responsive" *ngIf="lenaHai">
+                    <table class="table" id="example_lena_hai">
+                       <thead>
+                          <tr>
+                             <th>Client</th>
+                             <th>Balance</th>
+                             <th>Action</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                                  <!-- <tr>
+                                     <td><a [routerLink]="'/userdashboard'">SP2 (Dummy 1)</a></td>
+                                     <td>13501.88</td>
+                                     <td><button
+                                       class="btn btn-info btn-sm"
+                                       title="Clear"
+                                       >
+                                       Clear
+                                       </button>
+                                    </td>
+                                  </tr> -->
+                                  <ng-container *ngIf="lenaHai.length==0">
+                                    <tr><td colspan="4" style="text-align:center">No Data</td></tr>
+                                   </ng-container>
+                                   <ng-container *ngIf="lenaHai.length>0">
+                                    <tr *ngFor="let lena of lenaHai">
+                                       <td><a [routerLink]="['/manage-clients', lena.userId, 'userdashboard']">{{lena.clientName}}</a></td>
+                                       <td [ngClass]="(lena.amount>=0)?'text-success':'text-danger'">{{lena.amount | number:'1.2-2'}}</td>
+                                       <td><button
+                                          class="btn btn-info btn-sm mr-1"
+                                          title="Clear"
+                                          (click)="openconfirmDialog(lena.userId,lena.amount,1)"
+                                          >
+                                          Clear
+                                          </button>
+                                          <button
+                                          class="btn btn-warning btn-sm"
+                                          title="Clear"
+                                          (click)="openPartialPaymentDialog(lena.userId,lena.amount,1)"
+                                          >
+                                          Settlement
+                                          </button>
+                                       </td>
+                                    </tr>
+                                   </ng-container>
+                       </tbody>
+                       <tfoot>
+                          <tr>
+                          <th>Total</th> <!-- Username -->
+                          <th [ngClass]="(totallena>=0)?'text-success':'text-danger'">{{totallena | number:'1.2-2'}}</th>
+                          <td></td>
+                          </tr>
+                       </tfoot>
+                    </table>
+                 </div>
+              </div>
+           </div>
+
+
+           <div class="col-lg-4">
+              <div class="ibox float-e-margins">
+                 <div class="ibox-title">
+                    <h5>PAYMENT PAID TO (Dena He)</h5>
+                    <!-- <div class="ibox-tools">
+
+                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                          <i class="fa fa-wrench"></i>
+                       </a>
+                       <ul class="dropdown-menu dropdown-user">
+                           <li><a target="_blank" href="/agent/ledgers/collection_report_pdf.pdf">Export PDF</a>
+                           </li>
+                       </ul>
+
+                    </div> -->
+                 </div>
+                 <div class="ibox-content table-responsive" *ngIf="denaHai">
+                    <table class="table display" id="example_dena_hai">
+                       <thead>
+                          <tr>
+                             <th>Client</th>
+                             <th>Balance</th>
+                             <th>Action</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                                  <!-- <tr>
+                                     <td><a [routerLink]="'/userdashboard'">SP3 (Dummy)</a></td>
+                                     <td>18372.94</td>
+                                     <td><button
+                                       class="btn btn-info btn-sm"
+                                       title="Clear"
+                                       >
+                                       Clear
+                                       </button></td>
+                                  </tr> -->
+                                  <ng-container *ngIf="denaHai.length==0">
+                                    <tr><td colspan="4" style="text-align:center">No Data</td></tr>
+                                   </ng-container>
+                                   <ng-container *ngIf="denaHai.length>0">
+                                    <tr *ngFor="let dena of denaHai">
+                                       <td><a [routerLink]="['/manage-clients', dena.userId, 'userdashboard']">{{dena.clientName}}</a></td>
+                                       <td [ngClass]="(dena.amount>=0)?'text-success':'text-danger'">{{dena.amount | number:'1.2-2'}}</td>
+                                       <td><button
+                                          class="btn btn-info btn-sm mr-1"
+                                          title="Clear"
+                                          (click)="openconfirmDialog(dena.userId,dena.amount,2)"
+                                          >
+                                          Clear
+                                          </button>
+                                          <button
+                                          class="btn btn-warning btn-sm"
+                                          title="Clear"
+                                          (click)="openPartialPaymentDialog(dena.userId,dena.amount,2)"
+                                          >
+                                          Settlement
+                                          </button>
+                                       </td>
+                                    </tr>
+                                   </ng-container>
+                       </tbody>
+                       <tfoot>
+                          <tr>
+                          <th>Total</th> <!-- Username -->
+                          <th [ngClass]="(totaldena>=0)?'text-success':'text-danger'">{{totaldena | number:'1.2-2'}}</th> <!-- Total -->
+                          <th></th>
+                          </tr>
+                       </tfoot>
+                    </table>
+                 </div>
+              </div>
+           </div>
+
+           <div class="col-lg-4">
+              <div class="ibox float-e-margins">
+                 <div class="ibox-title">
+                    <h5>PAYMENT Clear (Clear Hai)</h5>
+                    <!-- <div class="ibox-tools">
+
+                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                          <i class="fa fa-wrench"></i>
+                       </a>
+                       <ul class="dropdown-menu dropdown-user">
+                           <li><a target="_blank" href="/agent/ledgers/collection_report_pdf.pdf">Export PDF</a>
+                           </li>
+                       </ul>
+                    </div> -->
+                 </div>
+                 <div class="ibox-content table-responsive" *ngIf="clearHai">
+                    <table class="table" id="example_lena_hai">
+                       <thead>
+                          <tr>
+                             <th>Client</th>
+                             <th>Balance</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                                  <ng-container *ngIf="clearHai.length==0">
+                                    <tr><td colspan="2" style="text-align:center">No Data</td></tr>
+                                   </ng-container>
+                                   <ng-container *ngIf="clearHai.length>0">
+                                    <tr *ngFor="let clear of clearHai">
+                                       <td><a [routerLink]="['/manage-clients', clear.userId, 'userdashboard']">{{clear.clientName}}</a></td>
+                                       <td [ngClass]="(clear.amount>=0)?'text-success':'text-danger'">{{clear.amount | number:'1.2-2'}}</td>
+                                    </tr>
+                                   </ng-container>
+
+                       </tbody>
+                       <tfoot>
+                          <tr>
+                          <th>Total</th>
+                          <th class="text-success">0.00</th>
+                          </tr>
+                       </tfoot>
+                    </table>
+                 </div>
+              </div>
+           </div>
+
+        </div>
+     </div>

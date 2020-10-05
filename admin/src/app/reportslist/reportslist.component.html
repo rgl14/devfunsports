@@ -1,0 +1,40 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+         <div class="col-lg-12">
+             <div class="ibox float-e-margins">
+                 <div class="ibox-title">
+                     <h5>Report List</h5>
+                 </div>
+                 
+                 <div class="ibox-content-list table-responsive" >
+                        <mat-nav-list>
+                            <mat-list-item [routerLink]="'/report/collectionreport'">
+                              <i matListIcon class="fa fa-inr"></i>
+                                <h3 matLine>Collection Report</h3>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item [routerLink]="'/report/myledger'">
+                                  <i matListIcon class="fa fa-book"></i>
+                                  <h3 matLine>My Ledger</h3>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item [routerLink]="'/report/profitnloss'">
+                                  <i matListIcon class="fa fa-inr"></i>
+                                  <h3 matLine>My Profit & Loss</h3>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item [routerLink]="'/report/sportpnl'">
+                                  <i matListIcon class="fa fa-inr"></i>
+                                  <h3 matLine>Sport Profit & Loss</h3>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item [routerLink]="'/report/tournamentpnl'">
+                                  <i matListIcon class="fa fa-inr"></i>
+                                  <h3 matLine>Tournament Profit & Loss</h3>
+                            </mat-list-item>
+                        </mat-nav-list> 
+                </div>
+             </div>         
+         </div>
+     </div>
+ </div>

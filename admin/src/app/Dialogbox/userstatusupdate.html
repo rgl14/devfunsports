@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Update Status {{ data.name }}</h1>
+<div mat-dialog-content style="overflow: hidden">
+  <mat-radio-group [(ngModel)]="data.statusSelected">
+    <mat-radio-button value="0">{{ data.name }}</mat-radio-button>
+    <!-- <mat-radio-button value="1" style="margin-left:10px">IsAll</mat-radio-button> -->
+  </mat-radio-group>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button color="warn" (click)="onNoClick()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    [disabled]="!data.statusSelected"
+  >
+    Update
+  </button>
+</div>

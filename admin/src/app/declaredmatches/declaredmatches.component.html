@@ -1,0 +1,241 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title" style="text-align: center">
+          <h1>Declared Match Dashboard - {{ title }}</h1>
+        </div>
+        <div class="button-row ibox-content mob-button">
+          <button
+            mat-raised-button
+            color="primary"
+            [routerLink]="[
+              '/sport/matches/declaredbetslips',
+              matchId,
+              MktId,
+              title
+            ]"
+          >
+            Odds Bet Slips
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="sprtID == '4'"
+            [routerLink]="['/sport/matches/bmbetslips', sprtID, mtbfID, title]"
+          >
+            BookMaker Bet Slips
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="sprtID == '4'"
+            [routerLink]="[
+              '/sport/matches/declaredsessionbetslips',
+              matchId,
+              MktId,
+              title
+            ]"
+          >
+            Fancy Bet Slip
+          </button>
+          <!-- <button
+              mat-raised-button
+              color="primary"
+              *ngIf="sprtID != null"
+              [routerLink]="[
+                '/sport/AllMatch/marketreport',
+                sprtID,
+                mtbfID,
+                title
+              ]"
+            >
+              Market Report
+            </button> -->
+          <button
+            mat-raised-button
+            color="primary"
+            [routerLink]="[
+              '/sport/matches/companyreport',
+              matchId,
+              MktId,
+              title
+            ]"
+          >
+            Company Report
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            [routerLink]="[
+              '/sport/matches/clientreport',
+              matchId,
+              MktId,
+              title
+            ]"
+          >
+            Client Report
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            [routerLink]="[
+              '/sport/matches/clientcollectionreport',
+              matchId,
+              title
+            ]"
+          >
+            Collection Report
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            [routerLink]="[
+              '/sport/matches/sessionearningrepport',
+              matchId,
+              title
+            ]"
+          >
+            Session Earning Report
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Match Markets</h5>
+          <div class="ibox-tools"></div>
+        </div>
+        <div class="ibox-content table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Betfair Market Id</th>
+                <th>Betfair Market Type</th>
+                <th>RUNNER</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mkt of matchMarkets; trackBy: trackByFn">
+                <td>{{ mkt.id }}</td>
+                <td>{{ mkt.mktId }}</td>
+                <td>
+                  <a
+                    *ngIf="mkt.marketType == 'Match Odds'"
+                    [routerLink]="[
+                      '/sport/matches/declaredbetslips',
+                      mkt.matchId,
+                      mkt.mktId,
+                      mkt.marketType
+                    ]"
+                    >{{ mkt.marketType }}</a
+                  >
+                  <a
+                    *ngIf="mkt.marketType != 'Match Odds'"
+                    [routerLink]="[
+                      '/sport/matches/declaredsessionbetslips',
+                      mkt.matchId,
+                      mkt.mktId,
+                      mkt.marketType
+                    ]"
+                    >{{ mkt.marketType }}</a
+                  >
+                </td>
+
+                <td>{{ mkt.runner }}</td>
+              </tr>
+              <tr
+                *ngIf="matchMarkets.length == 0"
+                style="font-weight: 600"
+                colspan="4"
+              >
+                No Data...
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Session Markets</h5>
+          <div class="ibox-tools"></div>
+        </div>
+        <div class="ibox-content table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Session ID</th>
+                <th>Session Market</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mkt of sessionMarkets; trackBy: trackByFn">
+                <td>{{ mkt.id }}</td>
+                <td>
+                  <a
+                    [routerLink]="[
+                      '/sport/matches/declaredsessionbetslips',
+                      mkt.matchId,
+                      mkt.mktId,
+                      mkt.marketType
+                    ]"
+                    >{{ mkt.mktId }}</a
+                  >
+                </td>
+              </tr>
+              <tr
+                *ngIf="sessionMarkets.length == 0"
+                style="font-weight: 600"
+                colspan="2"
+              >
+                No Data...
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row">
+      <div class="col-lg-12">
+         <div class="ibox float-e-margins">
+            <div class="ibox-title">
+               <h5>Bookmaker Markets</h5>
+               <div class="ibox-tools">
+               </div>
+            </div>
+            <div class="ibox-content table-responsive">
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th>ID</th>
+                        <th>Betfair Market Id</th>
+                        <th>Betfair Market Type</th>
+                        <th>RUNNER</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let mkt of bookMarkets; trackBy: trackByFn">
+                        <td>{{mkt.id}}</td>  
+                        <td><a [routerLink]="['/sport/matches/bmbetslips',mkt.matchId,mkt.mktId,mkt.marketType]">{{mkt.mktId}}</a></td>
+                        <td>{{mkt.marketType}}</td>
+                        <td>{{mkt.runner}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+    </div> -->
+</div>

@@ -1,0 +1,29 @@
+.card-header{
+    padding: 5px 10px !important;
+    cursor: pointer;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 3px !important;
+}
+
+.bg-success {
+    background-color: #286fb6!important;
+}
+
+.bg-secondary {
+    background-color: #0084e7!important;
+}
+
+.card-body i {
+    float: right;
+}
+
+.marketTitle {
+    border-bottom: 1px solid #cfcfcf;
+}
+.card-body-p {
+    padding: 6px 20px 6px 20px;
+}
+

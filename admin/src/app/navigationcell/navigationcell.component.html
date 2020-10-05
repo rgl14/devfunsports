@@ -1,0 +1,70 @@
+<a
+  [routerLink]="[data.userId, 'userdashboard']"
+  *ngIf="data.userName != undefined"
+  >{{ data.userName }}</a
+>
+<a
+  [routerLink]="[
+    '/sport/matches/declaredmatches',
+    data.matchId,
+    data.id,
+    data.title,
+    data.sportId]"
+  *ngIf="data.title != undefined"
+  >{{ data.title }}</a
+>
+<a
+  [routerLink]="[
+    '/sport/AllMatch/matchdashboard',
+    data?.sportBfId,
+    data?.bfId,
+    data?.id,
+    data.name
+  ]"
+  *ngIf="data.sportBfId != undefined"
+  >{{ data.name }}</a
+>
+<!-- <div class="col-md-12 row" style="padding: 0" *ngIf="currentroute=='/fancy'">
+    <div class="col-md-6 auto" style="padding: 0">
+    <input type="radio" value="Auto" data-ng-model="rbtfancy" id="first-117973" data-ng-click="UpdateFRateMode(fancy.fancyCode,1);" class="ng-pristine ng-untouched ng-valid ng-not-empty" name="auto0">
+    <label for="first-117973">Auto</label>
+    </div>
+    <div class="col-md-6 manual" style="padding: 0">
+    <input type="radio" value="Manual" data-ng-model="rbtfancy" id="second-117973" data-ng-click="UpdateFRateMode(fancy.fancyCode,0)" class="ng-pristine ng-untouched ng-valid ng-not-empty" name="auto0">
+    <label for="second-117973">Manual</label>
+    </div>
+</div> -->
+<mat-radio-group
+  aria-label="Select an option"
+  [(ngModel)]="automatic"
+  *ngIf="currentroute == '/fancy'"
+>
+  <mat-radio-button value="1" (change)="toggleMethod(1)">Auto</mat-radio-button>
+  <mat-radio-button
+    value="0"
+    (change)="toggleMethod(0)"
+    style="margin-left: 5px;"
+    >Manual</mat-radio-button
+  >
+</mat-radio-group>
+
+<div class="Action-buttons" *ngIf="currentroute.includes('/bookmaker')">
+  <select
+    class="form-control d-inline-block mr-1"
+    [(ngModel)]="runner"
+    style="margin-top: 2px; width: 180px;"
+  >
+    <option value="">Select Runner</option>
+    <option value="{{ runner.name }}" *ngFor="let runner of data.runners">{{
+      runner.name
+    }}</option>
+  </select>
+  <button
+    (click)="getvalue(data)"
+    mat-raised-button
+    color="primary"
+    title="Settle"
+  >
+    Settle
+  </button>
+</div>

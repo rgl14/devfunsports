@@ -1,0 +1,42 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+   <div class="col-lg-12">
+       <div class="ibox float-e-margins">
+           <div class="ibox-title">
+               <h5>Sport List</h5>
+           </div>
+           
+           <!-- <div class="ibox-content-list table-responsive">
+                  <div>
+                          <mat-nav-list >
+                              <a [routerLink]="'/home'" mat-list-item>
+                                <i class="fa fa-chevron-circle-right"></i>
+                                <span mat-line><i class="fa fa-user-secret"></i> &nbsp;Match</span>
+                              </a>
+                              <a [routerLink]="'/home'" mat-list-item>
+                                <span mat-line><i class="fa fa-thumbs-up"></i> &nbsp;Tournament</span>
+                              </a>
+                            </mat-nav-list>
+                      </div> 
+           </div> -->
+           <div class="ibox-content-list table-responsive" >
+                  <mat-nav-list>
+                      <mat-list-item [routerLink]="'/sport/AllMatch'">
+                        <i matListIcon class="fa fa-soccer-ball-o"></i>
+                          <h3 matLine>All Matches</h3>
+                      </mat-list-item>
+                      <mat-list-item [routerLink]="'/sport/matches'">
+                        <i matListIcon class="fa fa-soccer-ball-o"></i>
+                          <h3 matLine>Declared Matches</h3>
+                      </mat-list-item>
+                      <!-- <mat-divider></mat-divider>
+                      <mat-list-item [routerLink]="'/tournament'">
+                            <i matListIcon class="fa fa-soccer-ball-o"></i>
+                            <h3 matLine>Upcoming</h3>
+                      </mat-list-item> -->
+                  </mat-nav-list>
+          </div>
+       </div>         
+   </div>
+</div>
+</div>

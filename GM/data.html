@@ -1,0 +1,370 @@
+<style>
+ 
+  
+
+ .input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.icon {
+  padding: 10px;
+  background: #000;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+.form-control{
+  border-radius: .25rem 0 0 .25rem;
+}
+
+
+
+/* Set a style for the submit button */
+
+  /* .fa-eye{
+    position: absolute;
+    left:450px;
+    top:40px;
+    cursor: pointer;
+    color:#062a2a;
+  }
+.fa.active{
+  color: dodgerblue;
+} */
+
+</style>
+<div class="container-fluid" style="margin-top: 13px;" ng-controller="mainController" ng-app="MyApp" ng-init="GetHubConfig();">
+
+<div class="row pb-2">
+  <div class="col-md-4">
+    <button class="btn-primary btn" ng-click="StartExecutionEngines()" ng-disabled="StartExecutionEnginesCalls">Start Execution Engines</button>
+  </div>
+  <div class="col-md-4" style="text-align: center;">
+    <button class="btn-secondary btn" ng-click="FlushHistoryData()" ng-disabled="StartExecutionEnginesCalls">Flush History Data</button>
+  </div>
+  <div class="col-md-4">
+    <button class="btn-danger btn pull-right" ng-click="StopExecutionEngines()" ng-disabled="StopExecutionEnginesCalls">Stop Execution Engines </button>
+  </div>
+</div>
+  <div class="col-xs-12">
+                  <div class="card">
+  <button class="btn-success btn" data-toggle="modal" data-target="#myModal1" >Add</button>
+  <hr class="mt-1">
+  <div class="table-responsive ng-scope">
+  <table ng-table="tableParams" show-filter="true" id="fancyListTable" class="table table-striped table-bordered ng-scope ng-table">
+    
+    <thead>
+      <tr>
+        <th>Edit</th>
+        <th>Id</th>
+        <th>HubName</th>
+        <th>Address</th>
+        <th>bfKey</th>
+        <th>bfPwd</th>
+        <th>bfUsername</th>
+        <th>mktLimit</th>
+        <th>sportType</th>
+        <th>Details</th>
+        <th>State</th>
+        <th>Manage</th>
+        <th>Restart</th>
+
+      </tr>
+    </thead>
+    <tbody style="text-align: center;">
+      <tr ng-repeat="getdata in GetHubConfigData">
+        <td><button data-toggle="modal" data-target="#myModal" ng-click="gettata(getdata.address,getdata.bfKey,getdata.bfPwd,getdata.bfUsername,getdata.hubName,getdata.mktLimit,getdata.sportType,getdata.id)" style="border:none;background-color: transparent"><img src="editpen.png" style="cursor:pointer;width: 20px;height: 20px;" alt="editpen" class="edit"></button></td>
+        <td>{{getdata.id}}</td>
+         <td>{{getdata.hubName}}</td>
+        <td>{{getdata.address}}</td>
+        <td>{{getdata.bfKey}}</td>
+        <td>{{getdata.bfPwd}}</td>
+        <td>{{getdata.bfUsername}}</td>
+        <td>{{getdata.mktLimit}}</td>
+        <td>{{getdata.sportType}}</td>
+        <td> <button class="btn-danger" data-toggle="modal" data-target="#Details-modal" ng-click="GetHubSubscriptionDetails(getdata.address)">Details</button> </td>
+        <td>{{getdata.serviceState}}</td>
+        <td>
+          <button ng-if="getdata.serviceState==='Stopped'" ng-click="Startstopservice(getdata.startLink)"><i class="fa fa-play" style="color: green;margin-right:0!important" title="Start" ></i></button>
+          <button ng-if="getdata.serviceState==='Running'" ng-click="Startstopservice(getdata.stopLink)"><i class="fa fa-stop" style="color: red;margin-right:0!important" title="Stop" ></i></button></td>
+        <td>
+            <i class="material-icons" style="color: #a73030" ng-click="Startstopservice(getdata.restartLink)" title="Restart">cached</i>
+        </td>
+      </tr>
+      <tr ng-if="GetHubConfigData.length==0" class="ng-scope"><th colspan="13">No Data Found...</th></tr>
+     
+    </tbody>
+  </table>
+  <div class="modal fade" id="Details-modal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Details</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive ng-scope">
+         <table class="table">
+    <thead>
+      <tr>
+        <th>connectedUsers</th>
+        <th>hubAddress</th>
+        <th>subscribedMktId</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  ng-repeat="data in HubSubscriptionDetails">
+        
+        <td>{{data.connectedUsers}}</td>
+        <td>{{data.hubAddress}}</td>
+        <td>{{data.subscribedMktId}}</td>
+        
+      </tr>
+      <tr ng-if="datacount==0" class="ng-scope"><th colspan="3">No Data Found...</th></tr>
+      
+     
+    </tbody>
+  </table>
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+</div>
+</div>
+</div> 
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit data</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+          <div class="row">
+                              <div class="col-lg-12 mb-2">
+                               
+                                 <form>
+                                    <div class="form-group">
+                                     
+                                       <span class="danger">*</span>
+                                       <label><b>Enter address :</b></label><br>
+                                       <div class="input-container">
+                                         
+                                       <input  ng-model="myaddress" id="myaddress" class="form-control input-field"  type="Password" placeholder="Enter address">
+                                       <i class="fa fa-eye icon" id="eye1" onclick="toggle(1)"></i>
+                                      </div>
+                                    </div>
+                                 </form>
+                                 <fieldset class="form-group">
+                                    <span class="danger">*</span>
+                                    <label><b>Enter bfKey :</b></label>
+
+                                    <div class="input-container">
+                                    <input ng-model="bfKey" id="bfKey" class="form-control input-field" type="Password"  placeholder="Enter bfKey">
+                                    <i class="fa fa-eye icon" id="eye2" onclick="toggle(2)"></i>
+                                  </div>
+                                 </fieldset>
+                                 
+                                                               </div>
+                              <div class="col-lg-12 mb-2">
+                                 <fieldset class="form-group">
+                                    <span class="danger">*</span>
+                                    <label><b>Enter bfPwd :</b></label>
+
+                                    <div class="input-container">
+                                    <input ng-model="bfPwd" id="bfPwd" class="form-control input-field" type="Password" placeholder="Enter bfPwd" >
+                                    <i class="fa fa-eye icon" id="eye3" onclick="toggle(3)"></i>
+                                    </div>
+                                 </fieldset>
+                                 <fieldset class="form-group" ng-form="" name="myForm">
+                                    <!-- <span class="danger">*</span> -->
+                                    <label><b>Enter bfUsername :</b></label>
+                                    <input ng-model="bfUsername" id="bfUsername" class="form-control " >
+                                    
+                                    
+                                 </fieldset>
+                                 <fieldset class="form-group">
+                                    <label><b>Enter hubName :</b></label>
+                                    <input type="text" ng-model="hubName" id="hubName"  class="form-control" >
+                                 </fieldset>
+                                 
+                                 <fieldset class="form-group">
+                                    <label><b>Enter mktLimit :</b></label>
+                                    <input type="text" ng-model="mktLimit" id="mktLimit" class="form-control" >
+                                 </fieldset>
+                                  <fieldset class="form-group">
+                                    <label><b>Enter sportType :</b></label>
+                                    <input type="text" ng-model="sportType" id="sportType" class="form-control" >
+                                 </fieldset>
+                               
+                              </div>
+                           </div>
+                           
+                         
+                           <hr>
+                           <div class="form-actions" style="text-align: center;">
+                              <div class="text-xs-center">
+                                
+                                 <button ng-disabled="isDisabled" ng-click="edithubConfig()" type="submit" class="mr-1 mb-1 btn btn-success btn-min-width ng-scope">Update</button> 
+                                 <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-danger btn-min-width">Cancel</button>
+                                 <!-- <button type="reset" class="mr-1 mb-1 btn btn-outline-danger btn-min-width">Reset</button> -->
+                              </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add data</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+          <div class="row">
+                              <div class="col-lg-12 mb-2">
+                               
+                                 <form class="ng-pristine ng-valid ng-valid-maxlength">
+                                    <div class="form-group">
+                                       <span class="danger">*</span>
+                                       <label><b>Enter address :</b></label><br>
+                                       <input ng-model="address1" class="form-control " id="address1" type="text" required>
+                                    </div>
+                                 </form>
+                                 <fieldset class="form-group">
+                                    <span class="danger">*</span>
+                                    <label><b>Enter bfKey :</b></label>
+                                    <input ng-model="bfKey1" id="bfKey1" class="form-control " required>
+                                 </fieldset>
+                                 
+                                                               </div>
+                              <div class="col-lg-12 mb-2">
+                                 <fieldset class="form-group">
+                                    <span class="danger">*</span>
+                                    <label><b>Enter bfPwd :</b></label>
+                                    <input ng-model="bfPwd1"  class="form-control " id="bfPwd1" >
+                                 </fieldset>
+                                 <fieldset class="form-group ng-pristine ng-valid ng-valid-email ng-valid-maxlength" ng-form="" name="myForm">
+                                    <!-- <span class="danger">*</span> -->
+                                    <label><b>Enter bfUsername :</b></label>
+                                    <input ng-model="bfUsername1" id="bfUsername1" class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-email ng-valid-maxlength" >
+                                    
+                                    
+                                 </fieldset>
+                                 <fieldset class="form-group">
+                                    <label><b>Enter hubName :</b></label>
+                                    <input type="text" ng-model="hubName1" id="hubName1" class="form-control " >
+                                 </fieldset>
+                                 
+                                 <fieldset class="form-group">
+                                    <label><b>Enter mktLimit :</b></label>
+                                    <input type="text" ng-model="mktLimit1" class="form-control " id="mktLimit1">
+                                 </fieldset>
+                                  <fieldset class="form-group">
+                                    <label><b>Enter sportType :</b></label>
+                                    <input type="text" ng-model="sportType1" class="form-control " id="sportType1">
+                                 </fieldset>
+                               
+                              </div>
+                           </div>
+                           
+                         
+                           <hr>
+                           <div class="form-actions" style="text-align: center;">
+                              <div class="text-xs-center">
+                                
+                                 <button ng-disabled="isDisabled" ng-click="AddhubConfig()" type="submit" class="mr-1 mb-1 btn btn-success btn-min-width ng-scope" >Save</button> 
+                                 <button  type="button" class="mr-1 mb-1 btn btn-danger btn-min-width" data-dismiss="modal">Cancel</button>
+                                 <!-- <button type="reset" class="mr-1 mb-1 btn btn-outline-danger btn-min-width">Reset</button> -->
+                              </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+
+var state= false;
+function toggle(params){
+console.log(params);
+if(params==1){
+  if(state){
+    
+      document.getElementById("myaddress").setAttribute("type","password");
+      document.getElementById("eye1").style.color='white';
+     
+      state= false;
+  }else{
+    document.getElementById("myaddress").setAttribute("type","text");
+    document.getElementById("eye1").style.color='#5887ef';
+  
+      state= true;
+  }
+}
+if(params==2){
+  if(state){
+        document.getElementById("bfKey").setAttribute("type","password");
+        document.getElementById("eye2").style.color='white';
+       
+        state= false;
+    }else{
+      document.getElementById("bfKey").setAttribute("type","text");
+      document.getElementById("eye2").style.color='#5887ef';
+    
+        state= true;
+    }
+}
+if(params==3){
+  if(state){
+    
+      document.getElementById("bfPwd").setAttribute("type","password");
+      document.getElementById("eye3").style.color='white';
+     
+      state= false;
+  }else{
+    document.getElementById("bfPwd").setAttribute("type","text");
+    document.getElementById("eye3").style.color='#5887ef';
+  
+      state= true;
+  }
+}
+  
+}
+
+</script>
+
+
+

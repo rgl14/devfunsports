@@ -1,0 +1,157 @@
+<div class="menu-bar">
+  <ul>
+    <li class="active">
+      <a [routerLink]="'/home'"><i class="fa fa-th-large"></i> Dashboard</a>
+    </li>
+    <li>
+      <a [routerLink]="'/home'"
+        ><i class="fa fa fa-users"></i> Manage Clients</a
+      >
+      <div class="sub-menu-1">
+        <ul>
+          <li *ngIf="userType === 1">
+            <a [routerLink]="'/manage-clients/0/admin'"
+              ><i class="fa fa fa-users"></i> Double Super</a
+            >
+          </li>
+          <li *ngIf="userType === 1 || userType === 2">
+            <a [routerLink]="'/manage-clients/0/supermaster'"
+              ><i class="fa fa fa-users"></i> Super Master</a
+            >
+          </li>
+          <li *ngIf="userType === 1 || userType === 2 || userType === 3">
+            <a [routerLink]="'/manage-clients/0/master'"
+              ><i class="fa fa fa-users"></i> Master</a
+            >
+          </li>
+          <li
+            *ngIf="
+              userType === 1 ||
+              userType === 2 ||
+              userType === 3 ||
+              userType === 4
+            "
+          >
+            <a [routerLink]="'/manage-clients/0/superagent'"
+              ><i class="fa fa fa-users"></i> Agent</a
+            >
+          </li>
+          <!-- <li *ngIf="userType===2 || userType===3 || userType===4 || userType===5"><a [routerLink]="'/agent'"><i class="fa fa fa-users"></i> Agent</a></li> -->
+          <li *ngIf="userType === 1">
+            <a [routerLink]="'/manage-clients/allclients'"
+              ><i class="fa fa fa-users"></i> All Clients</a
+            >
+          </li>
+          <li *ngIf="userType === 3 || userType === 4 || userType === 5">
+            <a [routerLink]="'/manage-clients/0/clients'"
+              ><i class="fa fa fa-users"></i> Manage Clients</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="'/manage-clients/updatelimit'"
+              ><i class="fa fa fa-users"></i> Update Limit</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="'/manage-clients/blockedclient'"
+              ><i class="fa fa fa-users"></i> Blocked Clients</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <a [routerLink]="'/home'"><i class="fa fa-soccer-ball-o"></i> Sports</a>
+      <div class="sub-menu-1">
+        <ul>
+          <!-- <li class="hover-me"><a [routerLink]="'/home'">Admin</a>
+                        <div class="sub-menu-2">
+                            <ul>
+                                <li><a [routerLink]="'/home'">New</a></li>
+                                <li><a [routerLink]="'/home'">old</a></li>
+                                <li><a [routerLink]="'/home'">used</a></li>
+                            </ul>
+                        </div>
+                    </li> -->
+          <li>
+            <a [routerLink]="'/sport/AllMatch'"
+              ><i class="fa fa-soccer-ball-o"></i> All Matches</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="'/sport/inplaylist'"
+              ><i class="fa fa-soccer-ball-o"></i> Inplay</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="'/sport/matches'"
+              ><i class="fa fa-soccer-ball-o"></i> Declared Matches</a
+            >
+          </li>
+          <!-- <li><a [routerLink]="'/tournament'"><i class="fa fa-soccer-ball-o"></i> Upcoming</a></li>  -->
+        </ul>
+      </div>
+    </li>
+    <li>
+      <a [routerLink]="'/home'"><i class="fa fa-gamepad"></i> Games</a>
+      <div class="sub-menu-1">
+        <ul>
+          <!-- <li><a [routerLink]="'/home'"><i class="fa fa-gamepad"></i> Dus Ka Dum</a></li> -->
+          <li>
+            <a [routerLink]="'/home'"><i class="fa fa-gamepad"></i> Roulette</a>
+          </li>
+          <li>
+            <a [routerLink]="'/home'"
+              ><i class="fa fa-gamepad"></i> Teen Patti</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li
+      *ngIf="
+        userType === 2 ||
+        userType === 3 ||
+        userType === 4 ||
+        userType === 5 ||
+        userType === 6
+      "
+    >
+      <a [routerLink]="'/changepassword'"
+        ><i class="fa fa-lock"></i> Change Password</a
+      >
+    </li>
+    <li>
+      <a [routerLink]="'/home'"><i class="fa fa-book"></i> Manage Ledgers</a>
+      <div class="sub-menu-1">
+        <ul>
+          <li>
+            <a [routerLink]="'/report/collectionreport'"
+              ><i class="fa fa-book"></i> Collection Report</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="'/report/myledger'"
+              ><i class="fa fa-book"></i> My Ledgers</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="'/report/profitnloss'"
+              ><i class="fa fa-book"></i> Profit / Loss</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="'/report/sportpnl'"
+              ><i class="fa fa-book"></i> Sports Profit / Loss</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="'/report/tournamentpnl'"
+              ><i class="fa fa-book"></i> Tournament Profit / Loss</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

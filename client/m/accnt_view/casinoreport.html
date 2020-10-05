@@ -1,0 +1,141 @@
+<link href="css/acc_style.css" rel="stylesheet" type="text/css" />
+<h2>Casino Report</h2>
+
+<div class="white-wrap">
+  <div class="function-wrap">
+    <ul class="input-list">
+      <li><label>Type :</label></li>
+
+      <li>
+        <select data-ng-model="pnlPeriod" data-ng-change="GetCaisnoResults()">
+          <option value="1" selected="">20-20 Teenpatti</option>
+        </select>
+      </li>
+
+      <li><label>Period</label></li>
+      <li>
+        <input
+          id="startDate"
+          class="cal-input"
+          type="text"
+          placeholder="YYYY-MM-DD"
+          style="width: 150px"
+        />
+
+        to
+
+        <input
+          id="endDate"
+          class="cal-input"
+          type="text"
+          placeholder="YYYY-MM-DD"
+          style="width: 150px"
+        />
+      </li>
+      <li>
+        <a
+          id="getPL"
+          data-ng-click="GetCaisnoResults()"
+          class="btn-send"
+          style="width: 150px"
+          >Get Casino Report</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+
+<table id="table_log" class="table01">
+  <tbody>
+    <tr>
+      <th style="width: 15%" class="align-L">Round ID</th>
+
+      <th style="width: 12%" class="align-L">Winner</th>
+    </tr>
+  </tbody>
+
+  <tbody id="content">
+    <tr data-ng-if="Teenpattidata.length==0">
+      <td class="no-data" colspan="5">
+        <p>No Data Found</p>
+      </td>
+    </tr>
+
+    <!--  <tr data-ng-if="loading==true">
+
+            <td class="no-data" colspan="5">
+
+               <h3 style="text-align: center;">Loading....</h3>
+
+            </td>
+
+            </tr> -->
+
+    <tr data-ng-repeat="tpdata in Teenpattidata">
+      <td id="createDate" class="align-L">{{tpdata.roundId}}</td>
+      <td id="deposit" class="align-L">
+        <span data-ng-class="green"
+          >{{(tpdata.result=="")?"-":tpdata.result}}</span
+        >
+      </td>
+
+      <!-- <td>{{accountdata.date}}
+
+               </td> -->
+    </tr>
+  </tbody>
+</table>
+
+<div style="display: none">
+  <ul style="display: none">
+    <li><a href="javascript:void(0);">Prev</a></li>
+
+    <li><a href="javascript:void(0);">Next</a></li>
+
+    <li><a href="javascript:void(0);"></a></li>
+
+    <li id="more"><a href="javascript:void(0);">...</a></li>
+
+    <input
+      type="text"
+      id="goToPageNumber"
+      onkeyup="return PageHandler.validatePageNumber(this)"
+      maxlength="6"
+      size="4"
+    />
+
+    <li><a id="goPageBtn">GO</a></li>
+  </ul>
+
+  <ul id="pageNumberContent" class="pages">
+    <li id="prev">
+      <a href="javascript:void(0);" class="disable" style="pointer-events: none"
+        >Prev</a
+      >
+    </li>
+
+    <li id="pageNumber">
+      <a href="javascript:void(0);" class="select" style="pointer-events: none"
+        >1</a
+      >
+    </li>
+
+    <li id="next">
+      <a href="javascript:void(0);" class="disable" style="pointer-events: none"
+        >Next</a
+      >
+    </li>
+  </ul>
+</div>
+
+<script>
+  $(function () {
+    $("#startDate").datetimepicker({
+      format: "Y-m-d H:i:s",
+    });
+
+    $("#endDate").datetimepicker({
+      format: "Y-m-d H:i:s",
+    });
+  });
+</script>

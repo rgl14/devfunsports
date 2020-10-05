@@ -1,0 +1,442 @@
+<link href="css/acc_style.css" rel="stylesheet" type="text/css" />
+<h3>My Bets</h3>
+
+<ul class="tab col3">
+  <li><a href="#!current_bets">Current Bets</a></li>
+
+  <li><a href="#!bet_history">Bets History</a></li>
+
+  <li><a class="select" href="#!pnl">Profit &amp; Loss</a></li>
+</ul>
+
+<!-- Account Info -->
+
+<div class="white-wrap">
+  <h3>Profit &amp; Loss - Main wallet</h3>
+
+  <ul class="acc-info">
+    <li class="user">{{name}}</li>
+
+    <li class="time">{{currentDate}}</li>
+  </ul>
+
+  <!-- function -->
+
+  <div class="function-wrap">
+    <ul class="input-list">
+      <div id="statusCondition" style="display: none">
+        <li><label>Bet Status:</label></li>
+
+        <li>
+          <select name="betStatus" id="betStatus"></select>
+        </li>
+      </div>
+
+      <li><label>Period</label></li>
+
+      <li>
+        <input
+          id="startDate"
+          class="cal-input"
+          type="text"
+          placeholder="YYYY-MM-DD"
+          style="width: 150px"
+        />
+
+        to
+
+        <input
+          id="endDate"
+          class="cal-input"
+          type="text"
+          placeholder="YYYY-MM-DD"
+          style="width: 150px"
+        />
+      </li>
+
+      <li style="display: none">(TimeZone:IST)</li>
+    </ul>
+
+    <ul class="input-list">
+      <li>
+        <a id="today" data-ng-click="getProfitLossDate('today')" class="btn"
+          >Just For Today</a
+        >
+      </li>
+
+      <li>
+        <a
+          id="yesterday"
+          data-ng-click="getProfitLossDate('yesterday')"
+          class="btn"
+          >From Yesterday</a
+        >
+      </li>
+
+      <li>
+        <a id="getPL" data-ng-click="getProfitLoss()" class="btn-send"
+          >Get P &amp; L</a
+        >
+      </li>
+    </ul>
+  </div>
+
+  <!-- No Report Message -->
+
+  <div id="noReportMessage" data-ng-if="getProfitLossList.length==0">
+    <p>
+      Betting Profit &amp; Loss enables you to review the bets you have placed.
+      <br />Specify the time period during which your bets were placed, the type
+      of markets on which the bets were placed, and the sport.
+    </p>
+
+    <p>Betting Profit &amp; Loss is available online for the past 3 months.</p>
+  </div>
+
+  <!-- function end-->
+</div>
+
+<!-- Report Table -->
+
+<div
+  id="report"
+  data-report="profitAndLossReport"
+  data-ng-if="getProfitLossList.length!=0"
+>
+  <ul class="total-show">
+    <li id="totalPL">
+      Total P/L:
+      <span data-ng-style="total>=0 && {'color':'green'} ||  {'color':'red'}"
+        >{{total}}</span
+      >
+    </li>
+
+    <!-- <li id="sumOfQuery" class="sports-switch">{{total}}</li> -->
+
+    <li class="sports-switch">
+      <select name="sports" id="sports">
+        <option value="0">All</option>
+      </select>
+    </li>
+  </ul>
+
+  <div class="table-container">
+    <table class="table01" style="font-size: 13px">
+      <tbody>
+        <tr>
+          <th class="align-L">Market</th>
+  
+          <th style="width: 15%">Start Time</th>
+  
+          <th style="width: 15%">Settled date</th>
+  
+          <th style="width: 18%">Profit/Loss</th>
+        </tr>
+  
+        <tr data-ng-repeat-start="getPnL in getProfitLossList track by $index">
+          <td id="title" class="align-L">
+            {{getPnL.market.split('>')[0]}}<img
+              class="fromto"
+              src="images/account/transparent.gif"
+              alt="getpnl"
+            /><strong>{{getPnL.market.split('>')[1]}}</strong
+            ><img
+              class="fromto"
+              src="images/account/transparent.gif"
+              alt="account"
+            />{{getPnL.market.split('>')[2]}}
+          </td>
+  
+          <td id="startTime">{{getPnL.startDate}}</td>
+  
+          <td id="settledDate">{{getPnL.settleDate}}</td>
+  
+          <td>
+            <a
+              id="pl_{{$index}}"
+              class="expand-close"
+              data-ng-if="getPnL.pnl<0"
+              data-ng-class="getPnL.pnl<0?'red':''"
+              data-ng-click="betDetails($index)"
+              >({{getPnL.pnl | number:2}})</a
+            >
+  
+            <a
+              id="pl_{{$index}}"
+              class="expand-close"
+              data-ng-if="getPnL.pnl>=0"
+              data-ng-class="getPnL.pnl<0?'red':''"
+              data-ng-click="betDetails($index)"
+              >{{getPnL.pnl | number:2}}</a
+            >
+          </td>
+        </tr>
+  
+        <tr
+          data-ng-repeat-end
+          id="pnl_{{$index}}"
+          class="expand"
+          style="display: none"
+        >
+          <td colspan="4">
+            <img
+              class="expand-arrow-R"
+              src="images/account/transparent.gif"
+              alt="tab"
+            />
+  
+            <table class="table-commission" style="text-align: right">
+              <tbody>
+                <tr>
+                  <th style="width: 9%">Bet ID</th>
+  
+                  <th>Selection</th>
+  
+                  <th style="width: 9%">Odds</th>
+  
+                  <th style="width: 13%">Stake</th>
+  
+                  <th style="width: 8%">Type</th>
+  
+                  <th style="width: 16%">Placed</th>
+  
+                  <th style="width: 23%">Profit/Loss</th>
+                </tr>
+  
+                <tr
+                  data-ng-repeat="pnl in getPnL.bets.data track by $index"
+                  class="even"
+                >
+                  <td>{{pnl.betId}}</td>
+  
+                  <td>{{pnl.selection}}</td>
+  
+                  <td>{{pnl.odds}}</td>
+  
+                  <td>{{pnl.stake}}</td>
+  
+                  <td>
+                    <span data-ng-class="(pnl.type=='BACK')?'back':'lay'"
+                      >{{pnl.type}}</span
+                    >
+                  </td>
+  
+                  <td>{{pnl.placed}}</td>
+  
+                  <td data-ng-class="pnl.pnl<0?'red':''">
+                    {{pnl.pnl | number:2}}
+                  </td>
+                </tr>
+  
+                <tr class="sum-pl">
+                  <td colspan="7">
+                    <dl>
+                      <dt>Total Stakes</dt>
+  
+                      <dd data-ng-class="getPnL.bets.totalStakes<0?'red':''">
+                        {{(getPnL.bets.totalStakes==null)?'-':getPnL.bets.totalStakes}}
+                      </dd>
+  
+                      <dt>Back subtotal</dt>
+  
+                      <dd data-ng-class="getPnL.bets.backTotal<0?'red':''">
+                        {{getPnL.bets.backTotal | number:2}}
+                      </dd>
+  
+                      <dt>Lay subtotal</dt>
+  
+                      <dd data-ng-class="getPnL.bets.layTotal<0?'red':''">
+                        {{getPnL.bets.layTotal | number:2}}
+                      </dd>
+  
+                      <dt>Market subtotal</dt>
+  
+                      <dd data-ng-class="getPnL.bets.mktTotal<0?'red':''">
+                        {{getPnL.bets.mktTotal | number:2}}
+                      </dd>
+  
+                      <dt>Commission</dt>
+  
+                      <dd class="red">({{getPnL.bets.comm | number:2}})</dd>
+  
+                      <dt class="net_total">Net Market Total</dt>
+  
+                      <dd
+                        class="net_total"
+                        data-ng-class="getPnL.bets.netMktTotal<0?'red':''"
+                      >
+                        {{getPnL.bets.netMktTotal | number:2}}
+                      </dd>
+                    </dl>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="table-other">Profit and Loss is shown net of commission.</p>
+
+  <!-- <script type="text/javascript" src="/js/util/PageUtil.js?v=20180111_1515639000000"></script> -->
+
+  <div>
+    <ul style="display: none">
+      <li><a href="javascript:void(0);">Prev</a></li>
+
+      <li><a href="javascript:void(0);">Next</a></li>
+
+      <li><a href="javascript:void(0);"></a></li>
+
+      <li><a href="javascript:void(0);">...</a></li>
+    </ul>
+
+    <ul class="pages"></ul>
+  </div>
+</div>
+
+<!-- Report Table -->
+
+<div data-report="profitAndLossReport" style="display: none">
+  <ul class="total-show">
+    <li></li>
+
+    <li id="sumOfQuery" class="sports-switch"></li>
+
+    <li class="sports-switch">
+      <select name="sports">
+        <option value="0">All</option>
+      </select>
+    </li>
+  </ul>
+
+  <table id="tableTemplate" class="table01" style="display: none">
+    <tbody>
+      <tr>
+        <th class="align-L">Market</th>
+
+        <th style="width: 15%">Start Time</th>
+
+        <th style="width: 15%">Settled date</th>
+
+        <th style="width: 18%">Profit/Loss</th>
+      </tr>
+
+      <tr id="summaryTemplate" style="display: none">
+        <td class="align-L"></td>
+
+        <td></td>
+
+        <td></td>
+
+        <td>
+          <a id="pl" class="expand-close"></a>
+        </td>
+      </tr>
+
+      <tr id="detailTemplate" class="expand" style="display: none">
+        <td colspan="4">
+          <img
+            class="expand-arrow-R"
+            src="images/account/transparent.gif"
+            alt="load"
+          />
+
+          <table class="table-commission">
+            <tbody>
+              <tr>
+                <th style="width: 9%">Bet ID</th>
+
+                <th>Selection</th>
+
+                <th style="width: 9%">Odds</th>
+
+                <th style="width: 13%">Stake</th>
+
+                <th style="width: 8%">Type</th>
+
+                <th style="width: 16%">Placed</th>
+
+                <th style="width: 23%">Profit/Loss</th>
+              </tr>
+
+              <tr id="txTemplate" style="display: none">
+                <td id="betID"></td>
+
+                <td id="matchSelection"></td>
+
+                <td id="txOddsMatched"></td>
+
+                <td id="txStake"></td>
+
+                <td><span id="matchType"></span></td>
+
+                <td id="placed"></td>
+
+                <td id="txLiability"></td>
+              </tr>
+
+              <tr class="sum-pl">
+                <td colspan="7">
+                  <dl>
+                    <dt>Back subtotal</dt>
+
+                    <dd id="backSubTotal"></dd>
+
+                    <dt>Lay subtotal</dt>
+
+                    <dd id="laySubTotal"></dd>
+
+                    <dt>Market subtotal</dt>
+
+                    <dd id="marketTotal"></dd>
+
+                    <dt>Commission</dt>
+
+                    <dd id="commission"></dd>
+
+                    <dt class="net_total">Net Market Total</dt>
+
+                    <dd id="netTotal" class="net_total"></dd>
+                  </dl>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="table-other">Profit and Loss is shown net of commission.</p>
+
+  <!-- <script type="text/javascript" src="/js/util/PageUtil.js?v=20180111_1515639000000"></script> -->
+
+  <div>
+    <ul style="display: none">
+      <li id="prev"><a href="javascript:void(0);">Prev</a></li>
+
+      <li id="next"><a href="javascript:void(0);">Next</a></li>
+
+      <li id="pageNumber"><a href="javascript:void(0);"></a></li>
+
+      <li id="more"><a href="javascript:void(0);">...</a></li>
+    </ul>
+
+    <ul id="pageNumberContent" class="pages"></ul>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $("#startDate").datetimepicker({
+      format: "Y-m-d H:i:s",
+    });
+
+    $("#endDate").datetimepicker({
+      format: "Y-m-d H:i:s",
+    });
+  });
+</script>

@@ -1,0 +1,932 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+         <div class="col-lg-12">
+             <div class="ibox float-e-margins">
+                 <div class="ibox-title">
+                     <h5>New Role</h5>
+                 </div>
+                 
+                 <div class="ibox-content-form table-responsive">
+                    
+                     
+                     <form [formGroup]="addroleform" (ngSubmit)="onSubmit()"  class="form-horizontal" >
+                            <div class="form-group">
+                                    <label class="col-sm-2 label-control">Role Name<span class="danger">*</span> :</label>
+                                    <div class="col-md-10 col-sm-3">              
+                                      <input formControlName="rolename" specialIsAlphaNumeric class="form-control" name="rolename" [ngClass]="{ 'is-invalid': submitted && f.rolename.errors }"  placeholder="" type="text" >
+                                      
+                                      <div *ngIf="submitted && f.rolename.errors" class="invalid-feedback">
+                                         <mat-error *ngIf="f.rolename.errors.required">This field is mandatory.</mat-error>
+                                     </div>
+                                   </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-2 label-control">Role Description<span class="danger">*</span> :</label>
+                                    <div class="col-md-10 col-sm-3">              
+                                            <textarea formControlName="roledesc" specialIsAlphaNumeric name="note" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rolename.errors }"></textarea>
+                                      
+                                      <div *ngIf="submitted && f.roledesc.errors" class="invalid-feedback">
+                                         <mat-error *ngIf="f.roledesc.errors.required">This field is mandatory.</mat-error>
+                                     </div>
+                                   </div>
+                            </div>
+                            <div>
+                                    <table class="mainbox" style="width: 100%">
+                                            <tbody>
+                                              <tr> </tr>
+                                              <tr>
+                                                <td class="subtitle">
+                                                  Set Permission
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td style="width: 100%;text-align: left;" class="content">
+                                                  <div>
+                                                    <table style="width:100%; border-collapse:collapse;">
+                                                      <tbody>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <th class="dtheader" style="text-align :center;width: 50%;">  
+                                                                    Tab Name 
+                                                                  </th>
+                                                                  <th style="width:9%; text-align :center;" class="dtheader"> Is View </th>
+                                                                  <th style="width:12%; text-align :center;" class="dtheader"> Is Add </th>
+                                                                  <th style="width:9%; text-align :center;" class="dtheader"> Is Edit </th>
+                                                                  <th style="width:10%; text-align :center;" class="dtheader"> Is Delete </th>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%;padding: 0px;border-spacing: 0px;" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Dashboard
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input type="checkbox" data-ng-model="miv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%;" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Master
+                                                                  </td>
+                                                                  <td id="master" style="text-align :center;width: 100px">
+                                                                    <input type="checkbox" data-ng-model="mbiv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td id="mid" style="text-align :center;width: 100px">-</td>
+                                                                  <td id="Master-ie" style="text-align :center;width: 100px">-</td>
+                                                                  <td id="Master-id" style="text-align :center;width: 100px">-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                    <table id="balace" style="width:100%;border-collapse:collapse;">
+                                                                      <tbody>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Balance
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="bisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="BalanceIsEdit" type="checkbox" data-ng-model="bie" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="balid" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Import Rate
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="imriv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="ImportRateIsEdit" type="checkbox" data-ng-model="iriedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    News
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="NewsIsView" type="checkbox" data-ng-model="niview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="nisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="nisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="nisdelete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Commentry
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="CommentryIsView" type="checkbox" data-ng-model="cisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="CommentryIsAdd" type="checkbox" data-ng-model="ciadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="isedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="isdelete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </tbody>
+                                                                    </table>
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Betting
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input id="BettingIsView" type="checkbox" data-ng-model="bisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input id="BettingIsAdd" type="checkbox" data-ng-model="bisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input id="BettingIsEdit" type="checkbox" data-ng-model="bisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input id="BettingIsDelete" type="checkbox" data-ng-model="bisdelete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                    <table style="width:100%;border-collapse:collapse;">
+                                                                      <tbody>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Sport
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="spisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="spisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="spisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Tournament
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="TournamentIsView" type="checkbox" data-ng-model="tisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="TournamentIsAdd" type="checkbox" data-ng-model="tisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="TournamentIsEdit" type="checkbox" data-ng-model="tisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Match
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="MatchIsView" type="checkbox" data-ng-model="mtisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="misadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="mtisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Bet
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="BetIsView" type="checkbox" data-ng-model="btisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="BetIsAdd" type="checkbox" data-ng-model="betisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="BetIsEdit" type="checkbox" data-ng-model="btisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Fancy List
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="FancyListIsView" type="checkbox" data-ng-model="flisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="FancyListIsAdd" type="checkbox" data-ng-model="flisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="FancyListIsEdit" type="checkbox" data-ng-model="fliedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Add Commentry 
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="Add-Commentry" type="checkbox" data-ng-model="acisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </tbody>
+                                                                    </table>
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Client Listing
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input id="Client_Listing" type="checkbox" data-ng-model="cltisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                    <table style="width:100%;border-collapse:collapse;">
+                                                                      <tbody>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Master Distributor
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="MasterDistributorIsView" type="checkbox" data-ng-model="mdisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="mdisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="mdisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Distributor
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="dtisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="dtisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="dtisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Client
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="cntisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="cntisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="cntisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </tbody>
+                                                                    </table>
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Administration
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input type="checkbox" data-ng-model="admin" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                    <table style="width:100%;border-collapse:collapse;">
+                                                                      <tbody>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Global Setting
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="gsisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Users Roles
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="UsersRolesIsview" type="checkbox" data-ng-model="urisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                    <table style="width:100%;border-collapse:collapse;">
+                                                                                      <tbody>
+                                                                                        <tr>
+                                                                                          <td>
+                                                                                            <table style="width: 100%" class="DatalistChild2">
+                                                                                              <tbody>
+                                                                                                <tr>
+                                                                                                  <td style="width: 55%;">
+                                                                                                    Roles List
+                                                                                                  </td>
+                                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                                    <input id="RolesListIsView" type="checkbox" data-ng-model="rlisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                                  </td>
+                                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                                    <input id="RolesListIsAdd" type="checkbox" data-ng-model="rlisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                                  </td>
+                                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                                    <input id="RolesListIsEdit" type="checkbox" data-ng-model="rlisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                                  </td>
+                                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                                </tr>
+                                                                                              </tbody>
+                                                                                            </table>
+                                                                                          </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                          <td>
+                                                                                            <table style="width: 100%" class="DatalistChild2">
+                                                                                              <tbody>
+                                                                                                <tr>
+                                                                                                  <td style="width: 55%;">
+                                                                                                    Users List
+                                                                                                  </td>
+                                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                                    <input id="UsersListIsView" type="checkbox" data-ng-model="ulstisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                                  </td>
+                                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                                    <input id="UsersListIsAdd" type="checkbox" data-ng-model="ulstisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                                  </td>
+                                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                                    <input id="UsersListIsEdit" type="checkbox" data-ng-model="ulstisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                                  </td>
+                                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                                </tr>
+                                                                                              </tbody>
+                                                                                            </table>
+                                                                                          </td>
+                                                                                        </tr>
+                                                                                      </tbody>
+                                                                                    </table>
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </tbody>
+                                                                    </table>
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Import Bet
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input type="checkbox" data-ng-model="impbet" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Running market Anaysis
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input type="checkbox" data-ng-model="rmktaly" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Report
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input type="checkbox" data-ng-model="risv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input id="ReportIsEdit" type="checkbox" data-ng-model="risedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width: 100px;">
+                                                                    <input type="checkbox" data-ng-model="risdelete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                    <table style="width:100%;border-collapse:collapse;">
+                                                                      <tbody>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Master DL P &amp; L
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="MasterDLPnLView" type="checkbox" data-ng-model="mdlpisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Market P &amp; L 
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="mrktpisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Account Statement
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="Account-Statement" type="checkbox" data-ng-model="acstisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Chips Summary
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="Chips-Summary-" type="checkbox" data-ng-model="cpsisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Chips Statement
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input type="checkbox" data-ng-model="chpstatisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                          <td>
+                                                                            <table style="width: 100%" class="DatalistChild1 ">
+                                                                              <tbody>
+                                                                                <tr>
+                                                                                  <td style="width: 55%;">
+                                                                                    Client bet history
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">
+                                                                                    <input id="Client-bet-history-" type="checkbox" data-ng-model="cbhisview" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                                  </td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                  <td style="text-align :center;width: 100px;">-</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </tbody>
+                                                                    </table>
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Change Password
+                                                                  </td>
+                                                                  <td style="text-align :center;width:100px">
+                                                                    <input id="Change-PasswordIsView" type="checkbox" data-ng-model="chngpisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width:100px">
+                                                                    <input id="Change-PasswordIsAdd" type="checkbox" data-ng-model="chngpisadd" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width:100px">
+                                                                    <input id="Change-PasswordIsEdit" type="checkbox" data-ng-model="chngpisedit" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width:100px">
+                                                                    <input id="Change-PasswordIsDelete" type="checkbox" data-ng-model="chngdekete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table style="width: 100%" class="Datalistmain">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td style="width: 55%;">
+                                                                    Manual DW
+                                                                  </td>
+                                                                  <td style="text-align :center;width:100px">
+                                                                    <input id="ManualDW" type="checkbox" data-ng-model="mdwisv" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                                  </td>
+                                                                  <td style="text-align :center;width:100px">-</td>
+                                                                  <td style="text-align :center;width:100px">-</td>
+                                                                  <td style="text-align :center;width:100px">-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td colspan="5" style="padding-left: 100Px;">
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                  </div>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                            </div>
+                        <div class="hr-line-dashed"></div>
+                         <div class="form-group col-sm-4 col-sm-offset-2 button-row">
+                                <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+                                <button mat-raised-button color="primary" *ngIf="!roleId"  type="submit">Save</button>
+                                <button mat-raised-button color="primary" *ngIf="roleId" type="submit">Update Changes</button>
+                         </div>
+    </form>                        
+</div>
+             </div>         
+         </div>
+     </div>
+    </div>

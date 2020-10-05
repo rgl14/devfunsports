@@ -1,0 +1,452 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>In-Play List</h5>
+        </div>
+
+        <div class="ibox-content-list table-responsive">
+          <mat-tab-group dynamicHeight>
+            <mat-tab label="Exchange">
+              <div class="mat-elevation-z4 tab-class">
+                <ng-container
+                  *ngFor="let sport of inplayData; trackBy: trackByFn"
+                >
+                  <div id="user_row_" class="lotus-title">
+                    <div class="pause_btn" style="background: white;">
+                      <!-- <img src="assets/images/pause_icon.png" alt="pause_icon" style="margin-top:0px;"> -->
+                    </div>
+                    <div style="margin-left: 25px;">
+                      {{ sport.name }}
+                    </div>
+                  </div>
+
+                  <ng-container
+                    *ngFor="let match of sport.eventList; trackBy: trackByFn"
+                  >
+                    <div class="Inplay-data">
+                      <div class="sport_row">
+                        <div
+                          class="event-details"
+                          [routerLink]="[
+                            '/sport/inplaylist/matchdashboard',
+                            match.sportBfId,
+                            match.bfId,
+                            match.id,
+                            match.name
+                          ]"
+                        >
+                          <span class="label"
+                            ><b>{{ match.name }}</b></span
+                          >
+                          <p class="date-info">
+                            <span class="">[ {{ match.eventDate }} ]</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="modds">
+                        <div class="list-body distinct">
+                          <div id="1153608013">
+                            <div class="">
+                              <div class="">
+                                <div
+                                  class="market list-item"
+                                  id="selection-1.143317969-2954262"
+                                >
+                                  <div class="runner-details">
+                                    <div class="title">
+                                      <span class="">{{
+                                        match.runnerName1
+                                      }}</span>
+                                    </div>
+                                    <div class="pnl">
+                                      <span
+                                        id="matchodd0_1618"
+                                        [ngClass]="
+                                          match.runner1Book >= 0
+                                            ? 'text-success'
+                                            : 'text-danger'
+                                        "
+                                        >»
+                                        {{
+                                          match.runner1Book | number: "1.2-2"
+                                        }}</span
+                                      >
+                                    </div>
+                                  </div>
+                                  <div class="odds-container">
+                                    <div
+                                      selected-odds=""
+                                      type="back"
+                                      class="not-selected bet-button"
+                                    >
+                                      <div class="back" id="runner0back1">
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner1Back != ''"
+                                        >
+                                          {{ match.runner1Back }}
+                                        </div>
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner1Back == ''"
+                                        >
+                                          <mat-icon>lock</mat-icon>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      selected-odds=""
+                                      type="lay"
+                                      class="not-selected bet-button"
+                                    >
+                                      <div class="lay" id="runner0lay1">
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner1Lay != ''"
+                                        >
+                                          {{ match.runner1Lay }}
+                                        </div>
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner1Lay == ''"
+                                        >
+                                          <mat-icon>lock</mat-icon>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="">
+                                <div
+                                  class="market list-item"
+                                  id="selection-1.143317969-2954262"
+                                >
+                                  <div class="runner-details">
+                                    <div class="title">
+                                      <span class="">{{
+                                        match.runnerName2
+                                      }}</span>
+                                    </div>
+                                    <div class="pnl">
+                                      <span
+                                        id="matchodd1_1618"
+                                        [ngClass]="
+                                          match.runner2Book >= 0
+                                            ? 'text-success'
+                                            : 'text-danger'
+                                        "
+                                        >»
+                                        {{
+                                          match.runner2Book | number: "1.2-2"
+                                        }}</span
+                                      >
+                                    </div>
+                                  </div>
+                                  <div class="odds-container">
+                                    <div
+                                      selected-odds=""
+                                      type="back"
+                                      class="not-selected bet-button"
+                                    >
+                                      <div class="back" id="runner1back1">
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner2Back != ''"
+                                        >
+                                          {{ match.runner2Back }}
+                                        </div>
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner2Back == ''"
+                                        >
+                                          <mat-icon>lock</mat-icon>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      selected-odds=""
+                                      type="lay"
+                                      class="not-selected bet-button"
+                                    >
+                                      <div class="lay" id="runner1lay1">
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner2Lay != ''"
+                                        >
+                                          {{ match.runner2Lay }}
+                                        </div>
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner2Lay == ''"
+                                        >
+                                          <mat-icon>lock</mat-icon>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class=""
+                                *ngIf="match.runnerName3 != undefined"
+                              >
+                                <div
+                                  class="market list-item"
+                                  id="selection-1.143317969-2954262"
+                                >
+                                  <div class="runner-details">
+                                    <div class="title">
+                                      <span class="">{{
+                                        match.runnerName3
+                                      }}</span>
+                                    </div>
+                                    <div class="pnl">
+                                      <span
+                                        id="matchodd1_1618"
+                                        [ngClass]="
+                                          match.runner3Book >= 0
+                                            ? 'text-success'
+                                            : 'text-danger'
+                                        "
+                                        >»
+                                        {{
+                                          match.runner3Book | number: "1.2-2"
+                                        }}</span
+                                      >
+                                    </div>
+                                  </div>
+                                  <div class="odds-container">
+                                    <div
+                                      selected-odds=""
+                                      type="back"
+                                      class="not-selected bet-button"
+                                    >
+                                      <div class="back" id="runner1back1">
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner3Back != ''"
+                                        >
+                                          {{ match.runner3Back }}
+                                        </div>
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner3Back == ''"
+                                        >
+                                          <mat-icon>lock</mat-icon>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      selected-odds=""
+                                      type="lay"
+                                      class="not-selected bet-button"
+                                    >
+                                      <div class="lay" id="runner1lay1">
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner3Lay != ''"
+                                        >
+                                          {{ match.runner3Lay }}
+                                        </div>
+                                        <div
+                                          class="dash"
+                                          *ngIf="match.runner3Lay == ''"
+                                        >
+                                          <mat-icon>lock</mat-icon>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div ng-show="matchStatus!='OPEN'">
+                                                   <div class="market-suspended">
+                                                      <div class="runners">
+                                                       <div class="">
+                                                            <div class="list-item">
+                                                               <div class="details">
+                                                                  <div class="title">
+                                                                     <span class="">West Indies</span>
+                                                                  </div>
+                                                                  <div class="pnl">
+                                                                     <span id="matchodd0_1618" class="-positive "  style="color: red;">» -42.06</span>
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </div>
+                                                         <div class="">
+                                                            <div class="list-item">
+                                                               <div class="details">
+                                                                  <div class="title">
+                                                                     <span class="">Ireland</span>
+                                                                  </div>
+                                                                  <div class="pnl">
+                                                                     <span id="matchodd0_1618" class="-positive " style="color: red;">» -1,247.20</span>
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <h2 *ngIf="sport.eventList.length == 0">No matches...</h2>
+                </ng-container>
+              </div>
+            </mat-tab>
+            <mat-tab label="Book Making">
+              <div class="mat-elevation-z4 tab-class">
+                <ng-container>
+                  <div id="user_row_" class="lotus-title">
+                    <div class="pause_btn" style="background: white;">
+                      <!-- <img src="assets/images/pause_icon.png" alt="pause_icon" style="margin-top:0px;"> -->
+                    </div>
+                    <div style="margin-left: 25px;">
+                      Cricket
+                    </div>
+                  </div>
+                  <ng-container
+                    *ngFor="let match of bookfarmatted; trackBy: trackByFn"
+                  >
+                    <div class="Inplay-data">
+                      <div class="sport_row">
+                        <div
+                          class="event-details"
+                          [routerLink]="[
+                            '/sport/inplaylist/matchdashboard',
+                            '4',
+                            match.mtBfId,
+                            match.matchId,
+                            match.matchName,
+                            '0'
+                          ]"
+                        >
+                          <span class="label"
+                            ><b>{{ match.matchName }}</b></span
+                          >
+                          <p class="date-info">
+                            <span class="">[ {{ match.matchDate }} ]</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="modds"
+                        *ngFor="
+                          let runner of match.runnerData;
+                          trackBy: trackByFn
+                        "
+                      >
+                        <div class="list-body distinct">
+                          <div id="1153608013">
+                            <div class="">
+                              <div class="">
+                                <div
+                                  class="market list-item"
+                                  id="selection-1.143317969-2954262"
+                                >
+                                  <div class="runner-details">
+                                    <div class="title">
+                                      <span class="">{{ runner.name }}</span>
+                                    </div>
+                                    <!-- <div class="pnl">
+                                                               <span id="matchodd0_1618" [ngClass]="(match.book>=0)?'text-success':'text-danger'">» {{match.book | number : '1.2-2'}}</span>
+                                                            </div> -->
+                                  </div>
+                                  <div class="odds-container">
+                                    <div
+                                      selected-odds=""
+                                      type="back"
+                                      class="not-selected bet-button"
+                                    >
+                                      <div class="back" id="runner0back1">
+                                        <div
+                                          class="dash"
+                                          *ngIf="runner.backPrice != '-'"
+                                        >
+                                          {{ runner.backPrice }}
+                                        </div>
+                                        <div
+                                          class="dash"
+                                          *ngIf="runner.backPrice == '-'"
+                                        >
+                                          <mat-icon>lock</mat-icon>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      selected-odds=""
+                                      type="lay"
+                                      class="not-selected bet-button"
+                                    >
+                                      <div class="lay" id="runner0lay1">
+                                        <div
+                                          class="dash"
+                                          *ngIf="runner.layPrice != '-'"
+                                        >
+                                          {{ runner.layPrice }}
+                                        </div>
+                                        <div
+                                          class="dash"
+                                          *ngIf="runner.layPrice == '-'"
+                                        >
+                                          <mat-icon>lock</mat-icon>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div ng-show="matchStatus!='OPEN'">
+                                                   <div class="market-suspended">
+                                                      <div class="runners">
+                                                       <div class="">
+                                                            <div class="list-item">
+                                                               <div class="details">
+                                                                  <div class="title">
+                                                                     <span class="">West Indies</span>
+                                                                  </div>
+                                                                  <div class="pnl">
+                                                                     <span id="matchodd0_1618" class="-positive "  style="color: red;">» -42.06</span>
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </div>
+                                                         <div class="">
+                                                            <div class="list-item">
+                                                               <div class="details">
+                                                                  <div class="title">
+                                                                     <span class="">Ireland</span>
+                                                                  </div>
+                                                                  <div class="pnl">
+                                                                     <span id="matchodd0_1618" class="-positive " style="color: red;">» -1,247.20</span>
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <h2 *ngIf="bookfarmatted.length == 0">No matches...</h2>
+                </ng-container>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<link href="css/acc_style.css" rel="stylesheet" type="text/css" />
+
+<h3>Summary</h3>
+
+<!-- Balance -->
+
+<div class="white-wrap" data-ng-init="Fund()">
+  <dl class="head-balance">
+    <h3>Your Balances</h3>
+
+    <dd id="summaryTotalBalance">{{availBal}} <span>{{currency}}</span></dd>
+  </dl>
+
+  <h3>Welcome,</h3>
+
+  <p>
+    View your account details here. You can manage funds, review and change your
+    settings and see the performance of your betting activity.
+  </p>
+</div>
+
+<!-- Report Table -->
+
+<div class="table-container">
+  <table class="table01">
+    <tbody>
+      <tr>
+        <th style="width: 13%" class="align-L">Date</th>
+  
+        <th style="width: 13%">Transaction №</th>
+  
+        <th style="width: 13%">Debits</th>
+  
+        <th style="width: 13%">Credits</th>
+  
+        <th style="width: 13%">Balance</th>
+  
+        <th style="width: 13%">Remarks</th>
+  
+        <th>From/To</th>
+      </tr>
+  
+      <tr id="dataTemplate" style="display: none">
+        <td id="date" class="align-L"></td>
+  
+        <td id="statementSerial"></td>
+  
+        <td id="debits"></td>
+  
+        <td id="credits"></td>
+  
+        <td id="balance"></td>
+  
+        <td id="remarks"></td>
+  
+        <td id="fromTo">
+          <img
+            class="fromto"
+            src="images/account/transparent.gif"
+            alt="account"
+          />
+        </td>
+      </tr>
+    </tbody>
+  
+    <tbody id="content"></tbody>
+  </table>
+</div>
+
+<div>
+  <ul style="display: none">
+    <li id="prev"><a href="javascript:void(0);">Prev</a></li>
+
+    <li id="next"><a href="javascript:void(0);">Next</a></li>
+
+    <li id="pageNumber"><a href="javascript:void(0);"></a></li>
+
+    <li id="more"><a href="javascript:void(0);">...</a></li>
+
+    <input
+      type="text"
+      id="goToPageNumber"
+      onkeyup="return PageHandler.validatePageNumber(this)"
+      maxlength="6"
+      size="4"
+    />
+
+    <li><a id="goPageBtn">GO</a></li>
+  </ul>
+
+  <ul id="pageNumberContent" class="pages"></ul>
+</div>

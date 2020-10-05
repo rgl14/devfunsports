@@ -1,0 +1,50 @@
+<div class="Casino-statement" >
+   <h1  translate="">Casino Report</h1>
+
+   <table class="listing apl-table" >
+      <thead>
+         <tr>
+            <th translate="">Date</th>
+            <th translate="">Description</th>
+            <th class="transfer-amount" translate="">Amount</th>
+         </tr>
+      </thead>
+      <tbody data-ng-repeat="transfer in getTransferStatementData track by $index">
+         <tr>
+            
+            <td  colspan="3" class="transfer-date">
+               <span><time >{{transfer.date}}</time></span>
+            </td>
+            
+            
+            
+         </tr>
+         
+         <tr data-ng-repeat="trans in transfer.datewise track by $index">
+            
+            
+            <td class="transfer-time">
+               <span><time>{{trans.Time}}</time></span>
+            </td>
+            
+            
+            <td data-ng-if="!transfer.dateGroup" translate="">{{trans.gameName}}</td>
+            
+            
+            <td class="transfer-amount -negative" data-ng-class="{'-negative': trans.amount < 0, '-positive': trans.amount >= 0}">{{trans.amount | number:2}}</td>
+            
+         </tr>
+         
+      </tbody>
+      <tr data-ng-if="getTransferStatementData.length==0 && !pending_transferStatement">
+            <td colspan="5" style="text-align: center;font-weight: bold;">No Data Found</td>
+        </tr>
+   </table>
+
+     <!-- <div class="dizzy-gillespie" id="loader" data-ng-if="pending_transferStatement"></div> -->
+   <div class="lds-circle" id="loader" data-ng-if="pending_transferStatement"><img src="images/loader.gif"></div>
+     
+
+   
+</div>
+<h1>Casino</h1>

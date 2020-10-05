@@ -1,0 +1,1999 @@
+<link rel="stylesheet" href="https://d1arlbwbznybm5.cloudfront.net/mobile/css/flipclock.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<!-- <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>
+   .card-icon {
+      font-family: Card Characters;
+      display: inline-block !important;
+      text-align: right;
+      width: 30px;
+      font-size: 12px;
+   }
+
+   .card-red1 {
+      color: #ff0000 !important;
+      font-size: 14px !important;
+      display: inline-block !important;
+   }
+
+   .card-black1 {
+      color: #000 !important;
+      font-size: 14px !important;
+      display: inline-block !important;
+   }
+
+   .tpbhav {
+      width: 32.66667vw !important;
+   }
+
+   .bets-selections .suspend.tpbhav {
+      width: 51.33333vw !important;
+   }
+
+   .bets-selections .suspend.tptest {
+      width: 56.33333vw !important;
+   }
+
+   .video-image {
+      position: relative;
+   }
+
+   .videoCards {
+      position: absolute;
+      content: "";
+      z-index: 1;
+      padding: 4px;
+      background: rgba(0, 0, 0, .4);
+      color: #fff;
+   }
+
+   /*  .videoCards.isAuto{
+   width: 125px;
+   background: rgb(0, 0, 0);
+   }
+   */
+   .videoCards h6 {
+      font-size: 11px;
+      margin-bottom: 1px;
+   }
+
+   .videoCards img {
+      width: 23px;
+      height: auto;
+      margin-right: 1px;
+      margin-left: 1px;
+      border-radius: 4px;
+   }
+
+   .clock2digit {
+      max-width: 300px;
+      bottom: -42px;
+      position: absolute !important;
+      right: -57px;
+      width: auto !important;
+      transform: scale(0.3);
+   }
+
+   .float-right {
+      float: right !important;
+   }
+
+   .teenpatti-wrapper .rules-title,
+   .teenpatti-wrapper .last-result-title,
+   .worli-matka .rules-title,
+   .worli-matka .last-result-title {
+      background-color: #163439;
+   }
+
+   .teenpatti-wrapper .rules-title,
+   .teenpatti-wrapper .last-result-title,
+   .worli-matka .rules-title,
+   .worli-matka .last-result-title {
+      padding: 6px 12px;
+      color: #fff;
+   }
+
+   .bets-wrap.tp_class {
+      margin-bottom: 0px;
+      margin-top: 0px;
+   }
+
+   .ball-runs.playera {
+      background: #355e3b;
+      color: #ff4500;
+   }
+
+   .last-result {
+      cursor: pointer;
+      margin: 0px 2px 2px 0px;
+   }
+
+   .ball-runs.playerb {
+      background: #355e3b;
+      color: #ff3;
+   }
+
+   .ball-runs-T6.playerb {
+      background: #355e3b;
+      color: #ff3;
+   }
+
+   .ball-runs {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      display: inline-block;
+      line-height: 30px;
+      text-align: center;
+      font-weight: 700;
+   }
+
+   .ball-runs-T6 {
+      height: 30px;
+      width: 65px;
+      border-radius: 25%;
+      display: inline-block;
+      line-height: 30px;
+      text-align: center;
+      font-weight: 700;
+   }
+
+   .teenpatti-result-container {
+      display: flex;
+      background: #fff;
+      padding: 5px;
+      border-radius: 0px 0px 10px 10px;
+   }
+
+   .results {
+      flex: 1;
+   }
+
+   .m-t-10 {
+      margin-top: 10px;
+   }
+
+   .result-view-all {
+      font-size: 14px;
+      float: right;
+      color: #fff;
+   }
+
+   .fancy-marker-title h4 {
+      padding: 10px;
+      background-color: #2c3e50d9;
+      color: #fff;
+      font-size: 14px;
+   }
+
+   /*Lucky7 Css Start Here*/
+   .lucky-seven-content {
+      background-color: #eee;
+      padding: 10px;
+   }
+
+   .m-t-10 {
+      margin-top: 10px !important;
+   }
+
+   .m-r-5 {
+      margin-right: 5px;
+   }
+
+   .row {
+      display: flex;
+      flex-wrap: wrap;
+      /*margin-right: -15px;*/
+      /*margin-left: -15px;*/
+   }
+
+   .text-center {
+      text-align: center !important;
+   }
+
+   .col-2 {
+      flex: 1;
+      max-width: 16.666667%;
+   }
+
+   .col-5 {
+      flex: 1;
+      max-width: 41.666667%;
+   }
+
+   .col-6 {
+      flex: 1;
+      max-width: 50%;
+   }
+
+   .col,
+   .col-1,
+   .col-10,
+   .col-11,
+   .col-12,
+   .col-2,
+   .col-3,
+   .col-4,
+   .col-5,
+   .col-6,
+   .col-7,
+   .col-8,
+   .col-9 {
+      position: relative;
+      width: 100%;
+      min-height: 1px;
+      padding-right: 5px;
+      padding-left: 5px;
+   }
+
+   .suspended {
+      position: relative;
+   }
+
+   .btn-theme {
+      color: #FFB80C;
+      background-image: linear-gradient(to right, #101212, #2c3e50) !important;
+      width: 100% !important;
+      border-radius: 4px !important;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2) !important;
+      border: 0 !important;
+      padding: 8px 10px !important;
+      cursor: pointer !important;
+      font-size: 16px !important;
+      /*position: relative;*/
+   }
+
+   .text-uppercase {
+      text-transform: uppercase !important;
+   }
+
+   .btn-theme.suspended:after {
+      border-radius: 4px;
+   }
+
+   .lucky7 .suspended:after {
+      width: 100%;
+   }
+
+   .suspended:after {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      border-radius: 5px;
+      right: 0;
+      background-color: rgba(0, 0, 0, .6);
+      color: #fa0808;
+      text-transform: uppercase;
+      font-family: FontAwesome;
+      content: "\f05e";
+      font-weight: 900;
+      font-size: 18px;
+      top: 0;
+   }
+
+   .text-right {
+      text-align: right !important;
+   }
+
+   .col-12 {
+      flex: 1;
+      max-width: 100%;
+   }
+
+   .row.row5 {
+      margin-left: -5px;
+      margin-right: -5px;
+   }
+
+   .row.row5>[class*=col-] {
+      padding-left: 5px;
+      padding-right: 5px;
+   }
+
+   .d-inline-block {
+      display: inline-block !important;
+   }
+
+   .card-seven img {
+      width: 40px;
+      cursor: pointer;
+   }
+
+   .cards-icon {
+      font-family: Card Characters !important;
+      display: inline-block;
+   }
+
+   .red-card {
+      color: #ff0000 !important;
+   }
+
+   .luck7-btn {
+      height: 25px;
+      border-radius: 5px;
+      background: #303030;
+      color: #fff;
+   }
+
+   .card-lucky7 {
+      width: 50px;
+      cursor: pointer;
+   }
+
+   .selectionTP {
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      padding: 5px;
+   }
+
+   /*Lucky7 Css Ends Here*/
+   /*Andar Bahar Css Starts Here*/
+   .scrolling-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+   }
+
+   .card {
+      flex: 0 0 auto;
+      margin: 10px;
+   }
+
+   .card-andarbahar {
+      width: 60px;
+      cursor: pointer;
+   }
+
+   .card-andarbahar img {
+      width: 60px;
+   }
+
+   .card-expo {
+      text-align: center;
+      font-size: 10px;
+   }
+
+   .video-card-div {
+      display: flex;
+   }
+
+   .video-card {
+      flex: 0 0 auto;
+   }
+
+   .video-card-prev {
+      line-height: 2;
+      margin-right: 5px;
+   }
+
+   .video-card-next {
+      line-height: 2;
+      margin-left: 5px;
+   }
+
+   /*Andar Bahar Css Ends Here*/
+   <style>.tpjudgement .ab-content {
+      padding: 4px
+   }
+
+   .tpjudgement .andar-bx {
+      border: 1px solid #333
+   }
+
+   .tpjudgement .bahar-bx {
+      border: 1px solid #333
+   }
+
+   .tpjudgement .ab-title {
+      padding: 4px;
+      font-weight: 700;
+      border-bottom: 1px solid #333;
+      color: var(--site-color)
+   }
+
+   .tpjudgement .selected {
+      border: 3px solid green !important
+   }
+
+   .tpjudgement img {
+      border: 3px solid transparent
+   }
+
+   .tpjudgement .back {
+      background-color: #a7d8fd !important;
+   }
+
+   .tpjudgement .lay {
+      background-color: #f9c9d4 !important;
+   }
+
+   .tpjudgement .mr-1,
+   .tpjudgement .mx-1 {
+      margin-right: .75rem !important;
+   }
+
+   .tpjudgement .ab-slider .owl-prev {
+      position: absolute;
+      top: -8px;
+      left: -20px;
+      font-size: 42px !important
+   }
+
+   .tpjudgement .ab-slider .owl-next {
+      position: absolute;
+      top: -8px;
+      right: -20px;
+      font-size: 42px !important
+   }
+
+   .tpjudgement .ab-slider .owl-next span,
+   .tpjudgement .ab-slider .owl-prev span {
+      color: #333;
+      font-size: 35px;
+      line-height: 1
+   }
+
+   .tpjudgement .ab-slider .owl-next span,
+   .tpjudgement .ab-slider .owl-prev span {
+      line-height: 2
+   }
+
+   .tpjudgement .ab-slider {
+      width: 90% !important;
+      margin: 0 auto
+   }
+
+   .tpjudgement .ab-slider .item {
+      text-align: center
+   }
+
+   .tpjudgement .suspended {
+      position: relative;
+   }
+
+   .tpjudgement .suspended:after {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      right: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, .6);
+      color: white;
+      text-transform: uppercase;
+      font-family: "font awesome 5 free";
+      /* content: "\f023"; */
+      content: "SUSPENDED";
+      font-weight: 900;
+      font-size: 18px;
+      top: 0;
+      z-index: 10
+   }
+</style>
+<div class="game-wrap">
+   <h4 id="gameInfo" class="game-info">
+      {{getSportNameId(sportId)}}
+      <ul id="infoIcon" class="info-icon">
+         <li id="inPlayIcon" data-ng-if="getMarketData.isInplay=='true'">
+            <img class="info-inplay" src="images/transparent.gif" alt="inplay">In-Play
+         </li>
+      </ul>
+   </h4>
+   <table data-ng-if="sportId==2000" class="game-team soccer" style="display: table;">
+      <tbody>
+         <tr>
+            <td>
+               <h4 data-ng-if="fullScore==undefined">{{matchName}}</h4>
+            </td>
+            <!--  <td class="team-refresh"><a class="refresh" data-ng-click="getAllMarket();"></a></td> -->
+         </tr>
+      </tbody>
+   </table>
+</div>
+<!-- <div id="marketBetsWrap" class="bets-wrap" data-ng-if="sportId==1000 && token">
+   <iframe ng-if="mtBfId==5000" data-name="20-20 teenpatti" width="100%" height="235"
+     src="http://www.funsports.win/dia_tp_live_tv/t20/" style="border:0px;"
+     class="ng-scope"></iframe>
+   
+   <iframe ng-if="mtBfId==5001" data-name="One day teenpatti" width="100%" height="235"
+     src="http://www.funsports.win/dia_tp_live_tv/oneday/"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5002" data-name="Test teenpatti" width="100%" height="235"
+     src="http://mintexch.com/live_tv/test/player.html" style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5003" data-name="Open teenpatti" width="100%" height="235"
+     src="http://mintexch.com/live_tv/open/player.html" style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5004" data-name="20-20 poker" width="100%" height="235"
+     src="http://mintexch.com/live_tv/liveP_1/player.html"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5005" data-name="1-Day Poker" width="100%" height="235"
+     src="http://mintexch.com/live_tv/liveP_2/player.html"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5006" data-name="6-Day Player" width="100%" height="235"
+     src="http://mintexch.com/live_tv/liveP_3/player.html"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5007" data-name="Worli Matka" width="100%" height="235"
+     src="http://mintexch.com/live_tv/worli_1/player.html"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5008" data-name="Instant Worli" width="100%" height="235"
+     src="http://mintexch.com/live_tv/worli_2/player.html"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5009" data-name="Andar Bahar" width="100%" height="235"
+     src="http://www.funsports.win/dia_tp_live_tv/ab20/"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5010" data-name="Lucky-7" width="100%" height="235"
+     src="http://www.funsports.win/dia_tp_live_tv/lucky7/"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5011" data-name="20-20 Dragon Tiger" width="100%" height="235"
+     src="http://mintexch.com/live_tv/dragonT/player.html"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5012" data-name="1 Day Dragon Tiger" width="100%" height="235"
+     src="http://mintexch.com/live_tv/dragonT/player.html"
+     style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5013" data-name="Amar Akbar Anthony" width="100%" height="235"
+     src="http://mintexch.com/live_tv/bc_1/player.html" style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5014" data-name="Bollywood Table" width="100%" height="235"
+     src="http://mintexch.com/live_tv/bc_2/player.html" style="border:0px;"></iframe>
+   
+   <iframe ng-if="mtBfId==5015" data-name="32-cards" width="100%" height="235"
+     src="http://mintexch.com/live_tv/32_cards/player.html"
+     style="border:0px;"></iframe>
+   </div> -->
+<div class="teenpatti-wrapper teenpatti-twenty bets-wrap" data-ng-if="subscriptionId==1 && token">
+   <div class="video-image">
+      <div class="videoCards">
+         <div>
+            <h6>PLAYER A</h6>
+            <div><img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C1}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C2}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C3}}.png"></div>
+         </div>
+         <div>
+            <h6>PLAYER B</h6>
+            <div><img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C4}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C5}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C6}}.png"></div>
+         </div>
+      </div>
+      <iframe data-name="20-20 teenpatti" width="100%" height="235" src="http://www.funsports.win/dia_tp_live_tv/t20/"
+         style="border:0px;"></iframe>
+      <div class="clock clock2digit flip-clock-wrapper"></div>
+   </div>
+   <div class="rules-title">
+      <a href="javascript:void(0)" class="theme1font"><span class="teenpatti-rulesList"
+            role="button"><u>Rules</u></span></a>
+      <span class="float-right round theme1font">
+         Round ID: <span>{{tpData.mid}} {{mtpData.roundId}}</span>
+      </span>
+   </div>
+   <div class="bets-wrap_tp_20_20">
+      <dl class="bets-selections-head">
+         <dt>
+            <p>
+               <span>Min: {{tpData.min}}</span>
+               <span>Max: {{tpData.max}}</span>
+            </p>
+         </dt>
+         <dd class="mode-land"></dd>
+         <dd class="mode-land"></dd>
+         <dd>Back
+         </dd>
+         <dd class="tpbhav">
+         </dd>
+         <dd class="mode-land"></dd>
+         <dd class="mode-land"></dd>
+      </dl>
+      <dl id="selection_{{marketId}}_{{runner.nation | removeSpace}}"
+         data-ng-repeat-start="runner in tpMarket track by runner.nation" data-ng-if="$index==0 || $index==2"
+         class="bets-selections">
+         <dt>
+            <h4>{{runner.nation}}</h4>
+            <ul>
+               <li id="withoutBetMktExp_{{tpData.mid}}_{{runner.nation | removeSpace}}" style="display: list-item;">
+               </li>
+               <li id="withBetMktExp_{{tpData.mid}}_{{runner.nation | removeSpace}}" style="display: list-item;">
+               </li>
+            </ul>
+         </dt>
+         <dd class="suspend tpbhav" data-ng-if="runner.gstatus=='0'">
+            <p>SUSPENDED</p>
+         </dd>
+         <dd class="mode-land">
+            <a class="back-3"></a>
+         </dd>
+         <dd class="mode-land">
+            <a class="back-2"></a>
+         </dd>
+         <dd>
+            <a class="back-1"
+               data-ng-click="openTpBetSlip($event,'back',runner.rate,runner.nation,runner.sid,tpData.mid,subscriptionId)">{{runner.rate}}</a>
+         </dd>
+         <dd class="tpbhav">
+            <a class="back-1">
+               {{tpMarket[$index+1].nation}}
+            </a>
+            <!-- <a class="back-1"
+               data-ng-click="openTpBetSlip($event,'back',tpMarket[$index+1].rate,tpMarket[$index+1].nation,tpMarket[$index+1].sid,tpData.mid,subscriptionId)">
+               {{tpMarket[$index+1].nation}}
+               </a> -->
+         </dd>
+         <dd class="mode-land">
+            <a class="lay-2"></a>
+         </dd>
+         <dd class="mode-land">
+            <a class="lay-3"></a>
+         </dd>
+      </dl>
+      <div id="betBoard_{{marketId}}_{{runner.nation | removeSpace}}" data-ng-if="(runner.nation==placeTPData.runnerName || tpMarket[$index+1].nation==placeTPData.runnerName) 
+         && (runner.gstatus=='1' || tpMarket[$index+1].gstatus=='1') && ($index==0 || $index==2)"
+         class="bet_slip-wrap {{placeTPData.backlay | lowercase}}" style="display: block;" data-ng-repeat-end>
+         <ul class="btn-list">
+            <li>
+               <div class="input-num input-odds">
+                  <a data-ng-click="oddsDown(placeTPData)" class="icon-minus"></a>
+                  <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('odds',placeTPData)">{{placeTPData.odds}}</span>
+                  <a data-ng-click="oddsUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+            <li>
+               <div class="input-num input-stake">
+                  <a data-ng-click="stakeDown(placeTPData)" class="icon-minus"></a>
+                  <span data-ng-class="stakeTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('stake',placeTPData)">{{placeTPData.stake}}</span>
+                  <a data-ng-click="stakeUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+         </ul>
+         <ul class="coin-list">
+            <li><a data-stake="{{settingsData.betStake.stake1}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake1,placeTPData)">
+                  {{settingsData.betStake.stake1}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake2}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake2,placeTPData)">
+                  {{settingsData.betStake.stake2}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake3}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake3,placeTPData)">
+                  {{settingsData.betStake.stake3}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake4}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake4,placeTPData)">
+                  {{settingsData.betStake.stake4}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake5}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake5,placeTPData)">
+                  {{settingsData.betStake.stake5}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake6}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake6,placeTPData)">
+                  {{settingsData.betStake.stake6}}</a>
+            </li>
+         </ul>
+         <div class="keyboard-wrap">
+            <ul class="btn-tel">
+               <li><a data-ng-click="buttonInput('1',placeTPData)">1</a></li>
+               <li><a data-ng-click="buttonInput('2',placeTPData)">2</a></li>
+               <li><a data-ng-click="buttonInput('3',placeTPData)">3</a></li>
+               <li><a data-ng-click="buttonInput('4',placeTPData)">4</a></li>
+               <li><a data-ng-click="buttonInput('5',placeTPData)">5</a></li>
+               <li><a data-ng-click="buttonInput('6',placeTPData)">6</a></li>
+               <li><a data-ng-click="buttonInput('7',placeTPData)">7</a></li>
+               <li><a data-ng-click="buttonInput('8',placeTPData)">8</a></li>
+               <li><a data-ng-click="buttonInput('9',placeTPData)">9</a></li>
+               <li><a data-ng-click="buttonInput('0',placeTPData)">0</a></li>
+               <li><a data-ng-click="buttonInput('00',placeTPData)">00</a></li>
+               <li><a data-ng-click="buttonInput('.',placeTPData)">.</a></li>
+            </ul>
+            <a data-ng-click="buttonDelete(placeTPData)" class="btn-delete"></a>
+         </div>
+         <ul class="btn-list">
+            <li>
+               <a data-ng-click="cancelBetslip()" class="btn">Cancel
+               </a>
+            </li>
+            <li>
+               <a data-ng-click="placeTPData.stake=='' || placeTPData.odds==''?'':placeTPBet(placeTPData)"
+                  class="btn-send" data-ng-class="placeTPData.stake=='' || placeTPData.odds==''?'disable':''">Place
+                  Bet
+               </a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+<div class="teenpatti-wrapper teenpatti-oneday bets-wrap" data-ng-if="subscriptionId==2 && token">
+   <div class="video-image">
+      <div class="videoCards">
+         <div>
+            <h6>PLAYER A</h6>
+            <div><img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpMarket[0].C1}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpMarket[0].C2}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpMarket[0].C3}}.png"></div>
+         </div>
+         <div>
+            <h6>PLAYER B</h6>
+            <div><img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpMarket[1].C1}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpMarket[1].C2}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpMarket[1].C3}}.png"></div>
+         </div>
+      </div>
+      <iframe data-name="One day teenpatti" width="100%" height="235"
+         src="http://www.funsports.win/dia_tp_live_tv/oneday/" style="border:0px;"></iframe>
+      <div class="clock clock2digit flip-clock-wrapper"></div>
+   </div>
+   <div class="rules-title">
+      <a href="javascript:void(0)" class="theme1font"><span class="teenpatti-rulesList"
+            role="button"><u>Rules</u></span></a>
+      <span class="float-right round theme1font">
+         Round ID: <span>{{tpMarket[0].marketId}}</span>
+      </span>
+   </div>
+   <div class="bets-wrap_tp_one_day">
+      <dl class="bets-selections-head">
+         <dt>
+            <p>
+               <span>Min: {{tpMarket[0].min}}</span>
+               <span>Max: {{tpMarket[0].max}}</span>
+            </p>
+         </dt>
+         <dd class="mode-land"></dd>
+         <dd class="mode-land"></dd>
+         <dd>Back
+         </dd>
+         <dd>Lay
+         </dd>
+         <dd class="mode-land"></dd>
+         <dd class="mode-land"></dd>
+      </dl>
+      <dl id="selection_{{tpMarket[0].marketId}}_{{runner.nation | removeSpace}}"
+         data-ng-repeat-start="runner in tpMarket track by runner.nation" class="bets-selections">
+         <dt>
+            <h4>{{runner.nation}}</h4>
+            <ul>
+               <li id="withoutBetMktExp_{{runner.marketId}}_{{runner.nation | removeSpace}}"
+                  style="display: list-item;">
+               </li>
+               <li id="withBetMktExp_{{runner.marketId}}_{{runner.nation | removeSpace}}" style="display: list-item;">
+               </li>
+            </ul>
+         </dt>
+         <dd class="suspend" data-ng-if="runner.gstatus!='ACTIVE'">
+            <p>{{runner.gstatus}}</p>
+         </dd>
+         <dd class="mode-land">
+            <a class="back-3"></a>
+         </dd>
+         <dd class="mode-land">
+            <a class="back-2"></a>
+         </dd>
+         <dd>
+            <a class="back-1"
+               data-ng-click="runner.b1=='0'?'':openTpBetSlip($event,'back',runner.b1,runner.nation,runner.sectionId,runner.marketId,subscriptionId)">{{runner.b1}}<span>{{runner.bs1}}</span></a>
+         </dd>
+         <dd>
+            <a class="lay-1"
+               data-ng-click="runner.l1=='0'?'':openTpBetSlip($event,'lay',runner.l1,runner.nation,runner.sectionId,runner.marketId,subscriptionId)">{{runner.l1}}<span>{{runner.ls1}}</span>
+            </a>
+         </dd>
+         <dd class="mode-land">
+            <a class="lay-2"></a>
+         </dd>
+         <dd class="mode-land">
+            <a class="lay-3"></a>
+         </dd>
+      </dl>
+      <div id="betBoard_{{runner.marketId}}_{{runner.nation | removeSpace}}"
+         data-ng-if="runner.nation==placeTPData.runnerName && runner.gstatus=='ACTIVE'"
+         class="bet_slip-wrap {{placeTPData.backlay | lowercase}}" style="display: block;" data-ng-repeat-end>
+         <ul class="btn-list">
+            <li>
+               <div class="input-num input-odds">
+                  <a data-ng-click="oddsDown(placeTPData)" class="icon-minus"></a>
+                  <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('odds',placeTPData)">{{placeTPData.odds}}</span>
+                  <a data-ng-click="oddsUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+            <li>
+               <div class="input-num input-stake">
+                  <a data-ng-click="stakeDown(placeTPData)" class="icon-minus"></a>
+                  <span data-ng-class="stakeTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('stake',placeTPData)">{{placeTPData.stake}}</span>
+                  <a data-ng-click="stakeUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+         </ul>
+         <ul class="coin-list">
+            <li><a data-stake="{{settingsData.betStake.stake1}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake1,placeTPData)">
+                  {{settingsData.betStake.stake1}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake2}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake2,placeTPData)">
+                  {{settingsData.betStake.stake2}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake3}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake3,placeTPData)">
+                  {{settingsData.betStake.stake3}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake4}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake4,placeTPData)">
+                  {{settingsData.betStake.stake4}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake5}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake5,placeTPData)">
+                  {{settingsData.betStake.stake5}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake6}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake6,placeTPData)">
+                  {{settingsData.betStake.stake6}}</a>
+            </li>
+         </ul>
+         <div class="keyboard-wrap">
+            <ul class="btn-tel">
+               <li><a data-ng-click="buttonInput('1',placeTPData)">1</a></li>
+               <li><a data-ng-click="buttonInput('2',placeTPData)">2</a></li>
+               <li><a data-ng-click="buttonInput('3',placeTPData)">3</a></li>
+               <li><a data-ng-click="buttonInput('4',placeTPData)">4</a></li>
+               <li><a data-ng-click="buttonInput('5',placeTPData)">5</a></li>
+               <li><a data-ng-click="buttonInput('6',placeTPData)">6</a></li>
+               <li><a data-ng-click="buttonInput('7',placeTPData)">7</a></li>
+               <li><a data-ng-click="buttonInput('8',placeTPData)">8</a></li>
+               <li><a data-ng-click="buttonInput('9',placeTPData)">9</a></li>
+               <li><a data-ng-click="buttonInput('0',placeTPData)">0</a></li>
+               <li><a data-ng-click="buttonInput('00',placeTPData)">00</a></li>
+               <li><a data-ng-click="buttonInput('.',placeTPData)">.</a></li>
+            </ul>
+            <a data-ng-click="buttonDelete(placeTPData)" class="btn-delete"></a>
+         </div>
+         <ul class="btn-list">
+            <li>
+               <a data-ng-click="cancelBetslip()" class="btn">Cancel
+               </a>
+            </li>
+            <li>
+               <a data-ng-click="placeTPData.stake=='' || placeTPData.odds==''?'':placeTPBet(placeTPData)"
+                  class="btn-send" data-ng-class="placeTPData.stake=='' || placeTPData.odds==''?'disable':''">Place
+                  Bet
+               </a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+<div class="teenpatti-wrapper teenpatti-test bets-wrap" data-ng-if="subscriptionId==3 && token">
+   <div class="video-image">
+      <div class="videoCards">
+         <div>
+            <h6>TIGER</h6>
+            <div><img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C1}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C2}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C3}}.png"></div>
+         </div>
+         <div>
+            <h6>LION</h6>
+            <div><img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C4}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C5}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C6}}.png"></div>
+         </div>
+         <div>
+            <h6>DRAGON</h6>
+            <div><img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C7}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C8}}.png"> <img
+                  ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C9}}.png"></div>
+         </div>
+      </div>
+      <iframe data-name="Test teenpatti" width="100%" height="235" src="http://mintexch.com/live_tv/test/player.html"
+         style="border:0px;"></iframe>
+      <div class="clock clock2digit flip-clock-wrapper"></div>
+   </div>
+   <div class="rules-title">
+      <a href="javascript:void(0)" class="theme1font"><span class="teenpatti-rulesList"
+            role="button"><u>Rules</u></span></a>
+      <span class="float-right round theme1font">
+         Round ID: <span>{{tpData.mid}}</span>
+      </span>
+   </div>
+   <div class="bets-wrap_tp_oneday">
+      <dl class="bets-selections-head">
+         <dt>
+            <p>
+               <span>Min: {{tpData.min}}</span>
+               <span>Max: {{tpData.max}}</span>
+            </p>
+         </dt>
+         <dd class="mode-land"></dd>
+         <dd class="mode-land"></dd>
+         <dd>Tiger</dd>
+         <dd>Lion</dd>
+         <dd>Dragon</dd>
+         <dd class="mode-land"></dd>
+         <!-- <dd class="mode-land"></dd> -->
+      </dl>
+      <dl id="selection_{{marketId}}_{{runner.nation | removeSpace}}"
+         data-ng-repeat-start="runner in tpMarket track by runner.nation" class="bets-selections">
+         <dt>
+            <h4>{{runner.nation}}</h4>
+            <ul>
+               <li id="withoutBetMktExp_{{marketId}}_{{runner.nation | removeSpace}}" style="display: list-item;">
+               </li>
+               <li id="withBetMktExp_{{marketId}}_{{runner.nation | removeSpace}}" style="display: list-item;">
+               </li>
+            </ul>
+         </dt>
+         <dd class="suspend tptest"
+            data-ng-if="runner.dstatus!='True' && runner.lstatus!='True' && runner.tstatus!='True'">
+            <p>SUSPENDED</p>
+         </dd>
+         <dd class="mode-land">
+            <a class="back-3"
+               data-ng-click="runner.gstatus!='1' || runner.back3==null || runner.back3=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Back',runner.back3,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.back3 | oddDecimal}}<span>{{runner.backSize3 | volume | number:0}}{{runner.backSize3>500000?'+':''}}</span></a>
+         </dd>
+         <dd class="mode-land">
+            <a class="back-2"
+               data-ng-click="runner.gstatus!='1' || runner.back2==null || runner.back2=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Back',runner.back2,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.back2 | oddDecimal}}<span>{{runner.backSize2 | volume | number:0}}{{runner.backSize2>500000?'+':''}}</span></a>
+         </dd>
+         <dd>
+            <a class="back-1"
+               data-ng-click="runner.tstatus!='True' || runner.back1==null || runner.back1=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Back',runner.back1,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.trate}}</a>
+         </dd>
+         <dd>
+            <a class="back-1"
+               data-ng-click="runner.tstatus!='True' || runner.lay1==null || runner.lay1=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Lay',runner.lay1,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.lrate}}
+            </a>
+         </dd>
+         <dd>
+            <a class="back-1"
+               data-ng-click="runner.tstatus!='True' || runner.lay1==null || runner.lay1=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Lay',runner.lay1,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.drate}}
+            </a>
+         </dd>
+         <dd class="mode-land">
+            <a class="lay-2"
+               data-ng-click="getMarketData.matchStatus!='OPEN' || runner.lay2==null || runner.lay2=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Lay',runner.lay2,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.lay2 | oddDecimal}}<span>
+                  {{runner.laySize2 | volume | number:0}}{{runner.laySize2>500000?'+':''}}</span></a>
+         </dd>
+         <!-- <dd class="mode-land">
+            <a class="lay-3"
+              data-ng-click="getMarketData.matchStatus!='OPEN' || runner.lay3==null || runner.lay3=='' || checkDateTime(getMarketData.matchDate,curTime)?'':openMarketBetslip($event,'Lay',runner.lay3,runner.runnerName,sportId,mtBfId,matchId,marketId,bfId)">{{runner.lay3 | oddDecimal}}<span>
+                {{runner.laySize3 | volume | number:0}}{{runner.laySize3>500000?'+':''}}</span></a>
+            
+            </dd> -->
+      </dl>
+      <div id="betBoard_{{marketId}}_{{runner.nation | removeSpace}}"
+         data-ng-if="runner.nation==placeMarketData.nation && runner.gstatus=='1'"
+         class="bet_slip-wrap {{placeMarketData.backlay | lowercase}}" style="display: block;" data-ng-repeat-end>
+         <ul class="btn-list">
+            <li>
+               <div class="input-num input-odds">
+                  <a data-ng-click="oddsDown(placeMarketData)" class="icon-minus"></a>
+                  <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('odds',placeMarketData)">{{placeMarketData.odds}}</span>
+                  <a data-ng-click="oddsUp(placeMarketData)" class="icon-plus"></a>
+               </div>
+            </li>
+            <li>
+               <div class="input-num input-stake">
+                  <a data-ng-click="stakeDown(placeMarketData)" class="icon-minus"></a>
+                  <span data-ng-class="stakeTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('stake',placeMarketData)">{{placeMarketData.stake}}</span>
+                  <a data-ng-click="stakeUp(placeMarketData)" class="icon-plus"></a>
+               </div>
+            </li>
+         </ul>
+         <ul class="coin-list">
+            <li><a data-stake="{{settingsData.betStake.stake1}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake1,placeMarketData)">
+                  {{settingsData.betStake.stake1}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake2}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake2,placeMarketData)">
+                  {{settingsData.betStake.stake2}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake3}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake3,placeMarketData)">
+                  {{settingsData.betStake.stake3}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake4}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake4,placeMarketData)">
+                  {{settingsData.betStake.stake4}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake5}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake5,placeMarketData)">
+                  {{settingsData.betStake.stake5}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake6}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake6,placeMarketData)">
+                  {{settingsData.betStake.stake6}}</a>
+            </li>
+         </ul>
+         <div class="keyboard-wrap">
+            <ul class="btn-tel">
+               <li><a data-ng-click="buttonInput('1',placeMarketData)">1</a></li>
+               <li><a data-ng-click="buttonInput('2',placeMarketData)">2</a></li>
+               <li><a data-ng-click="buttonInput('3',placeMarketData)">3</a></li>
+               <li><a data-ng-click="buttonInput('4',placeMarketData)">4</a></li>
+               <li><a data-ng-click="buttonInput('5',placeMarketData)">5</a></li>
+               <li><a data-ng-click="buttonInput('6',placeMarketData)">6</a></li>
+               <li><a data-ng-click="buttonInput('7',placeMarketData)">7</a></li>
+               <li><a data-ng-click="buttonInput('8',placeMarketData)">8</a></li>
+               <li><a data-ng-click="buttonInput('9',placeMarketData)">9</a></li>
+               <li><a data-ng-click="buttonInput('0',placeMarketData)">0</a></li>
+               <li><a data-ng-click="buttonInput('00',placeMarketData)">00</a></li>
+               <li><a data-ng-click="buttonInput('.',placeMarketData)">.</a></li>
+            </ul>
+            <a data-ng-click="buttonDelete(placeMarketData)" class="btn-delete"></a>
+         </div>
+         <ul class="btn-list">
+            <li>
+               <a data-ng-click="cancelBetslip()" class="btn">Cancel
+               </a>
+            </li>
+            <li>
+               <a data-ng-click="placeMarketData.stake=='' || placeMarketData.odds==''?'':confirmBetPop(placeMarketData)"
+                  class="btn-send"
+                  data-ng-class="placeMarketData.stake=='' || placeMarketData.odds==''?'disable':''">Place
+                  Bet
+               </a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+<div class="teenpatti-wrapper teenpatti-open bets-wrap" data-ng-if="subscriptionId==4 && token">
+   <div class="video-image">
+      <div class="videoCards">
+         <div>
+            <h6>DEALER</h6>
+            <div><img ng-src="https://dzm0kbaskt4pv.cloudfront.net/img/cards/{{openCards[8]}}.png"> <img
+                  ng-src="https://dzm0kbaskt4pv.cloudfront.net/img/cards/{{openCards[17]}}.png"> <img
+                  ng-src="https://dzm0kbaskt4pv.cloudfront.net/img/cards/{{openCards[26]}}.png"></div>
+         </div>
+      </div>
+      <iframe data-name="Open teenpatti" width="100%" height="235" src="http://mintexch.com/live_tv/open/player.html"
+         style="border:0px;"></iframe>
+      <div class="clock clock2digit flip-clock-wrapper"></div>
+   </div>
+   <div class="rules-title">
+      <a href="javascript:void(0)" class="theme1font"><span class="teenpatti-rulesList"
+            role="button"><u>Rules</u></span></a>
+      <span class="float-right round theme1font">
+         Round ID: <span>{{tpData.mid}}</span>
+      </span>
+   </div>
+   <div class="bets-wrap_tp_open" data-ng-if="">
+      <dl class="bets-selections-head">
+         <dt>
+            <p>
+               <span>Min: {{tpMarket[0].min}}</span>
+               <span>Max: {{tpMarket[0].max}}</span>
+            </p>
+         </dt>
+         <dd class="mode-land"></dd>
+         <dd class="mode-land"></dd>
+         <dd>
+            Back
+            <!-- <span>Back(Min: {{tpMarket[0].min}} Max: {{tpMarket[0].min}})</span> -->
+         </dd>
+         <dd class="tpbhav">
+            <span>Min: {{tpMarket[8].min}} Max: {{tpMarket[8].max}}</span>
+         </dd>
+         <dd class="mode-land"></dd>
+         <dd class="mode-land"></dd>
+      </dl>
+      <dl id="selection_{{marketId}}_{{runner.nation | removeSpace}}"
+         data-ng-repeat-start="runner in tpMarket track by runner.nation" data-ng-if="$index<=7"
+         class="bets-selections">
+         <dt>
+            <h4>{{runner.nation}}</h4>
+            <div class="patern-name">
+               <span class="card-icon" ng-bind-html="getCardSymbolImg(openCards[$index])"></span>
+               <span class="card-icon" ng-bind-html="getCardSymbolImg(openCards[$index+9])"></span>
+               <span class="card-icon" ng-bind-html="getCardSymbolImg(openCards[$index+18])"></span>
+            </div>
+            <ul>
+               <li id="withoutBetMktExp_{{marketId}}_{{runner.nation | removeSpace}}" style="display: list-item;">
+               </li>
+               <li id="withBetMktExp_{{marketId}}_{{runner.nation | removeSpace}}" style="display: list-item;">
+               </li>
+            </ul>
+         </dt>
+         <dd class="suspend tpbhav" data-ng-if="runner.gstatus=='0'">
+            <p>SUSPENDED</p>
+         </dd>
+         <dd class="mode-land">
+            <a class="back-3"></a>
+         </dd>
+         <dd class="mode-land">
+            <a class="back-2"></a>
+         </dd>
+         <dd>
+            <a class="back-1">{{runner.rate}}</a>
+         </dd>
+         <dd class="tpbhav">
+            <a class="back-1">
+               {{tpMarket[$index+8].nation}}
+            </a>
+         </dd cl>
+         <dd class="mode-land">
+            <a class="lay-2"></a>
+         </dd>
+         <dd class="mode-land">
+            <a class="lay-3"></a>
+         </dd>
+      </dl>
+      <div id="betBoard_{{marketId}}_{{runner.nation | removeSpace}}"
+         data-ng-if="runner.nation==placeMarketData.nation && runner.gstatus=='1'"
+         class="bet_slip-wrap {{placeMarketData.backlay | lowercase}}" style="display: block;" data-ng-repeat-end>
+         <div class="message-wrap" style="display: none;">
+            <div class="message">
+               <h4>The Minimun stake is $25.00</h4>
+               <p>
+                  Your stake has been updated accordingly.
+               </p>
+            </div>
+            <a class="close">Close</a>
+         </div>
+         <ul class="btn-list">
+            <li>
+               <div class="input-num input-odds">
+                  <a data-ng-click="oddsDown(placeMarketData)" class="icon-minus"></a>
+                  <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('odds',placeMarketData)">{{placeMarketData.odds}}</span>
+                  <a data-ng-click="oddsUp(placeMarketData)" class="icon-plus"></a>
+               </div>
+            </li>
+            <li>
+               <div class="input-num input-stake">
+                  <a data-ng-click="stakeDown(placeMarketData)" class="icon-minus"></a>
+                  <span data-ng-class="stakeTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('stake',placeMarketData)">{{placeMarketData.stake}}</span>
+                  <a data-ng-click="stakeUp(placeMarketData)" class="icon-plus"></a>
+               </div>
+            </li>
+         </ul>
+         <ul class="coin-list">
+            <li><a data-stake="{{settingsData.betStake.stake1}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake1,placeMarketData)">
+                  {{settingsData.betStake.stake1}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake2}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake2,placeMarketData)">
+                  {{settingsData.betStake.stake2}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake3}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake3,placeMarketData)">
+                  {{settingsData.betStake.stake3}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake4}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake4,placeMarketData)">
+                  {{settingsData.betStake.stake4}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake5}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake5,placeMarketData)">
+                  {{settingsData.betStake.stake5}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake6}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake6,placeMarketData)">
+                  {{settingsData.betStake.stake6}}</a>
+            </li>
+         </ul>
+         <div class="keyboard-wrap">
+            <ul class="btn-tel">
+               <li><a data-ng-click="buttonInput('1',placeMarketData)">1</a></li>
+               <li><a data-ng-click="buttonInput('2',placeMarketData)">2</a></li>
+               <li><a data-ng-click="buttonInput('3',placeMarketData)">3</a></li>
+               <li><a data-ng-click="buttonInput('4',placeMarketData)">4</a></li>
+               <li><a data-ng-click="buttonInput('5',placeMarketData)">5</a></li>
+               <li><a data-ng-click="buttonInput('6',placeMarketData)">6</a></li>
+               <li><a data-ng-click="buttonInput('7',placeMarketData)">7</a></li>
+               <li><a data-ng-click="buttonInput('8',placeMarketData)">8</a></li>
+               <li><a data-ng-click="buttonInput('9',placeMarketData)">9</a></li>
+               <li><a data-ng-click="buttonInput('0',placeMarketData)">0</a></li>
+               <li><a data-ng-click="buttonInput('00',placeMarketData)">00</a></li>
+               <li><a data-ng-click="buttonInput('.',placeMarketData)">.</a></li>
+            </ul>
+            <a data-ng-click="buttonDelete(placeMarketData)" class="btn-delete"></a>
+         </div>
+         <ul class="btn-list">
+            <li>
+               <a data-ng-click="cancelBetslip()" class="btn">Cancel
+               </a>
+            </li>
+            <li>
+               <a data-ng-click="placeMarketData.stake=='' || placeMarketData.odds==''?'':confirmBetPop(placeMarketData)"
+                  class="btn-send"
+                  data-ng-class="placeMarketData.stake=='' || placeMarketData.odds==''?'disable':''">Place
+                  Bet
+               </a>
+            </li>
+         </ul>
+      </div>
+      <div class="no-data" style="display: none;">
+         <h3>This race has ended</h3>
+         <p></p>
+      </div>
+   </div>
+</div>
+<div class="teenpatti-wrapper teenpatti-open bets-wrap" data-ng-if="subscriptionId==5 && token">
+   <div class="video-image">
+      <div class="videoCards">
+         <div class="card-inner">
+            <h3 class="text-white">Card</h3>
+            <img data-ng-src="https://dzm0kbaskt4pv.cloudfront.net/img/cards/{{tpData.C1}}.png">
+         </div>
+      </div>
+      <iframe data-name="Lucky-7" width="110%" height="235" src="http://www.funsports.win/dia_tp_live_tv/lucky7/"
+         style="border:0px;margin-left: -15px;"></iframe>
+      <div class="clock clock2digit flip-clock-wrapper"></div>
+   </div>
+   <div class="rules-title">
+      <a href="javascript:void(0)" class="theme1font"><span class="teenpatti-rulesList"
+            role="button"><u>Rules</u></span></a>
+      <span class="float-right round theme1font">
+         Round ID: <span>{{tpData.mid}}</span>
+      </span>
+   </div>
+   <div>
+      <div class="card-content lucky-seven-content m-t-10">
+         <div class="row">
+            <div class="col-5 text-center">
+               <b>{{tpMarket[0].rate | number: 2}}</b>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-5 text-center">
+               <b>{{tpMarket[1].rate | number: 2}}</b>
+            </div>
+         </div>
+         <div class="row m-t-10">
+            <div class="col-5 text-center">
+               <button class="text-uppercase btn-theme" ng-class="(tpMarket[0].gstatus=='1')?'':'suspended'"
+                  data-ng-click="(tpMarket[0].gstatus=='1')?openTpBetSlip($event,'BACK',tpMarket[0].rate,tpMarket[0].nat,tpMarket[0].sid,tpMarket[0].mid,subscriptionId,0):''"><b>{{tpMarket[0].nat}}</b></button>
+               <div class="m-t-5" id="Tp_{{tpMarket[0].mid}}_{{tpMarket[0].nat | removeSpace}}">0</div>
+            </div>
+            <div class="col-2 text-center card-seven">
+               <img data-ng-src="../images/lucky7/7.jpg">
+            </div>
+            <div class="col-5 text-center">
+               <button class="text-uppercase btn-theme" ng-class="(tpMarket[1].gstatus=='1')?'':'suspended'"
+                  data-ng-click="(tpMarket[1].gstatus=='1')?openTpBetSlip($event,'BACK',tpMarket[1].rate,tpMarket[1].nat,tpMarket[1].sid,tpMarket[1].mid,subscriptionId,0):''">
+                  <b>{{tpMarket[1].nat}}</b></button>
+               <div class="m-t-5" id="Tp_{{tpMarket[1].mid}}_{{tpMarket[1].nat | removeSpace}}">0</div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-12 text-center">
+               <span class="m-r-5">
+                  <b>Min:</b><span>{{tpMarket[0].min}}</span>
+               </span>
+               <span class="m-r-5">
+                  <b>Max:</b><span>{{tpMarket[0].max}}</span>
+               </span>
+            </div>
+         </div>
+      </div>
+      <!-- 2nd Div -->
+      <div class="">
+         <div class="col-12">
+            <div class="lucky-seven-content m-t-10">
+               <div class="row">
+                  <div class="col-5 text-center"><b>{{tpMarket[2].rate | number: 2}}</b></div>
+                  <div class="col-2"></div>
+                  <div class="col-5 text-center"><b>{{tpMarket[3].rate | number: 2}}</b></div>
+               </div>
+               <div class="row m-t-10">
+                  <div class="col-5 text-center">
+                     <button class="text-uppercase btn-theme" ng-class="(tpMarket[2].gstatus=='1')?'':'suspended'"
+                        data-ng-click="(tpMarket[2].gstatus=='1')?openTpBetSlip($event,'BACK',tpMarket[2].rate,tpMarket[2].nat,tpMarket[2].sid,tpMarket[2].mid,subscriptionId,0):''">
+                        <b>{{tpMarket[2].nat}}</b></button>
+                     <div class="m-t-5" id="Tp_{{tpMarket[2].mid}}_{{tpMarket[2].nat | removeSpace}}">0</div>
+                  </div>
+                  <div class="col-2 text-center card-seven">
+                     <img data-ng-src="../images/lucky7/7.jpg">
+                  </div>
+                  <div class="col-5 text-center">
+                     <button class="text-uppercase btn-theme" ng-class="(tpMarket[3].gstatus=='1')?'':'suspended'"
+                        data-ng-click="(tpMarket[3].gstatus=='1')?openTpBetSlip($event,'BACK',tpMarket[3].rate,tpMarket[3].nat,tpMarket[3].sid,tpMarket[3].mid,subscriptionId,0):''">
+                        <b>{{tpMarket[3].nat}}</b></button>
+                     <div class="m-t-5" id="Tp_{{tpMarket[3].mid}}_{{tpMarket[3].nat | removeSpace}}">0</div>
+                  </div>
+               </div>
+               <!-- <div  class="row">
+                  <div  class="col-6 text-center">
+                      <div  class="m-t-5" id="Tp_{{tpMarket[2].mid}}{{tpMarket[2].nat | removeSpace}}">0</div>
+                  </div>
+                  <div  class="col-6 text-center">
+                      <div  class="m-t-5" id="Tp_{{tpMarket[3].mid}}{{tpMarket[3].nat | removeSpace}}">0</div>
+                  </div>
+                  </div> -->
+               <div class="row">
+                  <div class="col-12 text-center">
+                     <span class="m-r-5"><b>Min:</b><span>{{tpMarket[2].min}}</span></span>
+                     <span class="m-r-5"><b>Max:</b><span>{{tpMarket[2].max}}</span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-12">
+            <div class="lucky-seven-content m-t-10">
+               <div class="row">
+                  <div class="col-5 text-center"><b>{{tpMarket[4].rate | number: 2}}</b></div>
+                  <div class="col-2"></div>
+                  <div class="col-5 text-center"><b>{{tpMarket[5].rate | number: 2}}</b></div>
+               </div>
+               <div class="row m-t-10">
+                  <div class="col-5 text-center">
+                     <button class="text-uppercase btn-theme" ng-class="(tpMarket[4].gstatus=='1')?'':'suspended'"
+                        data-ng-click="(tpMarket[4].gstatus=='1')?openTpBetSlip($event,'BACK',tpMarket[4].rate,tpMarket[4].nat,tpMarket[4].sid,tpMarket[4].mid,subscriptionId,0):''">
+                        <div class="color-card"></div>
+                        <span class="cards-icon"><span class="red-card">[</span></span>
+                        <span class="cards-icon"><span class="red-card">{</span></span>
+                     </button>
+                     <div class="m-t-5" id="Tp_{{tpMarket[4].mid}}_{{tpMarket[4].nat | removeSpace}}">0</div>
+                  </div>
+                  <div class="col-2 text-center card-seven">
+                     <img data-ng-src="../images/lucky7/7.jpg">
+                  </div>
+                  <div class="col-5 text-center">
+                     <button class="text-uppercase btn-theme" ng-class="(tpMarket[5].gstatus=='1')?'':'suspended'"
+                        data-ng-click="(tpMarket[5].gstatus=='1')?openTpBetSlip($event,'BACK',tpMarket[5].rate,tpMarket[5].nat,tpMarket[5].sid,tpMarket[5].mid,subscriptionId,0):''">
+                        <div class="color-card"></div>
+                        <span class="cards-icon"><span class="card-black">]</span></span>
+                        <span class="cards-icon"><span class="card-black">}</span></span>
+                     </button>
+                     <div class="m-t-5" id="Tp_{{tpMarket[5].mid}}_{{tpMarket[5].nat | removeSpace}}">0</div>
+                  </div>
+               </div>
+               <!-- <div  class="row">
+                  <div  class="col-6 text-center">
+                      <div  class="m-t-5" id="Tp_{{tpMarket[4].mid}}{{tpMarket[4].nat | removeSpace}}">0</div>
+                  </div>
+                  <div  class="col-6 text-center">
+                      <div  class="m-t-5" id="Tp_{{tpMarket[5].mid}}{{tpMarket[5].nat | removeSpace}}">0</div>
+                  </div>
+                  </div> -->
+               <div class="row">
+                  <div class="col-12 text-center">
+                     <span class="m-r-5"><b>Min:</b><span>{{tpMarket[4].min}}</span></span>
+                     <span class="m-r-5"><b>Max:</b><span>{{tpMarket[4].max}}</span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- 3rd div -->
+      <div class="card-content lucky-seven-content m-t-10">
+         <div class="row">
+            <div style="display: flex;" class="col-12 text-center">
+               <div><i class="fa fa-angle-double-left"></i></div>
+               <div style="flex: 1"><b>{{tpMarket[6].rate | number : 2}}</b></div>
+               <div><i class="fa fa-angle-double-right"></i></div>
+            </div>
+         </div>
+         <div class="row m-t-10">
+            <div class="col-12 text-center card-seven">
+               <div class="scrolling-wrapper">
+                  <div class="card d-inline-block" ng-class="(luckycar.gstatus=='1')?'':'suspended'"
+                     ng-repeat="luckycar in tpMarket track by $index" data-ng-if="$index>=6">
+                     <div class="card-lucky7">
+                        <img
+                           data-ng-click="(luckycar.gstatus=='1')?openTpBetSlip($event,'BACK',luckycar.rate,luckycar.nat,luckycar.sid,luckycar.mid,subscriptionId,0):''"
+                           data-ng-src="../images/lucky7/{{$index-5}}.jpg">
+                     </div>
+                     <div>
+                        <div class="m-t-5 card-expo" id="Tp_{{luckycar.mid}}_{{luckycar.nat | removeSpace}}">0</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-12 text-center"><span class="m-r-5"><b>Min:</b><span>100</span></span> <span
+                  class="m-r-5"><b>Max:</b><span>20000</span></span>
+            </div>
+         </div>
+      </div>
+      <div id="betBoard_{{tpData.mid}}_0" class="bet_slip-wrap {{placeTPData.backlay | lowercase}}"
+         style="display: none;">
+         <div class="selectionTP">{{placeTPData.runnerName}}</div>
+         <ul class="btn-list">
+            <li>
+               <div class="input-num input-odds">
+                  <a data-ng-click="oddsDown(placeTPData)" class="icon-minus"></a>
+                  <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('odds',placeTPData)">{{placeTPData.odds}}</span>
+                  <a data-ng-click="oddsUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+            <li>
+               <div class="input-num input-stake">
+                  <a data-ng-click="stakeDown(placeTPData)" class="icon-minus"></a>
+                  <span data-ng-class="stakeTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('stake',placeTPData)">{{placeTPData.stake}}</span>
+                  <a data-ng-click="stakeUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+         </ul>
+         <ul class="coin-list">
+            <li><a data-stake="{{settingsData.betStake.stake1}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake1,placeTPData)">
+                  {{settingsData.betStake.stake1}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake2}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake2,placeTPData)">
+                  {{settingsData.betStake.stake2}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake3}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake3,placeTPData)">
+                  {{settingsData.betStake.stake3}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake4}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake4,placeTPData)">
+                  {{settingsData.betStake.stake4}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake5}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake5,placeTPData)">
+                  {{settingsData.betStake.stake5}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake6}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake6,placeTPData)">
+                  {{settingsData.betStake.stake6}}</a>
+            </li>
+         </ul>
+         <div class="keyboard-wrap">
+            <ul class="btn-tel">
+               <li><a data-ng-click="buttonInput('1',placeTPData)">1</a></li>
+               <li><a data-ng-click="buttonInput('2',placeTPData)">2</a></li>
+               <li><a data-ng-click="buttonInput('3',placeTPData)">3</a></li>
+               <li><a data-ng-click="buttonInput('4',placeTPData)">4</a></li>
+               <li><a data-ng-click="buttonInput('5',placeTPData)">5</a></li>
+               <li><a data-ng-click="buttonInput('6',placeTPData)">6</a></li>
+               <li><a data-ng-click="buttonInput('7',placeTPData)">7</a></li>
+               <li><a data-ng-click="buttonInput('8',placeTPData)">8</a></li>
+               <li><a data-ng-click="buttonInput('9',placeTPData)">9</a></li>
+               <li><a data-ng-click="buttonInput('0',placeTPData)">0</a></li>
+               <li><a data-ng-click="buttonInput('00',placeTPData)">00</a></li>
+               <li><a data-ng-click="buttonInput('.',placeTPData)">.</a></li>
+            </ul>
+            <a data-ng-click="buttonDelete(placeTPData)" class="btn-delete"></a>
+         </div>
+         <ul class="btn-list">
+            <li>
+               <a data-ng-click="cancelTPBetslip(tpData.mid,0)" class="btn">Cancel
+               </a>
+            </li>
+            <li>
+               <a data-ng-click="placeTPData.stake=='' || placeTPData.odds==''?'':placeTPBet(placeTPData)"
+                  class="btn-send" data-ng-class="placeTPData.stake=='' || placeTPData.odds==''?'disable':''">Place
+                  Bet
+               </a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+<div class="teenpatti-wrapper teenpatti-3cardj bets-wrap" data-ng-if="subscriptionId==6 && token">
+   <div class="video-image">
+      <div class="videoCards">
+         <div>
+            <div data-ng-if="tpData">
+               <img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C1}}.png">
+               <img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C2}}.png">
+               <img ng-src="https://d1arlbwbznybm5.cloudfront.net/mobile/images/cards/{{tpData.C3}}.png">
+            </div>
+         </div>
+      </div>
+      <iframe data-name="3-cards" width="110%" height="235" src="http://www.funsports.win/dia_tp_live_tv/3cardj/"
+         style="border:0px;margin-left: -15px;"></iframe>
+      <div class="clock clock2digit flip-clock-wrapper"></div>
+   </div>
+   <div class="rules-title">
+      <a class="theme1font"><span class="teenpatti-rulesList" role="button"><u>Rules</u></span></a>
+      <span class="float-right round theme1font">
+         Round ID: <span>{{tpData.mid}}</span>
+      </span>
+   </div>
+   <div>
+      <div class="list-body distinct tpjudgement">
+         <market id="{{tpData.mid  | removeSpace}}">
+            <div class="andar-bx back">
+               <div class="ab-title"><b>Yes - {{tpMarket[0].rate}}</b>
+                  <span class="float-right">
+                     <b id="Tp_{{tpMarket[0].mid}}_{{tpMarket[0].nat | removeSpace}}">0</b>
+                  </span>
+               </div>
+               <div class="text-center ab-content" data-ng-class="{'suspended':tpMarket[0].gstatus==0}">
+                  <div id="andar_div" class="owl-carousel owl-theme ab-slider">
+                     <div class="d-inline-block mr-1" data-ng-repeat="ab in andar_bahar track by ab">
+                        <img
+                           data-ng-click="tpMarket[0].gstatus=='0'?'':openTpBetSlip($event,'back',tpMarket[0].rate,tpMarket[0].nat,tpMarket[0].sid,tpMarket[0].mid,subscriptionId,0,ab)"
+                           data-ng-src="../images/andar_bahar/{{ab}}.jpg"
+                           data-ng-class="{'selected':selected3cardj(ab,'back')}">
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="remark text-right mt-1 pr-2">
+               <marquee scrollamount="3">
+                  <p class="mb-0">Select any 3 card and you will win if you will get at least 1 card from the
+                     3 cards you have selected.
+                  </p>
+               </marquee>
+            </div>
+            <div id="betBoard_{{tpData.mid}}_0" class="bet_slip-wrap {{placeTPData.backlay | lowercase}}"
+               style="display: none;">
+               <div class="selectionTP">{{placeTPData.runnerName}}</div>
+               <ul class="btn-list">
+                  <li>
+                     <div class="input-num input-odds">
+                        <a data-ng-click="oddsDown(placeTPData)" class="icon-minus"></a>
+                        <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                           data-ng-click="typingSign('odds',placeTPData)">{{placeTPData.odds}}</span>
+                        <a data-ng-click="oddsUp(placeTPData)" class="icon-plus"></a>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="input-num input-stake">
+                        <a data-ng-click="stakeDown(placeTPData)" class="icon-minus"></a>
+                        <span data-ng-class="stakeTyping?'typeing':'typed'"
+                           data-ng-click="typingSign('stake',placeTPData)">{{placeTPData.stake}}</span>
+                        <a data-ng-click="stakeUp(placeTPData)" class="icon-plus"></a>
+                     </div>
+                  </li>
+               </ul>
+               <ul class="coin-list">
+                  <li><a data-stake="{{settingsData.betStake.stake1}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake1,placeTPData)">
+                        {{settingsData.betStake.stake1}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake2}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake2,placeTPData)">
+                        {{settingsData.betStake.stake2}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake3}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake3,placeTPData)">
+                        {{settingsData.betStake.stake3}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake4}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake4,placeTPData)">
+                        {{settingsData.betStake.stake4}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake5}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake5,placeTPData)">
+                        {{settingsData.betStake.stake5}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake6}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake6,placeTPData)">
+                        {{settingsData.betStake.stake6}}</a>
+                  </li>
+               </ul>
+               <div class="keyboard-wrap">
+                  <ul class="btn-tel">
+                     <li><a data-ng-click="buttonInput('1',placeTPData)">1</a></li>
+                     <li><a data-ng-click="buttonInput('2',placeTPData)">2</a></li>
+                     <li><a data-ng-click="buttonInput('3',placeTPData)">3</a></li>
+                     <li><a data-ng-click="buttonInput('4',placeTPData)">4</a></li>
+                     <li><a data-ng-click="buttonInput('5',placeTPData)">5</a></li>
+                     <li><a data-ng-click="buttonInput('6',placeTPData)">6</a></li>
+                     <li><a data-ng-click="buttonInput('7',placeTPData)">7</a></li>
+                     <li><a data-ng-click="buttonInput('8',placeTPData)">8</a></li>
+                     <li><a data-ng-click="buttonInput('9',placeTPData)">9</a></li>
+                     <li><a data-ng-click="buttonInput('0',placeTPData)">0</a></li>
+                     <li><a data-ng-click="buttonInput('00',placeTPData)">00</a></li>
+                     <li><a data-ng-click="buttonInput('.',placeTPData)">.</a></li>
+                  </ul>
+                  <a data-ng-click="buttonDelete(placeTPData)" class="btn-delete"></a>
+               </div>
+               <ul class="btn-list">
+                  <li>
+                     <a data-ng-click="cancelTPBetslip(tpData.mid,0,false)" class="btn">Cancel
+                     </a>
+                  </li>
+                  <li>
+                     <a data-ng-click="placeTPData.stake=='' || placeTPData.odds==''?'':placeTPBet(placeTPData)"
+                        class="btn-send"
+                        data-ng-class="placeTPData.stake=='' || placeTPData.odds==''?'disable':''">Place
+                        Bet
+                     </a>
+                  </li>
+               </ul>
+            </div>
+            <div class="bahar-bx lay">
+               <div class="ab-title"><b>No - {{tpMarket[1].rate}}</b>
+                  <span class="float-right">
+                     <b id="Tp_{{tpMarket[1].mid}}_{{tpMarket[1].nat | removeSpace}}">0</b>
+                  </span>
+               </div>
+               <div class="text-center ab-content" data-ng-class="{'suspended':tpMarket[1].gstatus==0}">
+                  <div id="bahar_div" class="owl-carousel owl-theme ab-slider">
+                     <div class="d-inline-block mr-1" data-ng-repeat="ab in andar_bahar track by ab">
+                        <img
+                           data-ng-click="tpMarket[1].gstatus=='0'?'':openTpBetSlip($event,'lay',tpMarket[1].rate,tpMarket[1].nat,tpMarket[1].sid,tpMarket[1].mid,subscriptionId,1,ab)"
+                           data-ng-src="../images/andar_bahar/{{ab}}.jpg"
+                           data-ng-class="{'selected':selected3cardj(ab,'lay')}">
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="remark text-right mt-1 pr-2">
+               <marquee scrollamount="3">
+                  <p class="mb-0">Select any 3 card and you will win If you do not get any card from the 3
+                     cards you have selected.
+                  </p>
+               </marquee>
+            </div>
+            <div id="betBoard_{{tpData.mid}}_1" class="bet_slip-wrap {{placeTPData.backlay | lowercase}}"
+               style="display: none;">
+               <div class="selectionTP">{{placeTPData.runnerName}}</div>
+               <ul class="btn-list">
+                  <li>
+                     <div class="input-num input-odds">
+                        <a data-ng-click="oddsDown(placeTPData)" class="icon-minus"></a>
+                        <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                           data-ng-click="typingSign('odds',placeTPData)">{{placeTPData.odds}}</span>
+                        <a data-ng-click="oddsUp(placeTPData)" class="icon-plus"></a>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="input-num input-stake">
+                        <a data-ng-click="stakeDown(placeTPData)" class="icon-minus"></a>
+                        <span data-ng-class="stakeTyping?'typeing':'typed'"
+                           data-ng-click="typingSign('stake',placeTPData)">{{placeTPData.stake}}</span>
+                        <a data-ng-click="stakeUp(placeTPData)" class="icon-plus"></a>
+                     </div>
+                  </li>
+               </ul>
+               <ul class="coin-list">
+                  <li><a data-stake="{{settingsData.betStake.stake1}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake1,placeTPData)">
+                        {{settingsData.betStake.stake1}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake2}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake2,placeTPData)">
+                        {{settingsData.betStake.stake2}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake3}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake3,placeTPData)">
+                        {{settingsData.betStake.stake3}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake4}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake4,placeTPData)">
+                        {{settingsData.betStake.stake4}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake5}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake5,placeTPData)">
+                        {{settingsData.betStake.stake5}}</a>
+                  </li>
+                  <li><a data-stake="{{settingsData.betStake.stake6}}"
+                        data-ng-click="stakeChange(settingsData.betStake.stake6,placeTPData)">
+                        {{settingsData.betStake.stake6}}</a>
+                  </li>
+               </ul>
+               <div class="keyboard-wrap">
+                  <ul class="btn-tel">
+                     <li><a data-ng-click="buttonInput('1',placeTPData)">1</a></li>
+                     <li><a data-ng-click="buttonInput('2',placeTPData)">2</a></li>
+                     <li><a data-ng-click="buttonInput('3',placeTPData)">3</a></li>
+                     <li><a data-ng-click="buttonInput('4',placeTPData)">4</a></li>
+                     <li><a data-ng-click="buttonInput('5',placeTPData)">5</a></li>
+                     <li><a data-ng-click="buttonInput('6',placeTPData)">6</a></li>
+                     <li><a data-ng-click="buttonInput('7',placeTPData)">7</a></li>
+                     <li><a data-ng-click="buttonInput('8',placeTPData)">8</a></li>
+                     <li><a data-ng-click="buttonInput('9',placeTPData)">9</a></li>
+                     <li><a data-ng-click="buttonInput('0',placeTPData)">0</a></li>
+                     <li><a data-ng-click="buttonInput('00',placeTPData)">00</a></li>
+                     <li><a data-ng-click="buttonInput('.',placeTPData)">.</a></li>
+                  </ul>
+                  <a data-ng-click="buttonDelete(placeTPData)" class="btn-delete"></a>
+               </div>
+               <ul class="btn-list">
+                  <li>
+                     <a data-ng-click="cancelTPBetslip(tpData.mid,1,false)" class="btn">Cancel
+                     </a>
+                  </li>
+                  <li>
+                     <a data-ng-click="placeTPData.stake=='' || placeTPData.odds==''?'':placeTPBet(placeTPData)"
+                        class="btn-send"
+                        data-ng-class="placeTPData.stake=='' || placeTPData.odds==''?'disable':''">Place
+                        Bet
+                     </a>
+                  </li>
+               </ul>
+            </div>
+         </market>
+      </div>
+   </div>
+</div>
+<div class="teenpatti-wrapper teenpatti-AB bets-wrap" data-ng-if="subscriptionId==7 && token">
+   <div class="video-image">
+      <div class="videoCards" style="width: 150px">
+         <div>
+            <h6 class="text-white">ANDAR</h6>
+            <div class="video-card-div">
+               <div class="video-card-prev" id="APrev" ng-if="Aallcards.length>=6"><i
+                     class="fa fa-angle-double-left"></i></div>
+               <div style="flex: 1" class="scrolling-wrapper">
+                  <div class="video-card d-inline-block" ng-repeat="andar in Aallcards track by $index">
+                     <img ng-src="https://dzm0kbaskt4pv.cloudfront.net/img/cards/{{andar}}.png">
+                  </div>
+               </div>
+               <div class="video-card-next" id="ANext" ng-if="Aallcards.length>=6"><i
+                     class="fa fa-angle-double-right"></i></div>
+            </div>
+         </div>
+         <div>
+            <h6 class="text-white">BAHAR</h6>
+            <div class="video-card-div">
+               <div class="video-card-prev" ng-if="Ballcards.length>=6"><i class="fa fa-angle-double-left"></i></div>
+               <div style="flex: 1" class="scrolling-wrapper">
+                  <div class="video-card d-inline-block" ng-repeat="bahar in Ballcards track by $index">
+                     <img ng-src="https://dzm0kbaskt4pv.cloudfront.net/img/cards/{{bahar}}.png">
+                  </div>
+               </div>
+               <div class="video-card-next" ng-if="Ballcards.length>=6"><i class="fa fa-angle-double-right"></i></div>
+            </div>
+         </div>
+      </div>
+      <iframe data-name="Andar Bahar" width="110%" height="235" src="http://www.funsports.win/dia_tp_live_tv/ab20/"
+         style="border:0px;margin-left: -15px;"></iframe>
+      <div class="clock clock2digit flip-clock-wrapper"></div>
+   </div>
+   <div class="rules-title">
+      <a href="javascript:void(0)" class="theme1font"><span class="teenpatti-rulesList"
+            role="button"><u>Rules</u></span></a>
+      <span class="float-right round theme1font">
+         Round ID: <span>{{tpData.mid}}</span>
+      </span>
+   </div>
+   <div>
+      <div class="rules-title" data-ng-if="AndarValues.length>0">
+         <span class="round theme1font">
+            ANDAR
+         </span>
+         <span class="float-right round theme1font">
+            Min: <span>{{tpData.min}}</span>
+         </span>
+      </div>
+      <div class="scrolling-wrapper">
+         <div class="card d-inline-block" ng-repeat="andar in AndarValues track by $index"
+            data-ng-if="AndarValues.length>0">
+            <div class="card-andarbahar">
+               <img ng-if="andar.gstatus=='0'"
+                  data-ng-src="../images/lucky7/{{(Aresults.length>0)?Aresults[$index]:'0'}}.jpg">
+               <img ng-if="andar.gstatus=='1'"
+                  data-ng-click="(andar.gstatus=='1')?openTpBetSlip($event,'BACK',andar.rate,andar.nation,andar.sid,andar.mid,subscriptionId,0):''"
+                  data-ng-src="../images/lucky7/{{$index+1}}.jpg">
+            </div>
+            <div>
+               <div class="m-t-5 card-expo" id="Tp_{{andar.mid}}_{{andar.nation | removeSpace}}">0</div>
+            </div>
+         </div>
+      </div>
+      <div id="betBoard_{{tpData.mid}}_0" class="bet_slip-wrap {{placeTPData.backlay | lowercase}}"
+         style="display: none;">
+         <div class="selectionTP">{{placeTPData.runnerName}}</div>
+         <ul class="btn-list">
+            <li>
+               <div class="input-num input-odds">
+                  <a data-ng-click="oddsDown(placeTPData)" class="icon-minus"></a>
+                  <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('odds',placeTPData)">{{placeTPData.odds}}</span>
+                  <a data-ng-click="oddsUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+            <li>
+               <div class="input-num input-stake">
+                  <a data-ng-click="stakeDown(placeTPData)" class="icon-minus"></a>
+                  <span data-ng-class="stakeTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('stake',placeTPData)">{{placeTPData.stake}}</span>
+                  <a data-ng-click="stakeUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+         </ul>
+         <ul class="coin-list">
+            <li><a data-stake="{{settingsData.betStake.stake1}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake1,placeTPData)">
+                  {{settingsData.betStake.stake1}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake2}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake2,placeTPData)">
+                  {{settingsData.betStake.stake2}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake3}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake3,placeTPData)">
+                  {{settingsData.betStake.stake3}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake4}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake4,placeTPData)">
+                  {{settingsData.betStake.stake4}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake5}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake5,placeTPData)">
+                  {{settingsData.betStake.stake5}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake6}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake6,placeTPData)">
+                  {{settingsData.betStake.stake6}}</a>
+            </li>
+         </ul>
+         <div class="keyboard-wrap">
+            <ul class="btn-tel">
+               <li><a data-ng-click="buttonInput('1',placeTPData)">1</a></li>
+               <li><a data-ng-click="buttonInput('2',placeTPData)">2</a></li>
+               <li><a data-ng-click="buttonInput('3',placeTPData)">3</a></li>
+               <li><a data-ng-click="buttonInput('4',placeTPData)">4</a></li>
+               <li><a data-ng-click="buttonInput('5',placeTPData)">5</a></li>
+               <li><a data-ng-click="buttonInput('6',placeTPData)">6</a></li>
+               <li><a data-ng-click="buttonInput('7',placeTPData)">7</a></li>
+               <li><a data-ng-click="buttonInput('8',placeTPData)">8</a></li>
+               <li><a data-ng-click="buttonInput('9',placeTPData)">9</a></li>
+               <li><a data-ng-click="buttonInput('0',placeTPData)">0</a></li>
+               <li><a data-ng-click="buttonInput('00',placeTPData)">00</a></li>
+               <li><a data-ng-click="buttonInput('.',placeTPData)">.</a></li>
+            </ul>
+            <a data-ng-click="buttonDelete(placeTPData)" class="btn-delete"></a>
+         </div>
+         <ul class="btn-list">
+            <li>
+               <a data-ng-click="cancelTPBetslip(tpData.mid,0)" class="btn">Cancel
+               </a>
+            </li>
+            <li>
+               <a data-ng-click="placeTPData.stake=='' || placeTPData.odds==''?'':placeTPBet(placeTPData)"
+                  class="btn-send" data-ng-class="placeTPData.stake=='' || placeTPData.odds==''?'disable':''">Place
+                  Bet
+               </a>
+            </li>
+         </ul>
+      </div>
+      <div class="rules-title" data-ng-if="BaharValues.length>0">
+         <span class="round theme1font">
+            BAHAR
+         </span>
+         <span class="float-right round theme1font">
+            Max: <span>{{tpData.max}}</span>
+         </span>
+      </div>
+      <div class="scrolling-wrapper" data-ng-if="BaharValues.length>0">
+         <div class="card d-inline-block" ng-repeat="bahar in BaharValues track by $index">
+            <div class="card-andarbahar">
+               <img ng-if="bahar.gstatus=='0'"
+                  data-ng-src="../images/lucky7/{{(Bresults.length>0 && Bresults[$index]!='0') ? Bresults[$index]-20 : '0'}}.jpg">
+               <img ng-if="bahar.gstatus=='1'"
+                  data-ng-click="(bahar.gstatus=='1')?openTpBetSlip($event,'BACK',bahar.rate,bahar.nation,bahar.sid,bahar.mid,subscriptionId,1):''"
+                  data-ng-src="../images/lucky7/{{$index+1}}.jpg">
+            </div>
+            <div>
+               <div class="m-t-5 card-expo" id="Tp_{{bahar.mid}}_{{bahar.nation | removeSpace}}">0</div>
+            </div>
+         </div>
+      </div>
+      <div id="betBoard_{{tpData.mid}}_1" class="bet_slip-wrap {{placeTPData.backlay | lowercase}}"
+         style="display: none;">
+         <div class="selectionTP">{{placeTPData.runnerName}}</div>
+         <ul class="btn-list">
+            <li>
+               <div class="input-num input-odds">
+                  <a data-ng-click="oddsDown(placeTPData)" class="icon-minus"></a>
+                  <span id="odds" data-ng-class="oddsTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('odds',placeTPData)">{{placeTPData.odds}}</span>
+                  <a data-ng-click="oddsUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+            <li>
+               <div class="input-num input-stake">
+                  <a data-ng-click="stakeDown(placeTPData)" class="icon-minus"></a>
+                  <span data-ng-class="stakeTyping?'typeing':'typed'"
+                     data-ng-click="typingSign('stake',placeTPData)">{{placeTPData.stake}}</span>
+                  <a data-ng-click="stakeUp(placeTPData)" class="icon-plus"></a>
+               </div>
+            </li>
+         </ul>
+         <ul class="coin-list">
+            <li><a data-stake="{{settingsData.betStake.stake1}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake1,placeTPData)">
+                  {{settingsData.betStake.stake1}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake2}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake2,placeTPData)">
+                  {{settingsData.betStake.stake2}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake3}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake3,placeTPData)">
+                  {{settingsData.betStake.stake3}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake4}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake4,placeTPData)">
+                  {{settingsData.betStake.stake4}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake5}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake5,placeTPData)">
+                  {{settingsData.betStake.stake5}}</a>
+            </li>
+            <li><a data-stake="{{settingsData.betStake.stake6}}"
+                  data-ng-click="stakeChange(settingsData.betStake.stake6,placeTPData)">
+                  {{settingsData.betStake.stake6}}</a>
+            </li>
+         </ul>
+         <div class="keyboard-wrap">
+            <ul class="btn-tel">
+               <li><a data-ng-click="buttonInput('1',placeTPData)">1</a></li>
+               <li><a data-ng-click="buttonInput('2',placeTPData)">2</a></li>
+               <li><a data-ng-click="buttonInput('3',placeTPData)">3</a></li>
+               <li><a data-ng-click="buttonInput('4',placeTPData)">4</a></li>
+               <li><a data-ng-click="buttonInput('5',placeTPData)">5</a></li>
+               <li><a data-ng-click="buttonInput('6',placeTPData)">6</a></li>
+               <li><a data-ng-click="buttonInput('7',placeTPData)">7</a></li>
+               <li><a data-ng-click="buttonInput('8',placeTPData)">8</a></li>
+               <li><a data-ng-click="buttonInput('9',placeTPData)">9</a></li>
+               <li><a data-ng-click="buttonInput('0',placeTPData)">0</a></li>
+               <li><a data-ng-click="buttonInput('00',placeTPData)">00</a></li>
+               <li><a data-ng-click="buttonInput('.',placeTPData)">.</a></li>
+            </ul>
+            <a data-ng-click="buttonDelete(placeTPData)" class="btn-delete"></a>
+         </div>
+         <ul class="btn-list">
+            <li>
+               <a data-ng-click="cancelTPBetslip(tpData.mid,1)" class="btn">Cancel
+               </a>
+            </li>
+            <li>
+               <a data-ng-click="placeTPData.stake=='' || placeTPData.odds==''?'':placeTPBet(placeTPData)"
+                  class="btn-send" data-ng-class="placeTPData.stake=='' || placeTPData.odds==''?'disable':''">Place
+                  Bet
+               </a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+<div class="fancy-marker-title m-t-10" ng-if="resultsdata.length>0">
+   <h4>
+      Last Result
+      <a href="account.html#!casinoreport" target="_blank" class="result-view-all">View All</a>
+   </h4>
+</div>
+<div class="teenpatti-result-container" ng-if="resultsdata.length>0">
+   <div class="teenpatti-result-container"
+      ng-if="resultsdata.length>0 && (subscriptionId==1||subscriptionId==2||subscriptionId==5)">
+      <div class="label-result">
+         <span></span>
+      </div>
+      <div class="results">
+         <p id="last-result" class="last-result-p">
+            <span ng-repeat="resu in resultsdata track by $index" class="ball-runs last-result"
+               ng-class="resu.result=='A'?'playera':'playerb'">{{resu.result}}</span>
+         </p>
+      </div>
+   </div>
+   <div class="teenpatti-result-container" ng-if="resultsdata.length>0 && subscriptionId==6">
+      <div class="label-result">
+         <span></span>
+      </div>
+      <div class="results">
+         <p id="last-result" class="last-result-p">
+            <span ng-repeat="resu in resultsdata track by $index"
+               class="ball-runs-T6 last-result playerb">{{resu.result}}</span>
+         </p>
+      </div>
+   </div>
+</div>

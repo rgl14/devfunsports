@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Settlement</h1>
+<div mat-dialog-content>
+  <div class="mb-2" style="display: flex; flex-flow: column">
+    <p>Enter {{data.type === 1? 'Receive': 'Payment'}} cash amount:</p>
+    <input type="text" matInput [(ngModel)]="data.amount" />
+
+    <div class="mt-1"><span>Total Balance</span>: {{(data.totalBalance - data.amount).toFixed(2)}}</div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+  >
+    Ok
+  </button>
+</div>

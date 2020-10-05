@@ -1,0 +1,180 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-12" *ngIf="updatelimitresp">
+      <div
+        class="ibox float-e-margins"
+        *ngIf="userType === '1' && adminList.length != 0"
+      >
+        <div class="ibox-title">
+          <h5>Update Limit For Company</h5>
+        </div>
+        <Tablelist
+          (valueChange)="displayCounter($event)"
+          [data]="agentDefs"
+          [rowData]="adminList"
+        >
+        </Tablelist>
+      </div>
+      <div
+        class="ibox float-e-margins"
+        *ngIf="
+          (userType === '1' || userType === '2') && superMasterList.length != 0
+        "
+      >
+        <div class="ibox-title">
+          <h5>Update Limit For SuperMaster</h5>
+        </div>
+        <Tablelist
+          (valueChange)="displayCounter($event)"
+          [data]="columnDefs"
+          [rowData]="superMasterList"
+        >
+        </Tablelist>
+      </div>
+      <div
+        class="ibox float-e-margins"
+        *ngIf="
+          (userType === '1' || userType === '2' || userType === '3') &&
+          masterList.length != 0
+        "
+      >
+        <div class="ibox-title">
+          <h5>Update Limit For Master</h5>
+        </div>
+        <Tablelist
+          (valueChange)="displayCounter($event)"
+          [data]="compDefs"
+          [rowData]="masterList"
+        >
+        </Tablelist>
+      </div>
+      <div
+        class="ibox float-e-margins"
+        *ngIf="
+          (userType === '1' ||
+            userType === '2' ||
+            userType === '3' ||
+            userType === '4') &&
+          agentList.length != 0
+        "
+      >
+        <div class="ibox-title">
+          <h5>Update Limit For Agent</h5>
+        </div>
+        <Tablelist
+          (valueChange)="displayCounter($event)"
+          [data]="masDefs"
+          [rowData]="agentList"
+        >
+        </Tablelist>
+      </div>
+      <!-- <div class="ibox float-e-margins" *ngIf="userType==='2' || userType==='3' || userType==='4' || userType==='5'">
+          <div class="ibox-title">
+            <h5>Update Limit For Agent</h5>
+          </div>
+          <div class="ibox-content-table table-responsive">
+              <div class="search-div">
+                  <mat-form-field class="search-form-field" floatLabel="never">
+                    <input matInput id="filter-agent" placeholder="Search" autocomplete="off" (keyup)="onFilterTextBoxChanged()">
+                  </mat-form-field>
+                </div>
+                <div class="table-container mat-elevation-z8">
+                    <ag-grid-angular 
+                    style="width: 100%; height: 450px"
+                    class="ag-theme-balham"
+                    [gridOptions]="gridOptions"
+                    [rowData]="rowData" 
+                    [overlayLoadingTemplate]="overlayLoadingTemplate"
+                    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+                    [animateRows]="true"
+                    [pagination]="true"
+                    
+                    >
+                    </ag-grid-angular>
+                </div>
+          </div>
+      </div> -->
+      <div
+        class="ibox float-e-margins"
+        *ngIf="
+          (userType === '2' ||
+            userType === '3' ||
+            userType === '4' ||
+            userType === '5') &&
+          userList.length != 0
+        "
+      >
+        <div class="ibox-title">
+          <h5>Update Limit For Client</h5>
+        </div>
+        <Tablelist
+          (valueChange)="displayCounter($event)"
+          [data]="ClientcolumnDefs"
+          [rowData]="userList"
+        >
+        </Tablelist>
+      </div>
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Summary</h5>
+        </div>
+        <div class="ibox-content-table table-responsive">
+          <table class="table table-bordered" *ngIf="summaryData">
+            <thead>
+              <tr>
+                <th>Fix Limit</th>
+                <th>Limit Distributed Above</th>
+                <th>Current Limit With Clients</th>
+                <!-- <th>Ledger Balance</th> -->
+                <th>Ledger Exposure</th>
+                <th>Current Limit</th>
+                <th>Remaining Limit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td [ngClass]="summaryData.fixLimit >= 0 ? 'profit' : 'loss'">
+                  {{ summaryData?.fixLimit | number: "1.2-2" }}
+                </td>
+                <td
+                  [ngClass]="
+                    summaryData.limitDistributedBelow >= 0 ? 'profit' : 'loss'
+                  "
+                >
+                  {{ summaryData?.limitDistributedBelow | number: "1.2-2" }}
+                </td>
+                <td
+                  [ngClass]="
+                    summaryData.limitWithClients >= 0 ? 'profit' : 'loss'
+                  "
+                >
+                  {{ summaryData?.limitWithClients | number: "1.2-2" }}
+                </td>
+                <td
+                  [ngClass]="
+                    summaryData.LedgerExposure >= 0 ? 'profit' : 'loss'
+                  "
+                >
+                  {{ summaryData?.LedgerExposure | number: "1.2-2" }}
+                </td>
+                <td
+                  [ngClass]="summaryData.currentLimit >= 0 ? 'profit' : 'loss'"
+                >
+                  {{ summaryData?.currentLimit | number: "1.2-2" }}
+                </td>
+                <td
+                  style="font-weight: bolder"
+                  [ngClass]="
+                    summaryData.remainingLimit >= 0 ? 'profit' : 'loss'
+                  "
+                >
+                  {{ summaryData?.remainingLimit | number: "1.2-2" }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

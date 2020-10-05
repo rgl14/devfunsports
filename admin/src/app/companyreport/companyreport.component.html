@@ -1,0 +1,76 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="ibox float-e-margins">
+            <div class="ibox-title">
+               <h5>Company Report - {{title}}</h5>
+            </div>
+            <div class="ibox-content table-responsive">
+               <table class="table table-bordered table-striped">
+                  <thead>
+                     <tr class="tbl-header-middle">
+                        <th colspan="1"></th>
+                        <th colspan="3">Plus / Minus</th>
+                        <th colspan="3">COMMISSION</th>
+                        <th colspan="6">OTHERS</th>
+                     </tr>
+                     <tr>
+                        <th>Client Name</th>
+                        <th>Match Plus Minus</th>
+                        <th>Session Plus Minus</th>
+                        <th>Total</th>
+                        <th>Match Commission</th>
+                        <th>Session Commission</th>
+                        <th>Total Commission</th>
+                        <th>System Plus/Minus</th>
+                        <th>OTHERS</th>
+                        <th>Final</th>
+                        <th>% Share</th>
+                        <th>My Share</th>
+                        <th>Company Share</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let rpt of companyreport; trackBy: trackByFn">
+                        <td>
+                           <a [routerLink]="">{{rpt.clientName}}</a>
+                        </td>
+                        <td [ngClass]="{'text-danger': rpt.matchPlusMinus < 0, 'text-success': rpt.matchPlusMinus >= 0}">{{rpt.matchPlusMinus | number : '1.2-2'}}</td>
+                        <td [ngClass]="{'text-danger': rpt.sessionPlusMinus < 0, 'text-success': rpt.sessionPlusMinus >= 0}">{{rpt.sessionPlusMinus | number : '1.2-2'}}</td>
+                        <th [ngClass]="{'text-danger': rpt.plusMinusTotal < 0, 'text-success': rpt.plusMinusTotal >= 0}">{{rpt.plusMinusTotal | number : '1.2-2'}}</th>
+                        <td [ngClass]="{'text-danger': rpt.matchComm < 0, 'text-success': rpt.matchComm >= 0}">{{rpt.matchComm | number : '1.2-2'}}</td>
+                        <td [ngClass]="{'text-danger': rpt.sessionComm < 0, 'text-success': rpt.sessionComm >= 0}">{{rpt.sessionComm | number : '1.2-2'}}</td>
+                        <th [ngClass]="{'text-danger': rpt.totalCommission < 0, 'text-success': rpt.totalCommission >= 0}">{{rpt.totalCommission | number : '1.2-2'}}</th>
+                        <td [ngClass]="{'text-danger': rpt.systemPlusMinus < 0, 'text-success': rpt.systemPlusMinus >= 0}">{{rpt.systemPlusMinus | number : '1.2-2'}}</td>
+                        <td [ngClass]="{'text-danger': rpt.others < 0, 'text-success': rpt.others >= 0}">{{rpt.others | number : '1.2-2'}}</td>
+                        <th [ngClass]="{'text-danger': rpt.final < 0, 'text-success': rpt.final >= 0}">{{rpt.final | number : '1.2-2'}}</th>
+                        <td [ngClass]="{'text-danger': rpt.share < 0, 'text-success': rpt.share >= 0}">{{rpt.share | number : '1.2-2'}}</td>
+                        <td [ngClass]="{'text-danger': rpt.myShare < 0, 'text-success': rpt.myShare >= 0}">{{rpt.myShare | number : '1.2-2'}}</td>
+                        <td [ngClass]="{'text-danger': rpt.companyShare < 0, 'text-success': rpt.companyShare >= 0}">{{rpt.companyShare | number : '1.2-2'}}</td>
+                     </tr>
+                  </tbody>
+                  <tfoot>
+                     <tr>
+                        <th>
+                           Total 
+                        </th>
+                        <th [ngClass]="{'text-danger': matchPlusMinustotal < 0, 'text-success': matchPlusMinustotal >= 0}">{{matchPlusMinustotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': sessionPlusMinustotal < 0, 'text-success': sessionPlusMinustotal >= 0}">{{sessionPlusMinustotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': plusMinusTotaltotal < 0, 'text-success': plusMinusTotaltotal >= 0}">{{plusMinusTotaltotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': matchCommtotal < 0, 'text-success': matchCommtotal >= 0}">{{matchCommtotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': sessionCommtotal < 0, 'text-success': sessionCommtotal >= 0}">{{sessionCommtotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': totalCommissiontotal < 0, 'text-success': totalCommissiontotal >= 0}">{{totalCommissiontotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': systemPlusMinustotal < 0, 'text-success': systemPlusMinustotal >= 0}">{{systemPlusMinustotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': otherstotal < 0, 'text-success': otherstotal >= 0}">{{otherstotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': finaltotal < 0, 'text-success': finaltotal >= 0}">{{finaltotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': sharetotal < 0, 'text-success': sharetotal >= 0}">{{sharetotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': mySharetotal < 0, 'text-success': mySharetotal >= 0}">{{mySharetotal | number : '1.2-2'}}</th>
+                        <th [ngClass]="{'text-danger': companySharetotal < 0, 'text-success': companySharetotal >= 0}">{{companySharetotal | number : '1.2-2'}}</th>                
+                     </tr>
+                  </tfoot>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

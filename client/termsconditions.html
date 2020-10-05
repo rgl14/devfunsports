@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" data-ng-app="myApp"><head>
+	<meta charset="utf-8">
+	<title>Funsports</title>
+	<link rel="SHORTCUT ICON" href="/images/favicon.png">
+	<link rel="SHORTCUT ICON" href="images/favicon.png">
+	<link rel="stylesheet"  href="css/login-style.css?v=20190123_1548174000000">
+	<script async="" src="https://www.google-analytics.com/analytics.js"></script><script  src="/js/jquery-1.9.1.min.js?v=20170425"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-aria.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-cookies.js"></script>
+	
+	
+	
+</head>
+<body class="funsports" data-ng-controller="terms_condition_Controller">
+<script  src="https://cdn.ywxi.net/js/1.js" async=""></script>
+<div class="announce-wrap" data-ng-init="TermsNConditions()">
+
+	
+	<div class="announce-header" id="TermsNConditions">
+		<h1>Funsports Rules and Regulations</h1>
+	</div>
+	
+
+	<div class="tc-content">
+	
+		
+		
+		
+		<p style="background-color: #b2d7e8;">
+			NOTE:<br>
+			Players using VPN and login from different IP frequently may result to void bets.<br>
+			And on the basis of different IP from multiple city we can suspend the account and void bets.
+		</p>
+	
+		<h3>Rules :</h3>
+		<div class="row" data-ng-model="rules">
+		</div>
+		
+		<!-- <h2>Part A - Introduction</h2> -->
+		<h3>Terms :</h3>
+         <div class="row" data-ng-model="terms">
+         </div>
+
+		
+	</div>
+
+	
+	<ul class="announce-footer">
+		<li class="confirm-checkbox">
+			<input type="checkbox" id="termVersion">
+			<label for="termVersion">Do not show again.</label>
+		</li>
+		<li><a id="close" class="btn">Decline</a></li>
+		<li><a href="index.html" id="accept" class="btn-send" data-ng-click="accept('true')">I Accept</a></li>
+	</ul>
+	
+
+</div>
+
+<script>
+	var app = angular.module('myApp', ['ngRoute' , 'ngCookies'])
+	app.controller('terms_condition_Controller', function($location, $scope, $http, $timeout, $routeParams,$interval,$cookieStore) {
+		 var authtoken = $.cookie('authtoken');
+		console.log('testing1')
+	 $scope.TermsNConditions = function() {
+        console.log('testing')
+        $http({
+            url: "http://173.249.21.26/DreamClient/BetClient.svc/TermsNConditions",
+            method: "GET",
+            headers: {
+                Token: authtoken
+            }
+        }).then(function mySuccess(response) {
+            console.log(response);
+            $scope.rules = response.data.rules;
+            console.log($scope.rules);
+            $scope.terms = response.data.terms;
+            // $('#TermsNConditions').show();
+             // window.location.href = "index.html"
+        }, function myError(error) {
+            if (error.status == 401) {
+                //$.removeCookie("auth-token");
+                 $.cookie('authtoken', response.data.response.AuthToken);
+                 $.removeCookie("authtoken");
+            // localStorage.setItem('showTermsConditions', 'true')
+               
+            }
+        });
+        $scope.accept = function(val) {
+        	$scope.TermsNConditions();
+            // $.cookie('tNc',val)
+            $cookieStore.put('tNc', val);
+            $('#TermsNConditions').hide();
+        }
+    }
+});
+</script>
+ <!-- <script>
+
+           $('#close').click(function(){ 
+           $('#login-content').css('display','none');
+         });
+      </script> -->
+</body></html>

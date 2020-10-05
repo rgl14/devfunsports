@@ -1,0 +1,100 @@
+.match-status-text {
+    display: table-cell !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 0px 10px !important;
+}
+
+.inplay-show-tbl-td {
+    background-color: #6E8FC9;
+    color: #fff;
+    padding: 10px;
+    font-family: 'open-sans-regular' !important;
+    font-weight: 600;
+}
+p {
+    margin: 0 0 10px;
+}
+.bet_status_box .inplay-show-place-bet, .match-status-table, .refresh-btn.reload-class {
+    height: 100px !important;
+}
+
+.bet_status_box .inplay-show-place-bet {
+    display: table-cell !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 0px 10px !important;
+}
+.inplay-show-place-bet {
+    color: #6E8FC9;
+    background-color: #fff;
+    text-align: center;
+    padding: 15px 0 !important;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: "open-sans-semibold" !important;
+}
+.first-runner-bet-odds-yes-value {
+    margin-bottom: 5px;
+    background-color: #61ACDE;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+.first-runner-bet-odds-no-value {
+    margin-bottom: 5px;
+    background-color: #F6B771;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+.bet-place-tbl-td {
+    border: 5px solid #E9E9E9 !important;
+}
+.bet-place-tbl-th {
+    text-align: center;
+    color: #fff;
+    padding: 8px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: 'open-sans-semibold' !important;
+    border: 5px solid #E9E9E9 !important;
+}
+.bet-odds-type {
+    color: #49494A;
+    background-color: #E9E9E9;
+}
+.align-left {
+    text-align: left;
+}
+
+.session-th-strip {
+    background-color: #6E8FC9 !important;
+}
+.match-status-table {
+    display: table !important;
+    line-height: 1.5;
+}
+.bet_status_box {
+    display: table !important;
+}
+.col-xs-8 {
+    width: 66.66666667%;
+}
+.col-xs-4 {
+    width: 33.33333333%;
+}
+@media (max-width: 767px)
+{
+.inplay-show-place-bet {
+    color: #6E8FC9;
+    background-color: #FFF;
+    text-align: center;
+    padding: 12px;
+    font-weight: 100;
+}
+.inplay-show-tbl-td{
+    text-align: center !important;
+    background-color: #3A61A2 !important;
+}
+}

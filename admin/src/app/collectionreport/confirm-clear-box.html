@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirm Box</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to clear whole amount ?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

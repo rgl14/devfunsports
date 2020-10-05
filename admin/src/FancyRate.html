@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="apple-touch-icon" href="images/rlogo.png">
+  <link rel="shortcut icon" type="image/x-icon" href="images/rlogo.png">
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="assets/css/body.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/table.css">
+  <link rel="stylesheet" href="assets/css/table2.css">
+  <link rel="stylesheet" href="assets/css/jquery.toast.min.css">
+
+  <title>
+    Fancy Rate
+  </title>
+  <style>
+    table.dataTable thead th,
+    table.dataTable thead td {
+      padding: 10px 10px !important;
+      border-bottom: 1px solid #111;
+    }
+
+    #Fancy-Bet-List_paginate,
+    #Fancy-Bet-List_info,
+    #Fancy-Bet-List_length {
+      display: none;
+    }
+
+    th,
+    td {
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .redval {
+      color: red;
+    }
+
+    .greenval {
+      color: green;
+    }
+  </style>
+  <style>
+    .checkbox {
+      padding-left: 20px;
+    }
+
+    .checkbox label {
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      padding-left: 5px;
+    }
+
+    .checkbox label::before {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      left: 0;
+      margin-left: -20px;
+      border: 1px solid #cccccc;
+      border-radius: 3px;
+      background-color: #fff;
+      -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+      -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+      transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+    }
+
+    .checkbox label::after {
+      display: inline-block;
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 0;
+      top: 0;
+      margin-left: -20px;
+      padding-left: 3px;
+      padding-top: 1px;
+      font-size: 11px;
+      color: #555555;
+    }
+
+    .checkbox input[type="checkbox"],
+    .checkbox input[type="radio"] {
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .checkbox input[type="checkbox"]:focus+label::before,
+    .checkbox input[type="radio"]:focus+label::before {
+      outline: thin dotted;
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+
+    .checkbox input[type="checkbox"]:checked+label::after,
+    .checkbox input[type="radio"]:checked+label::after {
+      font-family: "FontAwesome";
+      content: "\f00c";
+    }
+
+    .checkbox input[type="checkbox"]:disabled+label,
+    .checkbox input[type="radio"]:disabled+label {
+      opacity: 0.65;
+    }
+
+    .checkbox input[type="checkbox"]:disabled+label::before,
+    .checkbox input[type="radio"]:disabled+label::before {
+      background-color: #eeeeee;
+      cursor: not-allowed;
+    }
+
+    .checkbox.checkbox-circle label::before {
+      border-radius: 50%;
+    }
+
+    .checkbox.checkbox-inline {
+      margin-top: 0;
+    }
+
+    .checkbox-primary input[type="checkbox"]:checked+label::before,
+    .checkbox-primary input[type="radio"]:checked+label::before {
+      background-color: #337ab7;
+      border-color: #337ab7;
+    }
+
+    .checkbox-primary input[type="checkbox"]:checked+label::after,
+    .checkbox-primary input[type="radio"]:checked+label::after {
+      color: #fff;
+    }
+
+    .checkbox-danger input[type="checkbox"]:checked+label::before,
+    .checkbox-danger input[type="radio"]:checked+label::before {
+      background-color: #d9534f;
+      border-color: #d9534f;
+    }
+
+    .checkbox-danger input[type="checkbox"]:checked+label::after,
+    .checkbox-danger input[type="radio"]:checked+label::after {
+      color: #fff;
+    }
+
+    .checkbox-info input[type="checkbox"]:checked+label::before,
+    .checkbox-info input[type="radio"]:checked+label::before {
+      background-color: #5bc0de;
+      border-color: #5bc0de;
+    }
+
+    .checkbox-info input[type="checkbox"]:checked+label::after,
+    .checkbox-info input[type="radio"]:checked+label::after {
+      color: #fff;
+    }
+
+    .checkbox-warning input[type="checkbox"]:checked+label::before,
+    .checkbox-warning input[type="radio"]:checked+label::before {
+      background-color: #f0ad4e;
+      border-color: #f0ad4e;
+    }
+
+    .checkbox-warning input[type="checkbox"]:checked+label::after,
+    .checkbox-warning input[type="radio"]:checked+label::after {
+      color: #fff;
+    }
+
+    .checkbox-success input[type="checkbox"]:checked+label::before,
+    .checkbox-success input[type="radio"]:checked+label::before {
+      background-color: #5cb85c;
+      border-color: #5cb85c;
+    }
+
+    .checkbox-success input[type="checkbox"]:checked+label::after,
+    .checkbox-success input[type="radio"]:checked+label::after {
+      color: #fff;
+    }
+
+    .radio {
+      padding-left: 20px;
+    }
+
+    .radio label {
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      padding-left: 5px;
+    }
+
+    .radio label::before {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      left: 0;
+      margin-left: -20px;
+      border: 1px solid #cccccc;
+      border-radius: 50%;
+      background-color: #fff;
+      -webkit-transition: border 0.15s ease-in-out;
+      -o-transition: border 0.15s ease-in-out;
+      transition: border 0.15s ease-in-out;
+    }
+
+    .radio label::after {
+      display: inline-block;
+      position: absolute;
+      content: " ";
+      width: 11px;
+      height: 11px;
+      left: 3px;
+      top: 3px;
+      margin-left: -20px;
+      border-radius: 50%;
+      background-color: #555555;
+      -webkit-transform: scale(0, 0);
+      -ms-transform: scale(0, 0);
+      -o-transform: scale(0, 0);
+      transform: scale(0, 0);
+      -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+      -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+      -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+      transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+    }
+
+    .radio input[type="radio"] {
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .radio input[type="radio"]:focus+label::before {
+      outline: thin dotted;
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+
+    .radio input[type="radio"]:checked+label::after {
+      -webkit-transform: scale(1, 1);
+      -ms-transform: scale(1, 1);
+      -o-transform: scale(1, 1);
+      transform: scale(1, 1);
+    }
+
+    .radio input[type="radio"]:disabled+label {
+      opacity: 0.65;
+    }
+
+    .radio input[type="radio"]:disabled+label::before {
+      cursor: not-allowed;
+    }
+
+    .radio.radio-inline {
+      margin-top: 0;
+    }
+
+    .radio-primary input[type="radio"]+label::after {
+      background-color: #337ab7;
+    }
+
+    .radio-primary input[type="radio"]:checked+label::before {
+      border-color: #337ab7;
+    }
+
+    .radio-primary input[type="radio"]:checked+label::after {
+      background-color: #337ab7;
+    }
+
+    .radio-danger input[type="radio"]+label::after {
+      background-color: #d9534f;
+    }
+
+    .radio-danger input[type="radio"]:checked+label::before {
+      border-color: #d9534f;
+    }
+
+    .radio-danger input[type="radio"]:checked+label::after {
+      background-color: #d9534f;
+    }
+
+    .radio-info input[type="radio"]+label::after {
+      background-color: #5bc0de;
+    }
+
+    .radio-info input[type="radio"]:checked+label::before {
+      border-color: #5bc0de;
+    }
+
+    .radio-info input[type="radio"]:checked+label::after {
+      background-color: #5bc0de;
+    }
+
+    .radio-warning input[type="radio"]+label::after {
+      background-color: #f0ad4e;
+    }
+
+    .radio-warning input[type="radio"]:checked+label::before {
+      border-color: #f0ad4e;
+    }
+
+    .radio-warning input[type="radio"]:checked+label::after {
+      background-color: #f0ad4e;
+    }
+
+    .radio-success input[type="radio"]+label::after {
+      background-color: #5cb85c;
+    }
+
+    .radio-success input[type="radio"]:checked+label::before {
+      border-color: #5cb85c;
+    }
+
+    .radio-success input[type="radio"]:checked+label::after {
+      background-color: #5cb85c;
+    }
+
+    input[type="checkbox"].styled:checked+label:after,
+    input[type="radio"].styled:checked+label:after {
+      font-family: 'FontAwesome';
+      content: "\f00c";
+    }
+
+    input[type="checkbox"] .styled:checked+label::before,
+    input[type="radio"] .styled:checked+label::before {
+      color: #fff;
+    }
+
+    input[type="checkbox"] .styled:checked+label::after,
+    input[type="radio"] .styled:checked+label::after {
+      color: #fff;
+    }
+
+    .label-success,
+    .badge-success {
+      background-color: #1c84c6;
+      color: #FFFFFF;
+    }
+
+    .label-danger,
+    .badge-danger {
+      background-color: #ed5565;
+      color: #FFFFFF;
+    }
+
+    .fixedwithlbl {
+      min-width: 20px;
+      padding: 5px 10px;
+    }
+
+    .label-warning,
+    .badge-warning {
+      background-color: #f8ac59;
+      color: #FFFFFF;
+    }
+
+    #trMarket3600_bets_52:hover {
+      background-color: lightpink;
+    }
+
+    #trMarket3600_bets_51:hover {
+      background-color: lightblue;
+    }
+
+    .tr1 {
+      background-color: #ffffff;
+    }
+
+    .table-responsive {
+      margin-left: 10px;
+      margin-right: 10px;
+      border-left: 1px;
+      border-right: 1px;
+      border-top: 1px;
+      border-bottom: 1px;
+    }
+  </style>
+</head>
+
+<body onload="GetKeyShortcuts();GetFancyInfobyId();;LastBallStatus();"
+  class="fixed-sidebar no-skin-config full-height-layout pace-done body-small">
+  <div class="pace  pace-inactive">
+    <div class="pace-progress" data-progress-text="100%" data-progress="99"
+      style="transform: translate3d(100%, 0px, 0px);">
+    </div>
+    <div id="wrapper">
+      <div class="gray-bg">
+        <div class="row wrapper border-bottom white-bg page-heading">
+          <div class="col-lg-12">
+            <h2><span id="spTitle"><span id="Sport"></span> &gt; <span id="Tournament"></span> &gt; <span
+                  id="Matchname"></span> &gt; <b><span id="Fancyname"></span></b></span></h2>
+          </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+          <div class="row">
+            <div class="col-lg-12 no-padding">
+              <div class="ibox" id="divfancyentry">
+                <div class="ibox-content">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="col-md-1 col-sm-2 col-xs-6 no-padding">
+                        <div class="radio radio-danger inline">
+                          <input type="radio" name="rbtnstatus" value="2" id="rbtnInactive">
+                          <label for="rbtnInactive">
+                            Inactive
+                          </label>
+                          <input type="text" id="Fancyid" hidden>
+                        </div>
+                      </div>
+                      <div class="col-md-1 col-sm-2 col-xs-6 no-padding">
+                        <div class="radio radio-danger inline">
+                          <input type="radio" name="rbtnstatus" value="6" id="rbtnClose">
+                          <label for="rbtnClose">
+                            Close
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-1 col-sm-2 col-xs-6 no-padding">
+                        <div class="checkbox checkbox-success no-bottom-margin inline"
+                          style="margin-top: 5px !important">
+                          <input id="ChkIsBetAllow" type="checkbox">
+                          <label for="ChkIsBetAllow">
+                            Bet Allow
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-1 col-sm-2 col-xs-6 no-padding">
+                        <div class="checkbox checkbox-success no-bottom-margin inline"
+                          style="margin-top: 5px !important">
+                          <input id="ChkIsApplyCommissin" type="checkbox">
+                          <label for="ChkIsApplyCommissin">
+                            Commission
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-3 col-sm-4 col-xs-6 no-padding">
+                        <div class="form-group">
+                          <div class="input-daterange input-group">
+                            <input type="text" id="TickerFancy" class="input-sm form-control text-left clsOpenClass">
+                            <span class="input-group-addon gray-bg ">Fancy Ticker</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+      <div class="col-md-2 col-sm-4 col-xs-6">
+        <div class="form-group">
+          <div class="input-daterange input-group">
+            <input name="ctl00$ContentPlaceHolder1$txtRatedifferent" type="number" maxlength="2" id="txtRatedifferent"
+              class="input-sm form-control text-left clsOpenClass" min="1" max="100">
+            <span class="input-group-addon gray-bg ">Rate Different</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6">
+        <div class="form-group">
+          <div class="input-daterange input-group">
+            <input name="ctl00$ContentPlaceHolder1$txtRatedifferent" type="number" maxlength="2" id="maxstakeperrate"
+              class="input-sm form-control text-left clsOpenClass" min="1" max="5000000000">
+            <span class="input-group-addon gray-bg ">Max Stake Per Rate</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6">
+        <div class="form-group">
+          <div class="input-daterange input-group">
+            <input name="ctl00$ContentPlaceHolder1$txtMaxStack" type="number" maxlength="15" id="txtMaxStack"
+              class="input-sm form-control text-left clsOpenClass" min="1" max="50000000">
+            <span class="input-group-addon gray-bg">Max Stake</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6">
+        <div class="form-group">
+          <div class="input-daterange input-group">
+            <input name="ctl00$ContentPlaceHolder1$txtMinStack" type="number" maxlength="15" id="txtMinStack"
+              class="input-sm form-control text-left clsOpenClass" min="1" max="50000000">
+            <span class="input-group-addon gray-bg">Min Stake</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 col-xs-6 col-sm-4">
+        <div class="form-group">
+          <div class="input-daterange input-group">
+            <input name="ctl00$ContentPlaceHolder1$txtRateRang" type="number" maxlength="2" id="txtRateRang"
+              class="input-sm form-control text-left clsOpenClass" min="1" max="100">
+            <span class="input-group-addon gray-bg ">Rate Range</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1 col-xs-6 col-sm-3 no-padding">
+        <div class="form-group">
+          <span class="red-bg ratespan" id="spanRang">-</span>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12 border-bottom navy-bg">
+      <div class="col-md-12 col-sm-12 col-xs-12 no-padding text-center">
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Qbtn('Q')">Q=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtQNoRate" type="text" id="txtQNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtQYesRate" type="text" id="txtQYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10  text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Wbtn('W')">W=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtWNoRate" type="text" id="txtWNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtWYesRate" type="text" id="txtWYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Ebtn('E')">E=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtENoRate" type="text" id="txtENoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtEYesRate" type="text" id="txtEYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Rbtn('R')">R=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtRNoRate" type="text" id="txtRNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtRYesRate" type="text" id="txtRYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10  text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+
+          <button class="btn btn-danger" onclick="Tbtn('T')">T=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtTNoRate" type="text" id="txtTNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtTYesRate" type="text" id="txtTYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10  text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Ybtn('Y')">Y=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtYNoRate" type="text" id="txtYNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtYYesRate" type="text" id="txtYYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10  text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Ubtn('U')">U=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtUNoRate" type="text" id="txtUNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtUYesRate" type="text" id="txtUYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Ibtn('I')">I=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtINoRate" type="text" id="txtINoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtIYesRate" type="text" id="txtIYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Obtn('O')">O=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtONoRate" type="text" id="txtONoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtOYesRate" type="text" id="txtOYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Pbtn('P')">P=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtPNoRate" type="text" id="txtPNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtPYesRate" type="text" id="txtPYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 no-padding text-center">
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Abtn('A')">A=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtANoRate" type="text" id="txtANoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtAYesRate" type="text" id="txtAYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Sbtn('S')">S=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtSNoRate" type="text" id="txtSNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtSYesRate" type="text" id="txtSYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Dbtn('D')">D=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtDNoRate" type="text" id="txtDNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtDYesRate" type="text" id="txtDYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Fbtn('F')">F=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtFNoRate" type="text" id="txtFNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtFYesRate" type="text" id="txtFYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Gbtn('G')">G=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtGNoRate" type="text" id="txtGNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtGYesRate" type="text" id="txtGYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Kbtn('K')">K=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtCustNopoint" type="text" id="txtCustNopoint"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtCustYespoint" type="text" id="txtCustYespoint"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Hbtn('H')">H+=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtHRate" type="text" id="txtHRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Jbtn('J')">J+=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtJRate" type="text" id="txtJRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Lbtn('L')">L=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtLNoRate" type="text" id="txtLNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtLYesRate" type="text" id="txtLYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 no-padding text-center">
+        <div class="col-cus-10  text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Zbtn('Z')">Z=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtZNoRate" type="text" id="txtZNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtZYesRate" type="text" id="txtZYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Xbtn('X')">X=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtXNoRate" type="text" id="txtXNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtXYesRate" type="text" id="txtXYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Cbtn('C')">C=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtCNoRate" type="text" id="txtCNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtCYesRate" type="text" id="txtCYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Vbtn('V')">V=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtVNoRate" type="text" id="txtVNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtVYesRate" type="text" id="txtVYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Bbtn('B')">B=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtBNoRate" type="text" id="txtBNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtBYesRate" type="text" id="txtBYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Nbtn('N')">N=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtNNoRate" type="text" id="txtNNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtNYesRate" type="text" id="txtNYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div class="col-cus-10 text-left no-padding sessionfixkeyword top-padding-5px bottom-padding-5px ">
+          <button class="btn btn-danger" onclick="Mbtn('M')">M=</button>
+          <input name="ctl00$ContentPlaceHolder1$txtMNoRate" type="text" id="txtMNoRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value=""
+            style="width:40px;"><input name="ctl00$ContentPlaceHolder1$txtMYesRate" type="text" id="txtMYesRate"
+            class="input-sm form-control inline color-black text-center setpaddingtxtRate" value="" style="width:40px;">
+        </div>
+        <div>
+          <input type="button" class="btn btn-warning pull-left" value="Save" id="save-shortcut-key">
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12 no-padding top-margin-5px ">
+      <div class="col-md-6 col-sm-12 col-xs-12" id="divmarket">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="col-md-4 col-sm-4 col-xs-4 no-padding border-left border-bottom border-right nobgcolor">
+            <div class="col-md-12 col-sm-12 col-xs-12 sessionfixkeyword bg-NoRate">
+              NO
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding sessiontextbox  top-margin-10px">
+              <div class="col-md-8 col-sm-8 col-xs-8">
+                <input name="ctl00$ContentPlaceHolder1$txtNoRate2" type="text" id="txtNoRate2"
+                  class="input-sm form-control inline text-right txtPlusRate txtbox setPlaceRateFontsize" disabled>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-4 no-left-padding ">
+                <input name="ctl00$ContentPlaceHolder1$txtNoPoint2" type="text" id="txtNoPoint2"
+                  class="input-sm form-control inline  text-right txtPlusPoint txtbox setPlaceRateFontsize" disabled>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding sessiontextbox">
+              <div class="col-md-8 col-sm-8 col-xs-8">
+                <input name="ctl00$ContentPlaceHolder1$txtNoRate1" type="text" id="txtNoRate1"
+                  class="input-sm form-control inline text-right txtbox setPlaceRateFontsize" eadonly="true" disabled>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-4 no-left-padding ">
+                <input name="ctl00$ContentPlaceHolder1$txtNoPoint1" type="text" id="txtNoPoint1"
+                  class="input-sm form-control inline  text-right txtbox setPlaceRateFontsize" disabled>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding sessiontextbox bottom-padding-5px ">
+              <div class="col-md-8 col-sm-8 col-xs-8">
+                <input name="ctl00$ContentPlaceHolder1$txtNoRate3" type="text" id="txtNoRate3"
+                  class="input-sm form-control inline text-right txtMinusRate txtbox setPlaceRateFontsize" disabled>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-4 no-left-padding ">
+                <input name="ctl00$ContentPlaceHolder1$txtNoPoint3" type="text" id="txtNoPoint3"
+                  class="input-sm form-control inline  text-right txtMinusPoint txtbox setPlaceRateFontsize" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-4 no-padding  border-bottom border-right yesbgcolor">
+            <div class="col-md-12 col-sm-12 col-xs-12 sessionfixkeyword bg-YesRate">
+              YES
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding sessiontextbox top-margin-10px">
+              <div class="col-md-8 col-sm-8 col-xs-8">
+                <input name="ctl00$ContentPlaceHolder1$txtYesRate2" type="text" id="txtYesRate2"
+                  class="input-sm form-control inline text-right txtPlusRate txtbox setPlaceRateFontsize" disabled>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-4 no-left-padding ">
+                <input name="ctl00$ContentPlaceHolder1$txtYesPoint2" type="text" id="txtYesPoint2"
+                  class="input-sm form-control inline  text-right txtPlusPoint txtbox setPlaceRateFontsize" disabled>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding sessiontextbox">
+              <div class="col-md-8 col-sm-8 col-xs-8">
+                <input name="ctl00$ContentPlaceHolder1$txtYesRate1" type="text" id="txtYesRate1"
+                  class="input-sm form-control inline text-right txtbox setPlaceRateFontsize" disabled>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-4 no-left-padding ">
+                <input name="ctl00$ContentPlaceHolder1$txtYesPoint1" type="text" id="txtYesPoint1"
+                  class="input-sm form-control inline  text-right txtbox setPlaceRateFontsize" disabled>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding sessiontextbox bottom-padding-5px ">
+              <div class="col-md-8 col-sm-8 col-xs-8">
+                <input name="ctl00$ContentPlaceHolder1$txtYesRate3" type="text" id="txtYesRate3"
+                  class="input-sm form-control inline text-right txtMinusRate txtbox setPlaceRateFontsize" disabled>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-4 no-left-padding ">
+                <input name="ctl00$ContentPlaceHolder1$txtYesPoint3" type="text" id="txtYesPoint3"
+                  class="input-sm form-control inline  text-right txtMinusPoint txtbox setPlaceRateFontsize" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-4 no-padding border-bottom border-right enterybgcolor">
+            <div class="col-md-12 col-sm-12 col-xs-12 sessionfixkeyword  blue-bg" style="text-align: center">
+              ACTION
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding sessiontextbox top-margin-10px">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <input name="ctl00$ContentPlaceHolder1$txtRateformula" type="text" maxlength="12" id="txtRateformula"
+                  class="input-sm form-control inline text-right clsOpenClass setPlaceRateFontsize"
+                  placeholder="Enter Rate" style="text-transform:uppercase">
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12  bottom-margin-4px top-margin-5px">
+              <div class="radio radio-danger inline">
+
+                <input type="radio" name="rbtnstatus" value="1" id="rbtnActive" disabled="disabled">
+                <label for="rbtnActive">
+                  Active
+                </label>
+              </div>
+              <div class="radio radio-danger inline">
+
+                <input type="radio" name="rbtnstatus" id="rbtndeActive" disabled="disabled">
+                <label for="rbtndeActive">
+                  Ball Started
+                </label>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bg-danger ">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <small>Note : Must Capslock disable when you enter fancy rate.</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 bg-danger" style="min-height: 10px; display: none;" id="spanError">
+            <small id="spanErrorMsg"></small>
+          </div>
+        </div>
+       <!--  <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 25px">
+
+          <div class="ibox float-e-margins">
+            <div class="table-responsive" id="divMarektWiseProfitloss">
+              <table id="fancybooklist" class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-left"> MDL&nbsp;<small>[&nbsp;UserName&nbsp;]</small></th>
+                  </tr>
+                </thead>
+                <tbody id="fancybook-tbody" style="overflow-y: auto !important; max-height: 200px !important;">
+                  <tr id="trMDLPl_-3" class="trMDl" appmdlid="-3">
+                    <th class="text-right"> Admin P&amp;L&nbsp;</th>
+                  </tr>
+                </tbody>
+                <tfoot class="brodertop">
+                  <td></td>
+                </tfoot>
+              </table>
+            </div>
+            <div class="cssinfolayer" id="divoverlayer">
+              <div class="cssload-container">
+                <div class="cssload-lt"></div>
+                <div class="cssload-rt"></div>
+                <div class="cssload-lb"></div>
+                <div class="cssload-rb"></div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div class="col-md-6  col-sm-12 col-xs-12" style="overflow-x: auto;">
+        <!-- <div class="col-sm-12 pull-right"><label class="label-control">Total Bets : <span
+              id="totaldatacount"></span></label></div>
+        <input type="button" id="RejectAllfancy" class="btn btn-danger" data-toggle="modal"
+          data-target="#Reject-multi-Bet" style="display: none;" value="Reject All Bets" onclick="selectchkboxids()">
+        <table class="table table-striped table-bordered table-hover" id="Fancy-Bet-List">
+          <thead>
+
+            <tr style="background:#f1f1f1;">
+              <th><input type="checkbox" id="allfancycheckbox"></th>
+              <th>Action</th>
+              <th>Details</th>
+              <th>
+                "Client"
+              </th>
+
+              <th>Back/Lay</th>
+              <th>Score/Rate</th>
+              <th>Stake</th>
+
+
+              <th>Matched Time</th>
+              <th>Info</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table> -->
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 no-padding" id="divClienbetslisting" >
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa ffdebua-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade text-xs-left" id="Reject-Bet" tabindex="-1" role="dialog" aria-labelledby="Reject-Bet"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h3 class="modal-title">Reject Bet</h3>
+          </div>
+          <div class="modal-body row">
+            <div class="col-md-12">
+              <div class="col-lg-3">
+                <label class="label-control">Bet ID :</label>
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control" id="rejectbetid" readonly="true"
+                  style="color: rgb(255, 0, 0);margin-bottom: 5px;">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-lg-3">
+                <label class="label-control">Password :</label>
+              </div>
+              <div class="col-lg-3">
+                <input type="Password" maxlength="8" autocomplete="off" id="FancyPassword" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="reset" class="btn btn-primary btn-lg" data-dismiss="modal" value="close">
+            <input type="submit" class="btn btn-danger btn-lg" onclick="RejectFancyBets()" value="Reject Bet">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade text-xs-left" id="Reject-multi-Bet" tabindex="-1" role="dialog" aria-labelledby="Reject-Bet"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h3 class="modal-title">Reject Bet</h3>
+          </div>
+          <div class="modal-body row">
+            <div class="col-md-12">
+              <div class="col-lg-3">
+                <label class="label-control">Bet ID :</label>
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control" id="rejectMultibetids" readonly="true"
+                  style="color: rgb(255, 0, 0);margin-bottom: 5px;">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-lg-3">
+                <label class="label-control">Password :</label>
+              </div>
+              <div class="col-lg-3">
+                <input type="Password" maxlength="8" autocomplete="off" id="FancyMultiPassword" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="reset" class="btn btn-primary btn-lg" data-dismiss="modal" value="close">
+            <input type="submit" class="btn btn-danger btn-lg" onclick="RejectBetsMulti()" value="Reject Multiple Bets">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="assets/bookmaking/common_adm.js"></script> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="assets/js/jquery.signalR.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+  <script src="assets/js/jquery.toast.min.js"></script>
+
+
+  <script src="fancy.js"></script>
+  <!-- <script src="assets/css/assets/js/bootbox.min.js"></script> -->
+  <script>
+    $(document).ready(function () {
+      $('#Fancy-Bet-List').DataTable({
+        "ordering": false,
+        pageLength: 1000,
+      });
+    })
+  </script>
+
+
+</body>
+
+</html>

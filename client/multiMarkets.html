@@ -1,0 +1,328 @@
+<style type="text/css">
+  table {
+    font-size: 12px;
+  }
+</style>
+<div>
+  <div id="multiMarketsWrap">
+    <h2 id="header">Multi Markets</h2>
+    <div
+      data-ng-repeat="market in markets track by market.bfId"
+      class="game-wrap"
+      style="display: block"
+    >
+      <h3>
+        <a
+          class="delete-pin"
+          data-ng-click="removeMultiMkt(market.mktId)"
+          style="cursor: pointer"
+          title="Remove from Multi Markets"
+        ></a>
+        <!-- <a id="multiMarketRefresh" class="multi_refresh" data-ng-click="refreshMultiMarkets()" style="cursor: pointer"></a> -->
+        <a
+          id="eventHeader"
+          data-ng-href="#!full-market/{{market.sportId}}/{{market.TourId}}/{{market.matchId}}/{{market.mktId}}/{{market.bfId}}"
+          class="multi_name"
+          style="cursor: pointer"
+          >{{market.matchName}}
+          <span id="marketName" class="multi-event_type">Match Odds</span>
+          <img
+            class="icon-irun"
+            data-ng-if="market.isInplay=='true'"
+            src="images/transparent.gif"
+            alt="icon-irun"
+          />
+        </a>
+        <span id="lowLiquidityTag" class="game-low_liq" style="display: none"
+          >Low Liquidity</span
+        >
+      </h3>
+      <div id="multiMarketBetsWrap" class="bets-wrap">
+        <!-- <span id="selectionCounts" class="refer_only">{{market.runnerData.length}} selections</span> -->
+        <div
+          id="multiMarketLoading"
+          class="loading-wrap multi-load"
+          style="display: none"
+        >
+          <ul class="loading">
+            <li><img src="images/loading40.gif" alt="loading40" /></li>
+            <li>Loading...</li>
+          </ul>
+        </div>
+        <table id="{{market.bfId  | removeSpace}}" class="bets">
+          <tbody>
+            <tr class="bet-all">
+              <td></td>
+              <td id="backPercent" class="refer-bet" colspan="2"></td>
+              <td>
+                <a id="backAll" class="back-all"
+                  ><img src="images/transparent.gif" alt="backAll" /><span
+                    >Back all</span
+                  ></a
+                >
+              </td>
+              <td>
+                <a id="layAll" class="lay-all"
+                  ><img src="images/transparent.gif" alt="layAll" /><span
+                    >Lay all</span
+                  ></a
+                >
+              </td>
+              <td id="layPercent" class="refer-book" colspan="2"></td>
+            </tr>
+            <tr
+              data-ng-repeat="runner in market.runnerData track by $index"
+              style="display: table-row"
+              data-ng-show="market.mktStatus =='OPEN'"
+            >
+              <th class="predict">
+                <p>
+                  <!-- <a><img data-ng-click="marketDepth(market.matchBfId,runner.selectionId,market.bfId)" class="icon-predict" src="images/transparent.gif" alt="icon-predict"></a> -->
+                  {{runner.runnerName}}
+                </p>
+                <!-- <span id="withoutBet" class="win" style="display: none;"></span> -->
+                <!-- <span id="lossWithoutBet" class="win" style="display: none;"></span> -->
+                <span
+                  id="exposure_{{runner.runnerName | removeSpace}}"
+                  class="win"
+                ></span>
+                <span
+                  id="exposureAfter_{{runner.runnerName | removeSpace}}"
+                  class=""
+                  style="display: none"
+                ></span>
+                <!-- <span id="lossWithBet" class="win" style="display: none;"></span> -->
+                <!-- <span id="zeroProfit" class="win" style="display: none;"></span> -->
+                <!-- <span id="zeroLiability" class="win" style="display: none;"></span> -->
+                <!-- <span id="zeroProfitWithBet" class="win" style="display: none;"></span> -->
+                <!-- <span id="zeroLiabilityWithBet" class="win" style="display: none;"></span> -->
+              </th>
+              <td
+                id="suspend"
+                style="display: none"
+                colspan="6"
+                class="suspend"
+              >
+                <span>Suspend</span>
+              </td>
+              <td id="closed" style="display: none" colspan="6" class="suspend">
+                <span>Closed</span>
+              </td>
+              <td
+                id="nonRunner"
+                colspan="6"
+                class="suspend"
+                style="display: none"
+              >
+                <span>Non Runner</span>
+              </td>
+              <!-- <td id="back_3{{$parent.$index}}" class="back-3" data-side="Back" data-ng-click="betSlip(market.multibfID,'back', runner.runnerName+$index+'back', runner.runnerName, market.matchName, runner.back3,runner.marketId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"><a>{{runner.back3}}<span>{{runner.backSize3}}</span></a></td>
+
+              <td id="back_2{{$parent.$index}}" class="back-2" data-side="Back" data-ng-click="betSlip(market.multibfID,'back', runner.runnerName+$index+'back', runner.runnerName, market.matchName, runner.back2,runner.marketId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"><a>{{runner.back2}}<span>{{runner.backSize2}}</span></a></td>
+
+              <td id="back_1{{$parent.$index}}" class="back-1" data-side="Back" data-ng-click="betSlip(market.multibfID,'back', runner.runnerName+$index+'back', runner.runnerName, market.matchName, runner.back1,runner.marketId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"><a>{{runner.back1}}<span>{{runner.backSize1}}</span></a></td>
+
+              <td id="lay_1{{$parent.$index}}" class="lay-1" data-side="Lay" data-ng-click="betSlip(market.multibfID,'lay', runner.runnerName+$index+'lay', runner.runnerName, market.matchName, runner.lay1,runner.marketId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"><a>{{runner.lay1}}<span>{{runner.laySize1}}</span></a></td>
+
+              <td id="lay_2{{$parent.$index}}" class="lay-2" data-side="Lay" data-ng-click="betSlip(market.multibfID,'lay', runner.runnerName+$index+'lay', runner.runnerName, market.matchName, runner.lay2,runner.marketId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"><a>{{runner.lay2}}<span>{{runner.laySize2}}</span></a></td>
+
+              <td id="lay_3{{$parent.$index}}" class="lay-3" data-side="Lay" data-ng-click="betSlip(market.multibfID,'lay', runner.runnerName+$index+'lay', runner.runnerName, market.matchName, runner.lay3,runner.marketId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"><a>{{runner.lay3}}<span>{{runner.laySize3}}</span></a></td> -->
+
+              <td
+                id="runner{{$index}}back3"
+                class="back-3 back2"
+                data-ng-classs="runner{{$index}}-back"
+                data-side="Back"
+                data-ng-click="(runner.back3==null || runner.back3=='') ? '':betSlip(market.bfId,'back', runner.runnerName+$index+'back', runner.runnerName, market.matchName, runner.back3,market.mktId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"
+              >
+                <a
+                  >{{runner.back3}}
+                  <span
+                    >{{(runner.backSize3 == null || runner.backSize3 == "")?'-':
+                    runner.backSize3 | number:0}}</span
+                  >
+                </a>
+              </td>
+              <td
+                id="runner{{$index}}back2"
+                class="back-2 back2"
+                data-ng-classs="runner{{$index}}-back"
+                data-side="Back"
+                data-ng-click="(runner.back2==null || runner.back2=='') ? '':betSlip(market.bfId,'back', runner.runnerName+$index+'back', runner.runnerName, market.matchName, runner.back2,market.mktId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"
+              >
+                <a
+                  >{{runner.back2}}
+                  <span
+                    >{{(runner.backSize2 == null || runner.backSize2 == "") ?
+                    '-' : runner.backSize2 | number:0}}</span
+                  >
+                </a>
+              </td>
+              <td
+                id="runner{{$index}}back1"
+                class="back-1 back1"
+                data-ng-classs="runner{{$index}}-back"
+                data-side="Back"
+                data-ng-click="(runner.back1==null || runner.back1=='') ? '':betSlip(market.bfId,'back', runner.runnerName+$index+'back', runner.runnerName, market.matchName, runner.back1,market.mktId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"
+              >
+                <a
+                  >{{runner.back1}}
+                  <span
+                    >{{(runner.backSize1 == null || runner.backSize1 == "") ?
+                    '-' :runner.backSize1 | number:0}}</span
+                  >
+                </a>
+              </td>
+              <td
+                id="runner{{$index}}lay1"
+                class="lay-1 lay1"
+                data-ng-classs="runner{{$index}}-lay"
+                data-side="Lay"
+                data-ng-click="(runner.lay1==null || runner.lay1=='') ? '':betSlip(market.bfId,'lay', runner.runnerName+$index+'lay', runner.runnerName, market.matchName, runner.lay1,market.mktId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"
+              >
+                <a
+                  >{{runner.lay1}}
+                  <span
+                    >{{(runner.laySize1 == null || runner.laySize1 == "") ? '-'
+                    : runner.laySize1 | number:0}}</span
+                  >
+                </a>
+              </td>
+              <td
+                id="runner{{$index}}lay2"
+                class="lay-2 lay2"
+                data-ng-classs="runner{{$index}}-lay"
+                data-ng-click="(runner.lay2==null || runner.lay2=='') ? '':betSlip(market.bfId,'lay', runner.runnerName+$index+'lay', runner.runnerName, market.matchName, runner.lay2,market.mktId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"
+                data-side="Lay"
+              >
+                <a
+                  >{{runner.lay2}}
+                  <span
+                    >{{(runner.laySize2 == null || runner.laySize2 == "") ? '-'
+                    :runner.laySize2 | number:0}}</span
+                  >
+                </a>
+              </td>
+              <td
+                id="runner{{$index}}lay3"
+                class="lay-3 lay2"
+                data-ng-classs="runner{{$index}}-lay"
+                data-ng-click="(runner.lay3==null || runner.lay3=='') ? '':betSlip(market.bfId,'lay', runner.runnerName+$index+'lay', runner.runnerName, market.matchName, runner.lay3,market.mktId,market.matchId,market.isInplay,0,0,market.sportId,market.matchBfId)"
+                data-side="Lay"
+              >
+                <a
+                  >{{runner.lay3}}
+                  <span
+                    >{{(runner.laySize3 == null || runner.laySize3 == "") ?'-'
+                    :runner.laySize3 | number:0}}</span
+                  >
+                </a>
+              </td>
+            </tr>
+            <tr
+              id="fullSelection_10226350"
+              style="display: table-row"
+              data-ng-repeat="runner in market.runnerData track by $index"
+              data-ng-show="market.mktStatus !='OPEN'"
+            >
+              <th>
+                <p>
+                  <!-- <a><img onclick="myFunction()" class="icon-predict" src="images/transparent.gif" alt="icon-predict"></a> -->
+                  {{runner.runnerName}}<br /><span
+                    id="{{runner.runnerName}}"
+                  ></span>
+                </p>
+                <span class="matchWinner" data-ng-if="runner.status=='WINNER'"
+                  >WINNER</span
+                >
+                <span id="withoutBet" class="win" style="display: none"></span>
+                <span
+                  id="lossWithoutBet"
+                  class="win"
+                  style="display: none"
+                ></span>
+                <span id="withBet" class="win" style="display: none"></span>
+                <span id="lossWithBet" class="win" style="display: none"></span>
+                <span id="zeroProfit" class="win" style="display: none"></span>
+                <span
+                  id="zeroLiability"
+                  class="win"
+                  style="display: none"
+                ></span>
+                <span
+                  id="zeroProfitWithBet"
+                  class="win"
+                  style="display: none"
+                ></span>
+                <span
+                  id="zeroLiabilityWithBet"
+                  class="win"
+                  style="display: none"
+                ></span>
+              </th>
+              <td colspan="6" class="suspended">
+                <div>{{market.mktStatus}}</div>
+              </td>
+            </tr>
+            <!--   <tr id="fullSelection_17043776" style="display: table-row;" eventtype="4" eventid="28593353" marketid="1_140259478" selectionid="17043776" eventname="Hampshire v Windward Islands Volcanoes" status="1" sortpriority="2">
+              <th>
+                <p><a onclick="window.open('market/marketDepth.jsp?eventId=28593353&amp;marketId=1.140259478&amp;selectionId=17043776','_blank','resizable=no,width=920,height=600')"><img class="icon-predict" src="images/transparent.gif"></a>Windward Islands Volcanoes</p>
+                <span id="withoutBet" class="win" style="display: none;"></span>
+                <span id="lossWithoutBet" class="win" style="display: none;"></span>
+                <span id="withBet" class="win" style="display: none;"></span>
+                <span id="lossWithBet" class="win" style="display: none;"></span>
+                <span id="zeroProfit" class="win" style="display: none;"></span>
+                <span id="zeroLiability" class="win" style="display: none;"></span>
+                <span id="zeroProfitWithBet" class="win" style="display: none;"></span>
+                <span id="zeroLiabilityWithBet" class="win" style="display: none;"></span>
+              </th>
+              <td id="suspend" colspan="6" class="suspend" style="display: none;"><span>Suspend</span></td>
+              <td id="closed" colspan="6" class="suspend" style="display: none;"><span>Closed</span></td>
+              <td id="nonRunner" colspan="6" class="suspend" style="display: none;"><span>Non Runner</span></td>
+              <td id="back_3" class="back-3" data-side="Back" selectionid="17043776" runner="Windward Islands Volcanoes" marketname="Match Odds" markettype="MATCH_ODDS" fullmarketodds="1.11" inplay="1" sparkodds="1.11" sparkstake="14092.16"><a>1.11<span>14,092</span></a></td>
+              <td id="back_2" class="back-2" data-side="Back" selectionid="17043776" runner="Windward Islands Volcanoes" marketname="Match Odds" markettype="MATCH_ODDS" fullmarketodds="1.12" inplay="1" sparkodds="1.12" sparkstake="8348.6"><a>1.12<span>8,349</span></a></td>
+              <td id="back_1" class="back-1" data-side="Back" selectionid="17043776" runner="Windward Islands Volcanoes" marketname="Match Odds" markettype="MATCH_ODDS" fullmarketodds="1.13" inplay="1" sparkodds="1.13" sparkstake="6101.4"><a>1.13<span>6,101</span></a></td>
+              <td id="lay_1" class="lay-1" data-side="Lay" selectionid="17043776" runner="Windward Islands Volcanoes" marketname="Match Odds" markettype="MATCH_ODDS" fullmarketodds="1.14" inplay="1" sparkodds="1.14" sparkstake="60048.92"><a>1.14<span>60,049</span></a></td>
+              <td id="lay_2" class="lay-2" data-side="Lay" selectionid="17043776" runner="Windward Islands Volcanoes" marketname="Match Odds" markettype="MATCH_ODDS" fullmarketodds="1.15" inplay="1" sparkodds="1.15" sparkstake="4438.62"><a>1.15<span>4,439</span></a></td>
+              <td id="lay_3" class="lay-3" data-side="Lay" selectionid="17043776" runner="Windward Islands Volcanoes" marketname="Match Odds" markettype="MATCH_ODDS" fullmarketodds="1.19" inplay="1" sparkodds="1.19" sparkstake="1314.16"><a>1.19<span>1,314</span></a></td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p id="noMultiMarkets" data-ng-show="marketodds.length==0">
+      There are currently no followed multi markets.
+    </p>
+    <!-- Game Bets Table -->
+    <!--  <div id="multiMarketsTemplate" class="game-wrap" style="display: none;">
+      <h3>
+        <a id="multiMarketPin" class="add-pin" style="cursor: pointer" title="Add to Multi Markets"></a>
+        <a id="multiMarketRefresh" class="multi_refresh" style="cursor: pointer"></a>
+        <a id="eventHeader" class="multi_name" style="cursor: pointer">
+        <span id="marketName" class="multi-event_type"></span>
+        </a>
+        <span id="lowLiquidityTag" class="game-low_liq" style="display: none;">Low Liquidity</span>
+      </h3>
+      <div id="multiMarketBetsWrap" class="bets-wrap">
+        <span id="selectionCounts" class="refer_only">For reference only</span>
+        <div id="multiMarketLoading" class="loading-wrap multi-load" style="display:none;">
+          <ul class="loading">
+            <li><img src="images/loading40.gif"></li>
+            <li>Loading...</li>
+          </ul>
+        </div>
+        <table id="multiMarketBoard" class="bets">
+          <tbody>
+            <tr class="bet-all">
+              <td></td>
+              <td id="backPercent" class="refer-bet" colspan="2"></td>
+              <td><a id="backAll" class="back-all"><img src="images/transparent.gif"><span>Back all</span></a></td>
+              <td><a id="layAll" class="lay-all"><img src="images/transparent.gif"><span>Lay all</span></a></td>
+              <td id="layPercent" class="refer-book" colspan="2"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> -->
+  </div>
+</div>

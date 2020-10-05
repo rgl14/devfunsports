@@ -1,0 +1,43 @@
+
+
+      <div class="wrapper wrapper-content">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                <h5>Rules</h5>
+              </div>
+              <div class="ibox-content-table table-responsive">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h3>General Rules:</h3>
+                    <ck-editor
+                      name="editor1"
+                      [(ngModel)]="rules"
+                      skin="moono-lisa"
+                      language="en"
+                      [config]="editorConfig"
+                    ></ck-editor>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h3>Terms & Conditions:</h3>
+                    <ck-editor
+                      name="editor2"
+                      [(ngModel)]="terms"
+                      skin="moono-lisa"
+                      language="en"
+                      [config]="editorConfig"
+                    ></ck-editor>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+                    <div class="button-row">
+                            <button mat-raised-button color="warn" (click)="backClicked()">Cancel</button>
+                            <button mat-raised-button color="primary" (click)="saveRules()">Save</button>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

@@ -1,0 +1,199 @@
+
+    
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                <h5>Score Input</h5>
+              </div>
+              <div class="">
+                <div>
+                    <mat-card class="card">
+                        <mat-card-header>
+                            <mat-card-title>Comments</mat-card-title>
+                            <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="row">
+                                <div class="col-md col-xs-12">
+                                    <div class="row">
+                                        <input class="form-control col shortcut" [(ngModel)]="Comments"/>
+                                        <button mat-raised-button color="primary" class="Margin col-3" [disabled]="!Comments" (click)="updatecomments()">Update</button> 
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card class="card" [ngClass]="(team.status==1)?'active-Score':''" *ngFor="let team of scoreData;trackBy:trackByFn;index as i;">
+                        <mat-card-header>
+                            <mat-card-title>{{team.teamName}}</mat-card-title>
+                            <mat-card-subtitle *ngIf="i==0">Home</mat-card-subtitle>
+                            <mat-card-subtitle *ngIf="i==1">Away</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="row">
+                            <div class="col-md col-xs-12 col">
+                                <div class="row">
+                                    <input class="form-control col" [(ngModel)]="team.score"  placeholder="Total Score" [disabled]="!team.status==1">
+                                    <button mat-raised-button color="primary" class="Margin col-3">Runs</button> 
+                                </div>
+                            </div>
+                            <div class="col-md col-xs-12 col">
+                                <div class="row">
+                                    <input class="form-control col" [(ngModel)]="team.wickets"  placeholder="Total Score" [disabled]="!team.status==1">
+                                    <button mat-raised-button color="primary" class="Margin col-3">Wkts</button> 
+                                </div>
+                            </div>
+                            <div class="col-md col-xs-12 col">
+                                <div class="row">
+                                    <input class="form-control col" [(ngModel)]="team.overs"  placeholder="Total Score" [disabled]="!team.status==1">
+                                    <button mat-raised-button color="primary" class="Margin col-3">Overs</button> 
+                                </div>
+                            </div>
+                            <div class="col-md col-xs-12">
+                                <div class="row">
+                                    <input class="form-control col shortcut" [(ngModel)]="team.lastScore" disabled/>
+                                    <button mat-raised-button color="primary" class="Margin col" [disabled]="!team.status==1" (click)="updateTeamFullscore(team)">Update</button> 
+                                    <button mat-raised-button color="warn" class="Margin col"  [disabled]="!team.status==1" (click)="scoreInfo()">Clear</button> 
+                                </div>
+                            </div>
+                            <div class="col-md col-xs-12 d-flex align-items-center" *ngIf="i==0">
+                                <mat-slide-toggle
+                                    [color]="color"
+                                    [checked]="team.status==1"
+                                    (click)="updateTeamsstatus(team.teamId,team.status)"
+                                    [disabled]="disabled">
+                                </mat-slide-toggle>
+                            </div>
+                            <div class="col-md col-xs-12 d-flex align-items-center" *ngIf="i==1">
+                                <mat-slide-toggle
+                                    [color]="color"
+                                    [checked]="team.status==1"
+                                    (click)="updateTeamsstatus(team.teamId,team.status)"
+                                    [disabled]="disabled">
+                                </mat-slide-toggle>
+                            </div>
+                            <div *ngIf="team.status==1">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="header">
+                                            <h3 class="h3">Run</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-run col" (click)="updatescore(team.teamId,0,1,0)">0 Run</button> <input class="col-2 form-control shortcut" value="0" disabled/></div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-run col" (click)="updatescore(team.teamId,1,1,0)">1 Run</button> <input class="col-2 form-control shortcut" value="1" disabled/></div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-run col" (click)="updatescore(team.teamId,2,1,0)">2 Run</button> <input class="col-2 form-control shortcut" value="2" disabled/></div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-run col" (click)="updatescore(team.teamId,3,1,0)">3 Run</button> <input class="col-2 form-control shortcut" value="3" disabled/></div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-run col" (click)="updatescore(team.teamId,4,1,0)">4 Run</button> <input class="col-2 form-control shortcut" value="4" disabled/></div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-run col" (click)="updatescore(team.teamId,6,1,0)">6 Run</button> <input class="col-2 form-control shortcut" value="6" disabled/></div>
+                                    </div>
+                                </div>
+                    
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="header">
+                                            <h3 class="h3">Extras</h3>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-extra col" (click)="updatescore(team.teamId,1,0,0)">Wide</button> <input class="col-2 form-control shortcut" value="q" disabled/> </div>
+                                    </div> -->
+                                    <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-extra col" (click)="updatescore(team.teamId,1,0,0)">(Wide / NO) ball</button><input class="col-2 form-control shortcut" value="w" disabled/> </div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-extra col" (click)="updatescore(team.teamId,0,1,1)">Wicket</button><input class="col-2 form-control shortcut" value="r" disabled/></div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-extra col" (click)="updatescore(team.teamId,1,0,1)">(Wide / No Ball) + Wkt</button><input class="col-2 form-control shortcut" value="s" disabled/></div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row" *ngIf="updFreehit"><button mat-raised-button color="primary" class="btn-extra col" (click)="updateFreehit('FHR')">Free Hit</button><input class="col-2 form-control shortcut"  disabled/> </div>
+                                        <div class="row" *ngIf="!updFreehit"><input placeholder="Enter Free Hit Runs" [(ngModel)]="team.lastScore" class="col form-control btn-run shortcut"/> <button mat-raised-button color="primary" class="btn-extra col-1" (click)="updatExtrascore(team,1,0,'FHR')">U</button></div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row" *ngIf="updWBR"><button mat-raised-button color="primary" class="btn-extra col" (click)="updateFreehit('WBR')">Wide + Run</button><input class="col-2 form-control shortcut"  disabled/> </div>
+                                        <div class="row" *ngIf="!updWBR"><input placeholder="Enter Free Hit Runs" [(ngModel)]="team.lastScore" class="col form-control btn-run shortcut"/> <button mat-raised-button color="primary" class="btn-extra col-1" (click)="updatExtrascore(team,0,0,'WBR')">U</button></div>
+                                    </div>
+                                    <div class="col-md col-xs-12">
+                                        <div class="row" *ngIf="updNBR"><button mat-raised-button color="primary" class="btn-extra col" (click)="updateFreehit('NBR')">No Ball + Run</button><input class="col-2 form-control shortcut" disabled/> </div>
+                                        <div class="row" *ngIf="!updNBR"><input placeholder="Enter Free Hit Runs" [(ngModel)]="team.lastScore" class="col form-control btn-run shortcut"/> <button mat-raised-button color="primary" class="btn-extra col-1" (click)="updatExtrascore(team,0,0,'NBR')">U</button></div>
+                                    </div>
+                                </div>
+                        
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="header">
+                                            <h3 class="h3"></h3>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md col-xs-12">
+                                        <div class="row"><button mat-raised-button color="primary" class="btn-extra col" (click)="updatescore(team.teamId,1,0,1)">Wide + Wkt</button><input class="col-2 form-control shortcut" value="a" disabled/></div>
+                                    </div> -->
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        </mat-card-content>
+                    </mat-card>
+                    <!-- <div class="row" *ngFor="let team of scoreData;trackBy:trackByFn;index as i;">
+                        <div class="col-12">
+                            <div class="header">
+                                <h3 class="h3" *ngIf="i==0">Home</h3>
+                                <h3 class="h3" *ngIf="i==1">Away</h3>
+                            </div>
+                        </div>
+                        <div class="col-md col-xs-12 d-flex align-items-center">
+                            <div class="runner">{{team.teamName}}</div>
+                        </div>
+                        
+                        
+                    </div> -->
+            
+                    <!-- <div class="row">
+                        <div class="col-12">
+                            <div class="header">
+                                <h3 class="h3">Away</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-auto col-xs-12 d-flex align-items-center">
+                            <div class="runner">Runner 2</div>
+                        </div>
+                        <div class="col-md col-xs-12">
+                            <input class="form-control" placeholder="Total Score"/>
+                        </div>
+                        <div class="col-md col-xs-12">
+                            <input type="text" class="form-control" placeholder="Wkt">
+                        </div>
+                        <div class="col-md col-xs-12">
+                            <input type="text" class="form-control" placeholder="Overs">
+                        </div>
+                        <div class="col-md col-xs-12">
+                            <input type="text" class="form-control" placeholder="Balls">
+                        </div>
+                        <div class="col-md col-xs-12 d-flex align-items-center">
+                            <mat-radio-group aria-label="Select an option">
+                                <mat-radio-button value="batting-2">Batting</mat-radio-button>
+                                <mat-radio-button value="balling-2">Bowling</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div> -->
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

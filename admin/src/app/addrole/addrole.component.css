@@ -1,0 +1,39 @@
+td, th {
+    padding: 0px !important;
+}
+.btn, .table thead th, tbody {
+    text-align: center;
+}
+.Datalistmain {
+    border-bottom: 1px solid #00407f;
+    border-bottom-style: solid;
+    border-bottom-color: #00407f;
+    padding: 0;
+    border-left-style: none;
+    border-left-color: inherit;
+    border-left-width: medium;
+    border-right-style: none;
+    border-right-color: inherit;
+    border-right-width: medium;
+}
+.DatalistChild1 {
+    border-top: 1px solid #00407f;
+    border-left: 1px solid #00407f;
+    padding: 10Px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+}
+.subtitle {
+    color: #fff;
+    padding: 5px;
+    font-size: 16px;
+    background: #000;
+    border-top: 4px solid #00a826;
+    /* border-top: solid 0px #00407f; */
+    /* background-image: linear-gradient(to top left, #0084e7, #00407f); */
+    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

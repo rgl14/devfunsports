@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html data-ng-app="loginApp" lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Funsports</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href="images/favicon.png" />
+    <style>
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak {
+        display: none !important;
+      }
+
+      .login-error {
+        margin-top: 10px;
+        text-align: center;
+        color: #f14f4f;
+        font-size: 16px;
+        padding-bottom: 0px;
+        /* position: absolute; */
+        width: 280px;
+      }
+      .power {
+        padding: 10px;
+      }
+    </style>
+
+    <link href="css/login_style.css" rel="stylesheet" />
+    <link href="css/variables.css" rel="stylesheet" />
+  </head>
+  <body data-ng-controller="loginController" disable-right-click data-ng-cloak>
+    <!-- Ionic's root component and where the app will load -->
+    <ion-app
+      class="app-root app-root-md md platform-mobile platform-android platform-android6 platform-android6_0 platform-mobileweb"
+      ng-version="4.1.3"
+    >
+      <div app-viewport=""></div>
+      <ng-component class="app-root">
+        <layout-content
+          style="
+            transform: translateX(0px);
+            transition: transform 280ms cubic-bezier(0, 0, 0.2, 1) 0s;
+          "
+        >
+          <div>
+            <ion-nav class="portrait">
+              <div nav-viewport=""></div>
+              <ng-component class="ion-page show-page" style="z-index: 100;">
+                <ion-content class="login-page content content-md">
+                  <div class="fixed-content"></div>
+                  <div class="scroll-content">
+                    <form class="form-group" novalidate="">
+                      <div class="form-inner">
+                        <div class="logo"></div>
+                        <ion-list class="list list-md">
+                          <ion-item class="item item-block item-md item-input">
+                            <div class="item-inner">
+                              <div class="input-wrapper">
+                                <ion-input
+                                  formcontrolname="username"
+                                  type="text"
+                                  class="input input-md"
+                                >
+                                  <input
+                                    my-enter="login()"
+                                    data-ng-model="username"
+                                    class="text-input text-input-md"
+                                    type="text"
+                                    aria-labelledby="lbl-0"
+                                    autocomplete="off"
+                                    autocorrect="off"
+                                    placeholder="Username"
+                                  />
+                                </ion-input>
+                              </div>
+                            </div>
+                            <div class="button-effect"></div>
+                          </ion-item>
+                          <ion-item class="item item-block item-md item-input">
+                            <div class="item-inner">
+                              <div class="input-wrapper">
+                                <ion-input
+                                  formcontrolname="password"
+                                  type="password"
+                                  class="input input-md"
+                                >
+                                  <input
+                                    my-enter="login()"
+                                    data-ng-model="password"
+                                    class="text-input text-input-md"
+                                    type="password"
+                                    aria-labelledby="lbl-1"
+                                    autocomplete="off"
+                                    autocorrect="off"
+                                    placeholder="Password"
+                                  />
+                                </ion-input>
+                              </div>
+                            </div>
+                            <div class="button-effect"></div>
+                          </ion-item>
+                        </ion-list>
+                      </div>
+                      <button
+                        data-ng-click="login()"
+                        block=""
+                        class="btn-login disable-hover button button-md button-default button-default-md button-block button-block-md button-md-cta-primary"
+                        color="cta-primary"
+                        ion-button=""
+                        primary=""
+                        type="submit"
+                      >
+                        <span class="button-inner">Log in</span>
+                        <div class="button-effect"></div>
+                      </button>
+                      <dd class="login-error">{{result}}</dd>
+
+                      <div class="power">
+                        <img
+                          width="40%"
+                          src="../images/powered_by_betfair_light.svg"
+                        />
+                      </div>
+                      <apl-recaptcha> </apl-recaptcha>
+                    </form>
+                    <age-limits>
+                      <div class="age-limits">
+                        <div class="header">
+                          <div class="wrap">
+                            <div class="ico">
+                              <svg
+                                class="age-18-plus-icon"
+                                fill="none"
+                                viewBox="0 0 32 32"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <circle
+                                  cx="16"
+                                  cy="16"
+                                  r="15.5"
+                                  stroke="white"
+                                ></circle>
+                                <path
+                                  d="M11.7206 19.022V20H7.01059V19.022H8.81059V13.61C8.81059 13.418 8.81659 13.222 8.82859 13.022L7.44259 14.192C7.38259 14.24 7.32059 14.272 7.25659 14.288C7.19659 14.3 7.13859 14.3 7.08259 14.288C7.03059 14.276 6.98259 14.258 6.93859 14.234C6.89859 14.206 6.86659 14.176 6.84259 14.144L6.44059 13.58L9.04459 11.342H10.0946V19.022H11.7206ZM15.9995 19.076C16.2595 19.076 16.4915 19.04 16.6955 18.968C16.8995 18.892 17.0695 18.788 17.2055 18.656C17.3455 18.52 17.4515 18.36 17.5235 18.176C17.5955 17.992 17.6315 17.792 17.6315 17.576C17.6315 17.312 17.5895 17.084 17.5055 16.892C17.4255 16.7 17.3115 16.542 17.1635 16.418C17.0195 16.29 16.8475 16.196 16.6475 16.136C16.4475 16.072 16.2315 16.04 15.9995 16.04C15.7675 16.04 15.5515 16.072 15.3515 16.136C15.1515 16.196 14.9775 16.29 14.8295 16.418C14.6855 16.542 14.5715 16.7 14.4875 16.892C14.4075 17.084 14.3675 17.312 14.3675 17.576C14.3675 17.792 14.4035 17.992 14.4755 18.176C14.5475 18.36 14.6515 18.52 14.7875 18.656C14.9275 18.788 15.0995 18.892 15.3035 18.968C15.5075 19.04 15.7395 19.076 15.9995 19.076ZM15.9995 12.254C15.7635 12.254 15.5555 12.29 15.3755 12.362C15.1995 12.434 15.0535 12.53 14.9375 12.65C14.8215 12.77 14.7335 12.912 14.6735 13.076C14.6175 13.236 14.5895 13.406 14.5895 13.586C14.5895 13.766 14.6135 13.942 14.6615 14.114C14.7135 14.286 14.7935 14.44 14.9015 14.576C15.0135 14.708 15.1595 14.814 15.3395 14.894C15.5195 14.974 15.7395 15.014 15.9995 15.014C16.2595 15.014 16.4795 14.974 16.6595 14.894C16.8395 14.814 16.9835 14.708 17.0915 14.576C17.2035 14.44 17.2835 14.286 17.3315 14.114C17.3835 13.942 17.4095 13.766 17.4095 13.586C17.4095 13.406 17.3795 13.236 17.3195 13.076C17.2635 12.912 17.1755 12.77 17.0555 12.65C16.9395 12.53 16.7935 12.434 16.6175 12.362C16.4415 12.29 16.2355 12.254 15.9995 12.254ZM17.3615 15.494C17.8935 15.658 18.2915 15.918 18.5555 16.274C18.8235 16.63 18.9575 17.072 18.9575 17.6C18.9575 17.98 18.8855 18.324 18.7415 18.632C18.5975 18.94 18.3955 19.202 18.1355 19.418C17.8755 19.634 17.5635 19.802 17.1995 19.922C16.8395 20.038 16.4395 20.096 15.9995 20.096C15.5595 20.096 15.1575 20.038 14.7935 19.922C14.4335 19.802 14.1235 19.634 13.8635 19.418C13.6035 19.202 13.4015 18.94 13.2575 18.632C13.1135 18.324 13.0415 17.98 13.0415 17.6C13.0415 17.072 13.1735 16.63 13.4375 16.274C13.7055 15.918 14.1055 15.658 14.6375 15.494C14.2055 15.322 13.8795 15.072 13.6595 14.744C13.4435 14.416 13.3355 14.022 13.3355 13.562C13.3355 13.238 13.3995 12.936 13.5275 12.656C13.6555 12.376 13.8355 12.134 14.0675 11.93C14.3035 11.722 14.5855 11.56 14.9135 11.444C15.2415 11.324 15.6035 11.264 15.9995 11.264C16.3955 11.264 16.7555 11.324 17.0795 11.444C17.4075 11.56 17.6875 11.722 17.9195 11.93C18.1555 12.134 18.3375 12.376 18.4655 12.656C18.5975 12.936 18.6635 13.238 18.6635 13.562C18.6635 14.022 18.5535 14.416 18.3335 14.744C18.1175 15.072 17.7935 15.322 17.3615 15.494ZM25.8645 16.46H23.4825V18.974H22.4325V16.46H20.0625V15.488H22.4325V12.98H23.4825V15.488H25.8645V16.46Z"
+                                  fill="white"
+                                ></path>
+                              </svg>
+                            </div>
+                            <div class="ico-txt">
+                              Underage gambling is an offence
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </age-limits>
+                  </div>
+                </ion-content>
+              </ng-component>
+              <div class="nav-decor"></div>
+            </ion-nav>
+          </div>
+        </layout-content>
+      </ng-component>
+      <div overlay-portal=""></div>
+      <div overlay-portal=""></div>
+      <div class="loading-portal" overlay-portal=""></div>
+      <div class="toast-portal"></div>
+      <div class="click-block click-block-enabled"></div>
+    </ion-app>
+
+    <script src="js/loginPollyfill.js"></script>
+
+    <script src="scripts/login.js"></script>
+  </body>
+</html>

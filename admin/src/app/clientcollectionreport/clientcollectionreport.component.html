@@ -1,0 +1,143 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>PAYMENT RECEIVING FROM (Lena He)</h5>
+          <div class="ibox-tools"></div>
+        </div>
+        <div class="ibox-content table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Client Id</th>
+                <th>Client Name</th>
+                <th>Current Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="denaHai.length == 0">
+                <tr>
+                  <td colspan="3" style="text-align: center">
+                    No Rows To Display
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-container *ngIf="denaHai.length > 0">
+                <tr *ngFor="let dena of denaHai">
+                  <td>{{ dena.userId }}</td>
+                  <td>{{ dena.clientName }}</td>
+                  <td
+                    [ngClass]="
+                      dena.amount >= 0 ? 'text-success' : 'text-danger'
+                    "
+                  >
+                    {{ dena.amount | number: "1.2-2" }}
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-info btn-sm mr-1"
+                      title="Clear"
+                      (click)="openconfirmDialog(dena.userId, dena.amount, 2)"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      class="btn btn-warning btn-sm"
+                      title="Clear"
+                      (click)="
+                        openPartialPaymentDialog(dena.userId, dena.amount, 2)
+                      "
+                    >
+                      Settlement
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th>Total</th>
+                <th [ngClass]="totaldena >= 0 ? 'text-success' : 'text-danger'">
+                  {{ totaldena | number: "1.2-2" }}
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>PAYMENT PAID TO (Dena He)</h5>
+          <div class="ibox-tools"></div>
+        </div>
+        <div class="ibox-content table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Client Id</th>
+                <th>Client Name</th>
+                <th>Current Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="lenaHai.length == 0">
+                <tr>
+                  <td colspan="3" style="text-align: center">
+                    No Rows To Display
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-container *ngIf="lenaHai.length > 0">
+                <tr *ngFor="let lena of lenaHai">
+                  <td>{{ lena.userId }}</td>
+                  <td>{{ lena.clientName }}</td>
+                  <td
+                    [ngClass]="
+                      lena.amount >= 0 ? 'text-success' : 'text-danger'
+                    "
+                  >
+                    {{ lena.amount | number: "1.2-2" }}
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-info btn-sm mr-1"
+                      title="Clear"
+                      (click)="openconfirmDialog(lena.userId, lena.amount, 2)"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      class="btn btn-warning btn-sm"
+                      title="Clear"
+                      (click)="
+                        openPartialPaymentDialog(lena.userId, lena.amount, 2)
+                      "
+                    >
+                      Settlement
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th>Total</th>
+                <!-- Username -->
+                <th [ngClass]="totallena >= 0 ? 'text-success' : 'text-danger'">
+                  {{ totallena | number: "1.2-2" }}
+                </th>
+                <!-- Total -->
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

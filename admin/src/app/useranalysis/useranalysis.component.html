@@ -1,0 +1,98 @@
+<div class="wrapper wrapper-content" *ngIf="analysisreport">
+    <div class="row">
+       <div class="col-lg-4">
+          <div class="ibox float-e-margins">
+             <div class="ibox-title">
+                <h5>Logged In Users</h5>
+             </div>
+             <div class="ibox-content">
+                <h1 class="no-margins"><span class="translation_missing" title="translation missing: en.super stockist">{{analysisreport.loggedInUsers}}</span></h1>
+             </div>
+          </div>
+       </div>
+       <div class="col-lg-4">
+          <div class="ibox float-e-margins">
+             <div class="ibox-title">
+                <h5>Logged Out Users</h5>
+             </div>
+             <div class="ibox-content">
+                <h1 class="no-margins">{{analysisreport.loggedOutUsers}}</h1>
+             </div>
+          </div>
+       </div>
+       <div class="col-lg-4">
+         <div class="ibox float-e-margins">
+            <div class="ibox-title">
+               <h5>Total Bet Users</h5>
+            </div>
+            <div class="ibox-content">
+                  <h1 class="no-margins">{{analysisreport.totalBetUsers}}</h1>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div class="row">
+       <div class="col-lg-4">
+          <div class="ibox float-e-margins">
+             <div class="ibox-title">
+                <h5>Total Bets</h5>
+             </div>
+             <div class="ibox-content">
+                <h1 class="no-margins">{{analysisreport.totalBets}}</h1>
+             </div>
+          </div>
+       </div>
+       <div class="col-lg-4">
+          <div class="ibox float-e-margins">
+             <div class="ibox-title">
+                <h5>Total Book Bets</h5>
+             </div>
+             <div class="ibox-content">
+                <h1 class="no-margins">{{analysisreport.totalBookBets}}</h1>
+             </div>
+          </div>
+       </div>
+       <div class="col-lg-4">
+         <div class="ibox float-e-margins">
+            <div class="ibox-title">
+               <h5>Total Book Bets Users</h5>
+            </div>
+            <div class="ibox-content">
+               <h1 class="no-margins">{{analysisreport.totalBookBetsUsers}}</h1>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div class="row">
+       <div class="col-lg-4">
+          <div class="ibox float-e-margins">
+             <div class="ibox-title">
+                <h5>Total Odds Bets Users</h5>
+             </div>
+             <div class="ibox-content">
+                <h1 class="no-margins">{{analysisreport.totalOddsBetsUsers}}</h1>
+             </div>
+          </div>
+       </div>
+       <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+           <div class="ibox-title">
+              <h5>Total Session Bets</h5>
+           </div>
+           <div class="ibox-content">
+              <h1 class="no-margins">{{analysisreport.totalSessionBets}}</h1>
+           </div>
+        </div>
+     </div>
+     <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+           <div class="ibox-title">
+              <h5>Total Session Bets Users</h5>
+           </div>
+           <div class="ibox-content">
+              <h1 class="no-margins">{{analysisreport.totalSessionBetsUsers}}</h1>
+           </div>
+        </div>
+     </div>
+    </div>
+ </div>

@@ -1,0 +1,59 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+           <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+                 <div class="ibox-title">
+                    <h1>{{name}} ( {{userName}} ) Dashboard</h1>
+                 </div>
+                        <div class="button-row ibox-content mob-button">
+                          <!-- <button mat-raised-button color="primary" [routerLink]="['recevcash',userId, userName, name]"  *ngIf="amount>0">Recieve Cash (Lena)</button> -->
+                          <!-- <button mat-raised-button color="primary" [routerLink]="['paycash',userId, userName, name]" *ngIf="amount<0">Pay Cash (Dena)</button> -->
+                          <button mat-raised-button color="primary" [routerLink]="['userledger',userId]">Ledger</button>
+                          <button mat-raised-button color="primary" [routerLink]="['cashledger',userId]">Cash Ledger</button>
+                          <button mat-raised-button color="primary" [routerLink]="['matchledger',userId]">Match Ledger</button>
+                          <button mat-raised-button color="primary" *ngIf="userType==2" [routerLink]="[userId, 'supermaster']">Direct Super Masters</button>
+                          <button mat-raised-button color="primary" *ngIf="userType==2 || userType==3" [routerLink]="[userId, 'master']">Direct Masters</button>
+                          <button mat-raised-button color="primary" *ngIf="userType==2 || userType==3 || userType==4" [routerLink]="[userId, 'superagent']">Direct Agents</button>
+                          <button mat-raised-button color="primary" *ngIf="userType==2 || userType==3 || userType==4 || userType==5" [routerLink]="[userId, 'clients']">Direct Clients</button>
+                          <button mat-raised-button color="primary" [routerLink]="['coinhistory',userId]">Coin History</button>
+                        </div>
+              </div>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Coins</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins" [ngClass]="(amount>=0)?'text-success':'text-danger'">{{(amount==null)? 0.00:amount | number:'1.2-2'}}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Ledger Balance</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins" [ngClass]="(amount>=0)?'text-success':'text-danger'">{{(amount==null)? 0.00:amount | number:'1.2-2'}}</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins"></h1>
+                    </div>
+                </div>
+            </div> -->
+
+   </div>
+
+     </div>
+

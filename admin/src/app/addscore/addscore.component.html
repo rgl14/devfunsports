@@ -1,0 +1,64 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+     <div class="col-lg-12">
+         <div class="ibox float-e-margins">
+             <div class="ibox-title">
+                 <h5>New Score</h5>
+             </div>
+             
+             <div class="ibox-content-form table-responsive">
+                
+                 
+                 <form [formGroup]="addScoreform" (ngSubmit)="onSubmit()"  class="form-horizontal" >
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Sport Name<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                    <select formControlName="sport" class="form-control" [ngClass]="{ 'is-invalid': f.sport.invalid && f.sport.touched}">
+                                        <!-- <option value="">Select Sport</option> -->
+                                        <option value="4" [selected]="true">Cricket</option>
+                                      </select>
+                                      <div *ngIf="f.sport.invalid && f.sport.touched" class="invalid-feedback">
+                                          <mat-error>This field is mandatory.
+                                          </mat-error>
+                                      </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Tournament Name<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                    <select formControlName="tournament" (change)="GetMatchList()" class="form-control" [ngClass]="{ 'is-invalid': f.tournament.invalid && f.tournament.touched}">
+                                        <option value="">Select Tournaments</option>
+                                        <option [ngValue]="tournament" *ngFor="let tournament of tournamentList">{{tournament.tournamentName}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="f.tournament.invalid && f.tournament.touched"
+                                            class="invalid-feedback">
+                                            <mat-error>This field is mandatory.
+                                            </mat-error>
+                                    </div>
+                               </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-2 label-control">Match Name<span class="danger">*</span> :</label>
+                                <div class="col-md-10 col-sm-3">              
+                                    <select formControlName="match"  class="form-control" [ngClass]="{ 'is-invalid': f.match.invalid && f.match.touched}">
+                                        <option value="">Select Match</option>
+                                        <option [ngValue]="match" *ngFor="let match of matchList">{{match.matchName}} / {{match.matchDate}}</option>
+                                    </select>
+                                    <div *ngIf="f.match.invalid && f.match.touched" class="invalid-feedback">
+                                        <mat-error>This field is mandatory.
+                                        </mat-error>
+                                    </div>
+                               </div>
+                        </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="button-row" style="text-align: center">
+                        <button mat-raised-button color="warn" [routerLink]="['/Scorelist']">Cancel</button>
+                        <button mat-raised-button color="primary"  type="submit">Save</button>
+                    </div>
+</form>                        
+</div>
+         </div>         
+     </div>
+ </div>
+</div>

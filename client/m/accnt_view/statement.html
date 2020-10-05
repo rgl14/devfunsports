@@ -1,0 +1,161 @@
+<link href="css/acc_style.css" rel="stylesheet" type="text/css" />
+<h3>Account Statement</h3>
+
+<div class="white-wrap">
+  <div class="function-wrap">
+    <ul class="input-list">
+      <li><label>Type :</label></li>
+
+      <li>
+        <select data-ng-model="statementType" data-ng-change="statement()">
+          <option value="0" selected="">All</option>
+          <option value="1">Show D|W Point</option>
+          <option value="2">Show Market P|L</option>
+          <option value="3">Cash</option>
+          <option value="4">Credit</option>
+          <option value="5">Cash &amp; P|L</option>
+        </select>
+      </li>
+
+      <li><label>Period</label></li>
+      <li>
+        <input
+          id="startDate"
+          class="cal-input"
+          type="text"
+          placeholder="YYYY-MM-DD"
+          style="width: 150px"
+        />
+
+        to
+
+        <input
+          id="endDate"
+          class="cal-input"
+          type="text"
+          placeholder="YYYY-MM-DD"
+          style="width: 150px"
+        />
+      </li>
+      <li>
+        <a
+          id="getPL"
+          data-ng-click="statement()"
+          class="btn-send"
+          style="width: 150px"
+          >Get Account Statement</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="table-container">
+
+<table id="table_log" class="table01">
+  <tbody>
+    <tr>
+      <th style="width: 15%" class="align-L">Date/Time</th>
+
+      <th style="width: 18%">Deposit</th>
+
+      <th style="width: 18%">Withdraw</th>
+
+      <th style="width: 18%">Balance</th>
+
+      <th style="width: 25%">Remark</th>
+
+      <!-- <th>From/To</th> -->
+    </tr>
+  </tbody>
+
+  <tbody id="content">
+    <tr data-ng-if="accountdataList.length==0">
+      <td class="no-data" colspan="5">
+        <p>No Data Found</p>
+      </td>
+    </tr>
+
+    <!--  <tr data-ng-if="loading==true">
+
+            <td class="no-data" colspan="5">
+
+               <h3 style="text-align: center;">Loading....</h3>
+
+            </td>
+
+            </tr> -->
+
+    <tr data-ng-repeat="accountdata in accountdataList">
+      <td id="createDate" class="align-L">{{accountdata.dateTime}}</td>
+
+      <td id="deposit">{{accountdata.credit | number:2}}</td>
+
+      <td id="withdraw">
+        <span class="red">{{accountdata.debit | number:2}}</span>
+      </td>
+
+      <td id="balance">{{accountdata.balance | number:2}}</td>
+
+      <td id="remark">{{accountdata.collectionName}}</td>
+
+      <!-- <td>{{accountdata.date}}
+
+               </td> -->
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div style="display: none">
+  <ul style="display: none">
+    <li><a href="javascript:void(0);">Prev</a></li>
+
+    <li><a href="javascript:void(0);">Next</a></li>
+
+    <li><a href="javascript:void(0);"></a></li>
+
+    <li id="more"><a href="javascript:void(0);">...</a></li>
+
+    <input
+      type="text"
+      id="goToPageNumber"
+      onkeyup="return PageHandler.validatePageNumber(this)"
+      maxlength="6"
+      size="4"
+    />
+
+    <li><a id="goPageBtn">GO</a></li>
+  </ul>
+
+  <ul id="pageNumberContent" class="pages">
+    <li id="prev">
+      <a href="javascript:void(0);" class="disable" style="pointer-events: none"
+        >Prev</a
+      >
+    </li>
+
+    <li id="pageNumber">
+      <a href="javascript:void(0);" class="select" style="pointer-events: none"
+        >1</a
+      >
+    </li>
+
+    <li id="next">
+      <a href="javascript:void(0);" class="disable" style="pointer-events: none"
+        >Next</a
+      >
+    </li>
+  </ul>
+</div>
+
+<script>
+  $(function () {
+    $("#startDate").datetimepicker({
+      format: "Y-m-d H:i:s",
+    });
+
+    $("#endDate").datetimepicker({
+      format: "Y-m-d H:i:s",
+    });
+  });
+</script>

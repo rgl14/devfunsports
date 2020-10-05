@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="myApp" lang="en">
+
+<head>
+  <!-- <link rel="manifest" href="manifest.json"> -->
+  <meta name="theme-color" content="#E3D11D" />
+  <!-- <script src="../servicework.js" async></script> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <title>Funsports</title>
+
+         <link rel="SHORTCUT ICON" href="images/favicon.png">
+         <link rel="SHORTCUT ICON" href="images/favicon.png">
+  <link rel="stylesheet" href="css/toast.css">
+  <link rel="stylesheet"  href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+ <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-aria.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-cookies.js"></script> -->
+
+  <script src="js/common.js"></script>
+  <script data-require="ui-bootstrap@*" data-semver="0.12.1" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+  
+  <link rel="stylesheet" href="v2.css">
+  <!-- <script src="v1.js" ></script> -->
+  <style >
+    .table-responsive {
+    
+        display: inline-table;
+    
+        width: 100%;
+    
+        min-height: 0%;
+    
+        overflow-x: auto;
+    
+    }
+    
+        .borderDiv{
+    
+          border-radius: 20px;
+    
+          border: 2px solid #00c0ef;
+    
+          padding: 1rem;
+    
+        }
+    
+        tr,th{
+    
+          text-align: center;
+    
+          white-space: nowrap;
+    
+        }
+    
+          .dt-buttons{
+    
+            float: right;
+    
+          }
+    
+          .dataTables_filter{
+    
+            float: left;
+    
+          }
+    
+          @media screen and (max-width: 767px ){
+    
+          .top_marg{
+    
+            margin-top: 10px;
+    
+          }
+    
+          .buttons-print{
+    
+              margin-top: 6px;
+    
+            }
+    
+        }
+  </style>
+</head>
+
+<body data-ng-controller="tvController" data-ng-init="Gettv()">
+  <div class="modal-body row">
+    <h3>
+                  <a id="eventType" class="to-expand" style="cursor:pointer;">Live Video</a>
+               </h3>
+    <div class="divvideochanel">
+      <div class="channelvideoInner">
+        <!--  <span ng-repeat="item in runeerdataList" class="spanchannel " data-ng-init="setchannel(item.channelIp,item.channelNo,item.program,item.hdmi);"></span> -->
+      </div>
+    </div>
+    <!--  <div style="padding: 10px">
+                  <input ng-model="channelIp" type="text" name="channelIp" placeholder="Channel Ip Address" class="form-control" style="width: 140px; float: left;">
+                  <input type="text" name="channel" class="form-control" style="margin-top: 10px;">
+                  <input ng-model="program" type="text" name="program" placeholder="Channel programe" class="form-control"                style="width: 70px; float: left;margin-left: 1px">
+                  <input ng-model="hdmi" type="text" name="hdmi" placeholder="Channel hdmi" class="form-control" style="width: 90px; float: left;margin-left: 1px;text-transform: uppercase;">
+                                 
+                              </div> -->
+    <!-- <div id="player_preview" style="margin-top: 10px;"></div> -->
+    <div id="showLiveTvPro" style="margin-top: 10px;"></div>
+  </div>
+  <!--  <script >
+                                if ("MediaSource" in window && "WebSocket" in window)
+                                    RunPlayer("p1", 344, 200, "93.115.26.162", 5119, false, "HDMI", "", true, true, 0.01, "", false);
+                                else
+                                    document.getElementById("p1").innerHTML = "Websockets are not supported in your browser.";
+                              </script>  -->
+  <script src="script/routing.js"></script>
+  <script src="script/angular.js"></script>
+</body>
+
+</html>

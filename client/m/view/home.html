@@ -1,0 +1,165 @@
+<!-- <div class="mian-wrap"> -->
+
+<div id="highlightLabel" class="highlight-fix" data-ng-init="getSportsList()">
+  <a class="a-search" data-ng-click="openSearchWrap()">Search</a>
+
+  <div
+    id="frame"
+    class="wrap-highlight ps ps--theme_default ps--active-x"
+    data-ps-id="38b1e32d-3e0b-8f6a-4f7a-965522cb048e"
+  >
+    <!-- <a class="a-tab_prev" href="#" style="display: none;">prev</a> -->
+
+    <ul id="label" style="left: 0px">
+      <!-- <li class="menu-casino" ng-show="token!=undefined">
+            <span class="tag-new">New</span>
+            <a id="casinoLoginBtn" data-ng-click="registerCasino()"><img class="icon-casino" src="images/mobile/transparent.gif">Casino</a>
+          </li> -->
+      <li
+        id="highlightTab{{sport.id}}"
+        data-ng-click="getHighlights(sport)"
+        data-ng-repeat="sport in sportsData track by sport.id"
+        data-ng-class="sport.id==selectedSport.id?'select':''"
+      >
+        <a data-ng-if="sport.id!='2000'"
+          ><img
+            class="icon-{{sport.name | lowercase}}"
+            src="images/transparent.gif"
+            alt="sport"
+          />{{sport.name}}</a
+        >
+        <a data-ng-if="sport.id=='2000'"
+          ><img
+            class="icon-casino"
+            src="images/transparent.gif"
+            alt="sport"
+          />{{sport.name}}</a
+        >
+      </li>
+    </ul>
+
+    <div
+      class="ps__scrollbar-x-rail"
+      style="width: 360px; left: 68.8px; bottom: 0px"
+    >
+      <div
+        class="ps__scrollbar-x"
+        tabindex="0"
+        style="left: 57px; width: 302px"
+      ></div>
+    </div>
+
+    <div class="ps__scrollbar-y-rail" style="top: 0px; right: -68.8px">
+      <div
+        class="ps__scrollbar-y"
+        tabindex="0"
+        style="top: 0px; height: 0px"
+      ></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap-highlight_list">
+  <h3>Highlights</h3>
+
+  <ul id="highlightList" class="highlight-list">
+    <li id="noDatali" data-ng-if="highlightsData.length==0">
+      There are no events to be displayed.
+    </li>
+
+    <li
+      id="highlightEvent_{{high.matchId}}"
+      data-ng-class="high.inPlay==1?'inplay-on':'inplay-off'"
+      data-ng-repeat="high in highlightsData | orderBy: orderByDate:false track by high.matchId"
+    >
+      <a
+        id="info"
+        data-ng-href="#!{{selectedSport.id!=2000?'fullmarket':'tp_market'}}/{{selectedSport.id}}/{{high.mtBfId}}/{{high.matchId}}/{{high.marketId}}/{{high.bfId}}{{high.tourId!=undefined?'/'+high.tourId:''}}"
+      >
+        <dl>
+          <dt>
+            <span
+              class="game-fancy in-play"
+              data-ng-if="high.hasFancy==1"
+              style="display: flex"
+            >
+              <pre>in-play</pre>
+
+              Fancy
+            </span>
+
+            <span class="time"
+              >{{high.inPlay==0?getDateTime(high.matchDate,curTime):'In-Play'}}</span
+            >
+          </dt>
+
+          <dd>{{high.matchName}}</dd>
+        </dl>
+      </a>
+
+      <a
+        data-ng-class="isMultiAdded(high)?'pin-off':'pin-on'"
+        title="{{isMultiAdded(high)?'Add to Multi Markets':'Remove from Multi Markets'}}"
+        data-ng-click="isMultiAdded(high)?addMultiMarket(high):removeMultiMarket(high)"
+      ></a>
+    </li>
+  </ul>
+</div>
+
+<!-- <dl class="support-wrap">
+
+      <dt>Support</dt>
+
+      <dd>
+
+          <dl>
+
+              <dt>Email</dt>
+
+              <dd><a href="mailto:info@Mintexch.com">info&#64;Mintexch.com</a></dd>
+
+          </dl>
+
+          <dl>
+
+              <dt>WhatsApp</dt>
+
+              <dd><a href="https://api.whatsapp.com/send?phone=14239481511">+1 423 948 1511</a></dd>
+
+          </dl>
+
+          <dl>
+
+              <dt>Telegram</dt>
+
+              <dd><a href="http://www.t.me/">www.t.me/officialMintexchinfo</a></dd>
+
+          </dl>
+
+      </dd>
+
+  	</dl> -->
+
+<ul class="policy-link">
+  <li><a data-ng-click="showOverlayInfo('policyBigWin')">Privacy Policy</a></li>
+
+  <li>
+    <a data-ng-click="showOverlayInfo('gtcBigWin')">Terms and Conditions</a>
+  </li>
+
+  <li>
+    <a data-ng-click="showOverlayInfo('rarBigWin')">Rules and Regulations</a>
+  </li>
+</ul>
+
+<!--  <ul class="policy-link RnR-link">
+
+      <li><a href="javascript:MobileLoginHandler.showOverlayInfo('#rulesAndRegulationsWrap');" target="_blank">Rules and Regulations</a></li>
+
+   </ul> -->
+
+<div class="apkdl-link" style="display: block">
+  <!-- <a href="http://prideexch.com/m/mintexch.apk"><img src="images/btn-apkdl-skyex.png" alt=""></a> -->
+</div>
+
+<!-- </div> -->

@@ -1,0 +1,41 @@
+<div class="ibox-content-table table-responsive">
+  <div class="search-div">
+    <mat-form-field class="search-form-field" floatLabel="never">
+      <input
+        matInput
+        id="filter-text-box"
+        placeholder="Search"
+        autocomplete="off"
+        [(ngModel)]="searchValue"
+        (keyup)="onFilterTextBoxChanged()"
+      />
+    </mat-form-field>
+    <div style="float: right; padding: 0px 10px 0px 0px">
+      <button
+        matNativeControl
+        class="btn btn-outline-success waves-effect waves-light"
+        type="button"
+        excelDwd
+      >
+        <span class="mr-1"><i class="fa fa-file-excel-o"></i></span>
+      </button>
+    </div>
+  </div>
+  <div class="table-container mat-elevation-z8">
+    <ag-grid-angular
+      style="width: 100%; height: 450px"
+      class="ag-theme-balham"
+      [gridOptions]="gridOptions"
+      [defaultColDef]="defaultColDef"
+      [columnDefs]="data"
+      [rowData]="rowData"
+      (gridReady)="onGridReady($event)"
+      [animateRows]="true"
+      (gridSizeChanged)="onGridSizeChanged($event)"
+      [overlayLoadingTemplate]="overlayLoadingTemplate"
+      [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+      [quickFilterText]="searchValue"
+    >
+    </ag-grid-angular>
+  </div>
+</div>
