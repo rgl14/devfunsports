@@ -61,6 +61,12 @@ loginApp.controller("loginController", function (
     $("#authenticateImage").attr("src", "captcha.php");
   });
 
+  $scope.typePassword = false;
+
+  $scope.showPassword = function () {
+    $scope.typePassword = !$scope.typePassword;
+  };
+
   $scope.loginCalls = true;
   $scope.login = function () {
     if ($scope.username == undefined || $scope.username == "") {

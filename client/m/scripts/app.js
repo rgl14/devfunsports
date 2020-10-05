@@ -12,9 +12,13 @@ if (
 }
 
 var token;
-function preventBack() { window.history.forward(); }  
-  setTimeout("preventBack()", 0);  
-  window.onunload = function () { null }; 
+function preventBack() {
+  window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload = function () {
+  null;
+};
 var ApiUrl = "http://159.8.246.2/Client/Client.svc";
 var fancyHubAddress = "http://159.8.246.2:21111/";
 var currency = "INR";
@@ -7809,6 +7813,32 @@ app.controller("bal_overviewController", function (
     );
   };
   $scope.Fund();
+  $scope.getCoinHistory = function () {
+    $("#loading").css("display", "inline-grid");
+    $http({
+      url: ApiUrl + "/Reports/GetCoinHistory",
+      method: "GET",
+      headers: {
+        Token: token,
+      },
+    }).then(
+      function mySuccess(response) {
+        // console.log(response);
+        $scope.CoinData = response.data.data.reverse();
+        // $scope.loading=false
+        $("#loading").css("display", "none");
+      },
+      function myError(response) {
+        $scope.getCurrentBetsCalls = true;
+        $("#loading").css("display", "none");
+
+        if (response.status == 401) {
+          $rootScope.clearCookies();
+        }
+      }
+    );
+  };
+  $scope.getCoinHistory();
 });
 app.controller("current_betsController", function (
   $scope,

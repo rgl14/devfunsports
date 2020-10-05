@@ -87,9 +87,13 @@ app.config([
   },
 ]);
 
-function preventBack() { window.history.forward(); }  
-  setTimeout("preventBack()", 0);
-  window.onunload = function () { null }; 
+function preventBack() {
+  window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload = function () {
+  null;
+};
 
 var authtoken = $.cookie("authtoken");
 if (!authtoken) {
@@ -263,7 +267,7 @@ app.controller("homeAccountController", function (
       //   showHideTransition: "slide",
       //   icon: "error",
       // });
-      toastr.error("NewPassword can not be blank!")
+      toastr.error("NewPassword can not be blank!");
       return false;
     }
     if (
@@ -304,7 +308,7 @@ app.controller("homeAccountController", function (
       //   showHideTransition: "slide",
       //   icon: "error",
       // });
-      toastr.error("Old Password can not be blank!")
+      toastr.error("Old Password can not be blank!");
       return false;
     }
     $scope.data = {
@@ -332,7 +336,7 @@ app.controller("homeAccountController", function (
           setTimeout(() => {
             $.removeCookie("authtoken");
             window.location.href = "login.html";
-          }, 2000)
+          }, 2000);
         } else {
           toastr.error(response.data.result);
           $("#changePasswordModal").css("display", "block");
@@ -562,6 +566,32 @@ app.controller("balance_OverviewController", function (
   };
 
   $scope.Fund();
+  $scope.getCoinHistory = function () {
+    $("#loading").css("display", "inline-grid");
+    $http({
+      url: ApiUrl + "/Reports/GetCoinHistory",
+      method: "GET",
+      headers: {
+        Token: authtoken,
+      },
+    }).then(
+      function mySuccess(response) {
+        // console.log(response);
+        $scope.CoinData = response.data.data.reverse();
+        // $scope.loading=false
+        $("#loading").css("display", "none");
+      },
+      function myError(response) {
+        $scope.getCurrentBetsCalls = true;
+        $("#loading").css("display", "none");
+
+        if (response.status == 401) {
+          $rootScope.clearCookies();
+        }
+      }
+    );
+  };
+  $scope.getCoinHistory();
 });
 
 app.controller("myBetsController", function ($scope, $http, $cookieStore) {

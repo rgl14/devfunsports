@@ -61,7 +61,11 @@
     <dl class="head-balance">
       <dt>Your Balances</dt>
       <dd id="summaryTotalBalance">
-        {{availBal | number : 2}} <span>{{currency}}</span>
+        <span
+          style="color: #000; font-size: 30px"
+          ng-bind="availBal | number : 2"
+        ></span>
+        <span><span ng-bind="currency"></span></span>
       </dd>
     </dl>
 
@@ -73,34 +77,57 @@
   </div>
 
   <!-- Report Table -->
-  <table class="table01">
-    <tbody>
-      <tr>
-        <th style="width: 13%" class="align-L">Date</th>
-        <th style="width: 13%">Transaction №</th>
-        <th style="width: 13%">Debits</th>
-        <th style="width: 13%">Credits</th>
-        <th style="width: 13%">Balance</th>
-        <th style="width: 14%">Remarks</th>
+  <div class="table-container">
+    <table class="table01 table">
+      <tbody>
+        <tr>
+          <th style="width: 13%" class="align-L">Date</th>
 
-        <th>From/To</th>
-      </tr>
+          <th style="width: 13%">Transaction №</th>
 
-      <tr id="dataTemplate" style="display: none">
-        <td id="date" class="align-L"></td>
-        <td id="statementSerial"></td>
-        <td id="debits"></td>
-        <td id="credits"></td>
-        <td id="balance"></td>
-        <td id="remarks"></td>
+          <!-- <th style="width: 13%">Debits</th>
+  
+          <th style="width: 13%">Credits</th> -->
 
-        <td id="fromTo">
-          <img class="fromto" src="images/transparent.gif" alt="fromto" />
-        </td>
-      </tr>
-    </tbody>
-    <tbody id="content"></tbody>
-  </table>
+          <th style="width: 13%">Balance</th>
+
+          <th style="width: 43%">Remarks</th>
+
+          <!-- <th>From/To</th> -->
+        </tr>
+      </tbody>
+
+      <tbody id="content">
+        <tr data-ng-if="CoinData.length==0">
+          <td class="no-data" colspan="5">
+            <p>No Data Found</p>
+          </td>
+        </tr>
+
+        <tr data-ng-repeat="item in CoinData">
+          <td id="date" class="align-L">{{item.createdAt}}</td>
+
+          <td id="statementSerial">{{item.logId}}</td>
+
+          <!-- <td id="debits"></td>
+  
+          <td id="credits"></td> -->
+
+          <td id="balance">{{item.coins | number:2}}</td>
+
+          <td id="remarks">{{item.description}}</td>
+
+          <!-- <td id="fromTo">
+            <img
+              class="fromto"
+              src="images/account/transparent.gif"
+              alt="account"
+            />
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- Pages List -->
 

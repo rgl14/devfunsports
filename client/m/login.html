@@ -30,10 +30,54 @@
       .power {
         padding: 10px;
       }
+      .input-group > .form-control,
+      .input-group > .form-control-plaintext {
+        position: relative;
+        flex: 1 1 auto;
+        width: 1%;
+        min-width: 0;
+      }
+      .input-group-append {
+        margin-left: -1px;
+      }
+
+      .input-group-append,
+      .input-group-prepend {
+        display: flex;
+      }
+      .input-group-text {
+        display: flex;
+        align-items: center;
+        padding: 0.375rem 0.75rem;
+        margin-bottom: 0;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #232323;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #ffffff;
+        border: none;
+        border-radius: 0.25rem;
+      }
+      .input-group {
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        width: 100%;
+      }
+      .input-group > .form-control:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
     </style>
 
     <link href="css/login_style.css" rel="stylesheet" />
     <link href="css/variables.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
   <body data-ng-controller="loginController" disable-right-click data-ng-cloak>
     <!-- Ionic's root component and where the app will load -->
@@ -52,7 +96,7 @@
           <div>
             <ion-nav class="portrait">
               <div nav-viewport=""></div>
-              <ng-component class="ion-page show-page" style="z-index: 100;">
+              <ng-component class="ion-page show-page" style="z-index: 100">
                 <ion-content class="login-page content content-md">
                   <div class="fixed-content"></div>
                   <div class="scroll-content">
@@ -91,16 +135,26 @@
                                   type="password"
                                   class="input input-md"
                                 >
-                                  <input
-                                    my-enter="login()"
-                                    data-ng-model="password"
-                                    class="text-input text-input-md"
-                                    type="password"
-                                    aria-labelledby="lbl-1"
-                                    autocomplete="off"
-                                    autocorrect="off"
-                                    placeholder="Password"
-                                  />
+                                  <div class="input-group">
+                                    <input
+                                      my-enter="login()"
+                                      data-ng-model="password"
+                                      class="text-input text-input-md"
+                                      ng-attr-type="{{ typePassword ? 'text' : 'password' }}"
+                                      aria-labelledby="lbl-1"
+                                      autocomplete="off"
+                                      autocorrect="off"
+                                      placeholder="Password"
+                                    />
+                                    <div class="input-group-append">
+                                      <span
+                                        ng-click="showPassword()"
+                                        class="input-group-text"
+                                      >
+                                        <i class="material-icons">visibility</i>
+                                      </span>
+                                    </div>
+                                  </div>
                                 </ion-input>
                               </div>
                             </div>

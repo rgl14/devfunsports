@@ -1,20 +1,26 @@
 <html lang="en" class="login-screen" data-ng-app="loginApp">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
-  <meta name="app-version" content="4.0.32.8" />
-  <link rel="icon" type="image/png" href="images/favicon.png" />
-  <title>Funsports</title>
-  <link rel="icon" href="images/favicon.png" />
-  <script>
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-      context = "mobile";
-      window.location = "http://" + window.location.hostname + "/m/";
-    } else {
-      context = "web";
-    }
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta
+      http-equiv="cache-control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="app-version" content="4.0.32.8" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <title>Funsports</title>
+    <link rel="icon" href="images/favicon.png" />
+    <script>
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        context = "mobile";
+        window.location = "http://" + window.location.hostname + "/m/";
+      } else {
+        context = "web";
+      }
       //  if (context == "web") {
       //    if ($(window).width() < 900) {
       //      window.location = "http://funsports.win/m/";
@@ -23,90 +29,173 @@
       //      window.location = "http://funsports.win/m/";
 
       // }
-  </script>
-  <style>
-    [ng\:cloak],
-    [ng-cloak],
-    [data-ng-cloak],
-    [x-ng-cloak],
-    .ng-cloak,
-    .x-ng-cloak {
-      display: none !important;
-    }
+    </script>
+    <style>
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak {
+        display: none !important;
+      }
 
-    .power {
-      padding: 10px;
-    }
-  </style>
+      .power {
+        padding: 10px;
+      }
+      .input-group > .form-control,
+      .input-group > .form-control-plaintext {
+        position: relative;
+        flex: 1 1 auto;
+        width: 1%;
+        min-width: 0;
+      }
+      .input-group-append {
+        margin-left: -1px;
+      }
 
-  <link href="css/login.css" rel="stylesheet" />
-  <style type="text/css">
-    @import url(https://fonts.googleapis.com/css?family=Nunito:400, 300, 700);
-  </style>
-  <style type="text/css">
-    @import url(https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900,900italic
-);
-  </style>
-</head>
+      .input-group-append,
+      .input-group-prepend {
+        display: flex;
+      }
+      .input-group-text {
+        display: flex;
+        align-items: center;
+        padding: 0.375rem 0.75rem;
+        margin-bottom: 0;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #ffffff;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #232323;
+        border: none;
+        border-radius: 0.25rem;
+      }
+      .input-group {
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        width: 100%;
+      }
+      .input-group > .form-control:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    </style>
 
-<body class="-full-size" data-ng-controller="loginController" disable-right-click data-ng-cloak>
-  <div class="-full-size">
-    <div class="-full-size login-view">
-      <ng-container class="login-container">
-        <div class="login-form">
-          <div class="login-panel panel panel-default">
-            <div class="panel-heading">
-              <div class="logo"></div>
-            </div>
-            <div class="panel-body">
-              <form class="apl-form" name="loginForm" ng-submit="login()">
-                <fieldset>
-                  <div class="form-group">
-                    <input autocomplete="off" type="text" placeholder="Username" name="loginName"
-                      class="apl-form-large form-control login-field input-username" autofocus=""
-                      data-ng-model="username" />
-                  </div>
-                  <div class="form-group">
-                    <input autocomplete="off" class="apl-form-large form-control input-password" placeholder="Password"
-                      name="password" type="password" data-ng-model="password" />
-                  </div>
-                  <button name="login" class="apl-btn apl-btn-secondary apl-btn-large btn-login" type="submit">
-                    Login
-                  </button>
-                </fieldset>
-                <apl-recaptcha> </apl-recaptcha>
-              </form>
-              <div class="login-error">{{result}}</div>
-              <div class="power">
-                <img width="50%" src="images/powered_by_betfair_light.svg" />
+    <link href="css/login.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Nunito:400, 300, 700);
+    </style>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900,900italic);
+    </style>
+  </head>
+
+  <body
+    class="-full-size"
+    data-ng-controller="loginController"
+    disable-right-click
+    data-ng-cloak
+  >
+    <div class="-full-size">
+      <div class="-full-size login-view">
+        <ng-container class="login-container">
+          <div class="login-form">
+            <div class="login-panel panel panel-default">
+              <div class="panel-heading">
+                <div class="logo"></div>
+              </div>
+              <div class="panel-body">
+                <form class="apl-form" name="loginForm" ng-submit="login()">
+                  <fieldset>
+                    <div class="form-group">
+                      <input
+                        autocomplete="off"
+                        type="text"
+                        placeholder="Username"
+                        name="loginName"
+                        class="apl-form-large form-control login-field input-username"
+                        autofocus=""
+                        data-ng-model="username"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input
+                          autocomplete="off"
+                          class="apl-form-large form-control input-password"
+                          placeholder="Password"
+                          name="password"
+                          ng-attr-type="{{ typePassword ? 'text' : 'password' }}"
+                          data-ng-model="password"
+                        />
+                        <div class="input-group-append">
+                          <span
+                            ng-click="showPassword()"
+                            class="input-group-text"
+                          >
+                            <i class="material-icons">visibility</i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      name="login"
+                      class="apl-btn apl-btn-secondary apl-btn-large btn-login"
+                      type="submit"
+                    >
+                      Login
+                    </button>
+                  </fieldset>
+                  <apl-recaptcha> </apl-recaptcha>
+                </form>
+                <div class="login-error">{{result}}</div>
+                <div class="power">
+                  <img width="50%" src="images/powered_by_betfair_light.svg" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <footer class="footer ng-isolate-scope">
-          <span class="age-limitation-icon" ng-click="onAgeLimitationClick()">
-            <svg class="icon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="15.5" stroke="white"></circle>
-              <path
-                d="M11.7206 19.022V20H7.01055V19.022H8.81055V13.61C8.81055 13.418 8.81655 13.222 8.82855 13.022L7.44255 14.192C7.38255 14.24 7.32055 14.272 7.25655 14.288C7.19655 14.3 7.13855 14.3 7.08255 14.288C7.03055 14.276 6.98255 14.258 6.93855 14.234C6.89855 14.206 6.86655 14.176 6.84255 14.144L6.44055 13.58L9.04455 11.342H10.0946V19.022H11.7206Z"
-                fill="white"></path>
-              <path
-                d="M15.9995 19.076C16.2595 19.076 16.4915 19.04 16.6955 18.968C16.8995 18.892 17.0695 18.788 17.2055 18.656C17.3455 18.52 17.4515 18.36 17.5235 18.176C17.5955 17.992 17.6315 17.792 17.6315 17.576C17.6315 17.312 17.5895 17.084 17.5055 16.892C17.4255 16.7 17.3115 16.542 17.1635 16.418C17.0195 16.29 16.8475 16.196 16.6475 16.136C16.4475 16.072 16.2315 16.04 15.9995 16.04C15.7675 16.04 15.5515 16.072 15.3515 16.136C15.1515 16.196 14.9775 16.29 14.8295 16.418C14.6855 16.542 14.5715 16.7 14.4875 16.892C14.4075 17.084 14.3675 17.312 14.3675 17.576C14.3675 17.792 14.4035 17.992 14.4755 18.176C14.5475 18.36 14.6515 18.52 14.7875 18.656C14.9275 18.788 15.0995 18.892 15.3035 18.968C15.5075 19.04 15.7395 19.076 15.9995 19.076ZM15.9995 12.254C15.7635 12.254 15.5555 12.29 15.3755 12.362C15.1995 12.434 15.0535 12.53 14.9375 12.65C14.8215 12.77 14.7335 12.912 14.6735 13.076C14.6175 13.236 14.5895 13.406 14.5895 13.586C14.5895 13.766 14.6135 13.942 14.6615 14.114C14.7135 14.286 14.7935 14.44 14.9015 14.576C15.0135 14.708 15.1595 14.814 15.3395 14.894C15.5195 14.974 15.7395 15.014 15.9995 15.014C16.2595 15.014 16.4795 14.974 16.6595 14.894C16.8395 14.814 16.9835 14.708 17.0915 14.576C17.2035 14.44 17.2835 14.286 17.3315 14.114C17.3835 13.942 17.4095 13.766 17.4095 13.586C17.4095 13.406 17.3795 13.236 17.3195 13.076C17.2635 12.912 17.1755 12.77 17.0555 12.65C16.9395 12.53 16.7935 12.434 16.6175 12.362C16.4415 12.29 16.2355 12.254 15.9995 12.254ZM17.3615 15.494C17.8935 15.658 18.2915 15.918 18.5555 16.274C18.8235 16.63 18.9575 17.072 18.9575 17.6C18.9575 17.98 18.8855 18.324 18.7415 18.632C18.5975 18.94 18.3955 19.202 18.1355 19.418C17.8755 19.634 17.5635 19.802 17.1995 19.922C16.8395 20.038 16.4395 20.096 15.9995 20.096C15.5595 20.096 15.1575 20.038 14.7935 19.922C14.4335 19.802 14.1235 19.634 13.8635 19.418C13.6035 19.202 13.4015 18.94 13.2575 18.632C13.1135 18.324 13.0415 17.98 13.0415 17.6C13.0415 17.072 13.1735 16.63 13.4375 16.274C13.7055 15.918 14.1055 15.658 14.6375 15.494C14.2055 15.322 13.8795 15.072 13.6595 14.744C13.4435 14.416 13.3355 14.022 13.3355 13.562C13.3355 13.238 13.3995 12.936 13.5275 12.656C13.6555 12.376 13.8355 12.134 14.0675 11.93C14.3035 11.722 14.5855 11.56 14.9135 11.444C15.2415 11.324 15.6035 11.264 15.9995 11.264C16.3955 11.264 16.7555 11.324 17.0795 11.444C17.4075 11.56 17.6875 11.722 17.9195 11.93C18.1555 12.134 18.3375 12.376 18.4655 12.656C18.5975 12.936 18.6635 13.238 18.6635 13.562C18.6635 14.022 18.5535 14.416 18.3335 14.744C18.1175 15.072 17.7935 15.322 17.3615 15.494Z"
-                fill="white"></path>
-              <path
-                d="M25.8644 16.46H23.4824V18.974H22.4324V16.46H20.0624V15.488H22.4324V12.98H23.4824V15.488H25.8644V16.46Z"
-                fill="white"></path>
-            </svg>
-            <span>Underage gambling is an offence</span>
-          </span>
-        </footer>
-      </ng-container>
+          <footer class="footer ng-isolate-scope">
+            <span class="age-limitation-icon" ng-click="onAgeLimitationClick()">
+              <svg
+                class="icon"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="16" cy="16" r="15.5" stroke="white"></circle>
+                <path
+                  d="M11.7206 19.022V20H7.01055V19.022H8.81055V13.61C8.81055 13.418 8.81655 13.222 8.82855 13.022L7.44255 14.192C7.38255 14.24 7.32055 14.272 7.25655 14.288C7.19655 14.3 7.13855 14.3 7.08255 14.288C7.03055 14.276 6.98255 14.258 6.93855 14.234C6.89855 14.206 6.86655 14.176 6.84255 14.144L6.44055 13.58L9.04455 11.342H10.0946V19.022H11.7206Z"
+                  fill="white"
+                ></path>
+                <path
+                  d="M15.9995 19.076C16.2595 19.076 16.4915 19.04 16.6955 18.968C16.8995 18.892 17.0695 18.788 17.2055 18.656C17.3455 18.52 17.4515 18.36 17.5235 18.176C17.5955 17.992 17.6315 17.792 17.6315 17.576C17.6315 17.312 17.5895 17.084 17.5055 16.892C17.4255 16.7 17.3115 16.542 17.1635 16.418C17.0195 16.29 16.8475 16.196 16.6475 16.136C16.4475 16.072 16.2315 16.04 15.9995 16.04C15.7675 16.04 15.5515 16.072 15.3515 16.136C15.1515 16.196 14.9775 16.29 14.8295 16.418C14.6855 16.542 14.5715 16.7 14.4875 16.892C14.4075 17.084 14.3675 17.312 14.3675 17.576C14.3675 17.792 14.4035 17.992 14.4755 18.176C14.5475 18.36 14.6515 18.52 14.7875 18.656C14.9275 18.788 15.0995 18.892 15.3035 18.968C15.5075 19.04 15.7395 19.076 15.9995 19.076ZM15.9995 12.254C15.7635 12.254 15.5555 12.29 15.3755 12.362C15.1995 12.434 15.0535 12.53 14.9375 12.65C14.8215 12.77 14.7335 12.912 14.6735 13.076C14.6175 13.236 14.5895 13.406 14.5895 13.586C14.5895 13.766 14.6135 13.942 14.6615 14.114C14.7135 14.286 14.7935 14.44 14.9015 14.576C15.0135 14.708 15.1595 14.814 15.3395 14.894C15.5195 14.974 15.7395 15.014 15.9995 15.014C16.2595 15.014 16.4795 14.974 16.6595 14.894C16.8395 14.814 16.9835 14.708 17.0915 14.576C17.2035 14.44 17.2835 14.286 17.3315 14.114C17.3835 13.942 17.4095 13.766 17.4095 13.586C17.4095 13.406 17.3795 13.236 17.3195 13.076C17.2635 12.912 17.1755 12.77 17.0555 12.65C16.9395 12.53 16.7935 12.434 16.6175 12.362C16.4415 12.29 16.2355 12.254 15.9995 12.254ZM17.3615 15.494C17.8935 15.658 18.2915 15.918 18.5555 16.274C18.8235 16.63 18.9575 17.072 18.9575 17.6C18.9575 17.98 18.8855 18.324 18.7415 18.632C18.5975 18.94 18.3955 19.202 18.1355 19.418C17.8755 19.634 17.5635 19.802 17.1995 19.922C16.8395 20.038 16.4395 20.096 15.9995 20.096C15.5595 20.096 15.1575 20.038 14.7935 19.922C14.4335 19.802 14.1235 19.634 13.8635 19.418C13.6035 19.202 13.4015 18.94 13.2575 18.632C13.1135 18.324 13.0415 17.98 13.0415 17.6C13.0415 17.072 13.1735 16.63 13.4375 16.274C13.7055 15.918 14.1055 15.658 14.6375 15.494C14.2055 15.322 13.8795 15.072 13.6595 14.744C13.4435 14.416 13.3355 14.022 13.3355 13.562C13.3355 13.238 13.3995 12.936 13.5275 12.656C13.6555 12.376 13.8355 12.134 14.0675 11.93C14.3035 11.722 14.5855 11.56 14.9135 11.444C15.2415 11.324 15.6035 11.264 15.9995 11.264C16.3955 11.264 16.7555 11.324 17.0795 11.444C17.4075 11.56 17.6875 11.722 17.9195 11.93C18.1555 12.134 18.3375 12.376 18.4655 12.656C18.5975 12.936 18.6635 13.238 18.6635 13.562C18.6635 14.022 18.5535 14.416 18.3335 14.744C18.1175 15.072 17.7935 15.322 17.3615 15.494Z"
+                  fill="white"
+                ></path>
+                <path
+                  d="M25.8644 16.46H23.4824V18.974H22.4324V16.46H20.0624V15.488H22.4324V12.98H23.4824V15.488H25.8644V16.46Z"
+                  fill="white"
+                ></path>
+              </svg>
+              <span>Underage gambling is an offence</span>
+            </span>
+          </footer>
+        </ng-container>
+      </div>
     </div>
-  </div>
 
-  <script src="js/loginPollyfill.js"></script>
+    <script src="js/loginPollyfill.js"></script>
 
-  <script src="script/login.js"></script>
-</body>
-
+    <script src="script/login.js"></script>
+  </body>
 </html>
