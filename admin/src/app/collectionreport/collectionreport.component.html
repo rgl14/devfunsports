@@ -1,6 +1,6 @@
 <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-           <div class="col-lg-4">
+           <div class="col-lg-6">
               <div class="ibox float-e-margins">
                  <div class="ibox-title">
                     <h5>PAYMENT RECEIVING FROM (Lena He)</h5>
@@ -44,18 +44,24 @@
                                        <td><a [routerLink]="['/manage-clients', lena.userId, 'userdashboard']">{{lena.clientName}}</a></td>
                                        <td [ngClass]="(lena.amount>=0)?'text-success':'text-danger'">{{lena.amount | number:'1.2-2'}}</td>
                                        <td><button
-                                          class="btn btn-info btn-sm mr-1"
+                                          class="btn btn-danger btn-sm mr-1"
                                           title="Clear"
                                           (click)="openconfirmDialog(lena.userId,lena.amount,1)"
                                           >
                                           Clear
                                           </button>
                                           <button
-                                          class="btn btn-warning btn-sm"
+                                          class="btn btn-warning btn-sm mr-1"
                                           title="Clear"
                                           (click)="openPartialPaymentDialog(lena.userId,lena.amount,1)"
                                           >
                                           Settlement
+                                          </button>
+                                          <button
+                                          class="btn btn-info btn-sm"
+                                          title="Account History"
+                                          >
+                                          History
                                           </button>
                                        </td>
                                     </tr>
@@ -74,7 +80,7 @@
            </div>
 
 
-           <div class="col-lg-4">
+           <div class="col-lg-6">
               <div class="ibox float-e-margins">
                  <div class="ibox-title">
                     <h5>PAYMENT PAID TO (Dena He)</h5>
@@ -118,18 +124,24 @@
                                        <td><a [routerLink]="['/manage-clients', dena.userId, 'userdashboard']">{{dena.clientName}}</a></td>
                                        <td [ngClass]="(dena.amount>=0)?'text-success':'text-danger'">{{dena.amount | number:'1.2-2'}}</td>
                                        <td><button
-                                          class="btn btn-info btn-sm mr-1"
+                                          class="btn btn-danger btn-sm mr-1"
                                           title="Clear"
                                           (click)="openconfirmDialog(dena.userId,dena.amount,2)"
                                           >
                                           Clear
                                           </button>
                                           <button
-                                          class="btn btn-warning btn-sm"
+                                          class="btn btn-warning btn-sm mr-1"
                                           title="Clear"
                                           (click)="openPartialPaymentDialog(dena.userId,dena.amount,2)"
                                           >
                                           Settlement
+                                          </button>
+                                          <button
+                                          class="btn btn-info btn-sm"
+                                          title="Account History"
+                                          >
+                                          History
                                           </button>
                                        </td>
                                     </tr>
@@ -147,20 +159,10 @@
               </div>
            </div>
 
-           <div class="col-lg-4">
+           <!-- <div class="col-lg-4">
               <div class="ibox float-e-margins">
                  <div class="ibox-title">
                     <h5>PAYMENT Clear (Clear Hai)</h5>
-                    <!-- <div class="ibox-tools">
-
-                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                          <i class="fa fa-wrench"></i>
-                       </a>
-                       <ul class="dropdown-menu dropdown-user">
-                           <li><a target="_blank" href="/agent/ledgers/collection_report_pdf.pdf">Export PDF</a>
-                           </li>
-                       </ul>
-                    </div> -->
                  </div>
                  <div class="ibox-content table-responsive" *ngIf="clearHai">
                     <table class="table" id="example_lena_hai">
@@ -191,7 +193,7 @@
                     </table>
                  </div>
               </div>
-           </div>
+           </div> -->
 
         </div>
      </div>
