@@ -9,8 +9,8 @@ export const environment = {
     currency: "INR",
     // url: 'http://159.8.244.61/Admin/Admin.svc',
     bookHub: "http://159.8.244.61:11112",
-    fancyHub: "http://159.8.244.61:21111",
-    analyisHub: "http://159.8.244.61:11334",
+    fancyHub: "http://159.8.246.2:21111",
+    analyisHub: "http://159.8.246.2:11334",
   },
 };
 

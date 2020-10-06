@@ -2,8 +2,8 @@ let baseSite = {
   url: "http://159.8.246.2/Admin/Admin.svc",
   currency: "INR",
   bookHub: "http://159.8.244.61:11112",
-  fancyHub: "http://159.8.244.61:21111",
-  analyisHub: "http://159.8.244.61:11334",
+  fancyHub: "http://159.8.246.2:21111",
+  analyisHub: "http://159.8.246.2:11334",
 };
 let Hostname = window.location.hostname;
 if (Hostname.indexOf("usd") > -1) {
