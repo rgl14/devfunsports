@@ -10,6 +10,8 @@ import { TickerService } from "../services/ticker.service";
 import { LimitsService } from "../services/limits.service";
 import { ReportsService } from "../services/reports.service";
 import { ScoreService } from "../services/score.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { SharedataService } from "../services/sharedata.service";
 
 @Component({
   selector: "app-customcellbuttons",
@@ -395,7 +397,7 @@ export class CustomcellbuttonsComponent implements OnInit {
 @Component({
   template: `<h1 mat-dialog-title>{{ data.userName }}</h1>
     <hr />
-    <div mat-dialog-content>
+    <div mat-dialog-content [formGroup]="form">
       <div class="form-group">
         <label class="col-sm-12 control-label">My Share</label>
         <div class="col-sm-12">
@@ -403,9 +405,11 @@ export class CustomcellbuttonsComponent implements OnInit {
             class="form-control"
             onkeypress="return event.charCode >= 48"
             name="myshare"
-            [(ngModel)]="data.myShare"
+            formControlName="myShare"
             placeholder="Enter My Share"
             type="number"
+            max="100"
+            min="0"
           />
         </div>
       </div>
@@ -416,7 +420,9 @@ export class CustomcellbuttonsComponent implements OnInit {
             class="form-control"
             onkeypress="return event.charCode >= 48"
             name="agentshare"
-            [(ngModel)]="data.maxShare"
+            formControlName="CompanyShare"
+            max="100"
+            min="0"
             placeholder="Enter Max Agent Share"
             type="number"
           />
@@ -438,11 +444,39 @@ export class CustomcellbuttonsComponent implements OnInit {
     </div>`,
 })
 export class ShareDialog {
+  form: FormGroup;
+  accountInfo = null;
   constructor(
     public dialogRef: MatDialogRef<ShareDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formbuilder: FormBuilder,
+    private usermanagement: UsermanagementService
   ) {
-    // console.log(data);
+    this.form = this.formbuilder.group({
+      CompanyShare: [
+        { value: this.data.maxShare, disabled: true },
+        Validators.required,
+      ],
+      myShare: [this.data.myShare, Validators.required],
+    });
+    this.usermanagement.getAccountInfo().subscribe((data) => {
+      this.accountInfo = data.data;
+    });
+    this.formControlsmysharechanged();
+  }
+
+  formControlsmysharechanged() {
+    this.form.get("myShare").valueChanges.subscribe((mode: any) => {
+      if (mode > this.accountInfo.maxMyShare) {
+        this.form.controls["myShare"].setValue(this.accountInfo.maxMyShare);
+        this.data.myShare = this.accountInfo.maxMyShare;
+      } else {
+        this.data.myShare = mode;
+        let myshare = this.accountInfo.maxMyShare - mode;
+        this.form.controls["CompanyShare"].setValue(myshare);
+        this.data.maxShare = myshare;
+      }
+    });
   }
 
   onNoClick(): void {
@@ -452,7 +486,7 @@ export class ShareDialog {
 @Component({
   template: `<h1 mat-dialog-title>{{ data.userName }}'s Commission Settings</h1>
     <hr />
-    <div mat-dialog-content>
+    <div mat-dialog-content [formGroup]="form">
       <div class="form-group">
         <label class="col-sm-12 control-label">Market Commission</label>
         <div class="col-sm-12">
@@ -460,9 +494,11 @@ export class ShareDialog {
             class="form-control"
             onkeypress="return event.charCode >= 48"
             name="MComm"
-            [(ngModel)]="data.MComm"
+            formControlName="MComm"
             placeholder="Enter Market Commission"
             type="number"
+            max="100"
+            min="0"
           />
         </div>
       </div>
@@ -473,9 +509,11 @@ export class ShareDialog {
             class="form-control"
             onkeypress="return event.charCode >= 48"
             name="expoLimit"
-            [(ngModel)]="data.expoLimit"
+            formControlName="expoLimit"
             placeholder="Enter Exposure Limit"
             type="number"
+            max="100"
+            min="0"
           />
         </div>
       </div>
@@ -486,7 +524,7 @@ export class ShareDialog {
             class="form-control"
             onkeypress="return event.charCode >= 48"
             name="Scomm"
-            [(ngModel)]="data.SComm"
+            formControlName="SComm"
             placeholder="Enter Session Commission"
             type="number"
           />
@@ -501,18 +539,78 @@ export class ShareDialog {
         color="primary"
         [mat-dialog-close]="data"
         cdkFocusInitial
-        [disabled]="!data.SComm"
       >
         Ok
       </button>
     </div>`,
 })
 export class LimitsDialog {
+  form: FormGroup;
+  accountInfo = null;
+  iscommissionedit: boolean;
   constructor(
     public dialogRef: MatDialogRef<LimitsDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formbuilder: FormBuilder,
+    private usermanagement: UsermanagementService,
+    private sharedata: SharedataService
   ) {
-    // console.log(data);
+    this.form = this.formbuilder.group({
+      MComm: [this.data.MComm, Validators.required],
+      SComm: [this.data.SComm, Validators.required],
+      expoLimit: [this.data.expoLimit, Validators.required],
+    });
+    this.usermanagement.getAccountInfo().subscribe((data) => {
+      this.accountInfo = data.data;
+    });
+
+    this.sharedata.AccountInfoSource.subscribe((data) => {
+      if (data != null) {
+        if (data.userType != 1) {
+          this.iscommissionedit = true;
+          this.form.get("expoLimit").clearValidators();
+          this.form.get("MComm").clearValidators();
+        } else {
+          this.iscommissionedit = false;
+        }
+      }
+    });
+    this.formControlmcommchanged();
+    this.formControlscommchanged();
+    this.formControlexpoLimitchanged();
+  }
+
+  formControlexpoLimitchanged() {
+    this.form.get("expoLimit").valueChanges.subscribe((mode: any) => {
+      this.data.expoLimit = mode;
+    });
+  }
+
+  formControlmcommchanged() {
+    this.form.get("MComm").valueChanges.subscribe((mode: any) => {
+      if (mode > this.accountInfo.matchComm) {
+        this.form.controls["MComm"].setValue(this.accountInfo.matchComm);
+        this.data.MComm = this.accountInfo.matchComm;
+      } else {
+        if (mode > 100) {
+          this.data.MComm = 100;
+          this.form.controls["MComm"].setValue(100);
+        }
+      }
+    });
+  }
+  formControlscommchanged() {
+    this.form.get("SComm").valueChanges.subscribe((mode: any) => {
+      if (mode > this.accountInfo.sessionComm) {
+        this.data.SComm = this.accountInfo.sessionComm;
+        this.form.controls["SComm"].setValue(this.accountInfo.sessionComm);
+      } else {
+        if (mode > 100) {
+          this.data.SComm = 100;
+          this.form.controls["SComm"].setValue(100);
+        }
+      }
+    });
   }
 
   onNoClick(): void {

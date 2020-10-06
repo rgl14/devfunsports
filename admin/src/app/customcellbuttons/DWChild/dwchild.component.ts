@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from "@angular/material";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { SharedataService } from "src/app/services/sharedata.service";
 @Component({
   templateUrl: "./dwchild.component.html",
 })
@@ -124,15 +125,23 @@ export class dWcomponent implements OnInit {
 })
 export class wdDialog {
   systemPointForm: FormGroup;
+  accountInfo = null;
   constructor(
     public dialogRef: MatDialogRef<wdDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private sharedata: SharedataService
   ) {
     console.log(data);
     this.systemPointForm = this.fb.group({
       Amount: ["", Validators.required],
       Comments: ["", Validators.required],
+    });
+
+    this.sharedata.AccountInfoSource.subscribe((data) => {
+      if (data != null) {
+        this.accountInfo = data;
+      }
     });
   }
 
@@ -210,15 +219,22 @@ export class wdDialog {
 })
 export class dpDialog {
   systemPointForm: FormGroup;
+  accountInfo = null;
   constructor(
     public dialogRef: MatDialogRef<dpDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private sharedata: SharedataService
   ) {
     console.log(data);
     this.systemPointForm = this.fb.group({
       Amount: ["", Validators.required],
       Comments: ["", Validators.required],
+    });
+    this.sharedata.AccountInfoSource.subscribe((data) => {
+      if (data != null) {
+        this.accountInfo = data;
+      }
     });
   }
 
