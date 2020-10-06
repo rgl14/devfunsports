@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GridOptions} from "ag-grid-community";
 import { ReportsService } from '../services/reports.service';
 import { TimepickerConfig } from 'ngx-bootstrap/timepicker';
-
+import {redirectComponent} from './entry-component/redirect.component'
 export function getTimepickerConfig(): TimepickerConfig {
   return Object.assign(new TimepickerConfig(), {
     hourStep: 1,
@@ -31,6 +31,7 @@ export class AccoutStatementComponent implements OnInit {
   paginationSetPageSize;
   paginationNumberFormatter:any;
   rowData=[];
+  rowD=[];
   gridApi: any;
   gridColumnApi: any;
   date: Date;
@@ -57,15 +58,39 @@ export class AccoutStatementComponent implements OnInit {
     this.maxDate.setDate(this.maxDate.getDate() + 1);
     this.bsRangeValue = [this.bsValue, this.maxDate];
     this.gridOptions = <GridOptions>{};
+    this.gridOptions = {
+      context: {
+        componentParent: this,
+      },
+    };
     this.gridOptions.columnDefs = [
-      {headerName: 'Date', field: '',sort: "desc",resizable: true, sortable: true, minWidth: 100,width:150,suppressSizeToFit: true,lockPosition:true,suppressNavigable:true},
-      {headerName: 'Type', field: '', sortable: true,resizable: true, minWidth: 100,width:150,suppressSizeToFit: true,cellStyle: {'font-weight':'bolder'}},
-      {headerName: 'Description', field: '', sortable: true,resizable: true, minWidth: 250,width:600,suppressSizeToFit: true,cellStyle: {'font-weight':'bolder'}},
-      {headerName: 'Dr', field: '',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: numberWithCommas,cellClass: function(params) { return (params.value >= 0 ? 'profit':'loss')}},
-      {headerName: 'Cr', field: '',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: numberWithCommas,cellClass: function(params) { return (params.value >= 0 ? 'profit':'loss')}},
-      {headerName: 'Balance', field: '',resizable: true, sortable: true, minWidth: 100,valueFormatter: numberWithCommas,cellClass: function(params) { return (params.value >= 0 ? 'profit':'loss')}}
+      {headerName: 'Date', field: 'date',sort: "desc",resizable: true, sortable: true, minWidth: 100,width:150,suppressSizeToFit: true,lockPosition:true,suppressNavigable:true},
+      {headerName: 'Type', field: 'type', sortable: true,resizable: true, minWidth: 100,width:150,suppressSizeToFit: true,},
+      {headerName: 'Description', field: 'description', sortable: true,resizable: true, minWidth: 250,width:600,suppressSizeToFit: true,cellRendererFramework: redirectComponent,},
+      {headerName: 'Dr', field: 'debit',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: numberWithCommas,cellClass: function(params) { return (params.value >= 0 ? 'profit':'loss')}},
+      {headerName: 'Cr', field: 'credit',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: numberWithCommas,cellClass: function(params) { return (params.value >= 0 ? 'profit':'loss')}},
+      {headerName: 'Balance', field: 'balance',resizable: true, sortable: true, minWidth: 100,valueFormatter: numberWithCommas,cellClass: function(params) { return (params.value >= 0 ? 'profit':'loss')}}
     ];
-
+    this.rowD = [
+      {
+        refid: "1",
+        date: "2020-02-29 18:29:18",
+        type:"P|L Market",
+        description: "South Africa v Australia - 1st ODI",
+        credit: "1715.48",
+        debit: "0",
+        balance: "778997525.62",
+      },
+      {
+        refid: "2",
+        date: "2020-02-29 18:29:18",
+        type:"P|L Market",
+        description: "TWENTY TWENTY TEENPATTI ( 11.202701225335 )",
+        credit: "22338.72",
+        debit: "0",
+        balance: "778997471.50",
+      },
+    ];
 
     function numberWithCommas(params) {
 
@@ -128,6 +153,7 @@ this.dropdownSettings = {
   onGridReady(params:any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.rowData=this.rowD
     this.gridApi.showLoadingOverlay();
         var days = 1;
         var date = new Date();

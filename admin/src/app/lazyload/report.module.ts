@@ -28,7 +28,11 @@ import { SportpnlComponent } from "../sportpnl/sportpnl.component";
 import { TournamentpnlComponent } from "../tournamentpnl/tournamentpnl.component";
 import { SharedModule } from "../shared/shared.module";
 import { MaterialModule } from "../material-module";
-
+import {redirectComponent} from '../accout-statement/entry-component/redirect.component';
+import {MarketPnlComponent} from '../accout-statement/market-pnl/market-pnl.component';
+import {MDLwiseDLpnlComponent} from '../accout-statement/mdlwise-dlpnl/mdlwise-dlpnl.component';
+import {DlwiseClientpnlComponent} from '../accout-statement/dlwise-clientpnl/dlwise-clientpnl.component';
+import {InnerClientbetHistoryComponent}from '../accout-statement/inner-clientbet-history/inner-clientbet-history.component';
 const routes: Routes = [
   {
     path: "",
@@ -56,6 +60,54 @@ const routes: Routes = [
             path: "",
             component: AccoutStatementComponent,
           },
+        ],
+      },
+      {
+        path: "ADMINmdlmktprofitloss/:refid",
+        component: MarketPnlComponent,
+        data: { breadcrumb: "MDL MARKET PROFIT & LOSS" },
+        children: [
+          {
+            path: "",
+            component: MarketPnlComponent,
+          },
+
+        ],
+      },
+      {
+        path: "MDLwiseDLpnl/:mdlid/:Mtid/:mktid/:type",
+        component: MDLwiseDLpnlComponent,
+        data: { breadcrumb: "MDL USERNAME WISE::DL PROFIT & LOSS" },
+        children: [
+          {
+            path: "",
+            component: MDLwiseDLpnlComponent,
+          },
+
+        ],
+      },
+      {
+        path: "DlwiseClientpnl/:dlid/:Mtid/:mktid/:type",
+        component: DlwiseClientpnlComponent,
+        data: { breadcrumb: "DL USERNAME WISE::CLIENT PROFIT & LOSS" },
+        children: [
+          {
+            path: "",
+            component: DlwiseClientpnlComponent,
+          },
+
+        ],
+      },
+      {
+        path: "innerClientbetHistory/:clid/:Mtid/:mktid/:type",
+        component: InnerClientbetHistoryComponent,
+        data: { breadcrumb: "CLIENT BET HISTORY" },
+        children: [
+          {
+            path: "",
+            component: InnerClientbetHistoryComponent,
+          },
+
         ],
       },
       {
@@ -115,7 +167,12 @@ const routes: Routes = [
     SportpnlComponent,
     TournamentpnlComponent,
     ConfirmBoxDialog,
-    PartialPaymentDialog
+    PartialPaymentDialog,
+    redirectComponent,
+    MarketPnlComponent,
+    MDLwiseDLpnlComponent,
+    DlwiseClientpnlComponent,
+    InnerClientbetHistoryComponent
   ],
   imports: [
     CommonModule,
@@ -138,6 +195,6 @@ const routes: Routes = [
     MaterialModule,
   ],
   exports: [RouterModule],
-  entryComponents: [ConfirmBoxDialog, PartialPaymentDialog],
+  entryComponents: [ConfirmBoxDialog, PartialPaymentDialog,redirectComponent],
 })
 export class ReportsModule {}
