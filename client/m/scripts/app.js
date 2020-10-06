@@ -145,7 +145,7 @@ app.run(function ($rootScope, $location, $interval) {
     lastDigestRun = Date.now();
   });
   $rootScope.$on("$locationChangeStart", function (event, next, current) {
-    if (authtoken != undefined || authtoken != null) {
+    if (token != undefined || token != null) {
       history.pushState(null, null, null);
 
       window.addEventListener("popstate", function (event) {

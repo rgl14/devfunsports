@@ -7574,11 +7574,11 @@ td .fancy-info dt {
   display: block;
 }
 .pop_box {
-  position: fixed;
+  position: sticky;
   left: 50%;
   margin: 105px 0 0 -200px;
   background-color: #eee;
-  width: 90%;
+  width: 100%;
   border-radius: 5px;
   padding: 15px;
 }
