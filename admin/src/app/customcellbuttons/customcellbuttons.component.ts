@@ -395,7 +395,7 @@ export class CustomcellbuttonsComponent implements OnInit {
 }
 
 @Component({
-  template: `<h1 mat-dialog-title>{{ data.userName }}</h1>
+  template: `<h1 mat-dialog-title align="center">{{ data.userName }}</h1>
     <hr />
     <div mat-dialog-content [formGroup]="form">
       <div class="form-group">
@@ -414,7 +414,7 @@ export class CustomcellbuttonsComponent implements OnInit {
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-12 control-label">Agent Share</label>
+        <label class="col-sm-12 control-label">Downline Share</label>
         <div class="col-sm-12">
           <input
             class="form-control"
@@ -423,14 +423,14 @@ export class CustomcellbuttonsComponent implements OnInit {
             formControlName="CompanyShare"
             max="100"
             min="0"
-            placeholder="Enter Max Agent Share"
+            placeholder="Enter Downline Share"
             type="number"
           />
         </div>
       </div>
     </div>
     <hr />
-    <div mat-dialog-actions>
+    <div mat-dialog-actions align="center">
       <button mat-raised-button (click)="onNoClick()">Cancel</button>
       <button
         mat-raised-button
@@ -484,7 +484,9 @@ export class ShareDialog {
   }
 }
 @Component({
-  template: `<h1 mat-dialog-title>{{ data.userName }}'s Commission Settings</h1>
+  template: `<h1 mat-dialog-title align="center">
+      {{ data.userName }}'s Commission Settings
+    </h1>
     <hr />
     <div mat-dialog-content [formGroup]="form">
       <div class="form-group">
@@ -532,7 +534,7 @@ export class ShareDialog {
       </div>
     </div>
     <hr />
-    <div mat-dialog-actions>
+    <div mat-dialog-actions align="center">
       <button mat-raised-button (click)="onNoClick()">Cancel</button>
       <button
         mat-raised-button
@@ -618,7 +620,9 @@ export class LimitsDialog {
   }
 }
 @Component({
-  template: `<h1 mat-dialog-title>{{ data.userName }}'s Password</h1>
+  template: `<h1 mat-dialog-title align="center">
+      {{ data.userName }}'s Password
+    </h1>
     <hr />
     <div mat-dialog-content>
       <div class="form-group">
@@ -635,7 +639,7 @@ export class LimitsDialog {
     </div>
 
     <hr />
-    <div mat-dialog-actions>
+    <div mat-dialog-actions align="center">
       <button mat-raised-button (click)="onNoClick()">Cancel</button>
       <button
         mat-raised-button

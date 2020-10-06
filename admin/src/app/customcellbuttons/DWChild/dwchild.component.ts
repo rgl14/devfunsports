@@ -61,6 +61,7 @@ export class dWcomponent implements OnInit {
   template: ` <h1 mat-dialog-title style="text-align: center;">
       {{ data.userName }}
     </h1>
+    <hr />
     <div mat-dialog-content style="overflow: hidden;">
       <form [formGroup]="systemPointForm">
         <div class="row">
@@ -110,7 +111,7 @@ export class dWcomponent implements OnInit {
         </div>
       </form>
     </div>
-    <div mat-dialog-actions>
+    <div mat-dialog-actions align="center">
       <button mat-raised-button color="warn" (click)="onNoClick()">
         Cancel
       </button>
@@ -153,6 +154,7 @@ export class wdDialog {
 @Component({
   template: `
     <h1 mat-dialog-title style="text-align: center;">{{ data.userName }}</h1>
+    <hr />
     <div mat-dialog-content style="overflow: hidden;">
       <form [formGroup]="systemPointForm">
         <div class="row">
@@ -203,7 +205,7 @@ export class wdDialog {
         </div>
       </form>
     </div>
-    <div mat-dialog-actions>
+    <div mat-dialog-actions align="center">
       <button mat-raised-button color="warn" (click)="onNoClick()">
         Cancel
       </button>
