@@ -310,10 +310,45 @@ var importCallCount;
 app.controller("importMarketController", function (
   $scope,
   $http,
-  $q,
   NgTableParams,
-  $location
+  $timeout
 ) {
+  $scope.Sportslist=[
+    {name:'Cricket',bfid:'4'},
+    {name:'Tennis',bfid:'2'},
+    {name:'Soccer',bfid:'1'}
+  ]
+  $scope.filter = { Sportname: "", matchName: "", matchDate: "" };
+  $scope.selectsport = function (val) {
+    console.log(val);
+    if (val == null) {
+      $scope.matchid = null;
+      $scope.filter.Sportname = "";
+    } else {
+      $scope.filter.Sportname = val.name;
+      console.log(val);
+    }
+  };
+  $scope.selectMatch = function (val) {
+    if (val == null || val == "") {
+      $scope.filter.matchName = "";
+    } else {
+      $scope.filter.matchName = val;
+    }
+    console.log(val);
+  };
+  $scope.selectDate = function (val) {
+    if (val == null || val == "") {
+      $scope.filter.matchDate = "";
+      $scope.tableParams.reload();
+    } else {
+      $scope.filter.matchDate = val;
+    }
+    console.log(val);
+  };
+  $scope.clearInput = function () {
+    $scope.filter.MatchName = "";
+  };
   $scope.GetMarketDataNew = function () {
     $scope.marketDataPending = true;
     $http({
@@ -327,6 +362,49 @@ app.controller("importMarketController", function (
       function mySuccess(response) {
         $scope.marketDataPending = false;
         $scope.getmarketdatanew = response.data.data;
+        $scope.Matchwisedata = $scope.Matchwisedata(response.data.data);
+        $scope.tableParams = new NgTableParams(
+          {
+            page: 1,
+            count: 10,
+            filter: $scope.filter,
+          },
+          {
+            dataset: $scope.Matchwisedata,
+            total: $scope.Matchwisedata.length,
+          }
+        );
+        $scope.$watch("Sportslist", () => {
+          $timeout(
+            () => {
+              $(".chosen-select").trigger("chosen:updated");
+            },
+            0,
+            false
+          );
+        });
+        $timeout(
+          () => {
+            $(".chosen-select").chosen();
+          },
+          0,
+          false
+        );
+        $("#Match-search").typeahead({
+          source: {
+            data: $scope.Matchwisedata,
+          },
+          callback: {
+            onClick: function (node, a, item, event) {
+              $scope.selectFancy(item.display);
+              $scope.tableParams.reload();
+            },
+            onSubmit: function (node, form, item, event) {
+              event.preventDefault();
+            },
+          },
+        });
+        console.log($scope.Matchwisedata)
         console.log("marketdata", response.data.data);
       },
       function myError(response) {
@@ -334,6 +412,25 @@ app.controller("importMarketController", function (
         console.log("marketdata", response);
       }
     );
+  };
+
+  $scope.Matchwisedata = function () {
+    var highlightdata = [];
+    angular.forEach($scope.getmarketdatanew, function (item, index) {
+      angular.forEach(item.tournaments, function (item1, index1) {
+        angular.forEach(item1.matches, function (item2, index2) {
+          item2["TourbfId"] = item1.id;
+          item2["SportbfId"] = item.id;
+          item2["matchId"] = item2.id;
+          item2["Tourname"] = item1.name;
+          item2["Sportname"] = item.name;
+          item2["matchName"] = item2.name;
+          item2["matchDate"] = item2.startDate;
+          highlightdata.push(item2);
+        });
+      });
+    });
+    return highlightdata;
   };
 
   $scope.SaveMatchDetails = function (
@@ -460,6 +557,7 @@ app.controller("importMarketController", function (
       document.getElementById("HKDFunSports").checked ||
       document.getElementById("FunSportsonline").checked
     ) {
+      $('#marketList [data-dismiss="modal"]').click();
       $("#noSettingsModal").modal("show");
     } else {
       $.toast({
@@ -471,6 +569,30 @@ app.controller("importMarketController", function (
       });
     }
   };
+
+  $scope.importmarketlist=function(Matchdata){
+    $scope.marketsList=Matchdata;
+    console.log($scope.marketsList);
+    checkedCount = 0;
+    importCallCount = 0;
+    if (
+      document.getElementById("FunSports").checked ||
+      document.getElementById("USDFunSports").checked ||
+      document.getElementById("HKDFunSports").checked ||
+      document.getElementById("FunSportsonline").checked
+    ) {
+      $("#marketList").modal("show");
+    } else {
+      $.toast({
+        heading: "Error",
+        text: "Please select atlease one site",
+        position: "bottom-right",
+        showHideTransition: "slide",
+        icon: "error",
+      });
+    }
+  }
+
   $scope.importMarket = function () {
     importCallCount = 0;
     if (document.getElementById("FunSports").checked) {
