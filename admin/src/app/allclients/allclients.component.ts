@@ -138,14 +138,14 @@ export class allClientsComponent implements OnInit {
         filter: "agTextColumnFilter",
       },
       {
-        headerName: "Adminid",
+        headerName: "DoubleSuperid",
         field: "adminId",
-        minWidth: 75,
-        width: 100,
+        minWidth: 125,
+        width: 125,
         suppressSizeToFit: true,
       },
       {
-        headerName: "AdminName",
+        headerName: "DoubleSuperName",
         field: "adminName",
         minWidth: 125,
         width: 125,
