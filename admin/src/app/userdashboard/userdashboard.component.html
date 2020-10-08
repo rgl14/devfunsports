@@ -8,7 +8,7 @@
                         <div class="button-row ibox-content mob-button">
                           <!-- <button mat-raised-button color="primary" [routerLink]="['recevcash',userId, userName, name]"  *ngIf="amount>0">Recieve Cash (Lena)</button> -->
                           <!-- <button mat-raised-button color="primary" [routerLink]="['paycash',userId, userName, name]" *ngIf="amount<0">Pay Cash (Dena)</button> -->
-                          <button mat-raised-button color="primary" [routerLink]="['userledger',userId]">Ledger</button>
+                          <button mat-raised-button color="primary" *ngIf="userType==6" [routerLink]="['userledger',userId]">Ledger</button>
                           <button mat-raised-button color="primary" [routerLink]="['cashledger',userId]">Cash Ledger</button>
                           <button mat-raised-button color="primary" [routerLink]="['matchledger',userId]">Match Ledger</button>
                           <button mat-raised-button color="primary" *ngIf="userType==2" [routerLink]="[userId, 'supermaster']">Direct Super Masters</button>
