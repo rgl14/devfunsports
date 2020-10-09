@@ -1,4 +1,33 @@
 <style>
+  .ajax_loader {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: rgba(0, 0, 0, .5);
+    }
+
+    .ajax_loader.hidden {
+        display: block;
+        visibility: hidden;
+    }
+
+    .ajax_loader i {
+        position: absolute;
+        left: 50%;
+        top: 45%;
+        color: white;
+        font-size: 25px;
+    }
+
+    .loader_spinner {
+        position: absolute;
+        left: 45%;
+        top: 50%;
+        font-size: 32px;
+        color: white;
+    }
   .typeahead__container.cancel:not(.loading) .typeahead__cancel-button, .typeahead__label .typeahead__cancel-button {
         visibility: hidden;
     }
@@ -16,7 +45,7 @@
         outline: none;
     }
 </style>
-<div class="loader" ng-if="marketDataPending"></div>
+<!-- <div class="loader" ng-if="marketDataPending"></div>
 <div id="accordion"  ng-repeat="sports in getmarketdatanew">
   <div class="card">
     <div class="card-header card-header-p bg-success text-light" id="heading-{{sports.id}}">
@@ -127,7 +156,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <div class="modal fade" id="matchSettingsModal">
@@ -258,7 +287,7 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" ng-click="importMarket()">Import</button>
+        <!-- <button type="button" class="btn btn-success" ng-click="importMarket()">Import</button> -->
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
 
@@ -332,6 +361,10 @@
     </tr>
 
 </table>
+<div ng-cloak class="ajax_loader hidden" style="z-index: 10000000000;">
+  <span class="loader_spinner">Please
+      wait...</span> <i class="fa fa-spinner fa-spin"></i>
+</div>
 </div>
                                 <script>
                                     $('.date-picker').datetimepicker({

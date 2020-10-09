@@ -326,7 +326,7 @@ app.controller("importMarketController", function (
       $scope.filter.Sportname = "";
     } else {
       $scope.filter.Sportname = val.name;
-      console.log(val);
+      // console.log(val);
     }
   };
   $scope.selectMatch = function (val) {
@@ -335,7 +335,7 @@ app.controller("importMarketController", function (
     } else {
       $scope.filter.matchName = val;
     }
-    console.log(val);
+    // console.log(val);
   };
   $scope.selectDate = function (val) {
     if (val == null || val == "") {
@@ -344,13 +344,14 @@ app.controller("importMarketController", function (
     } else {
       $scope.filter.matchDate = val;
     }
-    console.log(val);
+    // console.log(val);
   };
   $scope.clearInput = function () {
     $scope.filter.MatchName = "";
   };
   $scope.GetMarketDataNew = function () {
     $scope.marketDataPending = true;
+    $(".ajax_loader.hidden").css("visibility", "visible");
     $http({
       method: "GET",
       url:
@@ -363,6 +364,7 @@ app.controller("importMarketController", function (
         $scope.marketDataPending = false;
         $scope.getmarketdatanew = response.data.data;
         $scope.Matchwisedata = $scope.Matchwisedata(response.data.data);
+        $(".ajax_loader.hidden").css("visibility", "hidden");
         $scope.tableParams = new NgTableParams(
           {
             page: 1,
@@ -404,11 +406,12 @@ app.controller("importMarketController", function (
             },
           },
         });
-        console.log($scope.Matchwisedata)
-        console.log("marketdata", response.data.data);
+        // console.log($scope.Matchwisedata)
+        // console.log("marketdata", response.data.data);
       },
       function myError(response) {
         $scope.marketDataPending = false;
+        $(".ajax_loader.hidden").css("visibility", "hidden");
         console.log("marketdata", response);
       }
     );
