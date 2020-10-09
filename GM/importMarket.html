@@ -510,39 +510,6 @@
       <option label="All Sports" value="">All Sports</option>
     </select>
   </div>
-
-  <div class="col-12 col-md-3">
-    <form ng-submit="selectMatch(filter.matchName)">
-      <div class="typeahead__container">
-        <div class="typeahead__field">
-          <div class="typeahead__query">
-            <button
-              class="cancel-button"
-              ng-if="filter.matchName.length !== 0"
-              ng-click="clearInput();"
-              style="z-index: 1"
-            >
-              x
-            </button>
-            <input
-              id="Match-search"
-              class="js-typeahead-country_v1"
-              ng-model="filter.matchName"
-              name="country_v1[query]"
-              placeholder="Search Match"
-              autocomplete="off"
-              ng-change="selectMatch(filter.matchName)"
-            />
-          </div>
-          <div class="typeahead__button">
-            <button type="submit">
-              <i class="typeahead__search-icon"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
   <div class="col-12 col-md-3">
     <form ng-submit="selectTournament(filter.Tourname)">
       <div class="typeahead__container">
@@ -576,6 +543,38 @@
     </form>
   </div>
   <div class="col-12 col-md-3">
+    <form ng-submit="selectMatch(filter.matchName)">
+      <div class="typeahead__container">
+        <div class="typeahead__field">
+          <div class="typeahead__query">
+            <button
+              class="cancel-button"
+              ng-if="filter.matchName.length !== 0"
+              ng-click="clearInput();"
+              style="z-index: 1"
+            >
+              x
+            </button>
+            <input
+              id="Match-search"
+              class="js-typeahead-country_v1"
+              ng-model="filter.matchName"
+              name="country_v1[query]"
+              placeholder="Search Match"
+              autocomplete="off"
+              ng-change="selectMatch(filter.matchName)"
+            />
+          </div>
+          <div class="typeahead__button">
+            <button type="submit">
+              <i class="typeahead__search-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-12 col-md-3">
     <input
       type="text"
       ng-model="selectedDate"
@@ -597,7 +596,7 @@
       <td title="'Sport'" sortable="'Sportname'">{{matchlist.Sportname}}</td>
       <td title="'Tournament'" sortable="'Tourname'">{{matchlist.Tourname}}</td>
       <td title="'Match'" sortable="'matchName'">{{matchlist.matchName}}</td>
-      <td title="'MatchDate'" sortable="'matchDate'">
+      <td title="'Match Date'" sortable="'matchDate'">
         <span style="font-weight: bolder">{{matchlist.matchDate}}</span>
       </td>
       <td title="'Actions'">

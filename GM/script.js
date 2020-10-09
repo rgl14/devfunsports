@@ -588,7 +588,7 @@ app.controller("importMarketController", function (
 
   $scope.importmarketlist=function(Matchdata){
     $scope.marketsList=Matchdata;
-    console.log($scope.marketsList);
+    // console.log($scope.marketsList);
     checkedCount = 0;
     importCallCount = 0;
     if (
