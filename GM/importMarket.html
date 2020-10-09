@@ -1,61 +1,123 @@
 <style>
-  .typeahead__container.cancel:not(.loading) .typeahead__cancel-button, .typeahead__label .typeahead__cancel-button {
-        visibility: hidden;
-    }
-    .cancel-button {
-        position: absolute;
-        right: 0;
-        height: 100%;
-        width: 42px;
-        background: transparent;
-        color: #505050;
-        border: 0;
-        outline: none;
-    }
-    .cancel-button:focus {
-        outline: none;
-    }
+  .typeahead__container.cancel:not(.loading) .typeahead__cancel-button,
+  .typeahead__label .typeahead__cancel-button {
+    visibility: hidden;
+  }
+  .cancel-button {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 42px;
+    background: transparent;
+    color: #505050;
+    border: 0;
+    outline: none;
+  }
+  .cancel-button:focus {
+    outline: none;
+  }
 </style>
 <div class="loader" ng-if="marketDataPending"></div>
-<div id="accordion"  ng-repeat="sports in getmarketdatanew">
+<div id="accordion" ng-repeat="sports in getmarketdatanew">
   <div class="card">
-    <div class="card-header card-header-p bg-success text-light" id="heading-{{sports.id}}">
+    <div
+      class="card-header card-header-p bg-success text-light"
+      id="heading-{{sports.id}}"
+    >
       <h5 class="mb-0">
-        <a role="button" data-toggle="collapse" data-target="#s-{{sports.id}}" aria-expanded="false" aria-controls="s-{{sports.id}}">
+        <a
+          role="button"
+          data-toggle="collapse"
+          data-target="#s-{{sports.id}}"
+          aria-expanded="false"
+          aria-controls="s-{{sports.id}}"
+        >
           {{sports.name}}
         </a>
       </h5>
     </div>
-    <div id="s-{{sports.id}}" class="collapse " data-parent="#accordion" aria-labelledby="heading-{{sports.id}}" ng-repeat="tournament in sports.tournaments" ng-if="tournament.id != ''">
+    <div
+      id="s-{{sports.id}}"
+      class="collapse"
+      data-parent="#accordion"
+      aria-labelledby="heading-{{sports.id}}"
+      ng-repeat="tournament in sports.tournaments"
+      ng-if="tournament.id != ''"
+    >
       <div class="card-body card-body-p">
-
         <div id="accordion-{{sports.id}}">
           <div class="card">
-            <div class="card-header card-header-p bg-secondary text-light" id="heading-{{sports.id}}-{{tournament.id}}">
+            <div
+              class="card-header card-header-p bg-secondary text-light"
+              id="heading-{{sports.id}}-{{tournament.id}}"
+            >
               <h6 class="mb-0">
-                <a class="collapsed" role="button" data-toggle="collapse" data-target="#t-{{sports.id}}-{{tournament.id}}" aria-expanded="false" aria-controls="t-{{sports.id}}-{{tournament.id}}">
+                <a
+                  class="collapsed"
+                  role="button"
+                  data-toggle="collapse"
+                  data-target="#t-{{sports.id}}-{{tournament.id}}"
+                  aria-expanded="false"
+                  aria-controls="t-{{sports.id}}-{{tournament.id}}"
+                >
                   {{tournament.name}}
                 </a>
               </h6>
             </div>
-            <div id="t-{{sports.id}}-{{tournament.id}}" class="collapse" data-parent="#accordion-{{sports.id}}" aria-labelledby="heading-{{sports.id}}-{{tournament.id}}"  ng-repeat="match in tournament.matches">
+            <div
+              id="t-{{sports.id}}-{{tournament.id}}"
+              class="collapse"
+              data-parent="#accordion-{{sports.id}}"
+              aria-labelledby="heading-{{sports.id}}-{{tournament.id}}"
+              ng-repeat="match in tournament.matches"
+            >
               <div class="card-body card-body-p">
-
-                  <div id="accordion-{{sports.id}}-{{tournament.id}}">
-                    <div class="card">
-                      <div class="card-header card-header-p bg-secondary text-light" id="heading-{{sports.id}}-{{tournament.id}}-{{match.id}}">
-                     
-                        <span class="mb-0">
-                          <a class="collapsed" role="button" data-toggle="collapse" data-target="#m-{{sports.id}}-{{tournament.id}}-{{match.id}}" aria-expanded="false" aria-controls="m-{{sports.id}}-{{tournament.id}}-{{match.id}}">
-                            {{match.name}} [{{match.startDate}}]
-                          </a> 
-                        </span>
-                        <button ng-if="sports.id == '4'" type="button" class="btn btn-primary" style="float: right;margin-right: 32px;padding: 2px 5px;"> <a ng-click="SaveMatchDetails(match.startDate,match.id,match.name,match.markets[0].id)">Add Details</a></button>
-                      </div>
-                      <div id="m-{{sports.id}}-{{tournament.id}}-{{match.id}}" class="collapse" data-parent="#accordion-{{sports.id}}-{{tournament.id}}" aria-labelledby="heading-{{sports.id}}-{{tournament.id}}-{{match.id}}" ng-repeat="market in match.markets">
-                        <div class="card-body card-body-p marketTitle">
-                          {{market.name}}
-                          <i class="material-icons text-success font-weight-bold" ng-click="openImportMarketModal(
+                <div id="accordion-{{sports.id}}-{{tournament.id}}">
+                  <div class="card">
+                    <div
+                      class="card-header card-header-p bg-secondary text-light"
+                      id="heading-{{sports.id}}-{{tournament.id}}-{{match.id}}"
+                    >
+                      <span class="mb-0">
+                        <a
+                          class="collapsed"
+                          role="button"
+                          data-toggle="collapse"
+                          data-target="#m-{{sports.id}}-{{tournament.id}}-{{match.id}}"
+                          aria-expanded="false"
+                          aria-controls="m-{{sports.id}}-{{tournament.id}}-{{match.id}}"
+                        >
+                          {{match.name}} [{{match.startDate}}]
+                        </a>
+                      </span>
+                      <button
+                        ng-if="sports.id == '4'"
+                        type="button"
+                        class="btn btn-primary"
+                        style="
+                          float: right;
+                          margin-right: 32px;
+                          padding: 2px 5px;
+                        "
+                      >
+                        <a
+                          ng-click="SaveMatchDetails(match.startDate,match.id,match.name,match.markets[0].id)"
+                          >Add Details</a
+                        >
+                      </button>
+                    </div>
+                    <div
+                      id="m-{{sports.id}}-{{tournament.id}}-{{match.id}}"
+                      class="collapse"
+                      data-parent="#accordion-{{sports.id}}-{{tournament.id}}"
+                      aria-labelledby="heading-{{sports.id}}-{{tournament.id}}-{{match.id}}"
+                      ng-repeat="market in match.markets"
+                    >
+                      <div class="card-body card-body-p marketTitle">
+                        {{market.name}}
+                        <i
+                          class="material-icons text-success font-weight-bold"
+                          ng-click="openImportMarketModal(
                             sports.id,
                             sports.name,
                             tournament.id,
@@ -64,47 +126,86 @@
                             match.name,
                             market.id,
                             market.name,
-                            match.startDate)">add_circle</i>
-                        </div>
+                            match.startDate)"
+                          >add_circle</i
+                        >
                       </div>
                     </div>
                   </div>
-
+                </div>
               </div>
             </div>
           </div>
-        </div>      
-      
+        </div>
       </div>
     </div>
-    <div id="s-{{sports.id}}" class="collapse " data-parent="#accordion" aria-labelledby="heading-{{sports.id}}" ng-repeat="tournament in sports.tournaments" ng-if="tournament.id == ''">
+    <div
+      id="s-{{sports.id}}"
+      class="collapse"
+      data-parent="#accordion"
+      aria-labelledby="heading-{{sports.id}}"
+      ng-repeat="tournament in sports.tournaments"
+      ng-if="tournament.id == ''"
+    >
       <div class="card-body card-body-p">
-
         <div id="accordion-{{sports.id}}">
           <div class="card">
-            <div class="card-header card-header-p bg-secondary text-light" id="heading-{{sports.id}}-1234">
+            <div
+              class="card-header card-header-p bg-secondary text-light"
+              id="heading-{{sports.id}}-1234"
+            >
               <h6 class="mb-0">
-                <a class="collapsed" role="button" data-toggle="collapse" data-target="#t-{{sports.id}}-1234" aria-expanded="false" aria-controls="t-{{sports.id}}-1234">
+                <a
+                  class="collapsed"
+                  role="button"
+                  data-toggle="collapse"
+                  data-target="#t-{{sports.id}}-1234"
+                  aria-expanded="false"
+                  aria-controls="t-{{sports.id}}-1234"
+                >
                   GreyHound Tournament
                 </a>
               </h6>
             </div>
-            <div id="t-{{sports.id}}-1234" class="collapse" data-parent="#accordion-{{sports.id}}" aria-labelledby="heading-{{sports.id}}-1234"  ng-repeat="match in tournament.matches">
+            <div
+              id="t-{{sports.id}}-1234"
+              class="collapse"
+              data-parent="#accordion-{{sports.id}}"
+              aria-labelledby="heading-{{sports.id}}-1234"
+              ng-repeat="match in tournament.matches"
+            >
               <div class="card-body card-body-p">
-
-                  <div id="accordion-{{sports.id}}-1234">
-                    <div class="card">
-                      <div class="card-header card-header-p bg-secondary text-light" id="heading-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}">
-                        <h6 class="mb-0">
-                          <a class="collapsed" role="button" data-toggle="collapse" data-target="#m-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}" aria-expanded="false" aria-controls="m-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}">
-                            {{match.name}} [{{match.startDate}}]
-                          </a>
-                        </h6>
-                      </div>
-                      <div id="m-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}" class="collapse" data-parent="#accordion-{{sports.id}}-1234" aria-labelledby="heading-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}" ng-repeat="market in match.markets">
-                        <div class="card-body card-body-p marketTitle">
-                          {{market.name}}
-                          <i class="material-icons text-success font-weight-bold" ng-click="openImportMarketModal(
+                <div id="accordion-{{sports.id}}-1234">
+                  <div class="card">
+                    <div
+                      class="card-header card-header-p bg-secondary text-light"
+                      id="heading-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}"
+                    >
+                      <h6 class="mb-0">
+                        <a
+                          class="collapsed"
+                          role="button"
+                          data-toggle="collapse"
+                          data-target="#m-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}"
+                          aria-expanded="false"
+                          aria-controls="m-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}"
+                        >
+                          {{match.name}} [{{match.startDate}}]
+                        </a>
+                      </h6>
+                    </div>
+                    <div
+                      id="m-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}"
+                      class="collapse"
+                      data-parent="#accordion-{{sports.id}}-1234"
+                      aria-labelledby="heading-{{sports.id}}-1234-{{match.id}}-{{(match.startDate.split(' ')[1] |replace: ':':'_')}}"
+                      ng-repeat="market in match.markets"
+                    >
+                      <div class="card-body card-body-p marketTitle">
+                        {{market.name}}
+                        <i
+                          class="material-icons text-success font-weight-bold"
+                          ng-click="openImportMarketModal(
                             sports.id,
                             sports.name,
                             tournament.id,
@@ -113,101 +214,174 @@
                             match.name,
                             market.id,
                             market.name,
-                            match.startDate)">add_circle</i>
-                        </div>
+                            match.startDate)"
+                          >add_circle</i
+                        >
                       </div>
                     </div>
                   </div>
-
+                </div>
               </div>
             </div>
           </div>
-        </div>      
-      
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
 <div class="modal fade" id="matchSettingsModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">{{modalTitle}}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
         <form class="row">
           <div class="form-group col-lg-6 col-12 customRow">
-            <label for="volInto" class="col-lg-6 col-12">Market Volume Into</label>
-            <input type="text" class="form-control col-lg-6 col-12" id="volInto" ng-model="volInto">
+            <label for="volInto" class="col-lg-6 col-12"
+              >Market Volume Into</label
+            >
+            <input
+              type="text"
+              class="form-control col-lg-6 col-12"
+              id="volInto"
+              ng-model="volInto"
+            />
           </div>
           <div class="form-group col-lg-6 col-12 customRow">
             <label for="betDelay" class="col-lg-6 col-12">Bet Delay</label>
-            <input type="text" class="form-control col-lg-6 col-12" id="betDelay" ng-model="betDelay">
+            <input
+              type="text"
+              class="form-control col-lg-6 col-12"
+              id="betDelay"
+              ng-model="betDelay"
+            />
           </div>
           <div class="form-group col-lg-6 col-12 customRow">
             <label for="minRate" class="col-lg-6 col-12">Min Rate</label>
-            <input type="text" class="form-control col-lg-6 col-12" id="minRate" ng-model="minRate">
+            <input
+              type="text"
+              class="form-control col-lg-6 col-12"
+              id="minRate"
+              ng-model="minRate"
+            />
           </div>
           <div class="form-group col-lg-6 col-12 customRow">
             <label for="maxRate" class="col-lg-6 col-12">Max Rate</label>
-            <input type="text" class="form-control col-lg-6 col-12" id="maxRate" ng-model="maxRate">
+            <input
+              type="text"
+              class="form-control col-lg-6 col-12"
+              id="maxRate"
+              ng-model="maxRate"
+            />
           </div>
           <div class="form-group col-lg-6 col-12 customRow">
             <label for="minStake" class="col-lg-6 col-12">Min Stake</label>
-            <input type="text" class="form-control col-lg-6 col-12" id="minStake" ng-model="minStake">
+            <input
+              type="text"
+              class="form-control col-lg-6 col-12"
+              id="minStake"
+              ng-model="minStake"
+            />
           </div>
           <div class="form-group col-lg-6 col-12 customRow">
             <label for="maxStake" class="col-lg-6 col-12">Max Stake</label>
-            <input type="text" class="form-control col-lg-6 col-12" id="maxStake" ng-model="maxStake">
+            <input
+              type="text"
+              class="form-control col-lg-6 col-12"
+              id="maxStake"
+              ng-model="maxStake"
+            />
           </div>
           <div class="form-group col-lg-6 col-12 customRow">
             <label for="maxProfit" class="col-lg-6 col-12">Max Profit</label>
-            <input type="text" class="form-control col-lg-6 col-12" id="maxProfit" ng-model="maxProfit">
+            <input
+              type="text"
+              class="form-control col-lg-6 col-12"
+              id="maxProfit"
+              ng-model="maxProfit"
+            />
           </div>
           <div class="form-group col-lg-6 col-12 customRow">
             <label for="maxLoss" class="col-lg-6 col-12">Max Loss</label>
-            <input type="text" class="form-control col-lg-6 col-12" id="maxLoss" ng-model="maxLoss">
+            <input
+              type="text"
+              class="form-control col-lg-6 col-12"
+              id="maxLoss"
+              ng-model="maxLoss"
+            />
           </div>
           <div class="form-group col-lg-6 col-12 customRow">
-            <label for="beforeInplayLt" class="col-lg-6 col-12">Market Before Inplay Limit</label>
-            <input type="text" class="form-control col-lg-6 col-12" id="beforeInplayLt" ng-model="beforeInplayLt">
+            <label for="beforeInplayLt" class="col-lg-6 col-12"
+              >Market Before Inplay Limit</label
+            >
+            <input
+              type="text"
+              class="form-control col-lg-6 col-12"
+              id="beforeInplayLt"
+              ng-model="beforeInplayLt"
+            />
           </div>
           <div class="custom-checkbox col-lg-6 col-12 customRow">
-            <input type="checkbox" class="custom-control-input col-lg-6 col-12" id="chkVol" ng-model="chkVol" name="example1">
-            <label class="custom-control-label col-lg-6 col-12 customRCB" for="chkVol">Is Check Volume</label>
+            <input
+              type="checkbox"
+              class="custom-control-input col-lg-6 col-12"
+              id="chkVol"
+              ng-model="chkVol"
+              name="example1"
+            />
+            <label
+              class="custom-control-label col-lg-6 col-12 customRCB"
+              for="chkVol"
+              >Is Check Volume</label
+            >
           </div>
           <div class="custom-checkbox col-lg-6 col-12 customRow">
-            <input type="checkbox" class="custom-control-input col-lg-6 col-12" id="umAllowed" ng-model="umAllowed" name="example1">
-            <label class="custom-control-label col-lg-6 col-12 customRCB" for="umAllowed">Is Unmatched Allowed</label>
+            <input
+              type="checkbox"
+              class="custom-control-input col-lg-6 col-12"
+              id="umAllowed"
+              ng-model="umAllowed"
+              name="example1"
+            />
+            <label
+              class="custom-control-label col-lg-6 col-12 customRCB"
+              for="umAllowed"
+              >Is Unmatched Allowed</label
+            >
           </div>
         </form>
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" ng-click="importMarket()">Import</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" ng-click="importMarket()">
+          Import
+        </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="noSettingsModal" style="z-index: 10000;">
+<div class="modal fade" id="noSettingsModal" style="z-index: 10000">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">{{modalTitle}}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
@@ -217,10 +391,13 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" ng-click="importMarket()">Import</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" ng-click="importMarket()">
+          Import
+        </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
 </div>
@@ -228,20 +405,23 @@
 <div class="modal fade" id="marketList">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">{{marketsList.name}}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body" style="max-height: 400px;overflow-x: auto;">
+      <div class="modal-body" style="max-height: 400px; overflow-x: auto">
         <div class="card">
           <div ng-repeat="market in marketsList.markets">
             <div class="card-body card-body-p marketTitle">
               {{market.name}}
-              <i class="material-icons text-success font-weight-bold" ng-click="openImportMarketModal(
+              <i
+                class="material-icons text-success font-weight-bold"
+                ng-click="openImportMarketModal(
                 marketsList.SportbfId,
                 marketsList.Sportname,
                 marketsList.TourbfId,
@@ -250,7 +430,9 @@
                 marketsList.matchName,
                 market.id,
                 market.name,
-                marketsList.matchDate)">add_circle</i>
+                marketsList.matchDate)"
+                >add_circle</i
+              >
             </div>
           </div>
         </div>
@@ -258,89 +440,146 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" ng-click="importMarket()">Import</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-success" ng-click="importMarket()">
+          Import
+        </button> -->
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
 </div>
 
 <div class="row mb-2">
-  <div class="col-12 col-md-4">
-      <select ng-model="selectedSport" ng-options="item.name for item in Sportslist"
-          class="form-control chosen-select" ng-change="selectsport(selectedSport);">
-          <option label="All Sports" value="">All Sports</option>
-      </select>
+  <div class="col-12 col-md-3">
+    <select
+      ng-model="selectedSport"
+      ng-options="item.name for item in Sportslist"
+      class="form-control chosen-select"
+      ng-change="selectsport(selectedSport);"
+    >
+      <option label="All Sports" value="">All Sports</option>
+    </select>
   </div>
 
-  <div class="col-12 col-md-4">
-      <form ng-submit="selectMatch(filter.matchName)">
-          <div class="typeahead__container">
-              <div class="typeahead__field">
-                  <div class="typeahead__query">
-                      <button class="cancel-button" ng-if="filter.matchName.length !== 0" ng-click="clearInput();" style="z-index: 1;">x</button>
-                      <input id="Match-search" class="js-typeahead-country_v1"
-                          ng-model="filter.matchName" name="country_v1[query]"
-                          placeholder="Search Match" autocomplete="off"
-                          ng-change="selectMatch(filter.matchName)">
-                  </div>
-                  <div class="typeahead__button">
-                      <button type="submit">
-                          <i class="typeahead__search-icon"></i>
-                      </button>
-                  </div>
-              </div>
+  <div class="col-12 col-md-3">
+    <form ng-submit="selectMatch(filter.matchName)">
+      <div class="typeahead__container">
+        <div class="typeahead__field">
+          <div class="typeahead__query">
+            <button
+              class="cancel-button"
+              ng-if="filter.matchName.length !== 0"
+              ng-click="clearInput();"
+              style="z-index: 1"
+            >
+              x
+            </button>
+            <input
+              id="Match-search"
+              class="js-typeahead-country_v1"
+              ng-model="filter.matchName"
+              name="country_v1[query]"
+              placeholder="Search Match"
+              autocomplete="off"
+              ng-change="selectMatch(filter.matchName)"
+            />
           </div>
-      </form>
+          <div class="typeahead__button">
+            <button type="submit">
+              <i class="typeahead__search-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
-  <div class="col-12 col-md-4">
-      <input type="text" ng-model="selectedDate" class="form-control date-picker"
-          placeholder="YYYY-MM-DD HH:mm:ss" autocomplete="off"
-          ng-change="selectDate(selectedDate)">
+  <div class="col-12 col-md-3">
+    <form ng-submit="selectTournament(filter.Tourname)">
+      <div class="typeahead__container">
+        <div class="typeahead__field">
+          <div class="typeahead__query">
+            <button
+              class="cancel-button"
+              ng-if="filter.Tourname.length !== 0"
+              ng-click="clearTourInput();"
+              style="z-index: 1"
+            >
+              x
+            </button>
+            <input
+              id="Match-search"
+              class="js-typeahead-country_v1"
+              ng-model="filter.Tourname"
+              name="country_v1[query]"
+              placeholder="Search Tournament"
+              autocomplete="off"
+              ng-change="selectTournament(filter.Tourname)"
+            />
+          </div>
+          <div class="typeahead__button">
+            <button type="submit">
+              <i class="typeahead__search-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
-
+  <div class="col-12 col-md-3">
+    <input
+      type="text"
+      ng-model="selectedDate"
+      class="form-control date-picker"
+      placeholder="YYYY-MM-DD HH:mm:ss"
+      autocomplete="off"
+      ng-change="selectDate(selectedDate)"
+    />
+  </div>
 </div>
 <div class="table-responsive">
-  <table ng-cloak ng-table="tableParams" show-filter="false" class="table table-striped table-bordered noWhiteSpace">
-
+  <table
+    ng-cloak
+    ng-table="tableParams"
+    show-filter="false"
+    class="table table-striped table-bordered noWhiteSpace"
+  >
     <tr class="text-center" ng-repeat="matchlist in $data track by $index">
-        <td title="'Sport'" sortable="'Sportname'">
-            {{matchlist.Sportname}}
-        </td>
-        <td title="'Tournament'" sortable="'Tourname'">
-            {{matchlist.Tourname}}
-        </td>
-        <td title="'Match'" sortable="'matchName'">
-          {{matchlist.matchName}}
+      <td title="'Sport'" sortable="'Sportname'">{{matchlist.Sportname}}</td>
+      <td title="'Tournament'" sortable="'Tourname'">{{matchlist.Tourname}}</td>
+      <td title="'Match'" sortable="'matchName'">{{matchlist.matchName}}</td>
+      <td title="'MatchDate'" sortable="'matchDate'">
+        <span style="font-weight: bolder">{{matchlist.matchDate}}</span>
       </td>
-        <td title="'MatchDate'" sortable="'matchDate'">
-            <span style="font-weight: bolder">{{matchlist.matchDate}}</span>
-        </td>
-        <td title="'Actions'">
-            <button  ng-if="matchlist.SportbfId == '4'"
-                ng-click="SaveMatchDetails(matchlist.matchDate,matchlist.matchId,matchlist.matchName,matchlist.markets[0].id)"
-                title="Add Details"
-                class="btn btn-success btn-sm">Add Details
-            </button>
-            <button
-                ng-click="importmarketlist(matchlist)"
-                title="Market List"
-                class="btn btn-danger btn-sm">Markets
-            </button>
-        </td>
+      <td title="'Actions'">
+        <button
+          ng-if="matchlist.SportbfId == '4'"
+          ng-click="SaveMatchDetails(matchlist.matchDate,matchlist.matchId,matchlist.matchName,matchlist.markets[0].id)"
+          title="Add Details"
+          class="btn btn-success btn-sm"
+        >
+          Add Details
+        </button>
+        <button
+          ng-click="importmarketlist(matchlist)"
+          title="Market List"
+          class="btn btn-danger btn-sm"
+        >
+          Markets
+        </button>
+      </td>
     </tr>
-
-</table>
+  </table>
 </div>
-                                <script>
-                                    $('.date-picker').datetimepicker({
-                                        width: '100%',
-                                        format: 'Y-m-d H:i:00',
-                                        step: 15,
-                                        onSelectDate: function (ct, input) {
-                                            input[0].value = input[0].value.split(" ")[0];
-                                        },
-                                        validateOnBlur: false
-                                    });
-                                </script>
+<script>
+  $(".date-picker").datetimepicker({
+    width: "100%",
+    format: "Y-m-d H:i:00",
+    step: 15,
+    onSelectDate: function (ct, input) {
+      input[0].value = input[0].value.split(" ")[0];
+    },
+    validateOnBlur: false,
+  });
+</script>
