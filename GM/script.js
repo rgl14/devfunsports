@@ -318,7 +318,7 @@ app.controller("importMarketController", function (
     {name:'Tennis',bfid:'2'},
     {name:'Soccer',bfid:'1'}
   ]
-  $scope.filter = { Sportname: "", matchName: "", matchDate: "" };
+  $scope.filter = { Sportname: "", matchName: "", matchDate: "",Tourname:"" };
   $scope.selectsport = function (val) {
     console.log(val);
     if (val == null) {
@@ -337,6 +337,15 @@ app.controller("importMarketController", function (
     }
     // console.log(val);
   };
+
+  $scope.selectTournament = function (val) {
+    if (val == null || val == "") {
+      $scope.filter.Tourname = "";
+    } else {
+      $scope.filter.Tourname = val;
+    }
+    console.log(val);
+  };
   $scope.selectDate = function (val) {
     if (val == null || val == "") {
       $scope.filter.matchDate = "";
@@ -347,7 +356,11 @@ app.controller("importMarketController", function (
     // console.log(val);
   };
   $scope.clearInput = function () {
-    $scope.filter.MatchName = "";
+    $scope.filter.matchName = "";
+  };
+
+  $scope.clearTourInput = function () {
+    $scope.filter.Tourname = "";
   };
   $scope.GetMarketDataNew = function () {
     $scope.marketDataPending = true;
