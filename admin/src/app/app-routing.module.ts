@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AddadminFundsComponent } from './addadmin-funds/addadmin-funds.component';
 import { AddscoreComponent } from "./addscore/addscore.component";
 import { AgentlistComponent } from "./agentlist/agentlist.component";
 import { BalanceComponent } from "./balance/balance.component";
@@ -127,6 +128,11 @@ const routes: Routes = [
             path: "dashboard",
             component: HomeComponent,
             data: { breadcrumb: "Dashboard" },
+          },
+          {
+            path: "adminfunds",
+            component: AddadminFundsComponent,
+            data: { breadcrumb: "Admin Funds" },
           },
           // {
           //   path: "managepassword",

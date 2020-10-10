@@ -10,6 +10,10 @@
       <div class="sub-menu-1">
         <ul>
           <li *ngIf="userType === 1">
+            <a [routerLink]="'/adminfunds'"><i class="fa fa-soccer-ball-o"></i> Admin Funds</a
+            >
+          </li>
+          <li *ngIf="userType === 1">
             <a [routerLink]="'/manage-clients/0/admin'"
               ><i class="fa fa fa-users"></i> Double Super</a
             >

@@ -78,6 +78,7 @@ import {
   dWcomponent,
   wdDialog,
 } from "./customcellbuttons/DWChild/dwchild.component";
+import { AddadminFundsComponent } from './addadmin-funds/addadmin-funds.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import {
     ShareDialog,
     LimitsDialog,
     ShowPwdDialog,
+    AddadminFundsComponent,
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,10 @@ export class UsermanagementService {
     return this.http.post(`${this.BASEURL}/ChangePwd`, data);
   }
 
+  DefineAdminFunds(data): Observable<any>{
+    return this.http.post(`${this.BASEURL}/Funds/DefineAdminFunds`, data);
+  }
+
   Logout(data): Observable<any> {
     return this.http.post(`${this.BASEURL}/Logout`, data);
   }
