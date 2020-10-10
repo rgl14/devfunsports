@@ -56,7 +56,7 @@ export class CreatesuperComponent implements OnInit {
         ],
         firstName: ["", Validators.required],
         fixLimit: [
-          { value: "", disabled: this.isdisabled },
+          { value: 0, disabled: this.isdisabled },
           Validators.required,
         ],
         expoLimit: ["", Validators.required],

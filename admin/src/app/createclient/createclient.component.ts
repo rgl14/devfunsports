@@ -52,7 +52,7 @@ export class CreateclientComponent implements OnInit {
           Validators.required,
         ],
         firstName: ["", Validators.required],
-        fixLimit: [{ value: "", disabled: this.isdisabled }],
+        fixLimit: [{ value: 0, disabled: this.isdisabled }],
         // myShare:['',Validators.required],
         expoLimit: ["0", Validators.required],
         MComm: [""],
