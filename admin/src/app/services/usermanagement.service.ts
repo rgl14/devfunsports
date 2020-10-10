@@ -157,4 +157,18 @@ export class UsermanagementService {
       {}
     );
   }
+
+  TransferChips(data): Observable<any> {
+    return this.http.post(
+      `${this.BASEURL}/Funds/TransferChips`,
+      data
+    );
+  }
+
+  DefineAdminFunds(data):Observable<any>{
+    return this.http.post(
+      `${this.BASEURL}/Funds/DefineAdminFunds`,
+      data
+    );
+  }
 }
