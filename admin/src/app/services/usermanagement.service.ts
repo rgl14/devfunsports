@@ -164,11 +164,4 @@ export class UsermanagementService {
       data
     );
   }
-
-  DefineAdminFunds(data):Observable<any>{
-    return this.http.post(
-      `${this.BASEURL}/Funds/DefineAdminFunds`,
-      data
-    );
-  }
 }

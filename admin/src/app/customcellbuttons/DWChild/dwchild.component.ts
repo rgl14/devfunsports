@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SharedataService } from "src/app/services/sharedata.service";
 import { UsermanagementService } from 'src/app/services/usermanagement.service';
 import { NotificationService } from 'src/app/shared/notification.service';
+declare var jQuery:any;
 @Component({
   templateUrl: "./dwchild.component.html",
 })
@@ -50,16 +51,8 @@ export class dWcomponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-       var data=  {
-          amount:result.chips,
-          "context":"Web",
-          "transferBy":this.accountInfo.userName,
-          "transferByRemarks":"String content",
-          "transferTo":result.userName,
-          "transfertoRemarks":"String content",
-          "type":1
-        }
-        this.transferFunds(data)
+        // console.log(result)
+        this.params.context.componentParent.GetuserList();
       }
     });
   }
@@ -71,30 +64,12 @@ export class dWcomponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        var data=  {
-          "amount":1.26743233E+15,
-          "context":"String content",
-          "transferBy":"String content",
-          "transferByRemarks":"String content",
-          "transferTo":"String content",
-          "transfertoRemarks":"String content",
-          "type":1
-        }
-        this.transferFunds(data)
+        this.params.context.componentParent.GetuserList();
       }
     });
   }
 
-  transferFunds(data){
-    this.usermanage.TransferChips(data).subscribe((data) => {
-      if (data.status == "Success") {
-        this.notifyService.success(data.result);
-        this.params.context.componentParent.GetuserList();
-      } else {
-        this.notifyService.error(data.result);
-      }
-    });
-  }
+
 }
 
 @Component({
@@ -128,7 +103,7 @@ export class dWcomponent implements OnInit {
                 type="number"
                 class="form-control border-primary"
                 placeholder="Chips"
-                [value]="accountInfo.remainingLimit"
+                [value]="chips"
                 [disabled]="true"
                 min="0"
               />
@@ -141,7 +116,7 @@ export class dWcomponent implements OnInit {
                 type="number"
                 class="form-control border-primary"
                 placeholder="Chips"
-                [value]="data.chips"
+                [value]="amount"
                 [disabled]="true"
                 min="0"
               />
@@ -154,11 +129,11 @@ export class dWcomponent implements OnInit {
            <div class="col-md-6">
             <div class="form-group">
               <textarea
-                id="txt_box"
+                id="txt_boxe"
                 rows="6"
                 class="form-control border-primary"
                 type="text"
-              >Withdraw chips from {{ data.userName }} Rs:</textarea>
+              >Withdraw chips from {{ data.userName }}: {{systemPointForm.controls.Amount.value}}</textarea>
             </div>
             </div>
             <div class="col-md-6">
@@ -182,6 +157,7 @@ export class dWcomponent implements OnInit {
       <button
         mat-raised-button
         color="primary"
+        (click)="transferFunds()"
         [disabled]="!systemPointForm.valid"
       >
         Update
@@ -191,21 +167,26 @@ export class dWcomponent implements OnInit {
 export class wdDialog {
   systemPointForm: FormGroup;
   accountInfo = null;
+  chips=0;
+  amount=0;
   constructor(
     public dialogRef: MatDialogRef<wdDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private sharedata: SharedataService
+    private sharedata: SharedataService,
+    private usermanage:UsermanagementService,
+    private notifyService:NotificationService
   ) {
     console.log(data);
+    this.amount=this.data.fixLimit;
     this.systemPointForm = this.fb.group({
-      Amount: ["", Validators.required],
-      Comments: ["", Validators.required],
+      Amount: [0, Validators.required]
     });
 
     this.sharedata.AccountInfoSource.subscribe((data) => {
       if (data != null) {
         this.accountInfo = data;
+        this.chips=this.accountInfo.remainingLimit;
       }
     });
     this.formControlchanged();
@@ -213,14 +194,31 @@ export class wdDialog {
 
   formControlchanged() {
     this.systemPointForm.get("Amount").valueChanges.subscribe((mode: any) => {
-      if (mode > this.accountInfo.remainingLimit) {
-        this.systemPointForm.controls["Amount"].setValue(this.accountInfo.remainingLimit);
-        // this.data.myShare = this.accountInfo.remainingLimit;
+        if (mode > this.data.fixLimit) {
+          this.systemPointForm.controls["Amount"].setValue(this.data.fixLimit);
       } else {
-        this.data.chips = mode;
-        let chips = this.accountInfo.remainingLimit - mode;
-        // this.systemPointForm.controls["Amount"].setValue(chips);
-        // this.data.maxShare = myshare;
+        this.chips = parseInt(this.accountInfo.remainingLimit) + mode;
+        this.amount=this.data.fixLimit-mode;
+      }
+    });
+  }
+
+  transferFunds(){
+    var data=  {
+      amount:this.systemPointForm.get("Amount").value,
+      context:"web",
+      transferBy:this.data.userName,
+      transferByRemarks:$("#txt_box").val(),
+      transferTo:this.accountInfo.userName,
+      transfertoRemarks:$("#txt_boxe").val(),
+      type:1
+    }
+    this.usermanage.TransferChips(data).subscribe((data) => {
+      if (data.status == "Success") {
+        this.notifyService.success(data.result);
+        this.dialogRef.close();
+      } else {
+        this.notifyService.error(data.result);
       }
     });
   }
@@ -262,7 +260,7 @@ export class wdDialog {
             type="number"
             class="form-control border-primary"
             placeholder="Chips"
-            [value]="data.chips"
+            [value]="chips"
             [disabled]="true"
             min="0"
           />
@@ -275,7 +273,7 @@ export class wdDialog {
             type="number"
             class="form-control border-primary"
             placeholder="Chips"
-            [value]="data.chips"
+            [value]="amount"
             [disabled]="true"
             min="0"
           />
@@ -288,11 +286,11 @@ export class wdDialog {
        <div class="col-md-6">
         <div class="form-group">
           <textarea
-            id="txt_box"
+            id="txt_boxe"
             rows="6"
             class="form-control border-primary"
             type="text"
-          >Deposit chips to {{ data.userName }} Rs:</textarea>
+          >Deposit chips to {{data.userName }} : {{systemPointForm.controls.Amount.value}}</textarea>
         </div>
         </div>
         <div class="col-md-6">
@@ -316,6 +314,7 @@ export class wdDialog {
   <button
     mat-raised-button
     color="primary"
+    (click)="transferFunds()"
     [disabled]="!systemPointForm.valid"
   >
     Update
@@ -323,23 +322,65 @@ export class wdDialog {
 </div>
   `,
 })
-export class dpDialog {
+export class dpDialog implements OnInit{
   systemPointForm: FormGroup;
   accountInfo = null;
+  chips=0;
+  amount=0;
   constructor(
     public dialogRef: MatDialogRef<dpDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private sharedata: SharedataService
+    private sharedata: SharedataService,
+    private usermanage:UsermanagementService,
+    private notifyService:NotificationService
   ) {
     console.log(data);
+    this.amount=this.data.fixLimit;
     this.systemPointForm = this.fb.group({
-      Amount: ["", Validators.required],
-      Comments: ["", Validators.required],
+      Amount: [0, Validators.required],
     });
     this.sharedata.AccountInfoSource.subscribe((data) => {
       if (data != null) {
         this.accountInfo = data;
+        this.chips=this.accountInfo.remainingLimit;
+      }
+    });
+    this.formControlchanged();
+  }
+
+  ngOnInit(){
+   console.log($("#txt_boxe").val())
+  } 
+
+  formControlchanged() {
+    this.systemPointForm.get("Amount").valueChanges.subscribe((mode: any) => {
+      if (mode > this.accountInfo.remainingLimit) {
+        this.systemPointForm.controls["Amount"].setValue(this.accountInfo.remainingLimit);
+        this.amount=this.accountInfo.remainingLimit;
+      } else {
+        this.chips = parseInt(this.accountInfo.remainingLimit)-mode;
+        this.amount=this.data.fixLimit+mode;
+      }
+    });
+  }
+
+  transferFunds(){
+    var data=  {
+      amount:this.systemPointForm.get("Amount").value,
+      context:"web",
+      transferBy:this.accountInfo.userName,
+      transferByRemarks:$("#txt_boxe").val(),
+      transferTo:this.data.userName,
+      transfertoRemarks:$("#txt_box").val(),
+      type:1
+    }
+    this.usermanage.TransferChips(data).subscribe((data) => {
+      if (data.status == "Success") {
+        this.notifyService.success(data.result);
+        this.dialogRef.close();
+      } else {
+        this.notifyService.error(data.result);
       }
     });
   }
