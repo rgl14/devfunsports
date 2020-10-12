@@ -178,7 +178,7 @@ export class wdDialog {
     private notifyService:NotificationService
   ) {
     console.log(data);
-    this.amount=this.data.fixLimit;
+    this.amount=this.data.chips;
     this.systemPointForm = this.fb.group({
       Amount: [0, Validators.required]
     });
@@ -194,11 +194,11 @@ export class wdDialog {
 
   formControlchanged() {
     this.systemPointForm.get("Amount").valueChanges.subscribe((mode: any) => {
-        if (mode > this.data.fixLimit) {
-          this.systemPointForm.controls["Amount"].setValue(this.data.fixLimit);
+        if (mode > this.data.chips) {
+          this.systemPointForm.controls["Amount"].setValue(this.data.chips);
       } else {
         this.chips = parseInt(this.accountInfo.remainingLimit) + mode;
-        this.amount=this.data.fixLimit-mode;
+        this.amount=this.data.chips-mode;
       }
     });
   }
