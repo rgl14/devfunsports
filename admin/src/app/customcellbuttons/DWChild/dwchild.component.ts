@@ -216,7 +216,7 @@ export class wdDialog {
     this.usermanage.TransferChips(data).subscribe((data) => {
       if (data.status == "Success") {
         this.notifyService.success(data.result);
-        this.dialogRef.close();
+        this.dialogRef.close(data);
       } else {
         this.notifyService.error(data.result);
       }
@@ -378,7 +378,7 @@ export class dpDialog implements OnInit{
     this.usermanage.TransferChips(data).subscribe((data) => {
       if (data.status == "Success") {
         this.notifyService.success(data.result);
-        this.dialogRef.close();
+        this.dialogRef.close(data);
       } else {
         this.notifyService.error(data.result);
       }
