@@ -11,7 +11,7 @@
     <!-- <span class="username" *ngIf="AccountInfo">{{AccountInfo.userName}} / {{AccountInfo.myLevel}} / {{currencyType}}</span>
     <span class="balance" *ngIf="AccountInfo">{{availbalance}}</span> -->
     <span class="username" *ngIf="AccountInfo">{{AccountInfo.userName}} [ Level : {{AccountInfo.myLevel}} ]</span>
-    <span class="balance" *ngIf="AccountInfo">{{currencyType}} {{AccountInfo.remainingLimit | number : '1.2-2'}}</span>
+    <span class="balance" *ngIf="AccountInfo">{{currencyType}} {{AccountInfo.balance | number : '1.2-2'}}</span>
   </div>
   <div class="userdrop"></div>
   <div class="buttons">
@@ -55,10 +55,10 @@
                       <div>Currency:</div> <span><strong>{{currencyType}}</strong></span>
                   </div>
                     <div class="group">
-                        <div>Fix Limit:</div> <span [ngClass]="(AccountInfo.fixLimit >= 0)?'text-success':'text-danger'" >{{AccountInfo.fixLimit | number : '1.2-2'}}</span>
+                        <div>Fix Limit:</div> <span [ngClass]="(AccountInfo.balance >= 0)?'text-success':'text-danger'" >{{AccountInfo.balance | number : '1.2-2'}}</span>
                     </div>
                     <div class="group">
-                        <div>Net Exposure:</div> <span [ngClass]="(AccountInfo.remainingLimit >= 0)?'text-success':'text-danger'" >{{AccountInfo.remainingLimit | number : '1.2-2'}}</span>
+                        <div>Net Exposure:</div> <span [ngClass]="(AccountInfo.pnl >= 0)?'text-success':'text-danger'" >{{AccountInfo.pnl | number : '1.2-2'}}</span>
                     </div>
                 </div>
             </div>
@@ -145,11 +145,11 @@
               </div>
               <div class="group">
                 <div>Fix Limit:</div> <span
-                  [ngClass]="(AccountInfo.fixLimit >= 0)?'text-success':'text-danger'">{{AccountInfo.fixLimit | number : '1.2-2'}}</span>
+                  [ngClass]="(AccountInfo.balance >= 0)?'text-success':'text-danger'">{{AccountInfo.balance | number : '1.2-2'}}</span>
               </div>
               <div class="group">
                 <div>Net Exposure:</div> <span
-                  [ngClass]="(AccountInfo.remainingLimit >= 0)?'text-success':'text-danger'">{{AccountInfo.remainingLimit | number : '1.2-2'}}</span>
+                  [ngClass]="(AccountInfo.pnl >= 0)?'text-success':'text-danger'">{{AccountInfo.pnl | number : '1.2-2'}}</span>
               </div>
             </div>
           </div>
