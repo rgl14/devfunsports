@@ -77,7 +77,7 @@ export class SupermasterComponent implements OnInit {
         cellStyle: { "font-weight": "bolder", "font-style": "sans-serif" },
       },
       {
-        headerName: "Current P|L",
+        headerName: "Current Chips",
         field: "chips",
         sortable: true,
         minWidth: 125,

@@ -158,7 +158,7 @@ export class dWcomponent implements OnInit {
         mat-raised-button
         color="primary"
         (click)="transferFunds()"
-        [disabled]="!systemPointForm.valid"
+        [disabled]="!systemPointForm.valid || disabled"
       >
         Update
       </button>
@@ -169,6 +169,7 @@ export class wdDialog {
   accountInfo = null;
   chips=0;
   amount=0;
+  disabled:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<wdDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -213,12 +214,15 @@ export class wdDialog {
       transfertoRemarks:$("#txt_boxe").val(),
       type:1
     }
+    this.disabled=true;
     this.usermanage.TransferChips(data).subscribe((data) => {
       if (data.status == "Success") {
         this.notifyService.success(data.result);
         this.dialogRef.close(data);
+        this.disabled=false;
       } else {
         this.notifyService.error(data.result);
+        this.disabled=false;
       }
     });
   }
@@ -315,7 +319,7 @@ export class wdDialog {
     mat-raised-button
     color="primary"
     (click)="transferFunds()"
-    [disabled]="!systemPointForm.valid"
+    [disabled]="!systemPointForm.valid || disabled"
   >
     Update
   </button>
@@ -327,6 +331,7 @@ export class dpDialog implements OnInit{
   accountInfo = null;
   chips=0;
   amount=0;
+  disabled:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<dpDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -336,7 +341,7 @@ export class dpDialog implements OnInit{
     private notifyService:NotificationService
   ) {
     console.log(data);
-    this.amount=this.data.fixLimit;
+    this.amount=this.data.chips;
     this.systemPointForm = this.fb.group({
       Amount: [0, Validators.required],
     });
@@ -360,7 +365,7 @@ export class dpDialog implements OnInit{
         this.amount=this.accountInfo.remainingLimit;
       } else {
         this.chips = parseInt(this.accountInfo.remainingLimit)-mode;
-        this.amount=this.data.fixLimit+mode;
+        this.amount=this.data.chips+mode;
       }
     });
   }
@@ -375,11 +380,14 @@ export class dpDialog implements OnInit{
       transfertoRemarks:$("#txt_box").val(),
       type:1
     }
+    this.disabled=true;
     this.usermanage.TransferChips(data).subscribe((data) => {
       if (data.status == "Success") {
         this.notifyService.success(data.result);
         this.dialogRef.close(data);
+        this.disabled=false
       } else {
+        this.disabled=false
         this.notifyService.error(data.result);
       }
     });
