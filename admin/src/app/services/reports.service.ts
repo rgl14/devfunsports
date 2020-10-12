@@ -16,6 +16,10 @@ export class ReportsService {
     return this.http.get(`${this.BASEURL}/Reports/AnalysisReport`);
   }
 
+  AccountStatement(dates,FILTER,ID): Observable<any> {
+    return this.http.get(`${this.BASEURL}/Reports/AccountStatement?from=${dates.fromdate}&to=${dates.todate}&filter=${FILTER}&id=${ID}`);
+  }
+
   GetAllMatchPnl(): Observable<any> {
     return this.http.get(`${this.BASEURL}/Reports/GetAllMatchPnl`);
   }

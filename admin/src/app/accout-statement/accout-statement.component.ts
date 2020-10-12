@@ -67,29 +67,9 @@ export class AccoutStatementComponent implements OnInit {
       {headerName: 'Date', field: 'date',sort: "desc",resizable: true, sortable: true, minWidth: 100,width:150,suppressSizeToFit: true,lockPosition:true,suppressNavigable:true},
       {headerName: 'Type', field: 'type', sortable: true,resizable: true, minWidth: 100,width:150,suppressSizeToFit: true,},
       {headerName: 'Description', field: 'description', sortable: true,resizable: true, minWidth: 250,width:600,suppressSizeToFit: true,cellRendererFramework: redirectComponent,},
-      {headerName: 'Dr', field: 'debit',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: numberWithCommas,cellClass: function(params) { return (params.value >= 0 ? 'profit':'loss')}},
-      {headerName: 'Cr', field: 'credit',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: numberWithCommas,cellClass: function(params) { return (params.value >= 0 ? 'profit':'loss')}},
+      {headerName: 'Dr', field: 'debit',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: debitFormatter,cellClass: function(params) { return (params.data.dr >= 0 ? 'profit':'loss')}},
+      {headerName: 'Cr', field: 'credit',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: creditFormatter,cellClass: function(params) { return (params.data.cr >= 0 ? 'profit':'loss')}},
       {headerName: 'Balance', field: 'balance',resizable: true, sortable: true, minWidth: 100,valueFormatter: numberWithCommas,cellClass: function(params) { return (params.value >= 0 ? 'profit':'loss')}}
-    ];
-    this.rowD = [
-      {
-        refid: "1",
-        date: "2020-02-29 18:29:18",
-        type:"P|L Market",
-        description: "South Africa v Australia - 1st ODI",
-        credit: "1715.48",
-        debit: "0",
-        balance: "778997525.62",
-      },
-      {
-        refid: "2",
-        date: "2020-02-29 18:29:18",
-        type:"P|L Market",
-        description: "TWENTY TWENTY TEENPATTI ( 11.202701225335 )",
-        credit: "22338.72",
-        debit: "0",
-        balance: "778997471.50",
-      },
     ];
 
     function numberWithCommas(params) {
@@ -97,6 +77,28 @@ export class AccoutStatementComponent implements OnInit {
         var twodecimalvalue=parseFloat(params.value);
         var ans= twodecimalvalue.toLocaleString('en-IN',{ currency: "INR",minimumFractionDigits:2,maximumFractionDigits:2 });
         return ans;
+    }
+
+    function debitFormatter(params){
+      // console.log(params)
+      if(params.data.dr==null || params.data.dr=="-"){
+        return "--"
+      }else{
+        var twodecimalvalue=parseFloat(params.data.dr);
+        var ans= twodecimalvalue.toLocaleString('en-IN',{ currency: "INR",minimumFractionDigits:2,maximumFractionDigits:2 });
+        return ans;
+      }
+    }
+
+    function creditFormatter(params){
+      // console.log(params)
+      if(params.data.cr==null || params.data.cr=="-"){
+        return "--"
+      }else{
+        var twodecimalvalue=parseFloat(params.data.cr);
+        var ans= twodecimalvalue.toLocaleString('en-IN',{ currency: "INR",minimumFractionDigits:2,maximumFractionDigits:2 });
+        return ans;
+      }
     }
 
     this.overlayLoadingTemplate =
@@ -153,7 +155,6 @@ this.dropdownSettings = {
   onGridReady(params:any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.rowData=this.rowD
     this.gridApi.showLoadingOverlay();
         var days = 1;
         var date = new Date();
@@ -165,10 +166,9 @@ this.dropdownSettings = {
           "fromdate":this.fromdate,
           "todate":this.todate
         }
-      // this.getreports.GetAccountStatement('',accdates).subscribe(resp=>{
-      //   this.rowData=resp.data;
-
-      // })
+      this.getreports.AccountStatement(accdates,0,0).subscribe(resp=>{
+        this.rowData=resp.data;
+      })
   }
 
   accountstatement(){
@@ -178,9 +178,9 @@ this.dropdownSettings = {
        "fromdate":this.getFromDateAndTime(),
        "todate":this.getToDateAndTime()
      }
-    //  this.getreports.GetAccountStatement('',accdates).subscribe(resp =>{
-    //    this.rowData=resp.data;
-    //  })
+     this.getreports.AccountStatement(accdates,0,0).subscribe(resp=>{
+      this.rowData=resp.data;
+    })
   }
 
   fromDateChange(date) {
@@ -226,9 +226,9 @@ this.dropdownSettings = {
           "fromdate":this.selectfromdate,
           "todate":this.selecttodate
         }
-        // this.getreports.GetAccountStatement(this.selectedItems[0].id,accdates).subscribe(resp =>{
-        //   this.rowData=resp.data;
-        // })
+        this.getreports.AccountStatement(accdates,0,0).subscribe(resp=>{
+          this.rowData=resp.data;
+        })
     }
     OnItemDeSelect(item:any){
         // console.log(this.selectedItems);
@@ -239,9 +239,9 @@ this.dropdownSettings = {
           "fromdate":this.selectfromdate,
           "todate":this.selecttodate
         }
-        // this.getreports.GetAccountStatement(this.selectedItems[0].id,accdates).subscribe(resp =>{
-        //   this.rowData=resp.data;
-        // })
+        this.getreports.AccountStatement(accdates,0,0).subscribe(resp=>{
+          this.rowData=resp.data;
+        })
     }
     onSelectAll(items: any){
         console.log(items);

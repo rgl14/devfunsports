@@ -1,11 +1,12 @@
 <div class="Action-buttons" *ngIf="showActionButtons">
   <button
     [routerLink]="['./', data.userId, 'edit']"
+    style="min-width: 30px; padding: 0 10px"
     mat-raised-button
     title="Edit"
     class="btn-dark"
   >
-    <i class="fa fa-pencil"></i> Edit
+    <i class="fa fa-pencil"></i>
   </button>
   <button
     style="min-width: 30px; padding: 0 10px"
@@ -45,11 +46,12 @@
   </button>
   <button
     [routerLink]="[data.userId, 'managepassword']"
+    style="min-width: 30px; padding: 0 10px"
     mat-raised-button
     title="Change Password"
     class="btn-dark"
   >
-    <i class="fa fa-lock"></i> Edit Password
+    <i class="fa fa-lock"></i>
   </button>
 </div>
 
