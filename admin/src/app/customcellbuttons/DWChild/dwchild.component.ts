@@ -85,7 +85,7 @@ export class dWcomponent implements OnInit {
               <label>Withdraw Chips</label>
               <input
                 type="number"
-                onkeypress="return event.charCode >= 48"
+                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
                 class="form-control border-primary"
                 placeholder="Chips"
                 formControlName="Amount"
@@ -195,8 +195,10 @@ export class wdDialog {
 
   formControlchanged() {
     this.systemPointForm.get("Amount").valueChanges.subscribe((mode: any) => {
-        if (mode > this.data.chips) {
-          this.systemPointForm.controls["Amount"].setValue(this.data.chips);
+        if (mode > this.data.chips){
+          if(this.data.chips>0){
+            this.systemPointForm.controls["Amount"].setValue(this.data.chips);
+          }
       } else {
         this.chips = parseInt(this.accountInfo.balance) + mode;
         this.amount=this.data.chips-mode;
@@ -205,6 +207,16 @@ export class wdDialog {
   }
 
   transferFunds(){
+    if(this.systemPointForm.get("Amount").value<0){
+      this.notifyService.error("Withdraw Amount can't be Negative !!");
+      this.dialogRef.close();
+      return false;
+    }
+    if(this.systemPointForm.get("Amount").value>this.data.chips){
+      this.notifyService.error("Withdraw Amount can't be higher than the current !!");
+      this.dialogRef.close();
+      return false;
+    }
     var data=  {
       amount:this.systemPointForm.get("Amount").value,
       context:"web",
@@ -246,7 +258,7 @@ export class wdDialog {
           <label>Deposit Chips</label>
           <input
             type="number"
-            onkeypress="return event.charCode >= 48"
+            onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
             class="form-control border-primary"
             placeholder="Chips"
             formControlName="Amount"
