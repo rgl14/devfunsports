@@ -33,14 +33,14 @@ export class AddadminFundsComponent implements OnInit {
   AccountInfo() {
     this.usermanagement.getAccountInfo().subscribe((data) => {
       this.accountInfo = data.data;
-      this.totaladminbalance=this.accountInfo.remainingLimit;
+      this.totaladminbalance=this.accountInfo.balance;
     });
   }
   formControlDepositfundChanged() {
     this.Adminfund.get('Depositfund').valueChanges.subscribe(
         (mode: any) => {
           this.DepositAdminfunds=mode;
-          this.totaladminbalance=parseFloat(this.accountInfo.remainingLimit)+parseFloat(this.DepositAdminfunds)
+          this.totaladminbalance=parseFloat(this.accountInfo.balance)+parseFloat(this.DepositAdminfunds)
     });
   }
   Addfunds(){
