@@ -220,6 +220,19 @@ export class CustomcellbuttonsComponent implements OnInit {
       }
     });
   }
+  openSettlementDialog(): void {
+    const dialogRef = this.dialog.open(PartialPaymentDialog, {
+      width: "350px",
+      data: this.data,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result != undefined) {
+       
+      }
+    });
+  }
   openShareDialog(): void {
     const dialogRef = this.dialog.open(ShareDialog, {
       width: "500px",
@@ -391,6 +404,63 @@ export class CustomcellbuttonsComponent implements OnInit {
           });
       }
     });
+  }
+}
+@Component({
+  selector: "partial-payment",
+  template: `<h1 mat-dialog-title align="center">Cash Settlement of {{data.userName}}</h1>
+  <hr />
+    <div mat-dialog-content>
+    <div class="form-group">
+    <div class="col-sm-12">
+
+    <div class="form-group">
+      <input
+        class="form-control"
+        onkeypress="return event.charCode >= 48"
+        name="myshare"
+        placeholder="Enter Amount"
+        type="number"
+        max="100"
+        min="0"
+      />
+      </div>
+    </div>
+    <div class="col-md-12">
+    <div class="form-group">
+      <textarea
+        id="txt_boxe"
+        rows="6"
+        class="form-control border-primary"
+        type="text"
+      >Cash Settlement of {{data.userName }} :</textarea>
+    </div>
+    </div>
+  </div>
+    </div>
+    <div mat-dialog-actions align="center">
+      <button mat-raised-button color="warn" (click)="onNoClick()">
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        [mat-dialog-close]="data"
+        cdkFocusInitial
+      >
+        Ok
+      </button>
+    </div>`,
+})
+export class PartialPaymentDialog {
+  params: any;
+  constructor(
+    public dialogRef: MatDialogRef<PartialPaymentDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
 

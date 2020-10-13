@@ -21,6 +21,7 @@ import {
   ShowPwdDialog,
   LimitsDialog,
   ShareDialog,
+  PartialPaymentDialog,
 } from "./customcellbuttons/customcellbuttons.component";
 import { NavigationcellComponent } from "./navigationcell/navigationcell.component";
 import {
@@ -122,6 +123,7 @@ import { AddadminFundsComponent } from './addadmin-funds/addadmin-funds.componen
     LimitsDialog,
     ShowPwdDialog,
     AddadminFundsComponent,
+    PartialPaymentDialog
   ],
   imports: [
     BrowserModule,
@@ -169,6 +171,7 @@ import { AddadminFundsComponent } from './addadmin-funds/addadmin-funds.componen
     ShareDialog,
     LimitsDialog,
     ShowPwdDialog,
+    PartialPaymentDialog
   ],
   providers: [
     ManageformService,
