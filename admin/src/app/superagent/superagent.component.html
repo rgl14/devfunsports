@@ -29,7 +29,7 @@
             >
               Create Agent
             </button>
-            <div style="float: right; padding: 0px 10px 0px 0px;">
+            <div style="float: right; padding: 0px 10px 0px 0px">
               <button
                 matNativeControl
                 class="btn btn-outline-success waves-effect waves-light"
@@ -40,10 +40,26 @@
               </button>
             </div>
           </div>
+          <div class="row detailtop deskaction" style="margin: 0px">
+            <div class="lastdetail">
+              <span class="detailinfo"><b>D</b> : Deposit Chips</span
+              ><span class="detailinfo"><b>W</b> : Withdraw Chips</span
+              ><span class="detailinfo"><b>S-E</b> : Cash Settlement</span
+              ><span class="detailinfo"
+                ><b> <i class="fa fa-pencil"></i></b> : Edit User</span
+              ><span class="detailinfo"><b>S-P</b> : Show Password</span
+              ><span class="detailinfo"><b>L</b> : Limits</span>
+              <span class="detailinfo"><b>R</b> : Report</span
+              ><span class="detailinfo"><b>S</b> : Sharing</span
+              ><span class="detailinfo"
+                ><b><i class="fa fa-lock"></i></b> : Change Password</span
+              >
+            </div>
+          </div>
           <div class="table-container mat-elevation-z8">
             <ag-grid-angular
               [ngStyle]="{ height: innerHeight - 240 + 'px' }"
-              style="width: 100%;"
+              style="width: 100%"
               class="ag-theme-balham"
               [gridOptions]="gridOptions"
               [rowData]="rowData"

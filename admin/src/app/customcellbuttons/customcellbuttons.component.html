@@ -1,5 +1,14 @@
 <div class="Action-buttons" *ngIf="showActionButtons">
   <button
+    style="min-width: 30px; padding: 0 10px"
+    mat-raised-button
+    title="Cash Settlement"
+    class="btn-dark"
+    (click)="openSettlementDialog()"
+  >
+    SE
+  </button>
+  <button
     [routerLink]="['./', data.userId, 'edit']"
     style="min-width: 30px; padding: 0 10px"
     mat-raised-button

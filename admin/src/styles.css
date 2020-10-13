@@ -8,6 +8,23 @@
 /* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; */
 /* @import "~@angular/material/prebuilt-themes/purple-green.css"; */
 
+.deskaction {
+  display: block;
+}
+
+.lastdetail {
+  background: #fff;
+  float: left;
+  width: 100%;
+}
+span.detailinfo {
+  padding: 10px;
+  display: inline-block;
+}
+b,
+strong {
+  font-weight: 700;
+}
 .mark-back:hover {
   background: #4cebdc !important;
 }
@@ -751,4 +768,4 @@ ul.marquee li {
 }
 .mat-snack-bar-container {
   margin-top: 65px !important;
- }
+}
