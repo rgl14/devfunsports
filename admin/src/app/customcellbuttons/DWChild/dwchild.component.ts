@@ -187,7 +187,7 @@ export class wdDialog {
     this.sharedata.AccountInfoSource.subscribe((data) => {
       if (data != null) {
         this.accountInfo = data;
-        this.chips=this.accountInfo.remainingLimit;
+        this.chips=this.accountInfo.balance;
       }
     });
     this.formControlchanged();
@@ -198,7 +198,7 @@ export class wdDialog {
         if (mode > this.data.chips) {
           this.systemPointForm.controls["Amount"].setValue(this.data.chips);
       } else {
-        this.chips = parseInt(this.accountInfo.remainingLimit) + mode;
+        this.chips = parseInt(this.accountInfo.balance) + mode;
         this.amount=this.data.chips-mode;
       }
     });
@@ -348,7 +348,7 @@ export class dpDialog implements OnInit{
     this.sharedata.AccountInfoSource.subscribe((data) => {
       if (data != null) {
         this.accountInfo = data;
-        this.chips=this.accountInfo.remainingLimit;
+        this.chips=this.accountInfo.balance;
       }
     });
     this.formControlchanged();
@@ -360,11 +360,11 @@ export class dpDialog implements OnInit{
 
   formControlchanged() {
     this.systemPointForm.get("Amount").valueChanges.subscribe((mode: any) => {
-      if (mode > this.accountInfo.remainingLimit) {
-        this.systemPointForm.controls["Amount"].setValue(this.accountInfo.remainingLimit);
-        this.amount=this.accountInfo.remainingLimit;
+      if (mode > this.accountInfo.balance) {
+        this.systemPointForm.controls["Amount"].setValue(this.accountInfo.balance);
+        this.amount=this.accountInfo.balance;
       } else {
-        this.chips = parseInt(this.accountInfo.remainingLimit)-mode;
+        this.chips = parseInt(this.accountInfo.balance)-mode;
         this.amount=this.data.chips+mode;
       }
     });
