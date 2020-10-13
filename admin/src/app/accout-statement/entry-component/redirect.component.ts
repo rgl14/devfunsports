@@ -3,10 +3,17 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   template: `
-  <ng-container *ngIf="currentRoute == '/report/accountstatement'">
-      <a [routerLink]="['/report/ADMINmdlmktprofitloss/',data.refid]">
+    <ng-container *ngIf="currentRoute == '/report/accountstatement'">
+      <a *ngIf="data.type=='P|L Market'" [routerLink]="['/report/ADMINmdlmktprofitloss/',data.refid]">
         {{ data.description }}
       </a>
+      <span *ngIf="data.type!='P|L Market'">{{ data.description }}</span>
+    </ng-container>
+    <ng-container *ngIf="currentRoute == '/report/accountstatement/'+userId">
+      <a *ngIf="data.type=='P|L Market'" [routerLink]="['/report/ADMINmdlmktprofitloss/',data.refid]">
+        {{ data.description }}
+      </a>
+      <span *ngIf="data.type!='P|L Market'">{{ data.description }}</span>
     </ng-container>
     <ng-container *ngIf="currentRoute.includes('/report/ADMINmdlmktprofitloss')">
       <a [routerLink]="['/report/MDLwiseDLpnl/',data.mdlid,data.Mtid,data.mktid,data.type]">
@@ -32,17 +39,20 @@ export class redirectComponent {
   parentComponent;
   type = null;
   refid;
+  userId: any;
   constructor(private router: Router, private route: ActivatedRoute) {
     this.currentRoute = this.router.url;
     console.log(this.currentRoute);
     this.route.params.subscribe(params => {
     this.refid=params.refid;
+    this.userId=params.userId;
     console.log(params);
     });
   }
 
   agInit(params) {
     this.data = params.data;
+    console.log(this.data)
     this.parentComponent = params.context.componentParent.constructor.name;
    console.log(this.parentComponent)
   }

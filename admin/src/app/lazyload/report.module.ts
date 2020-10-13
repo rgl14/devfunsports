@@ -63,6 +63,17 @@ const routes: Routes = [
         ],
       },
       {
+        path: "accountstatement/:userId",
+        component: AccoutStatementComponent,
+        data: { breadcrumb: "Account Statement" },
+        children: [
+          {
+            path: "",
+            component: AccoutStatementComponent,
+          },
+        ],
+      },
+      {
         path: "ADMINmdlmktprofitloss/:refid",
         component: MarketPnlComponent,
         data: { breadcrumb: "MDL MARKET PROFIT & LOSS" },

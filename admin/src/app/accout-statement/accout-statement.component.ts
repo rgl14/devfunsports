@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {GridOptions} from "ag-grid-community";
 import { ReportsService } from '../services/reports.service';
 import { TimepickerConfig } from 'ngx-bootstrap/timepicker';
@@ -42,7 +43,6 @@ export class AccoutStatementComponent implements OnInit {
   selectfromtime: any;
   selecttotime: any;
   dropdownList=[];
-  selectedItems=[];
   dropdownSettings: { };
   bsRangeValue: Date[];
   bsValue = new Date();
@@ -53,8 +53,10 @@ export class AccoutStatementComponent implements OnInit {
   overlayLoadingTemplate: string;
   overlayNoRowsTemplate: string;
   defaultColDef: { sortable: boolean; };
+  Selectoption: any="0";
+  userId: any;
 
-  constructor(private getreports:ReportsService) {
+  constructor(private getreports:ReportsService,private route:ActivatedRoute) {
     this.maxDate.setDate(this.maxDate.getDate() + 1);
     this.bsRangeValue = [this.bsValue, this.maxDate];
     this.gridOptions = <GridOptions>{};
@@ -133,15 +135,14 @@ export class AccoutStatementComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dropdownList = [
-      {"itemName":"Cash"},
-      {"itemName":"Credit"},
-      {"itemName":"Show D|W  Point"},
-      {"itemName":"Show Market P|L"},
-      {"itemName":"Cash & P|L"}
-
-    ];
-this.selectedItems = [];
+    this.route.params.subscribe(param => {
+      console.log(param)
+      if(param.userId!=undefined){
+        this.userId=param.userId;
+      }else{
+        this.userId=0;
+      }
+    })
 this.dropdownSettings = {
           singleSelection: false,
           text:"Select",
@@ -166,7 +167,7 @@ this.dropdownSettings = {
           "fromdate":this.fromdate,
           "todate":this.todate
         }
-      this.getreports.AccountStatement(accdates,0,0).subscribe(resp=>{
+      this.getreports.AccountStatement(accdates,this.Selectoption,this.userId).subscribe(resp=>{
         this.rowData=resp.data;
       })
   }
@@ -178,7 +179,7 @@ this.dropdownSettings = {
        "fromdate":this.getFromDateAndTime(),
        "todate":this.getToDateAndTime()
      }
-     this.getreports.AccountStatement(accdates,0,0).subscribe(resp=>{
+     this.getreports.AccountStatement(accdates,this.Selectoption,this.userId).subscribe(resp=>{
       this.rowData=resp.data;
     })
   }
@@ -217,8 +218,6 @@ this.dropdownSettings = {
 
 
     onItemSelect(item:any){
-        // console.log(this.selectedItems);
-        console.log(this.bsRangeValue);
         this.selectfromdate=this.convertfrom(this.bsRangeValue[0]);
         this.selecttodate=this.convertto(this.bsRangeValue[1]);
         console.log(this.selectfromdate,this.selecttodate);
@@ -226,12 +225,11 @@ this.dropdownSettings = {
           "fromdate":this.selectfromdate,
           "todate":this.selecttodate
         }
-        this.getreports.AccountStatement(accdates,0,0).subscribe(resp=>{
+        this.getreports.AccountStatement(accdates,this.Selectoption,this.userId).subscribe(resp=>{
           this.rowData=resp.data;
         })
     }
     OnItemDeSelect(item:any){
-        // console.log(this.selectedItems);
         this.selectfromdate=this.convertfrom(this.bsRangeValue[0]);
         this.selecttodate=this.convertto(this.bsRangeValue[1]);
         console.log(this.selectfromdate,this.selecttodate);
@@ -239,7 +237,7 @@ this.dropdownSettings = {
           "fromdate":this.selectfromdate,
           "todate":this.selecttodate
         }
-        this.getreports.AccountStatement(accdates,0,0).subscribe(resp=>{
+        this.getreports.AccountStatement(accdates,this.Selectoption,this.userId).subscribe(resp=>{
           this.rowData=resp.data;
         })
     }
