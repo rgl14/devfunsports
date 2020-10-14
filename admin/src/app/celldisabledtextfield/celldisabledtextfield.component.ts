@@ -10,13 +10,14 @@ export class CelldisabledtextfieldComponent implements OnInit {
 
   data:any;
   currentroute: string;
-  
+  header="";
   constructor(private router: Router) {
     this.currentroute=this.router.url
    }
 
   agInit(params){
     this.data=params.data;
+    this.header=params.colDef.headerName
   }
   ngOnInit() {
     

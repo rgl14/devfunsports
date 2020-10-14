@@ -1,1 +1,18 @@
-<input class="form-control input-sm"  name="commission" type="text" value={{data.matchComm}} disabled>
+<ng-container *ngIf="header == 'M-Comm (%)'">
+  <input
+    class="form-control input-sm"
+    name="commission"
+    type="text"
+    value="{{ data.matchComm }}"
+    disabled
+  />
+</ng-container>
+<ng-container *ngIf="header == 'S-Comm (%)'">
+  <input
+    class="form-control input-sm"
+    name="commission"
+    type="text"
+    value="{{ data.sessionComm }}"
+    disabled
+  />
+</ng-container>
