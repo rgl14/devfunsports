@@ -25,11 +25,6 @@ import { CreateclientComponent } from "../createclient/createclient.component";
 import { CreatemasterComponent } from "../createmaster/createmaster.component";
 import { CreatesuperComponent } from "../createsuper/createsuper.component";
 import { CreatesuperagentComponent } from "../createsuperagent/createsuperagent.component";
-import {
-  dpDialog,
-  dWcomponent,
-  wdDialog,
-} from "../customcellbuttons/DWChild/dwchild.component";
 import { ManagepasswordComponent } from "../managepassword/managepassword.component";
 import { MasterComponent } from "../master/master.component";
 import { MatchledgerComponent } from "../matchledger/matchledger.component";
@@ -108,11 +103,6 @@ const clientRoute: Route = {
           path: "managepassword",
           component: ManagepasswordComponent,
           data: { breadcrumb: "Manage Password" },
-        },
-        {
-          path: "userledger",
-          component: UserledgerComponent,
-          data: { breadcrumb: "User Ledger" },
         },
         {
           path: "userdashboard",
@@ -194,6 +184,8 @@ const allclientRoute: Route = {
   ],
 };
 
+
+
 const agentRoute: Route = {
   path: ":userId/agent",
   component: ChildrenContainerComponent,
@@ -224,11 +216,6 @@ const agentRoute: Route = {
           path: "managepassword",
           component: ManagepasswordComponent,
           data: { breadcrumb: "Manage Password" },
-        },
-        {
-          path: "userledger",
-          component: UserledgerComponent,
-          data: { breadcrumb: "User Ledger" },
         },
         {
           path: "userdashboard",
@@ -296,11 +283,6 @@ const superAgentRoute = {
           path: "managepassword",
           component: ManagepasswordComponent,
           data: { breadcrumb: "Manage Password" },
-        },
-        {
-          path: "userledger",
-          component: UserledgerComponent,
-          data: { breadcrumb: "User Ledger" },
         },
         {
           path: "userdashboard",
@@ -387,11 +369,6 @@ const masterRoute: Route = {
           ],
         },
         {
-          path: "userledger",
-          component: UserledgerComponent,
-          data: { breadcrumb: "User Ledger" },
-        },
-        {
           path: ":userId",
           children: [
             {
@@ -464,11 +441,6 @@ const superMasterRoute: Route = {
           ],
         },
         {
-          path: "userledger",
-          component: UserledgerComponent,
-          data: { breadcrumb: "User Ledger" },
-        },
-        {
           path: ":userId",
           children: [
             {
@@ -526,11 +498,6 @@ const adminRoutes = {
           data: { breadcrumb: "Manage Password" },
         },
         {
-          path: "userledger",
-          component: UserledgerComponent,
-          data: { breadcrumb: "User Ledger" },
-        },
-        {
           path: "userdashboard",
           component: ChildrenContainerComponent,
           data: { breadcrumb: "Dashboard" },
@@ -545,6 +512,64 @@ const adminRoutes = {
             superAgentRoute,
             agentRoute,
             clientRoute,
+          ],
+        },
+      ],
+    },
+  ],
+};
+const blockedclientRoute: Route = {
+  path: "blockedclient",
+  component: ChildrenContainerComponent,
+  data: { breadcrumb: "Blocked Clients" },
+  children: [
+    {
+      path: "",
+      component: BlockedclientsComponent,
+    },
+    {
+      path: ":userId",
+      children: [
+        {
+          path: "userdashboard",
+          component: ChildrenContainerComponent,
+          data: { breadcrumb: "Dashboard" },
+          children: [
+            {
+              path: "",
+              component: UserdashboardComponent,
+            },
+            ...dashboardRoutes,
+            adminRoutes,
+            superMasterRoute,
+            masterRoute,
+            superAgentRoute,
+            agentRoute,
+            clientRoute,
+          ],
+        },
+        {
+          path: ":userId",
+          children: [
+            {
+              path: "userdashboard",
+              component: ChildrenContainerComponent,
+              data: { breadcrumb: "Dashboard" },
+              children: [
+                {
+                  path: "",
+                  component: UserdashboardComponent,
+                },
+                ...dashboardRoutes,
+      adminRoutes,
+      superMasterRoute,
+      masterRoute,
+      superAgentRoute,
+      agentRoute,
+      clientRoute,
+              ],
+            },
+            
           ],
         },
       ],
@@ -566,11 +591,12 @@ const routes: Routes = [
       agentRoute,
       clientRoute,
       allclientRoute,
-      {
-        path: "blockedclient",
-        component: BlockedclientsComponent,
-        data: { breadcrumb: "Blocked Client" },
-      },
+      blockedclientRoute,
+      // {
+      //   path: "blockedclient",
+      //   component: BlockedclientsComponent,
+      //   data: { breadcrumb: "Blocked Client" },
+      // },
       {
         path: "updatelimit",
         component: UpdatelimitComponent,
@@ -602,11 +628,6 @@ const routes: Routes = [
       agentRoute,
       clientRoute,
     ],
-  },
-  {
-    path: "userledger/:userId",
-    component: UserledgerComponent,
-    data: { breadcrumb: "User Ledger" },
   },
 ];
 
