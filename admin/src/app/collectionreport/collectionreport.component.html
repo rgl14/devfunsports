@@ -3,7 +3,8 @@
            <div class="col-lg-6">
               <div class="ibox float-e-margins">
                  <div class="ibox-title">
-                    <h5>PAYMENT RECEIVING FROM (Lena He)</h5>
+                    <!-- <h5>PAYMENT RECEIVING FROM (Lena He)</h5> -->
+                    <h5>PLUS ACCOUNTS (Lena He)</h5>
                     <!-- <div class="ibox-tools">
 
                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -15,7 +16,7 @@
                        </ul>
                     </div> -->
                  </div>
-                 <div class="ibox-content table-responsive" *ngIf="lenaHai">
+                 <div class="ibox-content table-responsive" *ngIf="PlusAcc">
                     <table class="table" id="example_lena_hai">
                        <thead>
                           <tr>
@@ -36,30 +37,31 @@
                                        </button>
                                     </td>
                                   </tr> -->
-                                  <ng-container *ngIf="lenaHai.length==0">
+                                  <ng-container *ngIf="PlusAcc.length==0">
                                     <tr><td colspan="4" style="text-align:center">No Data</td></tr>
                                    </ng-container>
-                                   <ng-container *ngIf="lenaHai.length>0">
-                                    <tr *ngFor="let lena of lenaHai">
-                                       <td><a [routerLink]="['/manage-clients', lena.userId, 'userdashboard']">{{lena.clientName}}</a></td>
-                                       <td [ngClass]="(lena.amount>=0)?'text-success':'text-danger'">{{lena.amount | number:'1.2-2'}}</td>
+                                   <ng-container *ngIf="PlusAcc.length>0">
+                                    <tr *ngFor="let lena of PlusAcc">
+                                       <td><a [routerLink]="['/manage-clients', lena.userId, 'userdashboard']">{{lena.nameUsername}}</a></td>
+                                       <td [ngClass]="(lena.balance>=0)?'text-success':'text-danger'">{{lena.balance | number:'1.2-2'}}</td>
                                        <td><button
                                           class="btn btn-danger btn-sm mr-1"
                                           title="Clear"
-                                          (click)="openconfirmDialog(lena.userId,lena.amount,1)"
+                                          (click)="openconfirmDialog(lena.userId,lena.balance,1)"
                                           >
                                           Clear
                                           </button>
                                           <button
                                           class="btn btn-warning btn-sm mr-1"
                                           title="Clear"
-                                          (click)="openPartialPaymentDialog(lena.userId,lena.amount,1)"
+                                          (click)="openPartialPaymentDialog(lena.userId,lena.balance,1)"
                                           >
                                           Settlement
                                           </button>
                                           <button
                                           class="btn btn-info btn-sm"
                                           title="Account History"
+                                          [routerLink]="['/report/accountstatement', lena.userId]"
                                           >
                                           History
                                           </button>
@@ -83,7 +85,8 @@
            <div class="col-lg-6">
               <div class="ibox float-e-margins">
                  <div class="ibox-title">
-                    <h5>PAYMENT PAID TO (Dena He)</h5>
+                    <!-- <h5>PAYMENT PAID TO (Dena He)</h5> -->
+                    <h5>Minus ACCOUNTS (Dena He)</h5>
                     <!-- <div class="ibox-tools">
 
                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -96,7 +99,7 @@
 
                     </div> -->
                  </div>
-                 <div class="ibox-content table-responsive" *ngIf="denaHai">
+                 <div class="ibox-content table-responsive" *ngIf="MinusAcc">
                     <table class="table display" id="example_dena_hai">
                        <thead>
                           <tr>
@@ -116,30 +119,31 @@
                                        Clear
                                        </button></td>
                                   </tr> -->
-                                  <ng-container *ngIf="denaHai.length==0">
+                                  <ng-container *ngIf="MinusAcc.length==0">
                                     <tr><td colspan="4" style="text-align:center">No Data</td></tr>
                                    </ng-container>
-                                   <ng-container *ngIf="denaHai.length>0">
-                                    <tr *ngFor="let dena of denaHai">
-                                       <td><a [routerLink]="['/manage-clients', dena.userId, 'userdashboard']">{{dena.clientName}}</a></td>
-                                       <td [ngClass]="(dena.amount>=0)?'text-success':'text-danger'">{{dena.amount | number:'1.2-2'}}</td>
+                                   <ng-container *ngIf="MinusAcc.length>0">
+                                    <tr *ngFor="let dena of MinusAcc">
+                                       <td><a [routerLink]="['/manage-clients', dena.userId, 'userdashboard']">{{dena.nameUsername}}</a></td>
+                                       <td [ngClass]="(dena.balance>=0)?'text-success':'text-danger'">{{dena.balance | number:'1.2-2'}}</td>
                                        <td><button
                                           class="btn btn-danger btn-sm mr-1"
                                           title="Clear"
-                                          (click)="openconfirmDialog(dena.userId,dena.amount,2)"
+                                          (click)="openconfirmDialog(dena.userId,dena.balance,2)"
                                           >
                                           Clear
                                           </button>
                                           <button
                                           class="btn btn-warning btn-sm mr-1"
                                           title="Clear"
-                                          (click)="openPartialPaymentDialog(dena.userId,dena.amount,2)"
+                                          (click)="openPartialPaymentDialog(dena.userId,dena.balance,2)"
                                           >
                                           Settlement
                                           </button>
                                           <button
                                           class="btn btn-info btn-sm"
                                           title="Account History"
+                                          [routerLink]="['/report/accountstatement', dena.userId]"
                                           >
                                           History
                                           </button>
