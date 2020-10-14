@@ -5,6 +5,7 @@ import _ from "lodash";
 import { LimitsService } from "../services/limits.service";
 import { NotificationService } from "../shared/notification.service";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { UsermanagementService } from '../services/usermanagement.service';
 
 @Component({
   selector: "app-collectionreport",
@@ -19,8 +20,17 @@ export class CollectionreportComponent implements OnInit {
   totallena: any;
   totaldena: any;
   totalclear: any;
+  AccountInfo: any;
+  Own: any;
+  PlusAcc: any;
+  MinusAcc: any;
+  totalPlus: number;
+  totalMinus: number;
+  Cash: any;
+  Commission: any;
 
   constructor(
+    private usermanagement: UsermanagementService,
     private route: ActivatedRoute,
     private router: Router,
     private getreports: ReportsService,
@@ -31,29 +41,64 @@ export class CollectionreportComponent implements OnInit {
 
   ngOnInit() {
     this.matchId = this.route.snapshot.paramMap.get("matchId");
-    this.Collectionreport();
+    // this.Collectionreport();
+    this.Accountinfo();
   }
 
-  Collectionreport() {
-    this.getreports.GetCollectionReport().subscribe((resp) => {
-      // console.log(resp);
-      this.denaHai = resp.denaHai;
-      this.lenaHai = resp.lenaHai;
-      this.clearHai = resp.clearHai;
-      this.totallena = 0.0;
-      this.totaldena = 0.0;
-      this.totalclear = 0.0;
-      _.forEach(this.lenaHai, (itemdena, index) => {
-        this.totallena = this.totallena + parseFloat(itemdena.amount);
-      });
-      _.forEach(this.denaHai, (itemlena, index) => {
-        this.totaldena = this.totaldena + parseFloat(itemlena.amount);
-      });
-      _.forEach(this.clearHai, (itemclear, index) => {
-        this.totalclear = this.totalclear + parseFloat(itemclear.amount);
-      });
-    });
+  Accountinfo(){
+    this.usermanagement.getAccountInfo().subscribe((resp) => {
+      this.AccountInfo = resp.data;
+      console.log(this.AccountInfo)
+      if(this.AccountInfo.userType==1){
+        this.AdmChipssummary()
+      }else{
+        this.AdmChipssummary2(this.AccountInfo.userId)
+      }
+    })
   }
+
+  AdmChipssummary(){
+    this.getreports.GetAdmChipsSummary().subscribe((resp) => {
+      console.log(resp);
+      this.Own=resp.own;
+      this.Cash=resp.cash;
+      this.Commission=resp.comm;
+      this.PlusAcc = resp.userInPlus;
+      this.MinusAcc = resp.userInMinus;
+      this.totalPlus = 0.0;
+      this.totalMinus = 0.0;
+      _.forEach(this.PlusAcc, (itemdena, index) => {
+        this.totalPlus = this.totalPlus + parseFloat(itemdena.amount);
+      });
+      _.forEach(this.MinusAcc, (itemlena, index) => {
+        this.totalMinus = this.totalMinus + parseFloat(itemlena.amount);
+      });
+    })
+  }
+  AdmChipssummary2(ID){
+    this.getreports.GetAdmChipsSummary2(ID).subscribe((resp) => {
+      console.log(resp);
+    })
+  }
+  // Collectionreport() {
+  //   this.getreports.GetCollectionReport().subscribe((resp) => {
+  //     this.denaHai = resp.denaHai;
+  //     this.lenaHai = resp.lenaHai;
+  //     this.clearHai = resp.clearHai;
+  //     this.totallena = 0.0;
+  //     this.totaldena = 0.0;
+  //     this.totalclear = 0.0;
+  //     _.forEach(this.lenaHai, (itemdena, index) => {
+  //       this.totallena = this.totallena + parseFloat(itemdena.amount);
+  //     });
+  //     _.forEach(this.denaHai, (itemlena, index) => {
+  //       this.totaldena = this.totaldena + parseFloat(itemlena.amount);
+  //     });
+  //     _.forEach(this.clearHai, (itemclear, index) => {
+  //       this.totalclear = this.totalclear + parseFloat(itemclear.amount);
+  //     });
+  //   });
+  // }
 
   clearcash(userid, amount, type) {
     if (type == 1) {
@@ -77,7 +122,7 @@ export class CollectionreportComponent implements OnInit {
     this.limits.ReceiveCash(data).subscribe((resp) => {
       if (resp.status == "Success") {
         this.notification.success(resp.result);
-        this.Collectionreport();
+        // this.Collectionreport();
         setTimeout(() => {
           this.router.navigateByUrl("/report/collectionreport");
         }, 2000);
@@ -90,7 +135,7 @@ export class CollectionreportComponent implements OnInit {
     this.limits.PayCash(data).subscribe((resp) => {
       if (resp.status == "Success") {
         this.notification.success(resp.result);
-        this.Collectionreport();
+        // this.Collectionreport();
         setTimeout(() => {
           this.router.navigateByUrl("/report/collectionreport");
         }, 2000);

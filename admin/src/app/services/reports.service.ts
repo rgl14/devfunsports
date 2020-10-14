@@ -52,6 +52,14 @@ export class ReportsService {
     return this.http.get(`${this.BASEURL}/Reports/GetCollectionReport`);
   }
 
+  GetAdmChipsSummary(): Observable<any> {
+    return this.http.get(`${this.BASEURL}/Reports/GetAdmChipsSummary`);
+  }
+
+  GetAdmChipsSummary2(ID): Observable<any> {
+    return this.http.get(`${this.BASEURL}/Reports/GetAdmChipsSummary2?id=${ID}`);
+  }
+
   GetCompanyMatchReport(MTID, MKTID): Observable<any> {
     return this.http.get(`${this.BASEURL}/Reports/GetCompanyMatchReport?mtid=${MTID}&mktid=${MKTID}`);
   }
