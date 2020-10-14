@@ -75,7 +75,13 @@ export class AdminComponent implements OnInit {
         width: 135,
         suppressSizeToFit: true,
         valueFormatter: numberWithCommas,
-        cellStyle: { "font-weight": "bolder", "font-style": "sans-serif" },
+        cellStyle:  function(params) {
+          if (params.data.chips >= 0) {
+            return { color: "#5cb55c", "font-weight": "bolder" };
+          } else {
+            return { color: "rgb(231, 59, 59)", "font-weight": "bolder" };
+          }
+      }
       },
       {
         headerName: "Current P | L",
@@ -85,6 +91,13 @@ export class AdminComponent implements OnInit {
         width: 100,
         suppressSizeToFit: true,
         valueFormatter: numberWithCommas,
+        cellStyle:  function(params) {
+          if (params.data.pNl >= 0) {
+            return { color: "#5cb55c", "font-weight": "bolder" };
+          } else {
+            return { color: "rgb(231, 59, 59)", "font-weight": "bolder" };
+          }
+        }
       },
       {
         headerName: "Exposure",
@@ -106,7 +119,7 @@ export class AdminComponent implements OnInit {
         headerName: "Max Share (%)",
         field: "maxShare",
         sortable: true,
-        width: 100,
+        width: 75,
         suppressSizeToFit: true,
         minWidth: 75,
       },
@@ -114,7 +127,7 @@ export class AdminComponent implements OnInit {
         headerName: "M-Comm  (%)",
         field: "MComm",
         sortable: true,
-        width: 100,
+        width: 75,
         suppressSizeToFit: true,
         minWidth: 75,
       },
