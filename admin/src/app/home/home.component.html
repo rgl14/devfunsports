@@ -210,7 +210,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-4">
+    <!-- <div class="col-lg-4">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
           <h5>MY FIX LIMIT</h5>
@@ -219,7 +219,7 @@
           <h1 class="no-margins">{{ userinfo.fixLimit | number: "1.2-2" }}</h1>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="col-lg-4">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -240,8 +240,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
     <div class="col-lg-4">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -253,6 +251,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="row">
     <div class="col-lg-4" *ngIf="userinfo.mLossingComm != 0">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
