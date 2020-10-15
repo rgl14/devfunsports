@@ -360,6 +360,7 @@ export class dpDialog implements OnInit{
     this.sharedata.AccountInfoSource.subscribe((data) => {
       if (data != null) {
         this.accountInfo = data;
+        // console.log(data)
         this.chips=this.accountInfo.balance;
       }
     });
