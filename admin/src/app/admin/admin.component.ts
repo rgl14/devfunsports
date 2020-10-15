@@ -101,11 +101,12 @@ export class AdminComponent implements OnInit {
       },
       {
         headerName: "Exposure",
-        field: "exposure",
+        field: "expoLimit",
         sortable: true,
         minWidth: 125,
         width: 100,
         suppressSizeToFit: true,
+        valueFormatter: numberWithCommas,
       },
       // {
       //   headerName: "My share (%)",
