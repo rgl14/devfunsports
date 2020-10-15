@@ -55,6 +55,7 @@ export class AccoutStatementComponent implements OnInit {
   defaultColDef: { sortable: boolean; };
   Selectoption: any="0";
   userId: any;
+  Uname: any;
 
   constructor(private getreports:ReportsService,private route:ActivatedRoute) {
     this.maxDate.setDate(this.maxDate.getDate() + 1);
@@ -139,6 +140,7 @@ export class AccoutStatementComponent implements OnInit {
       console.log(param)
       if(param.userId!=undefined){
         this.userId=param.userId;
+        this.Uname=param.Uname;
       }else{
         this.userId=0;
       }

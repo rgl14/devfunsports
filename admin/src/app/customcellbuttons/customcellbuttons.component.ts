@@ -68,6 +68,7 @@ export class CustomcellbuttonsComponent implements OnInit {
     this.params = params;
     this.colDef = this.params.colDef.field;
     this.data = this.params.data;
+    console.log(this.data)
   }
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get("userId");

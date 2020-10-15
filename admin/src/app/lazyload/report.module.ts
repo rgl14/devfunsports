@@ -63,7 +63,7 @@ const routes: Routes = [
         ],
       },
       {
-        path: "accountstatement/:userId",
+        path: "accountstatement/:userId/:Uname",
         component: AccoutStatementComponent,
         data: { breadcrumb: "Account Statement" },
         children: [
