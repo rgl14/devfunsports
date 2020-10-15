@@ -70,11 +70,17 @@ export class ClientsComponent implements OnInit {
         headerName: "Balance",
         field: "chips",
         sortable: true,
-        minWidth: 125,
-        width: 100,
+        minWidth: 150,
+        width: 135,
         suppressSizeToFit: true,
         valueFormatter: numberWithCommas,
-        cellStyle: { "font-weight": "bolder", "font-style": "sans-serif" },
+        cellStyle:  function(params) {
+          if (params.data.chips >= 0) {
+            return { color: "#5cb55c", "font-weight": "bolder" };
+          } else {
+            return { color: "rgb(231, 59, 59)", "font-weight": "bolder" };
+          }
+      }
       },
       {
         headerName: "Current P | L",
@@ -84,6 +90,13 @@ export class ClientsComponent implements OnInit {
         width: 100,
         suppressSizeToFit: true,
         valueFormatter: numberWithCommas,
+        cellStyle:  function(params) {
+          if (params.data.pNl >= 0) {
+            return { color: "#5cb55c", "font-weight": "bolder" };
+          } else {
+            return { color: "rgb(231, 59, 59)", "font-weight": "bolder" };
+          }
+        }
       },
       {
         headerName: "Exposure",
@@ -103,7 +116,7 @@ export class ClientsComponent implements OnInit {
       // },
       // {headerName: 'My share (%)', field: 'myShare', sortable: true, minWidth: 75},
       // {headerName: 'Max Share (%)', field: 'maxShare', sortable: true, minWidth: 75},
-      {headerName: 'M-Comm  (%)', field: 'MComm', sortable: true,width:100,suppressSizeToFit: true, minWidth: 75},
+      {headerName: 'M-Comm  (%)', field: 'MComm', sortable: true,width:75,suppressSizeToFit: true, minWidth: 75},
       // {headerName: 'M-Loss  (%)', field: 'mLossingComm', sortable: true,width:100,suppressSizeToFit: true, minWidth: 75},
       // {headerName: 'S-Comm  (%)', field: 'SComm', sortable: true,width:100,suppressSizeToFit: true, minWidth: 75},
       // {headerName: 'S-Loss  (%)', field: 'sLossingComm', sortable: true,width:100,suppressSizeToFit: true, minWidth: 75},
