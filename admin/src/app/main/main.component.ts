@@ -72,8 +72,8 @@ export class MainComponent implements OnInit {
   UserInfo(flag) {
     this.usermanagement.getAccountInfo().subscribe((resp) => {
       this.AccountInfo = resp.data;
+      this.sharedata.shareAccountInfo(resp.data);
       if (flag == "0") {
-        this.sharedata.shareAccountInfo(resp.data);
         let address = "http://173.249.43.228:11334";
         this.analysisservice.connectAnalysis(address, resp.data.userId);
       }
