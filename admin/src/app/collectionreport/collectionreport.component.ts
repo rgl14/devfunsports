@@ -28,6 +28,9 @@ export class CollectionreportComponent implements OnInit {
   totalMinus: number;
   Cash: any;
   Commission: any;
+  parentComm: any;
+  parentName: any;
+  parentPnl: any;
 
   constructor(
     private usermanagement: UsermanagementService,
@@ -78,6 +81,22 @@ export class CollectionreportComponent implements OnInit {
   AdmChipssummary2(ID){
     this.getreports.GetAdmChipsSummary2(ID).subscribe((resp) => {
       console.log(resp);
+      this.Own=resp.own;
+      this.Cash=resp.cash;
+      this.Commission=resp.comm;
+      this.parentComm=resp.parentComm;
+      this.parentName=resp.parentName;
+      this.parentPnl=resp.parentPnl;
+      this.PlusAcc = resp.userInPlus;
+      this.MinusAcc = resp.userInMinus;
+      this.totalPlus = 0.0;
+      this.totalMinus = 0.0;
+      _.forEach(this.PlusAcc, (itemdena, index) => {
+        this.totalPlus = this.totalPlus + parseFloat(itemdena.amount);
+      });
+      _.forEach(this.MinusAcc, (itemlena, index) => {
+        this.totalMinus = this.totalMinus + parseFloat(itemlena.amount);
+      });
     })
   }
   // Collectionreport() {

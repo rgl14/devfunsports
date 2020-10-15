@@ -2,19 +2,11 @@
         <div class="row">
            <div class="col-lg-6">
               <div class="ibox float-e-margins">
-                 <div class="ibox-title">
-                    <!-- <h5>PAYMENT RECEIVING FROM (Lena He)</h5> -->
-                    <h5>PLUS ACCOUNTS (Lena He)</h5>
-                    <!-- <div class="ibox-tools">
-
-                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                          <i class="fa fa-wrench"></i>
-                       </a>
-                       <ul class="dropdown-menu dropdown-user">
-                           <li><a target="_blank" href="/agent/ledgers/collection_report_pdf.pdf">Export PDF</a>
-                           </li>
-                       </ul>
-                    </div> -->
+                 <div>
+                  <div class="ibox-title">
+                     <!-- <h5>PAYMENT RECEIVING FROM (Lena He)</h5> -->
+                     <h5>PLUS ACCOUNTS (Lena He)</h5>
+                  </div>
                  </div>
                  <div class="ibox-content table-responsive" *ngIf="PlusAcc">
                     <table class="table" id="example_lena_hai">
@@ -72,7 +64,7 @@
                        <tfoot>
                           <tr>
                           <th>Total</th> <!-- Username -->
-                          <th [ngClass]="(totallena>=0)?'text-success':'text-danger'">{{totallena | number:'1.2-2'}}</th>
+                          <th [ngClass]="(totalPlus>=0)?'text-success':'text-danger'">{{totalPlus | number:'1.2-2'}}</th>
                           <td></td>
                           </tr>
                        </tfoot>
@@ -86,8 +78,8 @@
               <div class="ibox float-e-margins">
                  <div class="ibox-title">
                     <!-- <h5>PAYMENT PAID TO (Dena He)</h5> -->
-                    <h5>Minus ACCOUNTS (Dena He)</h5>
-                    <!-- <div class="ibox-tools">
+                    <h5>MINUS ACCOUNTS (Dena He)</h5>
+                    <div class="ibox-tools">
 
                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                           <i class="fa fa-wrench"></i>
@@ -97,7 +89,7 @@
                            </li>
                        </ul>
 
-                    </div> -->
+                    </div>
                  </div>
                  <div class="ibox-content table-responsive" *ngIf="MinusAcc">
                     <table class="table display" id="example_dena_hai">
@@ -109,16 +101,6 @@
                           </tr>
                        </thead>
                        <tbody>
-                                  <!-- <tr>
-                                     <td><a [routerLink]="'/userdashboard'">SP3 (Dummy)</a></td>
-                                     <td>18372.94</td>
-                                     <td><button
-                                       class="btn btn-info btn-sm"
-                                       title="Clear"
-                                       >
-                                       Clear
-                                       </button></td>
-                                  </tr> -->
                                   <ng-container *ngIf="MinusAcc.length==0">
                                     <tr><td colspan="4" style="text-align:center">No Data</td></tr>
                                    </ng-container>
@@ -154,7 +136,7 @@
                        <tfoot>
                           <tr>
                           <th>Total</th> <!-- Username -->
-                          <th [ngClass]="(totaldena>=0)?'text-success':'text-danger'">{{totaldena | number:'1.2-2'}}</th> <!-- Total -->
+                          <th [ngClass]="(totalMinus>=0)?'text-success':'text-danger'">{{totalMinus | number:'1.2-2'}}</th> <!-- Total -->
                           <th></th>
                           </tr>
                        </tfoot>
