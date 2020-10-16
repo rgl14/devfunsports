@@ -86,17 +86,19 @@
             </tr> -->
 
     <tr data-ng-repeat="accountdata in accountdataList">
-      <td id="createDate" class="align-L">{{accountdata.dateTime}}</td>
+      <td id="createDate" class="align-L">{{accountdata.date}}</td>
 
-      <td id="deposit">{{accountdata.credit | number:2}}</td>
+      <td id="deposit" class="green">{{(accountdata.cr==null || accountdata.cr=='' ||
+        accountdata.cr=='-')?'--':accountdata.cr}}</td>
 
       <td id="withdraw">
-        <span class="red">{{accountdata.debit | number:2}}</span>
+        <span class="red">{{(accountdata.dr==null || accountdata.dr=='' ||
+          accountdata.dr=='-')?'--':accountdata.dr}}</span>
       </td>
 
-      <td id="balance">{{accountdata.balance | number:2}}</td>
+      <td id="balance" data-ng-class="(accountdata.balance<0)?'red':'green'">{{accountdata.balance | number:2}}</td>
 
-      <td id="remark">{{accountdata.collectionName}}</td>
+      <td id="remark">{{accountdata.description}}</td>
 
       <!-- <td>{{accountdata.date}}
 

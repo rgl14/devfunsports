@@ -120,17 +120,17 @@
                      </td>
                   </tr> -->
       <tr data-ng-repeat="accountdata in accountdataList">
-        <td id="createDate" class="align-L">{{accountdata.dateTime}}</td>
+        <td id="createDate" class="align-L">{{accountdata.date}}</td>
         <td id="withdraw">
-          <span data-ng-class="(accountdata.credit<0)?'red':'green'"
-            >{{(accountdata.credit==null || accountdata.credit=='' ||
-            accountdata.credit=='-')?'--':accountdata.credit | number:2}}</span
+          <span data-ng-class="(accountdata.cr<0)?'red':'green'"
+            >{{(accountdata.cr==null || accountdata.cr=='' ||
+            accountdata.cr=='-')?'--':accountdata.cr}}</span
           >
         </td>
         <td id="deposit">
-          <span data-ng-class="(accountdata.debit<0)?'red':'green'"
-            >{{(accountdata.debit==null || accountdata.debit=='' ||
-            accountdata.debit=='-')?'--':accountdata.debit | number:2}}</span
+          <span data-ng-class="(accountdata.dr<0)?'red':'green'"
+            >{{(accountdata.dr==null || accountdata.dr=='' ||
+            accountdata.dr=='-')?'--':accountdata.dr}}</span
           >
         </td>
         <td id="balance">
@@ -138,7 +138,7 @@
             >{{accountdata.balance | number:2}}</span
           >
         </td>
-        <td id="remark">{{accountdata.collectionName}}</td>
+        <td id="remark">{{accountdata.description}}</td>
       </tr>
     </tbody>
   </table>

@@ -85,9 +85,9 @@
 
           <th style="width: 13%">Transaction №</th>
 
-          <!-- <th style="width: 13%">Debits</th>
+          <th style="width: 13%">Debits</th>
   
-          <th style="width: 13%">Credits</th> -->
+          <th style="width: 13%">Credits</th>
 
           <th style="width: 13%">Balance</th>
 
@@ -98,22 +98,24 @@
       </tbody>
 
       <tbody id="content">
-        <tr data-ng-if="CoinData.length==0">
-          <td class="no-data" colspan="5">
+        <tr data-ng-if="accountdataList.length==0">
+          <td class="no-data" colspan="6">
             <p>No Data Found</p>
           </td>
         </tr>
 
-        <tr data-ng-repeat="item in CoinData">
-          <td id="date" class="align-L">{{item.createdAt}}</td>
+        <tr data-ng-repeat="item in accountdataList">
+          <td id="date" class="align-L">{{item.date}}</td>
 
-          <td id="statementSerial">{{item.logId}}</td>
+          <td id="statementSerial">{{item.refId}}</td>
 
-          <!-- <td id="debits"></td>
+          <td id="debits" class="red">{{(item.dr==null || item.dr=='' ||
+            item.dr=='-')?'--':item.dr}}</td>
   
-          <td id="credits"></td> -->
+          <td id="credits" class="green">{{(item.cr==null || item.cr=='' ||
+            item.cr=='-')?'--':item.cr}}</td>
 
-          <td id="balance">{{item.coins | number:2}}</td>
+          <td id="balance" data-ng-class="(accountdata.balance<0)?'red':'green'">{{item.balance | number:2}}</td>
 
           <td id="remarks">{{item.description}}</td>
 

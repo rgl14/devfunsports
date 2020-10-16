@@ -231,9 +231,7 @@ export class AdminComponent implements OnInit {
     this.gridOptions.api.paginationSetPageSize(Number(value));
   }
 
-  onGridSizeChanged(params) {
-    params.api.sizeColumnsToFit();
-  }
+  c
 
   showraction(show) {
     this.gridColumnApi.setColumnVisible("action", show);

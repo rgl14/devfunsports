@@ -358,7 +358,7 @@ app.controller("accountStatementController", function (
   $window,
   $routeParams
 ) {
-  var days = 7; // Days you want to subtract
+  var days = 1; // Days you want to subtract
   var date = new Date();
   var last = new Date(date.getTime() - days * 24 * 60 * 60 * 1000);
   $scope.date = last;
@@ -393,7 +393,7 @@ app.controller("accountStatementController", function (
     $scope.To_date = $("#endDate").val();
 
     $http({
-      url: ApiUrl + "/Reports/GetLedger",
+      url: ApiUrl + "/Reports/AccountStatement?from="+$scope.From_date+"&to="+$scope.To_date+"&filter="+$scope.statementType,
       method: "GET",
 
       headers: {
@@ -566,32 +566,58 @@ app.controller("balance_OverviewController", function (
   };
 
   $scope.Fund();
-  $scope.getCoinHistory = function () {
+  var days = 1; // Days you want to subtract
+  var date = new Date();
+  var last = new Date(date.getTime() - days * 24 * 60 * 60 * 1000);
+  $scope.date = last;
+  $scope.fromdate =
+    $scope.date.getFullYear() +
+    "-" +
+    ($scope.date.getMonth() + 1) +
+    "-" +
+    $scope.date.getDate() +
+    " 00:00:00";
+  $scope.todate =
+    date.getFullYear() +
+    "-" +
+    (date.getMonth() + 1) +
+    "-" +
+    date.getDate() +
+    " 23:59:00";
+
+  // $scope.loading=true
+  $scope.statementType = "1";
+  $scope.AccountStatement = function () {
+    if (authtoken == undefined) {
+      window.location.href = "login.html";
+      return false;
+    }
     $("#loading").css("display", "inline-grid");
+
     $http({
-      url: ApiUrl + "/Reports/GetCoinHistory",
+      url: ApiUrl + "/Reports/AccountStatement?from="+$scope.fromdate+"&to="+$scope.todate+"&filter="+$scope.statementType,
       method: "GET",
+
       headers: {
         Token: authtoken,
       },
     }).then(
       function mySuccess(response) {
         // console.log(response);
-        $scope.CoinData = response.data.data.reverse();
-        // $scope.loading=false
+        $scope.accountdataList = response.data.data;
+        $scope.loading = false;
         $("#loading").css("display", "none");
       },
       function myError(response) {
-        $scope.getCurrentBetsCalls = true;
         $("#loading").css("display", "none");
-
-        if (response.status == 401) {
-          $rootScope.clearCookies();
-        }
+        // console.log(response);
+        // if (response.status==401) {
+        //              $window.location.href = 'login.html';
+        //}
       }
     );
   };
-  $scope.getCoinHistory();
+  $scope.AccountStatement();
 });
 
 app.controller("myBetsController", function ($scope, $http, $cookieStore) {

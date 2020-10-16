@@ -23,16 +23,16 @@ export class transactionComponent implements OnInit {
   constructor(private report:ReportsService) { 
     this.gridOptions = <GridOptions>{};
     this.gridOptions.columnDefs = [
-      {headerName: 'Date/Time',lockPosition:true, field: 'timestamp', sortable: true, width: 300,  minWidth: 180},
-      {headerName: 'Ip Address', field: 'ipaddress', width: 300,  minWidth: 180},
-      {headerName: 'Amount', field: 'amount', sortable: true, width: 200,suppressNavigable:true,  minWidth: 180,valueFormatter: numberWithCommas,cellStyle:  function(params) {
+      {headerName: 'Date/Time',lockPosition:true,suppressSizeToFit: true, field: 'timestamp', sortable: true, width: 350,  minWidth: 100},
+      {headerName: 'Ip Address', field: 'ipaddress',suppressSizeToFit: true, width: 300,  minWidth: 100},
+      {headerName: 'Amount', field: 'amount', sortable: true, width: 250,suppressSizeToFit: true,suppressNavigable:true,  minWidth: 100,valueFormatter: numberWithCommas,cellStyle:  function(params) {
         if (parseInt(params.data.amount) >= 0) {
           return { color: "#5cb55c", "font-weight": "bolder" };
         } else {
           return { color: "rgb(231, 59, 59)", "font-weight": "bolder" };
         }
       }},
-      {headerName: 'Balance', field: 'balance', sortable: true, width: 300,  minWidth: 180,cellStyle: {'font-weight':'bolder'},valueFormatter: numberWithCommas,},
+      {headerName: 'Balance', field: 'balance', sortable: true, width: 600,suppressSizeToFit: true,  minWidth: 100,cellStyle: {'font-weight':'bolder'},valueFormatter: numberWithCommas,},
      
     ]; 
 
@@ -77,6 +77,10 @@ export class transactionComponent implements OnInit {
 
   onFilterTextBoxChanged() {
     this.gridOptions.api.setQuickFilter((document.getElementById('filter-text-box') as HTMLInputElement).value);
+  }
+
+  onGridSizeChanged(params) {
+    params.api.sizeColumnsToFit();
   }
 
   ngOnInit() {
