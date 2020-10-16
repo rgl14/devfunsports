@@ -1,5 +1,8 @@
 <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
+           <!-- <div class="col-xs-12">
+               {{Uname}}
+           </div> -->
            <div class="col-lg-6">
               <div class="ibox float-e-margins">
                  <div>
@@ -34,7 +37,7 @@
                                    </ng-container>
                                    <ng-container *ngIf="PlusAcc.length>0">
                                     <tr *ngFor="let lena of PlusAcc">
-                                       <td><a [routerLink]="['/manage-clients', lena.userId, 'userdashboard']">{{lena.nameUsername}}</a></td>
+                                       <td><a [routerLink]="['/report/collectionreport', lena.userId, lena.nameUsername]">{{lena.nameUsername}}</a></td>
                                        <td [ngClass]="(lena.balance>=0)?'text-success':'text-danger'">{{lena.balance | number:'1.2-2'}}</td>
                                        <td><button
                                           class="btn btn-danger btn-sm mr-1"
@@ -79,17 +82,6 @@
                  <div class="ibox-title">
                     <!-- <h5>PAYMENT PAID TO (Dena He)</h5> -->
                     <h5>MINUS ACCOUNTS (Dena He)</h5>
-                    <div class="ibox-tools">
-
-                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                          <i class="fa fa-wrench"></i>
-                       </a>
-                       <ul class="dropdown-menu dropdown-user">
-                           <li><a target="_blank" href="/agent/ledgers/collection_report_pdf.pdf">Export PDF</a>
-                           </li>
-                       </ul>
-
-                    </div>
                  </div>
                  <div class="ibox-content table-responsive" *ngIf="MinusAcc">
                     <table class="table display" id="example_dena_hai">
@@ -103,10 +95,10 @@
                        <tbody>
                                   <ng-container *ngIf="MinusAcc.length==0">
                                     <tr><td colspan="4" style="text-align:center">No Data</td></tr>
-                                   </ng-container>
+                                  </ng-container>
                                    <ng-container *ngIf="MinusAcc.length>0">
                                     <tr *ngFor="let dena of MinusAcc">
-                                       <td><a [routerLink]="['/manage-clients', dena.userId, 'userdashboard']">{{dena.nameUsername}}</a></td>
+                                       <td><a [routerLink]="['/report/collectionreport', dena.userId, dena.nameUsername]">{{dena.nameUsername}}</a></td>
                                        <td [ngClass]="(dena.balance>=0)?'text-success':'text-danger'">{{dena.balance | number:'1.2-2'}}</td>
                                        <td><button
                                           class="btn btn-danger btn-sm mr-1"

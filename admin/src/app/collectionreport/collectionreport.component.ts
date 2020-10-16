@@ -31,6 +31,8 @@ export class CollectionreportComponent implements OnInit {
   parentComm: any;
   parentName: any;
   parentPnl: any;
+  userId: any;
+  Uname: any;
 
   constructor(
     private usermanagement: UsermanagementService,
@@ -44,6 +46,15 @@ export class CollectionreportComponent implements OnInit {
 
   ngOnInit() {
     this.matchId = this.route.snapshot.paramMap.get("matchId");
+    this.route.params.subscribe(param => {
+      console.log(param)
+      if(param.userId!=undefined){
+        this.userId=param.userId;
+        this.Uname=param.Uname;
+      }else{
+        this.userId=0;
+      }
+    })
     // this.Collectionreport();
     this.Accountinfo();
   }
@@ -51,11 +62,15 @@ export class CollectionreportComponent implements OnInit {
   Accountinfo(){
     this.usermanagement.getAccountInfo().subscribe((resp) => {
       this.AccountInfo = resp.data;
-      console.log(this.AccountInfo)
+      // console.log(this.AccountInfo)
       if(this.AccountInfo.userType==1){
         this.AdmChipssummary()
       }else{
-        this.AdmChipssummary2(this.AccountInfo.userId)
+        if(this.userId==0){
+          this.AdmChipssummary2(this.AccountInfo.userId)
+        }else{
+          this.AdmChipssummary2(this.userId)
+        }
       }
     })
   }

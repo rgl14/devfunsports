@@ -52,6 +52,17 @@ const routes: Routes = [
         ],
       },
       {
+        path: "collectionreport/:userId/:Uname",
+        component: ChildrenContainerComponent,
+        data: { breadcrumb: "Collection Report" },
+        children: [
+          {
+            path: "",
+            component: CollectionreportComponent,
+          },
+        ],
+      },
+      {
         path: "accountstatement",
         component: AccoutStatementComponent,
         data: { breadcrumb: "Account Statement" },
