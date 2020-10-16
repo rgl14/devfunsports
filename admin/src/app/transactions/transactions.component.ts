@@ -25,7 +25,7 @@ export class transactionComponent implements OnInit {
     this.gridOptions.columnDefs = [
       {headerName: 'Date/Time',lockPosition:true, field: 'timestamp', sortable: true, width: 300,  minWidth: 180},
       {headerName: 'Ip Address', field: 'ipaddress', sortable: true, width: 300,  minWidth: 180},
-      {headerName: 'Amount', field: 'amount', width: 200,suppressNavigable:true,  minWidth: 180,cellStyle:  function(params) {
+      {headerName: 'Amount', field: 'amount', width: 200,suppressNavigable:true,  minWidth: 180,valueFormatter: numberWithCommas,cellStyle:  function(params) {
         if (parseInt(params.data.amount) >= 0) {
           return { color: "#5cb55c", "font-weight": "bolder" };
         } else {
