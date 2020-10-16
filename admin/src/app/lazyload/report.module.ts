@@ -33,6 +33,7 @@ import {MarketPnlComponent} from '../accout-statement/market-pnl/market-pnl.comp
 import {MDLwiseDLpnlComponent} from '../accout-statement/mdlwise-dlpnl/mdlwise-dlpnl.component';
 import {DlwiseClientpnlComponent} from '../accout-statement/dlwise-clientpnl/dlwise-clientpnl.component';
 import {InnerClientbetHistoryComponent}from '../accout-statement/inner-clientbet-history/inner-clientbet-history.component';
+import { transactionComponent } from '../transactions/transactions.component';
 const routes: Routes = [
   {
     path: "",
@@ -164,6 +165,16 @@ const routes: Routes = [
             component: SportpnlComponent,
           },
         ],
+      },  {
+        path: "transactions",
+        component: transactionComponent,
+        data: { breadcrumb: "Transactions" },
+        children: [
+          {
+            path: "",
+            component: transactionComponent,
+          },
+        ],
       },
       {
         path: "tournamentpnl",
@@ -194,7 +205,8 @@ const routes: Routes = [
     MarketPnlComponent,
     MDLwiseDLpnlComponent,
     DlwiseClientpnlComponent,
-    InnerClientbetHistoryComponent
+    InnerClientbetHistoryComponent,
+    transactionComponent
   ],
   imports: [
     CommonModule,

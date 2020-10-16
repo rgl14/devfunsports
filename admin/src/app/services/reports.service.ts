@@ -111,5 +111,8 @@ export class ReportsService {
   SessionPNl(ID): Observable<any> {
     return this.http.get(`${this.BASEURL}/Reports/SessionPNl?mtid=${ID}`);
   }
+  getTransactions(): Observable<any> {
+    return this.http.get(`${this.BASEURL}/Reports/GetAdmFundTransaction`);
+  }
 
 }

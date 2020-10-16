@@ -10,7 +10,8 @@
       <div class="sub-menu-1">
         <ul>
           <li *ngIf="userType === 1">
-            <a [routerLink]="'/adminfunds'"><i class="fa fa-soccer-ball-o"></i> Admin Funds</a
+            <a [routerLink]="'/adminfunds'"
+              ><i class="fa fa-soccer-ball-o"></i> Admin Funds</a
             >
           </li>
           <li *ngIf="userType === 1">
@@ -132,6 +133,11 @@
           <li>
             <a [routerLink]="'/report/collectionreport'"
               ><i class="fa fa-soccer-ball-o"></i> Chips Summery</a
+            >
+          </li>
+          <li *ngIf="userType === 1">
+            <a [routerLink]="'/report/transactions'"
+              ><i class="fa fa-book"></i> Admin Transactions</a
             >
           </li>
           <li>
