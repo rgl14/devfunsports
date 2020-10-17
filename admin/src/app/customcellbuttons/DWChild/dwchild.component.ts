@@ -184,11 +184,9 @@ export class wdDialog {
       Amount: [0, Validators.required]
     });
 
-    this.sharedata.AccountInfoSource.subscribe((data) => {
-      if (data != null) {
-        this.accountInfo = data;
+    this.usermanage.getAccountInfo().subscribe((data) => {
+      this.accountInfo = data.data;
         this.chips=this.accountInfo.balance;
-      }
     });
     this.formControlchanged();
   }
@@ -348,7 +346,6 @@ export class dpDialog implements OnInit{
     public dialogRef: MatDialogRef<dpDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private sharedata: SharedataService,
     private usermanage:UsermanagementService,
     private notifyService:NotificationService
   ) {
@@ -357,12 +354,10 @@ export class dpDialog implements OnInit{
     this.systemPointForm = this.fb.group({
       Amount: [0, Validators.required],
     });
-    this.sharedata.AccountInfoSource.subscribe((data) => {
-      if (data != null) {
-        this.accountInfo = data;
-        // console.log(data)
+
+    this.usermanage.getAccountInfo().subscribe((data) => {
+      this.accountInfo = data.data;
         this.chips=this.accountInfo.balance;
-      }
     });
     this.formControlchanged();
   }
