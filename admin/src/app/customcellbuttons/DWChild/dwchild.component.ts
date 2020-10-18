@@ -28,12 +28,12 @@ export class dWcomponent implements OnInit {
     ) {
       this.showActionButtons = true;
     }
-
-    this.sharedata.AccountInfoSource.subscribe((data) => {
+    this.usermanage.getAccountInfo().subscribe((data) => {
       if (data != null) {
-        this.accountInfo = data;
+        this.accountInfo = data.data;
       }
     });
+
   }
 
   agInit(params) {
@@ -98,7 +98,7 @@ export class dWcomponent implements OnInit {
           <div class="col-md-12" style="display: contents;">
           <div class="col-md-6">
             <div class="form-group">
-            <label>{{ accountInfo.userName }} Chips</label>
+            <label *ngIf="accountInfo">{{ accountInfo.userName }} Chips</label>
               <input
                 type="number"
                 class="form-control border-primary"
@@ -133,7 +133,8 @@ export class dWcomponent implements OnInit {
                 rows="6"
                 class="form-control border-primary"
                 type="text"
-              >Withdraw chips from {{ data.userName }}: {{systemPointForm.controls.Amount.value}}</textarea>
+                *ngIf="accountInfo && data"
+              >Withdraw chips from {{ data.userName }} by {{ accountInfo.userName }}: {{systemPointForm.controls.Amount.value}}</textarea>
             </div>
             </div>
             <div class="col-md-6">
@@ -143,7 +144,8 @@ export class dWcomponent implements OnInit {
                 rows="6"
                 class="form-control border-primary"
                 type="text"
-              >Withdraw chips by {{ accountInfo.userName }}</textarea>
+                *ngIf="accountInfo && data"
+              >Withdraw chips by {{ accountInfo.userName }} from {{ data.userName }}</textarea>
             </div>
             </div>
           </div>
@@ -183,10 +185,9 @@ export class wdDialog {
     this.systemPointForm = this.fb.group({
       Amount: [0, Validators.required]
     });
-
-    this.sharedata.AccountInfoSource.subscribe((data) => {
+    this.usermanage.getAccountInfo().subscribe((data) => {
       if (data != null) {
-        this.accountInfo = data;
+        this.accountInfo = data.data;
         this.chips=this.accountInfo.balance;
       }
     });
@@ -271,7 +272,7 @@ export class wdDialog {
       <div class="col-md-12" style="display: contents;">
       <div class="col-md-6">
         <div class="form-group">
-        <label>{{ accountInfo.userName }} Chips</label>
+        <label *ngIf="accountInfo">{{ accountInfo.userName }} Chips</label>
           <input
             type="number"
             class="form-control border-primary"
@@ -306,7 +307,8 @@ export class wdDialog {
             rows="6"
             class="form-control border-primary"
             type="text"
-          >Deposit chips to {{data.userName }} : {{systemPointForm.controls.Amount.value}}</textarea>
+            *ngIf="data && accountInfo"
+          >Deposit chips to {{data.userName }} from {{ accountInfo.userName }}: {{systemPointForm.controls.Amount.value}}</textarea>
         </div>
         </div>
         <div class="col-md-6">
@@ -316,7 +318,8 @@ export class wdDialog {
             rows="6"
             class="form-control border-primary"
             type="text"
-          >Deposit chips by {{ accountInfo.userName }}</textarea>
+            *ngIf="data && accountInfo"
+          >Deposit chips by {{ accountInfo.userName }} to {{data.userName }}</textarea>
         </div>
         </div>
       </div>
@@ -357,10 +360,9 @@ export class dpDialog implements OnInit{
     this.systemPointForm = this.fb.group({
       Amount: [0, Validators.required],
     });
-    this.sharedata.AccountInfoSource.subscribe((data) => {
+    this.usermanage.getAccountInfo().subscribe((data) => {
       if (data != null) {
-        this.accountInfo = data;
-        // console.log(data)
+        this.accountInfo = data.data;
         this.chips=this.accountInfo.balance;
       }
     });
@@ -373,9 +375,11 @@ export class dpDialog implements OnInit{
 
   formControlchanged() {
     this.systemPointForm.get("Amount").valueChanges.subscribe((mode: any) => {
+      console.log(mode)
       if (mode > this.accountInfo.balance) {
         this.systemPointForm.controls["Amount"].setValue(this.accountInfo.balance);
-        this.amount=this.accountInfo.balance;
+        this.chips=0;
+        this.amount=this.data.chips+this.accountInfo.balance;
       } else {
         this.chips = parseInt(this.accountInfo.balance)-mode;
         this.amount=this.data.chips+mode;
