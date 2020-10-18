@@ -197,7 +197,7 @@ export class wdDialog {
   formControlchanged() {
     this.systemPointForm.get("Amount").valueChanges.subscribe((mode: any) => {
         if (mode > this.data.chips){
-          if(this.data.chips>0){
+          if(this.data.chips>=0){
             this.systemPointForm.controls["Amount"].setValue(this.data.chips);
           }
       } else {
