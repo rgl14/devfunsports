@@ -42,14 +42,14 @@
                                        <td><button
                                           class="btn btn-danger btn-sm mr-1"
                                           title="Clear"
-                                          (click)="openconfirmDialog(lena.userId,lena.balance,1)"
+                                          (click)="openconfirmDialog(lena.userType,lena.balance,lena.nameUsername,1)"
                                           >
                                           Clear
                                           </button>
                                           <button
                                           class="btn btn-warning btn-sm mr-1"
                                           title="Clear"
-                                          (click)="openPartialPaymentDialog(lena.userId,lena.balance,1)"
+                                          (click)="openPartialPaymentDialog(lena.userType,lena.balance,lena.nameUsername,1)"
                                           >
                                           Settlement
                                           </button>

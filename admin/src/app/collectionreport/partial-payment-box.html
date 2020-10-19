@@ -2,9 +2,9 @@
 <div mat-dialog-content>
   <div class="mb-2" style="display: flex; flex-flow: column">
     <p>Enter {{data.type === 1? 'Receive': 'Payment'}} cash amount:</p>
-    <input type="text" matInput [(ngModel)]="data.amount" />
-
-    <div class="mt-1"><span>Total Balance</span>: {{(data.totalBalance - data.amount).toFixed(2)}}</div>
+    <input type="number" matInput [(ngModel)]="data.amount" (ngModelChange)="modelChangeFn($event,data)" />
+    <div class="mt-1"><textarea name="remark" cols="30" rows="5" class="form-control" placeholder="Add remark">{{data.remarks}}</textarea></div>
+    <div class="mt-1"><span>Total Balance</span>: {{totalBalance | number : '1.2-2'}}</div>
   </div>
 </div>
 <div mat-dialog-actions>
