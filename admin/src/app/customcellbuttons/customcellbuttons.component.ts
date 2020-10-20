@@ -230,7 +230,7 @@ export class CustomcellbuttonsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if (result != undefined) {
-       
+        this.params.context.componentParent.GetuserList();
       }
     });
   }
@@ -412,16 +412,17 @@ export class CustomcellbuttonsComponent implements OnInit {
   template: `<h1 mat-dialog-title align="center">Cash Settlement of {{data.userName}}</h1>
   <hr />
     <div mat-dialog-content>
-    <div class="form-group">
+    <div class="form-group" [formGroup]="form">
     <div class="col-sm-12">
 
     <div class="form-group">
       <input
         class="form-control"
-        onkeypress="return event.charCode >= 48"
-        name="myshare"
+        onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+        name="amount"
         placeholder="Enter Amount"
         type="number"
+        formControlName="amount"
         max="100"
         min="0"
       />
@@ -446,22 +447,202 @@ export class CustomcellbuttonsComponent implements OnInit {
       <button
         mat-raised-button
         color="primary"
-        [mat-dialog-close]="data"
         cdkFocusInitial
+        (click)="updateSettle()"
+        [disabled]="!form.valid || disabled"
       >
-        Ok
+        Settle
       </button>
     </div>`,
 })
 export class PartialPaymentDialog {
   params: any;
+  form:FormGroup;
+  accountInfo;
+  disabled:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<PartialPaymentDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private limits:LimitsService,
+    private formbuilder:FormBuilder,
+    private usermanagement:UsermanagementService,
+    private notifyService:NotificationService
+  ) {
+    this.form = this.formbuilder.group({
+      amount: [0, Validators.required],
+    });
+    this.usermanagement.getAccountInfo().subscribe((data) => {
+      this.accountInfo = data.data;
+    });
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  updateSettle(){
+    if(this.data.chips<0){
+      var data=  {
+        amount:this.form.get("amount").value,
+        receiverUn:this.accountInfo.userName,
+        remarks:$("#txt_boxe").val(),
+        senderUn:this.data.userName
+      }
+    } else {
+      var data=  {
+        amount:this.form.get("amount").value,
+        receiverUn:this.data.userName,
+        remarks:$("#txt_boxe").val(),
+        senderUn:this.accountInfo.userName
+      }
+    }
+    
+    this.disabled=true;
+    if(this.accountInfo.userType==1 && this.data.userType==2){
+      this.limits.SettleCompanyDoubleSuperCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==1 && this.data.userType==3){
+      this.limits.SettleCompanySuperMasterCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==1 && this.data.userType==4){
+      this.limits.SettleCompanyMasterCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==1 && this.data.userType==5){
+      this.limits.SettleCompanyAgentCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==2 && this.data.userType==3){
+      this.limits.SettleDoubleSupSuperMasterCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==2 && this.data.userType==4){
+      this.limits.SettleDoubleSuperMasterCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==2 && this.data.userType==5){
+      this.limits.SettleDoubleSuperAgentCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==3 && this.data.userType==4){
+      this.limits.SettleSuperMasterMasterCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==3 && this.data.userType==5){
+      this.limits.SettleSuperMasterAgentCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==3 && this.data.userType==5){
+      this.limits.SettleSuperMasterClientCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==4 && this.data.userType==5){
+      this.limits.SettleMasterAgentCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==4 && this.data.userType==6){
+      this.limits.SettleMasterClientCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    } else if (this.accountInfo.userType==5 && this.data.userType==6){
+      this.limits.SettleAgentClientCash(data).subscribe(res=>{
+        if (res.status == "Success") {
+          this.notifyService.success(res.result);
+          this.dialogRef.close(res);
+          this.disabled=false;
+        } else {
+          this.notifyService.error(res.result);
+          this.disabled=false;
+        }
+      })
+    }
+
   }
 }
 
