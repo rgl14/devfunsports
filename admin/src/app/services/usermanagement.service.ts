@@ -164,4 +164,10 @@ export class UsermanagementService {
       data
     );
   }
+
+  getShowpassword(id):Observable<any>{
+    return this.http.get(
+      `${this.BASEURL}/Usermanagement/ShowPassword?id=${id}`
+    );
+  }
 }

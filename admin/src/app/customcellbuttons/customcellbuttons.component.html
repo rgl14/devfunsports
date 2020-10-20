@@ -26,7 +26,7 @@
   >
     S-P
   </button>
-  <button
+  <!-- <button
     style="min-width: 30px; padding: 0 10px"
     mat-raised-button
     title="Limits"
@@ -34,17 +34,17 @@
     (click)="openLimitsDialog()"
   >
     L
-  </button>
+  </button> -->
   <button
     style="min-width: 30px; padding: 0 10px"
     mat-raised-button
     title="Report"
     class="btn-dark"
-    [routerLink]="['/report/accountstatement',data.userId,data.userName]"
+    [routerLink]="['/report/accountstatement', data.userId, data.userName]"
   >
     R
   </button>
-  <button
+  <!-- <button
     style="min-width: 30px; padding: 0 10px"
     mat-raised-button
     title="Share"
@@ -52,7 +52,7 @@
     (click)="openShareDialog()"
   >
     S
-  </button>
+  </button> -->
   <button
     [routerLink]="[data.userId, 'managepassword']"
     style="min-width: 30px; padding: 0 10px"
