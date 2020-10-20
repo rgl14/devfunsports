@@ -26,7 +26,7 @@
                                    </ng-container>
                                    <ng-container *ngIf="PlusAcc.length>0">
                                     <tr *ngFor="let lena of PlusAcc">
-                                       <td><a [routerLink]="['/report/collectionreport', lena.userId, lena.nameUsername]">{{lena.nameUsername}}</a></td>
+                                       <td><a [routerLink]="['/report/collectionreport', lena.userId, lena.nameUsername,lena.userType]">{{lena.nameUsername}}</a></td>
                                        <td [ngClass]="(lena.balance>=0)?'text-success':'text-danger'">{{lena.balance | number:'1.2-2'}}</td>
                                        <td><button
                                           class="btn btn-danger btn-sm mr-1"
@@ -54,21 +54,32 @@
                                    </ng-container>
                        </tbody>
                        <tfoot>
-                           <tr>
+                           <tr *ngIf="Commission>0">
                               <th>Commission</th>
                               <th [ngClass]="(Commission>=0)?'text-success':'text-danger'">{{Commission | number:'1.2-2'}}</th>
                               <td></td>
                            </tr>
-                           <tr>
+                           <tr *ngIf="Own>0">
                               <th>Own</th>
                               <th [ngClass]="(Own>=0)?'text-success':'text-danger'">{{Own | number:'1.2-2'}}</th>
                               <td></td>
                            </tr>
-                           <tr>
+                           <tr *ngIf="Cash>0">
                               <th>Cash</th>
                               <th [ngClass]="(Cash>=0)?'text-success':'text-danger'">{{Cash | number:'1.2-2'}}</th>
                               <td></td>
                            </tr>
+                           <tr *ngIf="UrluserType!=1 && parentPnl>0">
+                              <th>{{parentName}}</th>
+                              <th [ngClass]="(parentPnl>=0)?'text-success':'text-danger'">{{parentPnl | number:'1.2-2'}}</th>
+                              <td></td>
+                           </tr>
+                           <tr *ngIf="UrluserType!=1 && parentComm>0">
+                              <th>Parent Commission</th>
+                              <th [ngClass]="(parentComm>=0)?'text-success':'text-danger'">{{parentComm | number:'1.2-2'}}</th>
+                              <td></td>
+                           </tr>
+
                            <tr>
                                  <th>Total</th>
                                  <th [ngClass]="(totalPlus>=0)?'text-success':'text-danger'">{{totalPlus | number:'1.2-2'}}</th>
@@ -101,7 +112,7 @@
                                   </ng-container>
                                    <ng-container *ngIf="MinusAcc.length>0">
                                     <tr *ngFor="let dena of MinusAcc">
-                                       <td><a [routerLink]="['/report/collectionreport', dena.userId, dena.nameUsername]">{{dena.nameUsername}}</a></td>
+                                       <td><a [routerLink]="['/report/collectionreport', dena.userId, dena.nameUsername,dena.userType]">{{dena.nameUsername}}</a></td>
                                        <td [ngClass]="(dena.balance>=0)?'text-success':'text-danger'">{{dena.balance | number:'1.2-2'}}</td>
                                        <td><button
                                           class="btn btn-danger btn-sm mr-1"
@@ -129,6 +140,26 @@
                                    </ng-container>
                        </tbody>
                        <tfoot>
+                        <tr *ngIf="Own<=0">
+                           <th>Own</th>
+                           <th [ngClass]="(Own>=0)?'text-success':'text-danger'">{{Own | number:'1.2-2'}}</th>
+                           <td></td>
+                        </tr>
+                        <tr *ngIf="Cash<=0">
+                           <th>Cash</th>
+                           <th [ngClass]="(Cash>=0)?'text-success':'text-danger'">{{Cash | number:'1.2-2'}}</th>
+                           <td></td>
+                        </tr>
+                        <tr *ngIf="UrluserType!=1 && parentPnl<=0">
+                           <th>{{parentName}}</th>
+                           <th [ngClass]="(parentPnl>=0)?'text-success':'text-danger'">{{parentPnl | number:'1.2-2'}}</th>
+                           <td></td>
+                        </tr>
+                        <tr *ngIf="UrluserType!=1 && parentComm<=0">
+                           <th>Parent Commission</th>
+                           <th [ngClass]="(parentComm>=0)?'text-success':'text-danger'">{{parentComm | number:'1.2-2'}}</th>
+                           <td></td>
+                        </tr>
                           <tr>
                           <th>Total</th>
                           <th [ngClass]="(totalMinus>=0)?'text-success':'text-danger'">{{totalMinus | number:'1.2-2'}}</th>

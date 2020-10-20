@@ -53,7 +53,7 @@ const routes: Routes = [
         ],
       },
       {
-        path: "collectionreport/:userId/:Uname",
+        path: "collectionreport/:userId/:Uname/:userType",
         component: ChildrenContainerComponent,
         data: { breadcrumb: "Collection Report" },
         children: [

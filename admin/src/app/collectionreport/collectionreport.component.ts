@@ -35,6 +35,7 @@ export class CollectionreportComponent implements OnInit {
   userId: any;
   Uname: any;
   UserInfo: any;
+  UrluserType: any;
 
   constructor(
     private usermanagement: UsermanagementService,
@@ -53,6 +54,7 @@ export class CollectionreportComponent implements OnInit {
       if(param.userId!=undefined){
         this.userId=param.userId;
         this.Uname=param.Uname;
+        this.UrluserType=param.userType;
         this.Accountinfo();
       }else{
         this.userId=0;
@@ -98,6 +100,21 @@ export class CollectionreportComponent implements OnInit {
       _.forEach(this.MinusAcc, (itemlena, index) => {
         this.totalMinus = this.totalMinus + parseFloat(itemlena.balance);
       });
+      if(this.Own>0){
+        this.totalPlus = this.totalPlus + parseFloat(this.Own);
+      }else{
+        this.totalMinus = this.totalMinus + parseFloat(this.Own);
+      }
+      if(this.Cash>0){
+        this.totalPlus = this.totalPlus + parseFloat(this.Cash);
+      }else{
+        this.totalMinus = this.totalMinus + parseFloat(this.Cash);
+      }
+      if(this.Commission>0){
+        this.totalPlus = this.totalPlus + parseFloat(this.Commission);
+      }else{
+        this.totalMinus = this.totalMinus + parseFloat(this.Commission);
+      }
     })
   }
   AdmChipssummary2(ID){
@@ -119,6 +136,31 @@ export class CollectionreportComponent implements OnInit {
       _.forEach(this.MinusAcc, (itemlena, index) => {
         this.totalMinus = this.totalMinus + parseFloat(itemlena.balance);
       });
+      if(this.Own>0){
+        this.totalPlus = this.totalPlus + parseFloat(this.Own);
+      }else{
+        this.totalMinus = this.totalMinus + parseFloat(this.Own);
+      }
+      if(this.Cash>0){
+        this.totalPlus = this.totalPlus + parseFloat(this.Cash);
+      }else{
+        this.totalMinus = this.totalMinus + parseFloat(this.Cash);
+      }
+      if(this.Commission>0){
+        this.totalPlus = this.totalPlus + parseFloat(this.Commission);
+      }else{
+        this.totalMinus = this.totalMinus + parseFloat(this.Commission);
+      }
+      if(this.parentPnl>0){
+        this.totalPlus = this.totalPlus + parseFloat(this.parentPnl);
+      }else{
+        this.totalMinus = this.totalMinus + parseFloat(this.parentPnl);
+      }
+      if(this.parentComm>0){
+        this.totalPlus = this.totalPlus + parseFloat(this.parentComm);
+      }else{
+        this.totalMinus = this.totalMinus + parseFloat(this.parentComm);
+      }
     })
   }
 
