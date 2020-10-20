@@ -54,11 +54,26 @@
                                    </ng-container>
                        </tbody>
                        <tfoot>
-                          <tr>
-                          <th>Total</th> <!-- Username -->
-                          <th [ngClass]="(totalPlus>=0)?'text-success':'text-danger'">{{totalPlus | number:'1.2-2'}}</th>
-                          <td></td>
-                          </tr>
+                           <tr>
+                              <th>Commission</th>
+                              <th [ngClass]="(Commission>=0)?'text-success':'text-danger'">{{Commission | number:'1.2-2'}}</th>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <th>Own</th>
+                              <th [ngClass]="(Own>=0)?'text-success':'text-danger'">{{Own | number:'1.2-2'}}</th>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <th>Cash</th>
+                              <th [ngClass]="(Cash>=0)?'text-success':'text-danger'">{{Cash | number:'1.2-2'}}</th>
+                              <td></td>
+                           </tr>
+                           <tr>
+                                 <th>Total</th>
+                                 <th [ngClass]="(totalPlus>=0)?'text-success':'text-danger'">{{totalPlus | number:'1.2-2'}}</th>
+                                 <td></td>
+                           </tr>
                        </tfoot>
                     </table>
                  </div>

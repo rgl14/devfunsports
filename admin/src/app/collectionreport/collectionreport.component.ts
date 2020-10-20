@@ -6,6 +6,7 @@ import { LimitsService } from "../services/limits.service";
 import { NotificationService } from "../shared/notification.service";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UsermanagementService } from '../services/usermanagement.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-collectionreport",
@@ -52,12 +53,13 @@ export class CollectionreportComponent implements OnInit {
       if(param.userId!=undefined){
         this.userId=param.userId;
         this.Uname=param.Uname;
+        this.Accountinfo();
       }else{
         this.userId=0;
+        this.Accountinfo();
       }
     })
     // this.Collectionreport();
-    this.Accountinfo();
   }
 
   Accountinfo(){
@@ -65,7 +67,11 @@ export class CollectionreportComponent implements OnInit {
       this.AccountInfo = resp.data;
       // console.log(this.AccountInfo)
       if(this.AccountInfo.userType==1){
-        this.AdmChipssummary()
+        if(this.userId==0){
+          this.AdmChipssummary()
+        }else{
+          this.AdmChipssummary2(this.userId)
+        }
       }else{
         if(this.userId==0){
           this.AdmChipssummary2(this.AccountInfo.userId)
@@ -87,10 +93,10 @@ export class CollectionreportComponent implements OnInit {
       this.totalPlus = 0.0;
       this.totalMinus = 0.0;
       _.forEach(this.PlusAcc, (itemdena, index) => {
-        this.totalPlus = this.totalPlus + parseFloat(itemdena.amount);
+        this.totalPlus = this.totalPlus + parseFloat(itemdena.balance);
       });
       _.forEach(this.MinusAcc, (itemlena, index) => {
-        this.totalMinus = this.totalMinus + parseFloat(itemlena.amount);
+        this.totalMinus = this.totalMinus + parseFloat(itemlena.balance);
       });
     })
   }
@@ -108,10 +114,10 @@ export class CollectionreportComponent implements OnInit {
       this.totalPlus = 0.0;
       this.totalMinus = 0.0;
       _.forEach(this.PlusAcc, (itemdena, index) => {
-        this.totalPlus = this.totalPlus + parseFloat(itemdena.amount);
+        this.totalPlus = this.totalPlus + parseFloat(itemdena.balance);
       });
       _.forEach(this.MinusAcc, (itemlena, index) => {
-        this.totalMinus = this.totalMinus + parseFloat(itemlena.amount);
+        this.totalMinus = this.totalMinus + parseFloat(itemlena.balance);
       });
     })
   }
@@ -136,142 +142,7 @@ export class CollectionreportComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result)
       if(result!=undefined){
-        var data={
-          "amount": result.amount,
-          "receiverUn":result.receiverUn,
-          "remarks":result.remarks,
-          "senderUn":result.senderUn
-        };
-        if(result.LoggeduserType==1 && result.userType==2){
-          this.limits.SettleCompanyDoubleSuperCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==1 && result.userType==3){
-          this.limits.SettleCompanySuperMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==1 && result.userType==4){
-          this.limits.SettleCompanyMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==1 && result.userType==5){
-          this.limits.SettleCompanyAgentCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==2 && result.userType==3){
-          this.limits.SettleDoubleSupSuperMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==2 && result.userType==4){
-          this.limits.SettleDoubleSuperMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==2 && result.userType==5){
-          this.limits.SettleDoubleSuperAgentCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==3 && result.userType==4){
-          this.limits.SettleSuperMasterMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==3 && result.userType==5){
-          this.limits.SettleSuperMasterAgentCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==3 && result.userType==6){
-          this.limits.SettleSuperMasterClientCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==4 && result.userType==5){
-          this.limits.SettleMasterAgentCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==4 && result.userType==6){
-          this.limits.SettleMasterClientCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==5 && result.userType==6){
-          this.limits.SettleAgentClientCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
+        
       }
     });
   }
@@ -457,18 +328,175 @@ export class ConfirmBoxDialog {
   templateUrl: 'partial-payment-box.html',
 })
 export class PartialPaymentDialog {
+  CashsettleForm: FormGroup;
   params: any;
   Amount:any;
   totalBalance:any;
+  disabled:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<PartialPaymentDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder,private limits: LimitsService,public notification: NotificationService,) {
+      this.CashsettleForm = this.fb.group({
+        Amount: [this.data.amount, Validators.required],
+        Remark: [this.data.remarks]
+      });
+      this.formControlchanged();
     }
-    modelChangeFn(e,data){
-      this.Amount = e;
-      this.totalBalance=parseFloat(data.amount)-e;
-      console.log(this.Amount);
+    
+    formControlchanged() {
+      this.CashsettleForm.get("Amount").valueChanges.subscribe((mode: any) => {
+          if (mode > this.data.amount){
+            if(this.data.amount>=0){
+              this.CashsettleForm.controls["Amount"].setValue(this.data.amount);
+              this.totalBalance=this.data.amount;
+            }
+        }else{
+            this.totalBalance = parseFloat(this.data.amount) - mode;
+        }
+      });
     }
+
+    Cashsettle(result){
+    var data={
+      "amount": this.CashsettleForm.get("Amount").value,
+      "receiverUn":result.receiverUn,
+      "remarks":this.CashsettleForm.get("Remark").value,
+      "senderUn":result.senderUn
+    };
+    if(result.LoggeduserType==1 && result.userType==2){
+      this.limits.SettleCompanyDoubleSuperCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+          this.dialogRef.close(data);
+          this.disabled=false
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==1 && result.userType==3){
+      this.limits.SettleCompanySuperMasterCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==1 && result.userType==4){
+      this.limits.SettleCompanyMasterCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==1 && result.userType==5){
+      this.limits.SettleCompanyAgentCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==2 && result.userType==3){
+      this.limits.SettleDoubleSupSuperMasterCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==2 && result.userType==4){
+      this.limits.SettleDoubleSuperMasterCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==2 && result.userType==5){
+      this.limits.SettleDoubleSuperAgentCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==3 && result.userType==4){
+      this.limits.SettleSuperMasterMasterCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==3 && result.userType==5){
+      this.limits.SettleSuperMasterAgentCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==3 && result.userType==6){
+      this.limits.SettleSuperMasterClientCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==4 && result.userType==5){
+      this.limits.SettleMasterAgentCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==4 && result.userType==6){
+      this.limits.SettleMasterClientCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+    if(result.LoggeduserType==5 && result.userType==6){
+      this.limits.SettleAgentClientCash(data).subscribe((resp)=>{
+        if (resp.status == "Success") {
+          this.notification.success(resp.result);
+          // this.Accountinfo();
+        } else {
+          this.notification.error(resp.result);
+        }
+      })
+    }
+  }
+
     onNoClick(): void {
       this.dialogRef.close();
     }

@@ -1,20 +1,20 @@
 <h1 mat-dialog-title>Settlement</h1>
 <div mat-dialog-content>
-  <div class="mb-2" style="display: flex; flex-flow: column">
+  <form [formGroup]="CashsettleForm" class="mb-2" style="display: flex; flex-flow: column">
     <p>Enter {{data.type === 1? 'Receive': 'Payment'}} cash amount:</p>
-    <input type="number" matInput [(ngModel)]="data.amount" (ngModelChange)="modelChangeFn($event,data)" />
-    <div class="mt-1"><textarea name="remark" cols="30" rows="5" class="form-control" placeholder="Add remark">{{data.remarks}}</textarea></div>
+    <input type="number" matInput formControlName="Amount" class="form-control" min="0"/>
+    <div class="mt-1"><textarea name="remark" formControlName="Remark" cols="30" rows="5" class="form-control" placeholder="Add remark" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">{{data.remarks}}</textarea></div>
     <div class="mt-1"><span>Total Balance</span>: {{totalBalance | number : '1.2-2'}}</div>
-  </div>
+  </form>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
   <button
     mat-raised-button
     color="primary"
-    [mat-dialog-close]="data"
-    cdkFocusInitial
+    (click)="Cashsettle(data)"
+    [disabled]="!CashsettleForm.valid || disabled"
   >
-    Ok
+  Update
   </button>
 </div>
