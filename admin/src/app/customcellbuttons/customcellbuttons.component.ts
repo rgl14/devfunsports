@@ -882,7 +882,7 @@ export class LimitsDialog {
           <input
             class="form-control"
             name="Password"
-            [(ngModel)]="data.password"
+            [(ngModel)]="password"
             type="text"
             [disabled]="true"
           />
@@ -905,15 +905,26 @@ export class LimitsDialog {
     </div>`,
 })
 export class ShowPwdDialog {
+  password;
   constructor(
     public dialogRef: MatDialogRef<ShowPwdDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private usermanagement:UsermanagementService
   ) {
     // console.log(data);
+    this.getpassword()
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  getpassword(){
+   this.usermanagement.getShowpassword(this.data.userId).subscribe(res=>{
+     console.log(res);
+     if(res.description.result=="Data found"){
+      this.password=res.pwd
+     }
+   })
   }
 }
 
