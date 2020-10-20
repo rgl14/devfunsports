@@ -21,17 +21,6 @@
                           </tr>
                        </thead>
                        <tbody>
-                                  <!-- <tr>
-                                     <td><a [routerLink]="'/userdashboard'">SP2 (Dummy 1)</a></td>
-                                     <td>13501.88</td>
-                                     <td><button
-                                       class="btn btn-info btn-sm"
-                                       title="Clear"
-                                       >
-                                       Clear
-                                       </button>
-                                    </td>
-                                  </tr> -->
                                   <ng-container *ngIf="PlusAcc.length==0">
                                     <tr><td colspan="4" style="text-align:center">No Data</td></tr>
                                    </ng-container>
@@ -80,7 +69,6 @@
            <div class="col-lg-6">
               <div class="ibox float-e-margins">
                  <div class="ibox-title">
-                    <!-- <h5>PAYMENT PAID TO (Dena He)</h5> -->
                     <h5>MINUS ACCOUNTS (Dena He)</h5>
                  </div>
                  <div class="ibox-content table-responsive" *ngIf="MinusAcc">
@@ -103,14 +91,14 @@
                                        <td><button
                                           class="btn btn-danger btn-sm mr-1"
                                           title="Clear"
-                                          (click)="openconfirmDialog(dena.userId,dena.balance,2)"
+                                          (click)="openconfirmDialog(dena.userType,dena.balance,dena.nameUsername,2)"
                                           >
                                           Clear
                                           </button>
                                           <button
                                           class="btn btn-warning btn-sm mr-1"
                                           title="Clear"
-                                          (click)="openPartialPaymentDialog(dena.userId,dena.balance,2)"
+                                          (click)="openPartialPaymentDialog(dena.userType,dena.balance,dena.nameUsername,2)"
                                           >
                                           Settlement
                                           </button>
@@ -127,8 +115,8 @@
                        </tbody>
                        <tfoot>
                           <tr>
-                          <th>Total</th> <!-- Username -->
-                          <th [ngClass]="(totalMinus>=0)?'text-success':'text-danger'">{{totalMinus | number:'1.2-2'}}</th> <!-- Total -->
+                          <th>Total</th>
+                          <th [ngClass]="(totalMinus>=0)?'text-success':'text-danger'">{{totalMinus | number:'1.2-2'}}</th>
                           <th></th>
                           </tr>
                        </tfoot>

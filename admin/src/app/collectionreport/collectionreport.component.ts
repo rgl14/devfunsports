@@ -115,70 +115,6 @@ export class CollectionreportComponent implements OnInit {
       });
     })
   }
-  // Collectionreport() {
-  //   this.getreports.GetCollectionReport().subscribe((resp) => {
-  //     this.denaHai = resp.denaHai;
-  //     this.lenaHai = resp.lenaHai;
-  //     this.clearHai = resp.clearHai;
-  //     this.totallena = 0.0;
-  //     this.totaldena = 0.0;
-  //     this.totalclear = 0.0;
-  //     _.forEach(this.lenaHai, (itemdena, index) => {
-  //       this.totallena = this.totallena + parseFloat(itemdena.amount);
-  //     });
-  //     _.forEach(this.denaHai, (itemlena, index) => {
-  //       this.totaldena = this.totaldena + parseFloat(itemlena.amount);
-  //     });
-  //     _.forEach(this.clearHai, (itemclear, index) => {
-  //       this.totalclear = this.totalclear + parseFloat(itemclear.amount);
-  //     });
-  //   });
-  // }
-
-  clearcash(userid, amount, type) {
-    if (type == 1) {
-      let data = {
-        USERID: userid,
-        AMOUNT: amount,
-      };
-      // console.log(data,type)
-      this.clearRecevcash(data);
-    } else {
-      let data = {
-        USERID: userid,
-        AMOUNT: amount * -1,
-      };
-      // console.log(data,type)
-      this.clearpaycash(data);
-    }
-  }
-
-  clearRecevcash(data) {
-    this.limits.ReceiveCash(data).subscribe((resp) => {
-      if (resp.status == "Success") {
-        this.notification.success(resp.result);
-        // this.Collectionreport();
-        setTimeout(() => {
-          this.router.navigateByUrl("/report/collectionreport");
-        }, 2000);
-      } else {
-        this.notification.error(resp.result);
-      }
-    });
-  }
-  clearpaycash(data) {
-    this.limits.PayCash(data).subscribe((resp) => {
-      if (resp.status == "Success") {
-        this.notification.success(resp.result);
-        // this.Collectionreport();
-        setTimeout(() => {
-          this.router.navigateByUrl("/report/collectionreport");
-        }, 2000);
-      } else {
-        this.notification.error(resp.result);
-      }
-    });
-  }
 
   openconfirmDialog(userType,amt,uname,type): void {
     var settle={
@@ -190,7 +126,7 @@ export class CollectionreportComponent implements OnInit {
       "LoggeduserType":this.AccountInfo.userType,
       "type":type
     }
-    console.log(settle);
+    // console.log(settle);
 
     const dialogRef = this.dialog.open(ConfirmBoxDialog, {
       width: '250px',
@@ -198,7 +134,7 @@ export class CollectionreportComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
+      // console.log(result)
       if(result!=undefined){
         var data={
           "amount": result.amount,
@@ -350,7 +286,7 @@ export class CollectionreportComponent implements OnInit {
       "LoggeduserType":this.AccountInfo.userType,
       "type":type
     }
-    console.log(settle);
+    // console.log(settle);
 
     const dialogRef = this.dialog.open(PartialPaymentDialog, {
       width: '350px',
@@ -358,7 +294,7 @@ export class CollectionreportComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
+      // console.log(result)
       if(result!=undefined){
         var data={
           "amount": result.amount,
@@ -496,14 +432,6 @@ export class CollectionreportComponent implements OnInit {
             }
           })
         }
-      //   this.AccountInfo;
-      //     let settledata={
-      //       "amount": Math.abs(parseFloat(result.amount)),
-      //       "receiverUn":result.receiverUn,
-      //       "remarks":result.remarks,
-      //       "senderUn":result.senderUn
-      //     }
-      //     this.clearRecevcash(settledata);
       }
     });
   }
