@@ -1960,7 +1960,16 @@ table .calendarTable_inputBox textarea,
 .lay {
   color: #e33a5e !important;
 }
+
+.no {
+  color: #e33a5e !important;
+}
+
 .back {
+  color: #1f72ac !important;
+}
+
+.yes {
   color: #1f72ac !important;
 }
 .red {

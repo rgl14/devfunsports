@@ -2065,7 +2065,15 @@ table .pages a {
   color: #e33a5e !important;
 }
 
+.no {
+  color: #e33a5e !important;
+}
+
 .back {
+  color: #1f72ac !important;
+}
+
+.yes {
   color: #1f72ac !important;
 }
 
