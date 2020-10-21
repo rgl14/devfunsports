@@ -36,6 +36,7 @@ export class CollectionreportComponent implements OnInit {
   Uname: any;
   UserInfo: any;
   UrluserType: any;
+  params: any;
 
   constructor(
     private usermanagement: UsermanagementService,
@@ -156,20 +157,20 @@ export class CollectionreportComponent implements OnInit {
       }else{
         this.totalMinus = this.totalMinus + parseFloat(this.parentPnl);
       }
-      if(this.parentComm>0){
-        this.totalPlus = this.totalPlus + parseFloat(this.parentComm);
-      }else{
-        this.totalMinus = this.totalMinus + parseFloat(this.parentComm);
-      }
+      // if(this.parentComm>0){
+      //   this.totalPlus = this.totalPlus + parseFloat(this.parentComm);
+      // }else{
+      //   this.totalMinus = this.totalMinus + parseFloat(this.parentComm);
+      // }
     })
   }
 
   openconfirmDialog(userType,amt,uname,type): void {
     var settle={
       "amount": Math.abs(parseFloat(amt)),
-      "receiverUn":(type==1)?this.AccountInfo.userName:uname,
-      "remarks":(type==1)? this.AccountInfo.userName+" Recieved Cash From "+uname : this.AccountInfo.userName+" Paid Cash To "+uname,
-      "senderUn":(type==1)?uname:this.AccountInfo.userName,
+      "receiverUn":(type==1)?uname:this.AccountInfo.userName,
+      "remarks":(type==1)? this.AccountInfo.userName+" Paid Cash To "+uname : this.AccountInfo.userName+" Recieved Cash From "+uname,
+      "senderUn":(type==1)?this.AccountInfo.userName:uname,
       "userType":userType,
       "LoggeduserType":this.AccountInfo.userType,
       "type":type
@@ -184,7 +185,7 @@ export class CollectionreportComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result)
       if(result!=undefined){
-        
+        this.Accountinfo();
       }
     });
   }
@@ -192,9 +193,9 @@ export class CollectionreportComponent implements OnInit {
   openPartialPaymentDialog(userType,amt,uname,type): void {
     var settle={
       "amount": Math.abs(parseFloat(amt)),
-      "receiverUn":(type==1)?this.AccountInfo.userName:uname,
-      "remarks":(type==1)? this.AccountInfo.userName+" Recieved Cash From "+uname : this.AccountInfo.userName+" Paid Cash To "+uname,
-      "senderUn":(type==1)?uname:this.AccountInfo.userName,
+      "receiverUn":(type==1)?uname:this.AccountInfo.userName,
+      "remarks":(type==1)? this.AccountInfo.userName+" Paid Cash To "+uname : this.AccountInfo.userName+" Recieved Cash From "+uname,
+      "senderUn":(type==1)?this.AccountInfo.userName:uname,
       "userType":userType,
       "LoggeduserType":this.AccountInfo.userType,
       "type":type
@@ -209,142 +210,7 @@ export class CollectionreportComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result)
       if(result!=undefined){
-        var data={
-          "amount": result.amount,
-          "receiverUn":result.receiverUn,
-          "remarks":result.remarks,
-          "senderUn":result.senderUn
-        };
-        if(result.LoggeduserType==1 && result.userType==2){
-          this.limits.SettleCompanyDoubleSuperCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==1 && result.userType==3){
-          this.limits.SettleCompanySuperMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==1 && result.userType==4){
-          this.limits.SettleCompanyMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==1 && result.userType==5){
-          this.limits.SettleCompanyAgentCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==2 && result.userType==3){
-          this.limits.SettleDoubleSupSuperMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==2 && result.userType==4){
-          this.limits.SettleDoubleSuperMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==2 && result.userType==5){
-          this.limits.SettleDoubleSuperAgentCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==3 && result.userType==4){
-          this.limits.SettleSuperMasterMasterCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==3 && result.userType==5){
-          this.limits.SettleSuperMasterAgentCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==3 && result.userType==6){
-          this.limits.SettleSuperMasterClientCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==4 && result.userType==5){
-          this.limits.SettleMasterAgentCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==4 && result.userType==6){
-          this.limits.SettleMasterClientCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
-        if(result.LoggeduserType==5 && result.userType==6){
-          this.limits.SettleAgentClientCash(data).subscribe((resp)=>{
-            if (resp.status == "Success") {
-              this.notification.success(resp.result);
-              this.Accountinfo();
-            } else {
-              this.notification.error(resp.result);
-            }
-          })
-        }
+        this.Accountinfo();
       }
     });
   }
@@ -383,6 +249,7 @@ export class PartialPaymentDialog {
         Remark: [this.data.remarks]
       });
       this.formControlchanged();
+      this.totalBalance=this.data.amount;
     }
     
     formControlchanged() {
