@@ -166,14 +166,26 @@ export class CollectionreportComponent implements OnInit {
   }
 
   openconfirmDialog(userType,amt,uname,type): void {
-    var settle={
-      "amount": Math.abs(parseFloat(amt)),
-      "receiverUn":(type==1)?uname:this.AccountInfo.userName,
-      "remarks":(type==1)? this.AccountInfo.userName+" Paid Cash To "+uname : this.AccountInfo.userName+" Recieved Cash From "+uname,
-      "senderUn":(type==1)?this.AccountInfo.userName:uname,
-      "userType":userType,
-      "LoggeduserType":this.AccountInfo.userType,
-      "type":type
+    if((this.AccountInfo.userType==3 || this.AccountInfo.userType==4 || this.AccountInfo.userType==5) && userType==6){
+      var settle={
+        "amount": Math.abs(parseFloat(amt)),
+        "receiverUn":(type==1)?this.AccountInfo.userName : uname,
+        "remarks":(type==1)? this.AccountInfo.userName+" Cash Withdraw From "+uname : this.AccountInfo.userName+" Cash Deposit To "+uname,
+        "senderUn":(type==1)? uname : this.AccountInfo.userName,
+        "userType":userType,
+        "LoggeduserType":this.AccountInfo.userType,
+        "type":type
+      }
+    }else{
+      var settle={
+        "amount": Math.abs(parseFloat(amt)),
+        "receiverUn":(type==1)?uname:this.AccountInfo.userName,
+        "remarks":(type==1)? this.AccountInfo.userName+" Paid Cash To "+uname : this.AccountInfo.userName+" Recieved Cash From "+uname,
+        "senderUn":(type==1)?this.AccountInfo.userName:uname,
+        "userType":userType,
+        "LoggeduserType":this.AccountInfo.userType,
+        "type":type
+      }
     }
     // console.log(settle);
 
@@ -326,14 +338,26 @@ export class CollectionreportComponent implements OnInit {
   }
 
   openPartialPaymentDialog(userType,amt,uname,type): void {
-    var settle={
-      "amount": Math.abs(parseFloat(amt)),
-      "receiverUn":(type==1)?uname:this.AccountInfo.userName,
-      "remarks":(type==1)? this.AccountInfo.userName+" Paid Cash To "+uname : this.AccountInfo.userName+" Recieved Cash From "+uname,
-      "senderUn":(type==1)?this.AccountInfo.userName:uname,
-      "userType":userType,
-      "LoggeduserType":this.AccountInfo.userType,
-      "type":type
+    if((this.AccountInfo.userType==3 || this.AccountInfo.userType==4 || this.AccountInfo.userType==5) && userType==6){
+      var settle={
+        "amount": Math.abs(parseFloat(amt)),
+        "receiverUn":(type==1)?this.AccountInfo.userName : uname,
+        "remarks":(type==1)? this.AccountInfo.userName+" Cash Withdraw From "+uname : this.AccountInfo.userName+" Cash Deposit To "+uname,
+        "senderUn":(type==1)? uname : this.AccountInfo.userName,
+        "userType":userType,
+        "LoggeduserType":this.AccountInfo.userType,
+        "type":type
+      }
+    }else{
+      var settle={
+        "amount": Math.abs(parseFloat(amt)),
+        "receiverUn":(type==1)?uname:this.AccountInfo.userName,
+        "remarks":(type==1)? this.AccountInfo.userName+" Paid Cash To "+uname : this.AccountInfo.userName+" Recieved Cash From "+uname,
+        "senderUn":(type==1)?this.AccountInfo.userName:uname,
+        "userType":userType,
+        "LoggeduserType":this.AccountInfo.userType,
+        "type":type
+      }
     }
     // console.log(settle);
 
