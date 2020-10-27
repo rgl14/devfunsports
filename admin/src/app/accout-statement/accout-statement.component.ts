@@ -118,8 +118,8 @@ export class AccoutStatementComponent implements OnInit {
 
     this.selectfromdate = new Date(new Date().setDate(new Date().getDate() - 1));
     this.selecttodate = new Date();
-    this.selectfromtime = new Date(new Date().setHours(10, 0, 0, 0));
-    this.selecttotime = new Date(new Date().setHours(9,59,59,0));
+    this.selectfromtime = new Date(new Date().setHours(0, 0, 0, 0));
+    this.selecttotime = new Date(new Date());
   }
 
   onPageSizeChanged(newPageSize:any) {
@@ -163,8 +163,8 @@ this.dropdownSettings = {
         var date = new Date();
         var last = new Date(date.getTime() - (days * 24 * 60 * 60 * 1000));
         this.date = last
-        this.fromdate = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + (this.date.getDate()) + " 09:59:00";
-        this.todate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " 09:59:00";
+        this.fromdate = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + (this.date.getDate()) + " 00:00:00";
+        this.todate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() +":"+date.getMinutes()+":"+date.getSeconds();
         let accdates={
           "fromdate":this.fromdate,
           "todate":this.todate
