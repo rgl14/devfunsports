@@ -11,16 +11,16 @@
             <h5>PLUS ACCOUNTS (Dena He)</h5>
           </div>
         </div>
-        <mat-form-field class="search-form-field" floatLabel="never">
-          <input
-            matInput
-            id="filter-text-box"
-            placeholder="Search"
-            autocomplete="off"
-            (keyup)="searchData($event)"
-          />
-        </mat-form-field>
         <div class="ibox-content table-responsive" *ngIf="PlusAcc">
+         <mat-form-field class="search-form-field" floatLabel="never">
+            <input
+              matInput
+              id="filter-text-box"
+              placeholder="Search"
+              autocomplete="off"
+              (keyup)="searchData($event)"
+            />
+          </mat-form-field>
           <table class="table" id="example_lena_hai">
             <thead>
               <tr>
@@ -159,16 +159,16 @@
         <div class="ibox-title">
           <h5>MINUS ACCOUNTS (Lena He)</h5>
         </div>
-        <mat-form-field class="search-form-field" floatLabel="never">
-          <input
-            matInput
-            id="filter-text-box-1"
-            placeholder="Search"
-            autocomplete="off"
-            (keyup)="searchData1($event)"
-          />
-        </mat-form-field>
         <div class="ibox-content table-responsive" *ngIf="MinusAcc">
+         <mat-form-field class="search-form-field" floatLabel="never">
+            <input
+              matInput
+              id="filter-text-box-1"
+              placeholder="Search"
+              autocomplete="off"
+              (keyup)="searchData1($event)"
+            />
+          </mat-form-field>
           <table class="table display" id="example_dena_hai">
             <thead>
               <tr>
