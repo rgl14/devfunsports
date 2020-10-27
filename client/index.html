@@ -3097,6 +3097,7 @@
         $("#accountPopup").on("click", function (event) {
           event.stopPropagation();
           $("#account_pop").toggle();
+          $("#login-content").css("display", "none");
         });
         $(document).on("click", function () {
           $("#account_pop").hide();
