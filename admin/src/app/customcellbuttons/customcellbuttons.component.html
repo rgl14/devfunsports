@@ -1,4 +1,4 @@
-<div class="Action-buttons" *ngIf="showActionButtons">
+<div class="Action-buttons" *ngIf="showActionButtons && !data.roleId">
   <button
     [routerLink]="['./', data.userId, 'edit']"
     style="min-width: 30px; padding: 0 10px"
@@ -140,7 +140,7 @@
         </button>
 </div> -->
 
-<div class="Action-buttons" *ngIf="">
+<!-- <div class="Action-buttons" *ngIf="">
   <button
     [routerLink]="['./', data.userId]"
     mat-raised-button
@@ -157,7 +157,7 @@
   >
     <i class="fa fa-lock"></i> Edit Password
   </button>
-</div>
+</div> -->
 <!-- <div class="Action-buttons" *ngIf="currentroute.includes('/clients/)'+userId">
         <button [routerLink]="['/createclient',data.userId]"  mat-raised-button title="Edit" class="btn-dark">
                 <i class="fa fa-pencil"></i> Edit
