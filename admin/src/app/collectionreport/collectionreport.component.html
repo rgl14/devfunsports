@@ -30,11 +30,11 @@
               </tr>
             </thead>
             <tbody>
-              <ng-container *ngIf="PlusAcc.length == 0">
+              <!-- <ng-container *ngIf="PlusAcc.length == 0">
                 <tr>
                   <td colspan="4" style="text-align: center">No Data</td>
                 </tr>
-              </ng-container>
+              </ng-container> -->
               <ng-container *ngIf="filteredData.length > 0">
                 <tr *ngFor="let lena of filteredData">
                   <td>
@@ -102,42 +102,42 @@
             </tbody>
             <tfoot>
               <tr *ngIf="Commission > 0">
-                <th>Commission</th>
-                <th
+                <td>Commission</td>
+                <td
                   [ngClass]="Commission >= 0 ? 'text-success' : 'text-danger'"
                 >
                   {{ Commission | number: "1.2-2" }}
-                </th>
+                </td>
                 <td></td>
               </tr>
               <tr *ngIf="Own > 0">
-                <th>Own</th>
-                <th [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
+                <td>Own</td>
+                <td [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
                   {{ Own | number: "1.2-2" }}
-                </th>
+                </td>
                 <td></td>
               </tr>
               <tr *ngIf="Cash > 0">
-                <th>Cash</th>
-                <th [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
+                <td>Cash</td>
+                <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
                   {{ Cash | number: "1.2-2" }}
-                </th>
+                </td>
                 <td></td>
               </tr>
               <tr *ngIf="UrluserType != 1 && parentPnl > 0">
-                <th>{{ parentName }}</th>
-                <th [ngClass]="parentPnl >= 0 ? 'text-success' : 'text-danger'">
+                <td>{{ parentName }}</td>
+                <td [ngClass]="parentPnl >= 0 ? 'text-success' : 'text-danger'">
                   {{ parentPnl | number: "1.2-2" }}
-                </th>
+                </td>
                 <td></td>
               </tr>
               <tr *ngIf="UrluserType != 1 && parentComm > 0">
-                <th>Parent Commission</th>
-                <th
+                <td>Parent Commission</td>
+                <td
                   [ngClass]="parentComm >= 0 ? 'text-success' : 'text-danger'"
                 >
                   {{ parentComm | number: "1.2-2" }}
-                </th>
+                </td>
                 <td></td>
               </tr>
 
@@ -178,11 +178,11 @@
               </tr>
             </thead>
             <tbody>
-              <ng-container *ngIf="MinusAcc.length == 0">
+              <!-- <ng-container *ngIf="MinusAcc.length == 0">
                 <tr>
                   <td colspan="4" style="text-align: center">No Data</td>
                 </tr>
-              </ng-container>
+              </ng-container> -->
               <ng-container *ngIf="MinusAcc.length > 0">
                 <tr *ngFor="let dena of filteredData1">
                   <td>
@@ -249,33 +249,33 @@
             </tbody>
             <tfoot>
               <tr *ngIf="Own <= 0">
-                <th>Own</th>
-                <th [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
+                <td>Own</td>
+                <td [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
                   {{ Own | number: "1.2-2" }}
-                </th>
+                </td>
                 <td></td>
               </tr>
               <tr *ngIf="Cash <= 0">
-                <th>Cash</th>
-                <th [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
+                <td>Cash</td>
+                <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
                   {{ Cash | number: "1.2-2" }}
-                </th>
+                </td>
                 <td></td>
               </tr>
               <tr *ngIf="UrluserType != 1 && parentPnl <= 0">
-                <th>{{ parentName }}</th>
-                <th [ngClass]="parentPnl >= 0 ? 'text-success' : 'text-danger'">
+                <td>{{ parentName }}</td>
+                <td [ngClass]="parentPnl >= 0 ? 'text-success' : 'text-danger'">
                   {{ parentPnl | number: "1.2-2" }}
-                </th>
+                </td>
                 <td></td>
               </tr>
               <tr *ngIf="UrluserType != 1 && parentComm <= 0">
-                <th>Parent Commission</th>
-                <th
+                <td>Parent Commission</td>
+                <td
                   [ngClass]="parentComm >= 0 ? 'text-success' : 'text-danger'"
                 >
                   {{ parentComm | number: "1.2-2" }}
-                </th>
+                </td>
                 <td></td>
               </tr>
               <tr>
