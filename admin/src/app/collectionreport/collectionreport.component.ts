@@ -37,7 +37,8 @@ export class CollectionreportComponent implements OnInit {
   UserInfo: any;
   UrluserType: any;
   params: any;
-
+  filteredData=[];
+  filteredData1=[];
   constructor(
     private usermanagement: UsermanagementService,
     private route: ActivatedRoute,
@@ -85,6 +86,18 @@ export class CollectionreportComponent implements OnInit {
     })
   }
 
+  searchData(searchValue: any) {
+    this.filteredData = this.PlusAcc.filter((item) => {
+      return item.nameUsername.toLowerCase().includes((document.getElementById("filter-text-box") as HTMLInputElement).value);
+    });
+}
+
+searchData1(searchValue: any) {
+  this.filteredData1 = this.PlusAcc.filter((item) => {
+    return item.nameUsername.toLowerCase().includes((document.getElementById("filter-text-box-1") as HTMLInputElement).value);
+  });
+}
+
   AdmChipssummary(){
     this.getreports.GetAdmChipsSummary().subscribe((resp) => {
       console.log(resp);
@@ -92,7 +105,9 @@ export class CollectionreportComponent implements OnInit {
       this.Cash=resp.cash;
       this.Commission=resp.comm;
       this.PlusAcc = resp.userInPlus;
+      this.filteredData=this.PlusAcc;
       this.MinusAcc = resp.userInMinus;
+      this.filteredData1=this.MinusAcc;
       this.totalPlus = 0.0;
       this.totalMinus = 0.0;
       _.forEach(this.PlusAcc, (itemdena, index) => {
@@ -128,7 +143,9 @@ export class CollectionreportComponent implements OnInit {
       this.parentName=resp.parentName;
       this.parentPnl=resp.parentPnl;
       this.PlusAcc = resp.userInPlus;
+      this.filteredData=this.PlusAcc;
       this.MinusAcc = resp.userInMinus;
+      this.filteredData1=this.MinusAcc;
       this.totalPlus = 0.0;
       this.totalMinus = 0.0;
       _.forEach(this.PlusAcc, (itemdena, index) => {
