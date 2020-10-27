@@ -1139,7 +1139,7 @@
               <tr
                 style="display: table-row"
                 data-ng-if="book.Key>=0"
-                data-ng-repeat="book in fancyBookData track by $index | orderBy:'-Key':reverse"
+                data-ng-repeat="book in fancyBookData | orderBy:'-Key':reverse"
               >
                 <td data-ng-class="book.Value>0?'col-back':'col-lay'">
                   <strong> &nbsp;{{book.Key}}</strong>
