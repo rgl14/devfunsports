@@ -187,7 +187,7 @@ searchData1(searchValue: any) {
       var settle={
         "amount": Math.abs(parseFloat(amt)),
         "receiverUn":(type==1)?this.AccountInfo.userName : uname,
-        "remarks":(type==1)? this.AccountInfo.userName+" Cash Withdraw From "+uname : this.AccountInfo.userName+" Cash Deposit To "+uname,
+        "remarks":(type==1)? "Cash Withdraw From "+this.AccountInfo.userName+" To "+uname : "Cash Deposit From "+this.AccountInfo.userName+" To "+uname,
         "senderUn":(type==1)? uname : this.AccountInfo.userName,
         "userType":userType,
         "LoggeduserType":this.AccountInfo.userType,
@@ -359,7 +359,7 @@ searchData1(searchValue: any) {
       var settle={
         "amount": Math.abs(parseFloat(amt)),
         "receiverUn":(type==1)?this.AccountInfo.userName : uname,
-        "remarks":(type==1)? this.AccountInfo.userName+" Cash Withdraw From "+uname : this.AccountInfo.userName+" Cash Deposit To "+uname,
+        "remarks":(type==1)? "Cash Withdraw From "+this.AccountInfo.userName+" To "+uname : "Cash Deposit From "+this.AccountInfo.userName+" To "+uname,
         "senderUn":(type==1)? uname : this.AccountInfo.userName,
         "userType":userType,
         "LoggeduserType":this.AccountInfo.userType,
