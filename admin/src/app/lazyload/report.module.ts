@@ -9,7 +9,7 @@ import {
   MatInputModule,
   MatRadioModule,
 } from "@angular/material";
-import { RouterModule, Routes } from "@angular/router";
+import { Route, RouterModule, Routes } from "@angular/router";
 import { AgGridModule } from "ag-grid-angular";
 import { BreadcrumbModule } from "angular-crumbs";
 import { AngularMultiSelectModule } from "angular2-multiselect-dropdown";
@@ -34,6 +34,108 @@ import {MDLwiseDLpnlComponent} from '../accout-statement/mdlwise-dlpnl/mdlwise-d
 import {DlwiseClientpnlComponent} from '../accout-statement/dlwise-clientpnl/dlwise-clientpnl.component';
 import {InnerClientbetHistoryComponent}from '../accout-statement/inner-clientbet-history/inner-clientbet-history.component';
 import { transactionComponent } from '../transactions/transactions.component';
+
+const AccountRoutes: Routes = [
+  {
+    path: "ADMINmdlmktprofitloss/:refid",
+    component: ChildrenContainerComponent,
+    data: { breadcrumb: "MDL MARKET PROFIT & LOSS" },
+    children:[
+      {
+        path: "",
+        component: MarketPnlComponent,
+      },
+      {
+        path: "MDLwiseDLpnl/:mdlid/:Mtid/:mktid/:type",
+        component: ChildrenContainerComponent,
+        data: { breadcrumb: "MDL USERNAME WISE::DL PROFIT & LOSS" },
+        children:[
+          {
+            path: "",
+            component: MDLwiseDLpnlComponent,
+          },
+          {
+            path: "DlwiseClientpnl/:dlid/:Mtid/:mktid/:type",
+            component: ChildrenContainerComponent,
+            data: { breadcrumb: "DL USERNAME WISE::CLIENT PROFIT & LOSS" },
+            children:[
+              {
+                path: "",
+                component: DlwiseClientpnlComponent,
+              },
+              {
+                path: "innerClientbetHistory/:clid/:Mtid/:mktid/:type",
+                component: InnerClientbetHistoryComponent,
+                data: { breadcrumb: "CLIENT BET HISTORY" },
+              },
+            ]
+          },
+          
+        ]
+      },
+    ]
+  },
+  // {
+  //   path: "MDLwiseDLpnl/:mdlid/:Mtid/:mktid/:type",
+  //   component: MDLwiseDLpnlComponent,
+  //   data: { breadcrumb: "MDL USERNAME WISE::DL PROFIT & LOSS" },
+  // },
+  // {
+  //   path: "DlwiseClientpnl/:dlid/:Mtid/:mktid/:type",
+  //   component: DlwiseClientpnlComponent,
+  //   data: { breadcrumb: "DL USERNAME WISE::CLIENT PROFIT & LOSS" },
+  // },
+  // {
+  //   path: "innerClientbetHistory/:clid/:Mtid/:mktid/:type",
+  //   component: InnerClientbetHistoryComponent,
+  //   data: { breadcrumb: "CLIENT BET HISTORY" },
+  // },
+];
+const MdlRoutes: Route = {
+        path: "MDLwiseDLpnl/:mdlid/:Mtid/:mktid/:type",
+        component: ChildrenContainerComponent,
+        data: { breadcrumb: "MDL USERNAME WISE::DL PROFIT & LOSS" },
+        children:[
+          {
+            path: "",
+            component: MDLwiseDLpnlComponent,
+          },
+          {
+            path: "DlwiseClientpnl/:dlid/:Mtid/:mktid/:type",
+            component: ChildrenContainerComponent,
+            data: { breadcrumb: "DL USERNAME WISE::CLIENT PROFIT & LOSS" },
+            children:[
+              {
+                path: "",
+                component: DlwiseClientpnlComponent,
+              },
+              {
+                path: "innerClientbetHistory/:clid/:Mtid/:mktid/:type",
+                component: InnerClientbetHistoryComponent,
+                data: { breadcrumb: "CLIENT BET HISTORY" },
+              },
+            ]
+          },
+          
+        ]
+      };
+const dlRoutes: Route = {
+        path: "DlwiseClientpnl/:dlid/:Mtid/:mktid/:type",
+        component: ChildrenContainerComponent,
+        data: { breadcrumb: "DL USERNAME WISE::CLIENT PROFIT & LOSS" },
+        children:[
+          {
+            path: "",
+            component: DlwiseClientpnlComponent,
+          },
+          {
+            path: "innerClientbetHistory/:clid/:Mtid/:mktid/:type",
+            component: InnerClientbetHistoryComponent,
+            data: { breadcrumb: "CLIENT BET HISTORY" },
+          },
+        ]
+      };
+
 const routes: Routes = [
   {
     path: "",
@@ -65,72 +167,30 @@ const routes: Routes = [
       },
       {
         path: "accountstatement",
-        component: AccoutStatementComponent,
+        component: ChildrenContainerComponent,
         data: { breadcrumb: "Account Statement" },
         children: [
           {
             path: "",
             component: AccoutStatementComponent,
-          },
+          }, 
+          ... AccountRoutes,
+           MdlRoutes,
+          dlRoutes
         ],
       },
       {
         path: "accountstatement/:userId/:Uname",
-        component: AccoutStatementComponent,
+        component: ChildrenContainerComponent,
         data: { breadcrumb: "Account Statement" },
         children: [
           {
             path: "",
             component: AccoutStatementComponent,
           },
-        ],
-      },
-      {
-        path: "ADMINmdlmktprofitloss/:refid",
-        component: MarketPnlComponent,
-        data: { breadcrumb: "MDL MARKET PROFIT & LOSS" },
-        children: [
-          {
-            path: "",
-            component: MarketPnlComponent,
-          },
-
-        ],
-      },
-      {
-        path: "MDLwiseDLpnl/:mdlid/:Mtid/:mktid/:type",
-        component: MDLwiseDLpnlComponent,
-        data: { breadcrumb: "MDL USERNAME WISE::DL PROFIT & LOSS" },
-        children: [
-          {
-            path: "",
-            component: MDLwiseDLpnlComponent,
-          },
-
-        ],
-      },
-      {
-        path: "DlwiseClientpnl/:dlid/:Mtid/:mktid/:type",
-        component: DlwiseClientpnlComponent,
-        data: { breadcrumb: "DL USERNAME WISE::CLIENT PROFIT & LOSS" },
-        children: [
-          {
-            path: "",
-            component: DlwiseClientpnlComponent,
-          },
-
-        ],
-      },
-      {
-        path: "innerClientbetHistory/:clid/:Mtid/:mktid/:type",
-        component: InnerClientbetHistoryComponent,
-        data: { breadcrumb: "CLIENT BET HISTORY" },
-        children: [
-          {
-            path: "",
-            component: InnerClientbetHistoryComponent,
-          },
-
+          ... AccountRoutes,
+          MdlRoutes,
+          dlRoutes
         ],
       },
       {
