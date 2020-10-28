@@ -44,7 +44,7 @@ const routes: Routes = [
       {
         path: "collectionreport",
         component: ChildrenContainerComponent,
-        data: { breadcrumb: "Collection Report" },
+        data: { breadcrumb: "Chip Summary" },
         children: [
           {
             path: "",
@@ -55,7 +55,7 @@ const routes: Routes = [
       {
         path: "collectionreport/:userId/:Uname/:userType",
         component: ChildrenContainerComponent,
-        data: { breadcrumb: "Collection Report" },
+        data: { breadcrumb: "Chip Summary" },
         children: [
           {
             path: "",
