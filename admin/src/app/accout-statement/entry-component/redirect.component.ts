@@ -15,18 +15,18 @@ import { Router, ActivatedRoute } from "@angular/router";
       </a>
       <span *ngIf="data.type!='P|L Market'">{{ data.description }}</span>
     </ng-container>
-    <ng-container *ngIf="currentRoute.includes('/report/ADMINmdlmktprofitloss')">
-      <a [routerLink]="['/report/MDLwiseDLpnl/',data.mdlid,data.Mtid,data.mktid,data.type]">
+    <ng-container *ngIf="currentRoute.includes('/ADMINmdlmktprofitloss')">
+      <a   [routerLink]="['MDLwiseDLpnl',data.mdlid,data.Mtid,data.mktid,data.type]">
         {{ data.username }}
       </a>
     </ng-container>
-    <ng-container *ngIf="currentRoute.includes('/report/MDLwiseDLpnl')">
-      <a [routerLink]="['/report/DlwiseClientpnl/',data.dlid,data.Mtid,data.mktid,data.type]">
+    <ng-container *ngIf="currentRoute.includes('/MDLwiseDLpnl')">
+      <a  [routerLink]="[ 'DlwiseClientpnl',data.dlid,data.Mtid,data.mktid,data.type]">
         {{ data.dlusername }}
       </a>
     </ng-container>
-    <ng-container *ngIf="currentRoute.includes('/report/DlwiseClientpnl')">
-      <a [routerLink]="['/report/innerClientbetHistory/',data.clid,data.Mtid,data.mktid,data.type]">
+    <ng-container *ngIf="currentRoute.includes('/DlwiseClientpnl')">
+      <a  [routerLink]="['innerClientbetHistory',data.clid,data.Mtid,data.mktid,data.type]">
 
         {{ data.clusername }}
       </a>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { GridOptions } from 'ag-grid-community';
+import { BreadcrumbService } from 'angular-crumbs';
 import {redirectComponent} from '../entry-component/redirect.component'
 @Component({
   selector: 'app-mdlwise-dlpnl',
@@ -15,7 +17,8 @@ export class MDLwiseDLpnlComponent implements OnInit {
   overlayLoadingTemplate: string;
   overlayNoRowsTemplate: string;
   defaultColDef: { sortable: boolean; };
-  constructor() {
+  dlusername;
+  constructor(private breadcrumb:BreadcrumbService,private route:ActivatedRoute,) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions = {
       context: {
@@ -66,6 +69,8 @@ export class MDLwiseDLpnlComponent implements OnInit {
   this.gridOptions.paginationNumberFormatter = function(params) {
     return "[" + params.value.toLocaleString() + "]";
   };
+
+  this.breadcrumb.changeBreadcrumb(this.route.snapshot, this.rowD.dlusername);
 
    }
    onGridSizeChanged(params) {
