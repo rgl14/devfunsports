@@ -147,10 +147,10 @@
                 <div>Balance:</div> <span
                   [ngClass]="(AccountInfo.balance >= 0)?'text-success':'text-danger'">{{AccountInfo.balance | number : '1.2-2'}}</span>
               </div>
-              <div class="group">
+              <!-- <div class="group">
                 <div>Net Exposure:</div> <span
                   [ngClass]="(AccountInfo.pnl >= 0)?'text-success':'text-danger'">{{AccountInfo.pnl | number : '1.2-2'}}</span>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
