@@ -448,7 +448,7 @@ export class CustomcellbuttonsComponent implements OnInit {
         mat-raised-button
         color="primary"
         cdkFocusInitial
-        (click)="updateSettle()"
+        (click)="updateSettle(data.userType)"
         [disabled]="!form.valid || disabled"
       >
         Settle
@@ -480,22 +480,22 @@ export class PartialPaymentDialog {
     this.dialogRef.close();
   }
 
-  updateSettle(){
-    if(this.data.chips<0){
+  updateSettle(userType){
+    if((this.accountInfo.userType==3 || this.accountInfo.userType==4 || this.accountInfo.userType==5) && userType==6){
       var data=  {
         amount:this.form.get("amount").value,
-        receiverUn:this.accountInfo.userName,
-        remarks:$("#txt_boxe").val(),
-        senderUn:this.data.userName
+        receiverUn:(this.data.chips<0)?this.accountInfo.userName : this.data.uname,
+        remarks:(this.data.chips<0)? "Cash Withdraw From "+this.accountInfo.userName+" To "+this.data.userName : "Cash Deposit From "+this.accountInfo.userName+" To "+this.data.userName,
+        senderUn:(this.data.chips<0)? this.data.userName : this.accountInfo.userName,
       }
     } else {
       var data=  {
         amount:this.form.get("amount").value,
-        receiverUn:this.data.userName,
-        remarks:$("#txt_boxe").val(),
-        senderUn:this.accountInfo.userName
+        "receiverUn":(this.data.chips<0)?this.data.userName:this.accountInfo.userName,
+        "remarks":(this.data.chips<0)? this.accountInfo.userName+" Paid Cash To "+this.data.userName : this.accountInfo.userName+" Recieved Cash From "+this.data.userName,
+        "senderUn":(this.data.chips<0)?this.accountInfo.userName:this.data.userName,
       }
-    }
+  }
     
     this.disabled=true;
     if(this.accountInfo.userType==1 && this.data.userType==2){
