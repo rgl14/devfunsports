@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GridOptions } from 'ag-grid-community';
 import { ReportsService } from '../services/reports.service';
 import { SharedataService } from '../services/sharedata.service';
+import { UsermanagementService } from '../services/usermanagement.service';
 
 @Component({
   selector: 'app-sportpnl',
@@ -21,7 +22,8 @@ export class SportpnlComponent implements OnInit {
   overlayLoadingTemplate: string;
   overlayNoRowsTemplate: string;
   userId: any;
-  constructor(private getreports:ReportsService,private sharedata:SharedataService) {
+  AccountInfo: any;
+  constructor(private getreports:ReportsService,private sharedata:SharedataService,private usermanagement: UsermanagementService) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions.columnDefs = [
       {headerName: 'Sport Name', field: 'sportName',sort: "asc", sortable: true, minWidth: 100,cellStyle: {'font-weight':'bolder'},lockPosition:true,suppressNavigable:true},
@@ -64,19 +66,21 @@ export class SportpnlComponent implements OnInit {
   }
   
   ngOnInit(){
-
+    this.Accountinfo();
   }
   onGridReady(params:any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.showLoadingOverlay();
-    this.sharedata.AccountInfoSource.subscribe(resp=>{
-      if(resp!=null){
-        this.userId=resp.userId
-        this.getsportpnl(resp.userId);
-      }
+  }
+
+  Accountinfo(){
+    this.usermanagement.getAccountInfo().subscribe((resp) => {
+      this.AccountInfo = resp.data;
+      this.userId=this.AccountInfo.userId
+      this.getsportpnl(this.userId);
+      // console.log(this.AccountInfo)
     })
-    
   }
 
   getsportpnl(userid){

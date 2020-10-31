@@ -3,6 +3,7 @@ import { GridOptions } from 'ag-grid-community';
 import { ReportsService } from '../services/reports.service';
 import { SharedataService } from '../services/sharedata.service';
 import { SportDataService } from '../services/sport-data.service';
+import { UsermanagementService } from '../services/usermanagement.service';
 
 @Component({
   selector: 'app-tournamentpnl',
@@ -23,9 +24,10 @@ export class TournamentpnlComponent implements OnInit {
   overlayNoRowsTemplate: string;
   userId: any;
   sportsList: any;
-  sport:any=4;
+  sport:any="0";
   sportbfId: any;
-  constructor(private getreports:ReportsService,private sharedata:SharedataService,private SportSettingdata:SportDataService) {
+  AccountInfo: any;
+  constructor(private getreports:ReportsService,private sharedata:SharedataService,private SportSettingdata:SportDataService,private usermanagement: UsermanagementService) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions.columnDefs = [
       {headerName: 'Tournament Name', field: 'tournamentName',sort: "asc", sortable: true, minWidth: 250,cellStyle: {'font-weight':'bolder'},lockPosition:true,suppressNavigable:true},
@@ -68,7 +70,7 @@ export class TournamentpnlComponent implements OnInit {
   }
   
   ngOnInit(){
-
+    this.Accountinfo();
   }
   onGridReady(params:any) {
     this.gridApi = params.api;
@@ -77,13 +79,15 @@ export class TournamentpnlComponent implements OnInit {
     this.SportSettingdata.GetSportList().subscribe(resp=>{
       this.sportsList=resp.tickerList;
     })
-    this.sharedata.AccountInfoSource.subscribe(resp=>{
-      if(resp!=null){
-        this.userId=resp.userId
-        this.getsportpnl();
-      }
+  }
+
+  Accountinfo(){
+    this.usermanagement.getAccountInfo().subscribe((resp) => {
+      this.AccountInfo = resp.data;
+      this.userId=this.AccountInfo.userId
+      this.getsportpnl();
+      // console.log(this.AccountInfo)
     })
-    
   }
 
   getsportpnl(){
