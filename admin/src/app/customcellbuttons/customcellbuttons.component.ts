@@ -484,9 +484,9 @@ export class PartialPaymentDialog {
     if((this.accountInfo.userType==3 || this.accountInfo.userType==4 || this.accountInfo.userType==5) && userType==6){
       var data=  {
         amount:this.form.get("amount").value,
-        receiverUn:(type==1)?this.accountInfo.userName : this.data.userName,
-        remarks:(type==1)? "Cash Withdraw From "+this.accountInfo.userName+" To "+this.data.userName : "Cash Deposit From "+this.accountInfo.userName+" To "+this.data.userName,
-        senderUn:(type==1)? this.data.userName : this.accountInfo.userName,
+        receiverUn:(this.data.pNl>0)?this.accountInfo.userName : this.data.userName,
+        remarks:(this.data.pNl>0)? "Cash Withdraw From "+this.accountInfo.userName+" To "+this.data.userName : "Cash Deposit From "+this.accountInfo.userName+" To "+this.data.userName,
+        senderUn:(this.data.pNl>0)? this.data.userName : this.accountInfo.userName,
       }
     } else {
       var data=  {
