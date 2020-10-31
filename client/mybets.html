@@ -338,7 +338,9 @@
           >
         </td>
         <td>{{matchBet.selection}}</td>
-        <td><span class="{{matchBet.type}}">{{matchBet.type}}</span></td>
+        <td>
+          <span class="{{matchBet.type.toLowerCase()}}">{{matchBet.type}}</span>
+        </td>
         <td>
           <a
             data-ng-click="betDetails(matchBet.betId)"
