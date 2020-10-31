@@ -197,8 +197,6 @@ export class ClientsComponent implements OnInit {
       var twodecimalexpo = parseFloat(params.data.exposure);
       var twodecimalpnl = parseFloat(params.data.pNl);
       var twodecimalchip = parseFloat(params.data.chips);
-      console.log(params.data);
-
       params.data.balance=twodecimalexpo+twodecimalpnl+twodecimalchip;
       return params.data.balance;
     }
