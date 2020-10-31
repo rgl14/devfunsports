@@ -484,16 +484,16 @@ export class PartialPaymentDialog {
     if((this.accountInfo.userType==3 || this.accountInfo.userType==4 || this.accountInfo.userType==5) && userType==6){
       var data=  {
         amount:this.form.get("amount").value,
-        receiverUn:(this.data.chips<0)?this.accountInfo.userName : this.data.uname,
-        remarks:(this.data.chips<0)? "Cash Withdraw From "+this.accountInfo.userName+" To "+this.data.userName : "Cash Deposit From "+this.accountInfo.userName+" To "+this.data.userName,
-        senderUn:(this.data.chips<0)? this.data.userName : this.accountInfo.userName,
+        receiverUn:(this.data.pNl<0)?this.accountInfo.userName : this.data.uname,
+        remarks:(this.data.pNl<0)? "Cash Withdraw From "+this.accountInfo.userName+" To "+this.data.userName : "Cash Deposit From "+this.accountInfo.userName+" To "+this.data.userName,
+        senderUn:(this.data.pNl<0)? this.data.userName : this.accountInfo.userName,
       }
     } else {
       var data=  {
         amount:this.form.get("amount").value,
-        "receiverUn":(this.data.chips<0)?this.data.userName:this.accountInfo.userName,
-        "remarks":(this.data.chips<0)? this.accountInfo.userName+" Paid Cash To "+this.data.userName : this.accountInfo.userName+" Recieved Cash From "+this.data.userName,
-        "senderUn":(this.data.chips<0)?this.accountInfo.userName:this.data.userName,
+        "receiverUn":(this.data.pNl<0)?this.data.userName:this.accountInfo.userName,
+        "remarks":(this.data.pNl<0)? this.accountInfo.userName+" Paid Cash To "+this.data.userName : this.accountInfo.userName+" Recieved Cash From "+this.data.userName,
+        "senderUn":(this.data.pNl<0)?this.accountInfo.userName:this.data.userName,
       }
   }
     
