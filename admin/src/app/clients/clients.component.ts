@@ -83,38 +83,63 @@ export class ClientsComponent implements OnInit {
       }
       },
       {
+        headerName: "Exposure Limit",
+        field: "expoLimit",
+        sortable: true,
+        minWidth: 150,
+        width: 115,
+        suppressSizeToFit: true,
+        valueFormatter: numberWithCommas,
+      },
+      {
         headerName: "Current P | L",
         field: "pNl",
         sortable: true,
-        minWidth: 125,
-        width: 100,
+        minWidth: 150,
+        width: 115,
         suppressSizeToFit: true,
         valueFormatter: numberWithCommas,
         cellStyle:  function(params) {
           if (params.data.pNl >= 0) {
-            return { color: "#5cb55c", "font-weight": "bolder" };
+            return { color: "#5cb55c" };
           } else {
-            return { color: "rgb(231, 59, 59)", "font-weight": "bolder" };
+            return { color: "rgb(231, 59, 59)" };
           }
         }
       },
       {
-        headerName: "Exposure",
-        field: "expoLimit",
+        headerName: "Open Exposure",
+        field: "exposure",
         sortable: true,
-        minWidth: 125,
-        width: 100,
+        minWidth: 150,
+        width: 115,
         suppressSizeToFit: true,
         valueFormatter: numberWithCommas,
+        cellStyle:  function(params) {
+          if (params.data.exposure >= 0) {
+            return { color: "#5cb55c" };
+          } else {
+            return { color: "rgb(231, 59, 59)" };
+          }
+        }
       },
-      // {
-      //   headerName: "Avail. Credit",
-      //   field: "balance",
-      //   sortable: true,
-      //   minWidth: 125,
-      //   width: 100,
-      //   suppressSizeToFit: true,
-      // },
+      {
+        headerName: "Avail. Balance",
+        field: "balance",
+        sortable: true,
+        minWidth: 150,
+        width: 135,
+        suppressSizeToFit: true,
+        valueGetter:calcbalance,
+        cellStyle:  function(params) {
+          if (params.data.balance >= 0) {
+            return { color: "#5cb55c", "font-weight": "bolder" };
+          } else {
+            return { color: "rgb(231, 59, 59)", "font-weight": "bolder" };
+          }
+        },
+        valueFormatter: numberWithCommas,
+      },
       // {headerName: 'My share (%)', field: 'myShare', sortable: true, minWidth: 75},
       // {headerName: 'Max Share (%)', field: 'maxShare', sortable: true, minWidth: 75},
       {headerName: 'M-Comm  (%)', field: 'MComm', sortable: true,width:75,suppressSizeToFit: true, minWidth: 75},
@@ -167,7 +192,17 @@ export class ClientsComponent implements OnInit {
       });
       return ans;
     }
+    
+    function calcbalance(params){
+      var twodecimalexpo = parseFloat(params.data.exposure);
+      var twodecimalpnl = parseFloat(params.data.pNl);
+      var twodecimalchip = parseFloat(params.data.chips);
+      console.log(params.data);
 
+      params.data.balance=twodecimalexpo+twodecimalpnl+twodecimalchip;
+      return params.data.balance;
+    }
+    
     this.overlayLoadingTemplate =
       '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>';
     this.overlayNoRowsTemplate =
