@@ -88,13 +88,13 @@ export class CollectionreportComponent implements OnInit {
 
   searchData(searchValue: any) {
     this.filteredData = this.PlusAcc.filter((item) => {
-      return item.nameUsername.includes((document.getElementById("filter-text-box") as HTMLInputElement).value);
+      return item.nameUsername.toLowerCase().includes(((document.getElementById("filter-text-box") as HTMLInputElement).value).toLowerCase());
     });
 }
 
 searchData1(searchValue: any) {
   this.filteredData1 = this.MinusAcc.filter((item) => {
-    return item.nameUsername.includes((document.getElementById("filter-text-box-1") as HTMLInputElement).value);
+    return item.nameUsername.toLowerCase().includes(((document.getElementById("filter-text-box-1") as HTMLInputElement).value).toLowerCase());
   });
 }
 
