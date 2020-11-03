@@ -81,7 +81,13 @@ export class ReportsService {
   }
 
   GetProfitLoss(SIDS, dates): Observable<any> {
-    return this.http.get(`${this.BASEURL}/Reports/GetProfitLoss?sids=${SIDS}&from=${dates.fromdate}&to=${dates.todate}`);
+    var data=[];
+    if(SIDS!=''){
+      SIDS.forEach((item) => {
+        data.push(item.id)
+      });
+    }
+    return this.http.get(`${this.BASEURL}/Reports/GetProfitLoss?sids=${data.length==0 ? '':data.toString()}&from=${dates.fromdate}&to=${dates.todate}`);
   }
 
   GetSessionEarningReport(MTID): Observable<any> {
