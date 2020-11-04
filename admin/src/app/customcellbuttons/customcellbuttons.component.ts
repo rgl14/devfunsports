@@ -36,7 +36,7 @@ export class CustomcellbuttonsComponent implements OnInit {
   mrketdata: { mktID: any; packagelist: any[] };
   selectedPkg: string;
   package: any;
-
+  accountInfo={};
   constructor(
     private router: Router,
     private fancyService: FancyService,
@@ -69,6 +69,9 @@ export class CustomcellbuttonsComponent implements OnInit {
     this.colDef = this.params.colDef.field;
     this.data = this.params.data;
     console.log(this.data)
+    this.usermanagement.getAccountInfo().subscribe((data) => {
+      this.accountInfo = data.data;
+    });
   }
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get("userId");

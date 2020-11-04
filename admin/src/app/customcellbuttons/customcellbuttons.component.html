@@ -17,15 +17,17 @@
   >
     SE
   </button>
-  <button
-    style="min-width: 30px; padding: 0 10px"
-    mat-raised-button
-    title="Show Password"
-    class="btn-dark"
-    (click)="openShowPwdDialog()"
-  >
-    S-P
-  </button>
+  <ng-container *ngIf="accountInfo.userType == 1">
+    <button
+      style="min-width: 30px; padding: 0 10px"
+      mat-raised-button
+      title="Show Password"
+      class="btn-dark"
+      (click)="openShowPwdDialog()"
+    >
+      S-P
+    </button>
+  </ng-container>
   <!-- <button
     style="min-width: 30px; padding: 0 10px"
     mat-raised-button

@@ -200,29 +200,29 @@ this.dropdownSettings = {
   
     
     onItemSelect(item:any){
-        // console.log(this.selectedItems);
-        console.log(this.bsRangeValue);
-        this.selectfromdate=this.convertfrom(this.bsRangeValue[0]);
-        this.selecttodate=this.convertto(this.bsRangeValue[1]);
-        console.log(this.selectfromdate,this.selecttodate);
+        console.log(this.selectedItems);
+        // console.log(this.bsRangeValue);
+        // this.selectfromdate=this.convertfrom(this.bsRangeValue[0]);
+        // this.selecttodate=this.convertto(this.bsRangeValue[1]);
+        // console.log(this.selectfromdate,this.selecttodate);
         let pnldates={
-          "fromdate":this.selectfromdate,
-          "todate":this.selecttodate
+          "fromdate":this.getFromDateAndTime(),
+       "todate":this.getToDateAndTime()
         }
-        this.getreports.GetProfitLoss(this.selectedItems[0].id,pnldates).subscribe(resp =>{
+        this.getreports.GetProfitLoss(this.selectedItems,pnldates).subscribe(resp =>{
           this.rowData=resp.data;
         })
     }
     OnItemDeSelect(item:any){
-        // console.log(this.selectedItems);
-        this.selectfromdate=this.convertfrom(this.bsRangeValue[0]);
-        this.selecttodate=this.convertto(this.bsRangeValue[1]);
-        console.log(this.selectfromdate,this.selecttodate);
+        console.log(this.selectedItems);
+        // this.selectfromdate=this.convertfrom(this.bsRangeValue[0]);
+        // this.selecttodate=this.convertto(this.bsRangeValue[1]);
+        // console.log(this.selectfromdate,this.selecttodate);
         let pnldates={
-          "fromdate":this.selectfromdate,
-          "todate":this.selecttodate
+          "fromdate":this.getFromDateAndTime(),
+       "todate":this.getToDateAndTime()
         }
-        this.getreports.GetProfitLoss(this.selectedItems[0].id,pnldates).subscribe(resp =>{
+        this.getreports.GetProfitLoss(this.selectedItems,pnldates).subscribe(resp =>{
           this.rowData=resp.data;
         })
     }
