@@ -1,4 +1,13 @@
 <div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row detailtop deskaction" style="margin: 0px">
+    <div class="lastdetail">
+      <span class="detailinfo"><b>C</b> : Clear</span
+      ><span class="detailinfo"><b>S</b> : Settlement</span
+      ><span class="detailinfo"><b>E-S</b> : Effective Settlement</span
+      ><span class="detailinfo"><b>H</b> : History</span
+        >
+    </div>
+  </div>
   <div class="row">
     <!-- <div class="col-xs-12">
                {{Uname}}
@@ -69,11 +78,11 @@
                       "
                       *ngIf="UrluserType != 1"
                     >
-                      Clear
+                      C
                     </button>
                     <button
                       class="btn btn-warning btn-sm mr-1"
-                      title="Clear"
+                      title="Settlement"
                       (click)="
                         openPartialPaymentDialog(
                           lena.userType,
@@ -83,7 +92,21 @@
                         )
                       "
                     >
-                      Settlement
+                      S
+                    </button>
+                    <button
+                      class="btn btn-success btn-sm mr-1"
+                      title="Effective Settlement"
+                      (click)="
+                      openESDialog(
+                          lena.userType,
+                          lena.balance,
+                          lena.nameUsername,
+                          1
+                        )
+                      "
+                    >
+                    E-S
                     </button>
                     <button
                       class="btn btn-info btn-sm"
@@ -94,7 +117,7 @@
                         lena.nameUsername
                       ]"
                     >
-                      History
+                      H
                     </button>
                   </td>
                 </tr>
@@ -216,11 +239,11 @@
                         )
                       "
                     >
-                      Clear
+                      C
                     </button>
                     <button
                       class="btn btn-warning btn-sm mr-1"
-                      title="Clear"
+                      title="Settlement"
                       (click)="
                         openPartialPaymentDialog(
                           dena.userType,
@@ -230,7 +253,21 @@
                         )
                       "
                     >
-                      Settlement
+                      S
+                    </button>
+                    <button
+                      class="btn btn-success btn-sm mr-1"
+                      title="Effective Settlement"
+                      (click)="
+                      openESDialog(
+                          dena.userType,
+                          dena.balance,
+                          dena.nameUsername,
+                          1
+                        )
+                      "
+                    >
+                    E-S
                     </button>
                     <button
                       class="btn btn-info btn-sm"
@@ -241,7 +278,7 @@
                         dena.nameUsername
                       ]"
                     >
-                      History
+                      H
                     </button>
                   </td>
                 </tr>

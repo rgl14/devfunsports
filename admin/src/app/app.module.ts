@@ -80,6 +80,7 @@ import {
   wdDialog,
 } from "./customcellbuttons/DWChild/dwchild.component";
 import { AddadminFundsComponent } from './addadmin-funds/addadmin-funds.component';
+import { ESDialog } from './collectionreport/collectionreport.component';
 
 @NgModule({
   declarations: [
@@ -123,7 +124,8 @@ import { AddadminFundsComponent } from './addadmin-funds/addadmin-funds.componen
     LimitsDialog,
     ShowPwdDialog,
     AddadminFundsComponent,
-    PartialPaymentDialog
+    PartialPaymentDialog,
+    ESDialog
   ],
   imports: [
     BrowserModule,
@@ -171,7 +173,8 @@ import { AddadminFundsComponent } from './addadmin-funds/addadmin-funds.componen
     ShareDialog,
     LimitsDialog,
     ShowPwdDialog,
-    PartialPaymentDialog
+    PartialPaymentDialog,
+    ESDialog
   ],
   providers: [
     ManageformService,
