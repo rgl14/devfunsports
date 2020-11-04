@@ -115,14 +115,14 @@ export class MasterComponent implements OnInit {
       //   width: 100,
       //   suppressSizeToFit: true,
       // },
-      // {
-      //   headerName: "My share (%)",
-      //   field: "myShare",
-      //   sortable: true,
-      //   minWidth: 75,
-      //   width: 100,
-      //   suppressSizeToFit: true,
-      // },
+      {
+        headerName: "My share (%)",
+        field: "myShare",
+        sortable: true,
+        minWidth: 75,
+        width: 100,
+        suppressSizeToFit: true,
+      },
       {
         headerName: "Max Share (%)",
         field: "maxShare",

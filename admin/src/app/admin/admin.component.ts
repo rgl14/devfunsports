@@ -108,14 +108,14 @@ export class AdminComponent implements OnInit {
         suppressSizeToFit: true,
         valueFormatter: numberWithCommas,
       },
-      // {
-      //   headerName: "My share (%)",
-      //   field: "myShare",
-      //   sortable: true,
-      //   width: 100,
-      //   suppressSizeToFit: true,
-      //   minWidth: 75,
-      // },
+      {
+        headerName: "My share (%)",
+        field: "myShare",
+        sortable: true,
+        width: 100,
+        suppressSizeToFit: true,
+        minWidth: 75,
+      },
       {
         headerName: "Max Share (%)",
         field: "maxShare",
