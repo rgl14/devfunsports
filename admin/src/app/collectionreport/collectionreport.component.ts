@@ -221,7 +221,7 @@ searchData1(searchValue: any) {
           "senderUn":result.senderUn
         };
         if(result.LoggeduserType==1 && result.userType==2){
-          this.limits.SettleCompanyDoubleSuperCash(data).subscribe((resp)=>{
+          this.limits.SettleCompanyDoubleSuperCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -231,7 +231,7 @@ searchData1(searchValue: any) {
           })
         }
         if(result.LoggeduserType==1 && result.userType==3){
-          this.limits.SettleCompanySuperMasterCash(data).subscribe((resp)=>{
+          this.limits.SettleCompanySuperMasterCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -241,7 +241,7 @@ searchData1(searchValue: any) {
           })
         }
         if(result.LoggeduserType==1 && result.userType==4){
-          this.limits.SettleCompanyMasterCash(data).subscribe((resp)=>{
+          this.limits.SettleCompanyMasterCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -251,7 +251,7 @@ searchData1(searchValue: any) {
           })
         }
         if(result.LoggeduserType==1 && result.userType==5){
-          this.limits.SettleCompanyAgentCash(data).subscribe((resp)=>{
+          this.limits.SettleCompanyAgentCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -261,7 +261,7 @@ searchData1(searchValue: any) {
           })
         }
         if(result.LoggeduserType==2 && result.userType==3){
-          this.limits.SettleDoubleSupSuperMasterCash(data).subscribe((resp)=>{
+          this.limits.SettleDoubleSupSuperMasterCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -271,7 +271,7 @@ searchData1(searchValue: any) {
           })
         }
         if(result.LoggeduserType==2 && result.userType==4){
-          this.limits.SettleDoubleSuperMasterCash(data).subscribe((resp)=>{
+          this.limits.SettleDoubleSuperMasterCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -281,7 +281,7 @@ searchData1(searchValue: any) {
           })
         }
         if(result.LoggeduserType==2 && result.userType==5){
-          this.limits.SettleDoubleSuperAgentCash(data).subscribe((resp)=>{
+          this.limits.SettleDoubleSuperAgentCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -291,7 +291,7 @@ searchData1(searchValue: any) {
           })
         }
         if(result.LoggeduserType==3 && result.userType==4){
-          this.limits.SettleSuperMasterMasterCash(data).subscribe((resp)=>{
+          this.limits.SettleSuperMasterMasterCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -301,7 +301,7 @@ searchData1(searchValue: any) {
           })
         }
         if(result.LoggeduserType==3 && result.userType==5){
-          this.limits.SettleSuperMasterAgentCash(data).subscribe((resp)=>{
+          this.limits.SettleSuperMasterAgentCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -321,7 +321,7 @@ searchData1(searchValue: any) {
           })
         }
         if(result.LoggeduserType==4 && result.userType==5){
-          this.limits.SettleMasterAgentCash(data).subscribe((resp)=>{
+          this.limits.SettleMasterAgentCash2(data).subscribe((resp)=>{
             if (resp.status == "Success") {
               this.notification.success(resp.result);
               this.Accountinfo();
@@ -754,7 +754,7 @@ export class ESDialog {
       })
     }
     if(result.LoggeduserType==3 && result.userType==6){
-      this.limits.SettleSuperMasterClientCash2(data).subscribe((resp)=>{
+      this.limits.SettleSuperMasterClientCash(data).subscribe((resp)=>{
         if (resp.status == "Success") {
           this.notification.success(resp.result);
           this.dialogRef.close(data);
@@ -774,7 +774,7 @@ export class ESDialog {
       })
     }
     if(result.LoggeduserType==4 && result.userType==6){
-      this.limits.SettleMasterClientCash2(data).subscribe((resp)=>{
+      this.limits.SettleMasterClientCash(data).subscribe((resp)=>{
         if (resp.status == "Success") {
           this.notification.success(resp.result);
           this.dialogRef.close(data);
@@ -784,7 +784,7 @@ export class ESDialog {
       })
     }
     if(result.LoggeduserType==5 && result.userType==6){
-      this.limits.SettleAgentClientCash2(data).subscribe((resp)=>{
+      this.limits.SettleAgentClientCash(data).subscribe((resp)=>{
         if (resp.status == "Success") {
           this.notification.success(resp.result);
           this.dialogRef.close(data);
