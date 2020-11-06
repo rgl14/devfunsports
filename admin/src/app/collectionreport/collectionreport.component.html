@@ -1,11 +1,10 @@
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row detailtop deskaction" style="margin: 0px">
-    <div class="lastdetail">
-      <span class="detailinfo"><b>C</b> : Clear</span
-      ><span class="detailinfo"><b>S</b> : Settlement</span
-      ><span class="detailinfo"><b>E-S</b> : Effective Settlement</span
-      ><span class="detailinfo"><b>H</b> : History</span
-        >
+    <div class="lastdetail" *ngIf="AccountInfo">
+      <span class="detailinfo"><b>C</b> : Clear</span>
+      <span class="detailinfo"><b>S</b> : Settlement</span>
+      <span class="detailinfo" *ngIf="AccountInfo.userType!=5"><b>E-S</b> : Effective Settlement</span>
+      <span class="detailinfo"><b>H</b> : History</span>
     </div>
   </div>
   <div class="row">
@@ -97,6 +96,7 @@
                     <button
                       class="btn btn-success btn-sm mr-1"
                       title="Effective Settlement"
+                      *ngIf="lena.userType!=6"
                       (click)="
                       openESDialog(
                           lena.userType,
@@ -258,6 +258,7 @@
                     <button
                       class="btn btn-success btn-sm mr-1"
                       title="Effective Settlement"
+                      *ngIf="dena.userType!=6"
                       (click)="
                       openESDialog(
                           dena.userType,
