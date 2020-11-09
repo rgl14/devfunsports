@@ -53,7 +53,7 @@ export class AccoutStatementComponent implements OnInit {
   overlayLoadingTemplate: string;
   overlayNoRowsTemplate: string;
   defaultColDef: { sortable: boolean; };
-  Selectoption: any="0";
+  Selectoption;
   userId: any;
   Uname: any;
 
@@ -141,8 +141,10 @@ export class AccoutStatementComponent implements OnInit {
       if(param.userId!=undefined){
         this.userId=param.userId;
         this.Uname=param.Uname;
+        this.Selectoption=param.type;
       }else{
         this.userId=0;
+        this.Selectoption="0";
       }
     })
 this.dropdownSettings = {

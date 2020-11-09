@@ -180,7 +180,7 @@ const routes: Routes = [
         ],
       },
       {
-        path: "accountstatement/:userId/:Uname",
+        path: "accountstatement/:userId/:Uname/:type",
         component: ChildrenContainerComponent,
         data: { breadcrumb: "Account Statement" },
         children: [

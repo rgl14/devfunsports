@@ -15,7 +15,7 @@
                           <button mat-raised-button color="primary" *ngIf="userType==2 || userType==3" [routerLink]="[userId, 'master']">Direct Masters</button>
                           <button mat-raised-button color="primary" *ngIf="userType==2 || userType==3 || userType==4" [routerLink]="[userId, 'superagent']">Direct Agents</button>
                           <button mat-raised-button color="primary" *ngIf="userType==2 || userType==3 || userType==4 || userType==5" [routerLink]="[userId, 'clients']">Direct Clients</button>
-                          <button mat-raised-button color="primary" [routerLink]="['coinhistory',userId]">Coin History</button>
+                          <!-- <button mat-raised-button color="primary" [routerLink]="['coinhistory',userId]">Coin History</button> -->
                         </div>
               </div>
            </div>
@@ -25,7 +25,7 @@
             <div class="col-lg-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Coins</h5>
+                        <h5>Chips</h5>
                     </div>
                     <div class="ibox-content">
                         <h1 class="no-margins" [ngClass]="(amount>=0)?'text-success':'text-danger'">{{(amount==null)? 0.00:amount | number:'1.2-2'}}</h1>
