@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from "@angular/router";
       </a>
       <span *ngIf="data.type!='P|L Market'">{{ data.description }}</span>
     </ng-container>
-    <ng-container *ngIf="currentRoute == '/report/accountstatement/'+userId+'/'+Uname">
+    <ng-container *ngIf="currentRoute == '/report/accountstatement/'+userId+'/'+Uname+'/'+Type">
       <a *ngIf="data.type=='P|L Market'">
         {{ data.description }}
       </a>
@@ -41,6 +41,7 @@ export class redirectComponent {
   refid;
   userId: any;
   Uname: any;
+  Type: any;
   constructor(private router: Router, private route: ActivatedRoute) {
     this.currentRoute = this.router.url;
     console.log(this.currentRoute);
@@ -48,6 +49,7 @@ export class redirectComponent {
     this.refid=params.refid;
     this.userId=params.userId;
     this.Uname=params.Uname;
+    this.Type=params.type;
     console.log(params);
     });
   }
