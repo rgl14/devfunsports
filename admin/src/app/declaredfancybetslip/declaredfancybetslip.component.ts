@@ -50,6 +50,7 @@ export class DeclaredfancybetslipComponent implements OnInit {
         minWidth: 100,
         cellStyle: { color: "#414141", "font-weight": "bolder" },
       },
+      { headerName: "Score", field: "score", sortable: true, minWidth: 75 },
       { headerName: "Odds", field: "odds", sortable: true, minWidth: 75 },
       {
         headerName: "Stake",
