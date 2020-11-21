@@ -31,7 +31,7 @@ export class NavigationcellComponent implements OnInit {
     this.params=params;
     this.data = params.data;
     // console.log(this.data);
-    if (this.currentroute == "/fancy") {
+    if (this.currentroute == "/fancy/index") {
       this.automatic = this.data.automatic.toString();
     }
   }

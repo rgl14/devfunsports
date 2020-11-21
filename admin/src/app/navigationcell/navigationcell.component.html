@@ -37,7 +37,7 @@
 <mat-radio-group
   aria-label="Select an option"
   [(ngModel)]="automatic"
-  *ngIf="currentroute == '/fancy'"
+  *ngIf="currentroute.includes('/fancy')"
 >
   <mat-radio-button value="1" (change)="toggleMethod(1)">Auto</mat-radio-button>
   <mat-radio-button

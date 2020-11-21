@@ -137,6 +137,26 @@ export class CustomcellbuttonsComponent implements OnInit {
       );
   }
 
+  ReverseFancybyId() {
+    this.disabled = true;
+
+    this.fancyService
+      .ReverseFancySettlement(this.data.fancyCode)
+      .subscribe(
+        (data) => {
+          if (data.status == "Success") {
+            this.notifyService.success(data.result);
+            this.params.context.componentParent.GetFancyList();
+          } else {
+            this.notifyService.error(data.result);
+          }
+
+          this.disabled = false;
+        },
+        (err) => {}
+      );
+  }
+
   CloseBookBulk() {
     this.disabled = true;
 

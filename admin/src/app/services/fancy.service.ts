@@ -54,4 +54,7 @@ export class FancyService {
   UpdateFRateMode(FID,MODE): Observable<any> {
     return this.http.post(`${this.BASEURL}/FancyRates/UpdateFRateMode?fid=${FID}&mode=${MODE}`,{});
   }
+  ReverseFancySettlement(FID): Observable<any> {
+    return this.http.post(`${this.BASEURL}/FancyRates/ReverseFancySettlement?fid=${FID}`,{});
+  }
 }
