@@ -43,7 +43,12 @@ import { SharedModule } from "../shared/shared.module";
 import { ChildrenContainerComponent } from "../shared/components/children-container.component";
 import { betList } from "../matchdashboard/betList/betlist.component";
 import { child } from "../matchdashboard/betList/child.componet";
+import { name } from "../matchdashboard/betList/name.coponent";
 import { RejectBetdialog } from "../matchdashboard/betList/rejectbet.componet";
+import { Mobookdialog } from "../matchdashboard/betList/mobook.component";
+import { fancyname } from '../matchdashboard/betList/fancyname.component';
+import { FancybookDialog } from '../matchdashboard/betList/fancybook.component';
+// import { Fbookdialog } from "../matchdashboard/betList/fancybook.component";
 
 const declaredmatchdashroutes: Routes = [
   {
@@ -220,6 +225,10 @@ const routes: Routes = [
     FancyBookDialog,
     betList,
     child,
+    name,
+    fancyname,
+    Mobookdialog,
+    FancybookDialog,
     PartialPaymentDialog,
     ConfirmBoxDialog,
   ],
@@ -247,7 +256,11 @@ const routes: Routes = [
   entryComponents: [
     RejectBetdialog,
     FancyBookDialog,
+    Mobookdialog,
+    FancybookDialog,
     child,
+    name,
+    fancyname,
     PartialPaymentDialog,
     ConfirmBoxDialog,
   ],

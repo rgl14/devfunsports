@@ -121,4 +121,11 @@ export class ReportsService {
     return this.http.get(`${this.BASEURL}/Reports/GetAdmFundTransaction`);
   }
 
+  Fancybook(MTID,FID,ID): Observable<any> {
+    return this.http.get(`${this.BASEURL}/Reports/Fancybook?mtid=${MTID}&fid=${FID}&id=${ID}`);
+  }
+  ExposureBook(MKTID,ID): Observable<any> {
+    return this.http.get(`${this.BASEURL}/Reports/ExposureBook?mktid=${MKTID}&id=${ID}`);
+  }
+
 }

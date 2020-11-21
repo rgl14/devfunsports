@@ -13,8 +13,10 @@ import { FancyService } from "../services/fancy.service";
 import _ from "lodash";
 import { NotificationService } from "../shared/notification.service";
 import { child } from "./betList/child.componet";
+import { name } from "./betList/name.coponent";
 import { RejectBetdialog } from "./betList/rejectbet.componet";
 import { BreadcrumbService } from "angular-crumbs";
+import { fancyname } from './betList/fancyname.component';
 
 @Component({
   selector: "app-matchdashboard",
@@ -105,9 +107,10 @@ export class MatchdashboardComponent implements OnInit, OnDestroy {
     },
     {
       headerName: "Client",
-      field: "clUsername",
       resizable: true,
       minWidth: 100,
+      cellRendererFramework: name,
+      cellStyle: { cursor: "pointer", "font-weight": "bolder" },
     },
     {
       headerName: "Selection",
@@ -152,14 +155,11 @@ export class MatchdashboardComponent implements OnInit, OnDestroy {
       field: "source",
       minWidth: 50,
     },
-
-    { headerName: "ID", field: "id", minWidth: 50 },
-    {
-      headerName: "MDL",
-      field: "superMasterUsername",
-      minWidth: 50,
-    },
-    { headerName: "DL", field: "masterUsername", minWidth: 50 },
+    {headerName: "ID", field: "id", minWidth: 50 },
+    {headerName: "DS",field: "adminUsername",minWidth: 50,},
+    {headerName: "SM",field: "superMasterUsername",minWidth: 50,},
+    {headerName: "M",field: "masterUsername",minWidth: 50,},
+    {headerName: "AGT", field: "agentUsername", minWidth: 50 },
   ];
 
   fancyBetCols = [
@@ -178,8 +178,9 @@ export class MatchdashboardComponent implements OnInit, OnDestroy {
     },
     {
       headerName: "Selection",
-      field: "runnerName",
       filter: "agTextColumnFilter",
+      cellRendererFramework: fancyname,
+      cellStyle: { cursor: "pointer", "font-weight": "bolder" },
       resizable: true,
       minWidth: 100,
     },
@@ -222,14 +223,11 @@ export class MatchdashboardComponent implements OnInit, OnDestroy {
       field: "source",
       minWidth: 50,
     },
-
-    { headerName: "ID", field: "id", minWidth: 50 },
-    {
-      headerName: "MDL",
-      field: "superMasterUsername",
-      minWidth: 50,
-    },
-    { headerName: "DL", field: "masterUsername", minWidth: 50 },
+    {headerName: "ID", field: "id", minWidth: 50 },
+    {headerName: "DS",field: "adminUsername",minWidth: 50,},
+    {headerName: "SM",field: "superMasterUsername",minWidth: 50,},
+    {headerName: "M",field: "masterUsername",minWidth: 50,},
+    {headerName: "AGT", field: "agentUsername", minWidth: 50 },
   ];
 
   bmBetCols = [
@@ -286,14 +284,11 @@ export class MatchdashboardComponent implements OnInit, OnDestroy {
       field: "source",
       minWidth: 50,
     },
-
-    { headerName: "ID", field: "id", minWidth: 50 },
-    {
-      headerName: "MDL",
-      field: "superMasterUsername",
-      minWidth: 50,
-    },
-    { headerName: "DL", field: "masterUsername", minWidth: 50 },
+    {headerName: "ID", field: "id", minWidth: 50 },
+    {headerName: "DS",field: "adminUsername",minWidth: 50,},
+    {headerName: "SM",field: "superMasterUsername",minWidth: 50,},
+    {headerName: "M",field: "masterUsername",minWidth: 50,},
+    {headerName: "AGT", field: "agentUsername", minWidth: 50 },
   ];
 
   admBookCols = [
