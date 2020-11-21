@@ -172,15 +172,15 @@ export class MatchdashboardComponent implements OnInit, OnDestroy {
     },
     {
       headerName: "Client",
-      field: "clUsername",
+      cellRendererFramework: fancyname,
+      cellStyle: { cursor: "pointer", "font-weight": "bolder" },
       resizable: true,
       minWidth: 100,
     },
     {
       headerName: "Selection",
+      field: "runnerName",
       filter: "agTextColumnFilter",
-      cellRendererFramework: fancyname,
-      cellStyle: { cursor: "pointer", "font-weight": "bolder" },
       resizable: true,
       minWidth: 100,
     },

@@ -7,7 +7,8 @@ import { FancybookDialog } from "./fancybook.component";
   template: `
     <a
       (click)="openfancybookDialog(data)"
-    >{{data.runnerName}}</a>
+    >{{data.clUsername}}</a>
+
   `,
 })
 export class fancyname implements OnInit {
