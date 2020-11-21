@@ -80,32 +80,33 @@ export class CreateagentComponent implements OnInit {
       this.agentform.controls["bookdisplaytype"].setValue(
         this.accountInfo.bookDisplayType.toString()
       );
-    });
-    this.sharedata.AccountInfoSource.subscribe((data) => {
-      if (data != null) {
-        if (data.userType != 1) {
-          this.iscommissionedit = true;
-          this.agentform.get("expoLimit").clearValidators();
-          this.agentform.get("MComm").clearValidators();
-        } else {
-          this.iscommissionedit = false;
-        }
-        // console.log(data)
-        this.accountInfo = data;
-        if (this.userId) {
-          this.getuserdata();
-        } else {
-          this.formControlfixlimitChanged();
-        }
-
-        // this.formControlsmaxsharechanged();
-        this.formControlsmysharechanged();
-        this.formControlmcommchanged();
-        this.formControlscommchanged();
-        this.formControlmLossingCommchanged();
-        this.formControlsLossingCommCommchanged();
+      if (this.accountInfo.userType != 1) {
+        this.iscommissionedit = true;
+        this.agentform.get("expoLimit").clearValidators();
+        this.agentform.get("MComm").clearValidators();
+      } else {
+        this.iscommissionedit = false;
       }
+      // console.log(data)
+      this.accountInfo = data;
+      if (this.userId) {
+        this.getuserdata();
+      } else {
+        this.formControlfixlimitChanged();
+      }
+
+      // this.formControlsmaxsharechanged();
+      this.formControlsmysharechanged();
+      this.formControlmcommchanged();
+      this.formControlscommchanged();
+      this.formControlmLossingCommchanged();
+      this.formControlsLossingCommCommchanged();
     });
+    // this.sharedata.AccountInfoSource.subscribe((data) => {
+    //   if (data != null) {
+        
+    //   }
+    // });
   }
   onClear() {
     this.submitted = false;

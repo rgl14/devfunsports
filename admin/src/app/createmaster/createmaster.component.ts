@@ -84,34 +84,35 @@ export class CreatemasterComponent implements OnInit {
       this.masterform.controls["bookdisplaytype"].setValue(
         this.accountInfo.bookDisplayType.toString()
       );
+      if (this.accountInfo.userType != 1) {
+        this.iscommissionedit = true;
+        this.masterform.get("expoLimit").clearValidators();
+        this.masterform.get("MComm").clearValidators();
+      } else {
+        this.iscommissionedit = false;
+      }
+      // console.log(data)
+      // console.log(this.iscommissionedit);
+
+      if (this.userId) {
+        this.getuserdata();
+      } else {
+        this.usertype = 4;
+        // this.usermanagement.GetNextUsername(this.usertype).subscribe(resp=>{
+        //   this.masterform.controls['username'].setValue(resp.userName);
+        // })
+        this.formControlfixlimitChanged();
+      }
+      // this.formControlsmaxsharechanged()
+      this.formControlsmysharechanged();
+      this.formControlmcommchanged();
+      this.formControlscommchanged();
+      this.formControlmLossingCommchanged();
+      this.formControlsLossingCommCommchanged();
     });
     this.sharedata.AccountInfoSource.subscribe((data) => {
       if (data != null) {
-        if (data.userType != 1) {
-          this.iscommissionedit = true;
-          this.masterform.get("expoLimit").clearValidators();
-          this.masterform.get("MComm").clearValidators();
-        } else {
-          this.iscommissionedit = false;
-        }
-        // console.log(data)
-        // console.log(this.iscommissionedit);
-
-        if (this.userId) {
-          this.getuserdata();
-        } else {
-          this.usertype = 4;
-          // this.usermanagement.GetNextUsername(this.usertype).subscribe(resp=>{
-          //   this.masterform.controls['username'].setValue(resp.userName);
-          // })
-          this.formControlfixlimitChanged();
-        }
-        // this.formControlsmaxsharechanged()
-        this.formControlsmysharechanged();
-        this.formControlmcommchanged();
-        this.formControlscommchanged();
-        this.formControlmLossingCommchanged();
-        this.formControlsLossingCommCommchanged();
+        
       }
     });
   }
