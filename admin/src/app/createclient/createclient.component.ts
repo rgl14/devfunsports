@@ -83,43 +83,42 @@ export class CreateclientComponent implements OnInit {
       this.clientform.controls["bookdisplaytype"].setValue(
         this.accountInfo.bookDisplayType.toString()
       );
-      if (this.accountInfo.userType != 1) {
-        this.iscommissionedit = true;
-      } else {
-        this.iscommissionedit = false;
-      }
-      // console.log(data);
-
-      // console.log(this.iscommissionedit);
-      this.accountInfo = data;
-      if (this.userId) {
-        this.getuserdata();
-      } else {
-        this.usertype = 6;
-        // this.usermanagement.GetNextUsername(this.usertype).subscribe(resp=>{
-        //   this.clientform.controls['username'].setValue(resp.userName);
-        // })
-        this.clientform.controls["fixLimit"].setValue(0);
-        this.clientform.controls["MComm"].setValue(0);
-        this.clientform.controls["SComm"].setValue(0);
-        this.clientform.controls["MloseComm"].setValue(0);
-        this.clientform.controls["SloseComm"].setValue(0);
-        this.clientform.controls["fixedfees"].setValue(0);
-
-        this.formControlfixlimitChanged();
-        // this.formControlsmysharechanged();
-        // this.formControlsmaxsharechanged();
-        // this.formControlmcommchanged();
-      }
-      this.formControlscommchanged();
-      this.formControlmLossingCommchanged();
-      this.formControlsLossingCommCommchanged();
     });
-    // this.sharedata.AccountInfoSource.subscribe((data) => {
-    //   if (data != null) {
-        
-    //   }
-    // });
+    this.sharedata.AccountInfoSource.subscribe((data) => {
+      if (data != null) {
+        if (data.userType != 1) {
+          this.iscommissionedit = true;
+        } else {
+          this.iscommissionedit = false;
+        }
+        // console.log(data);
+
+        // console.log(this.iscommissionedit);
+        this.accountInfo = data;
+        if (this.userId) {
+          this.getuserdata();
+        } else {
+          this.usertype = 6;
+          // this.usermanagement.GetNextUsername(this.usertype).subscribe(resp=>{
+          //   this.clientform.controls['username'].setValue(resp.userName);
+          // })
+          this.clientform.controls["fixLimit"].setValue(0);
+          this.clientform.controls["MComm"].setValue(0);
+          this.clientform.controls["SComm"].setValue(0);
+          this.clientform.controls["MloseComm"].setValue(0);
+          this.clientform.controls["SloseComm"].setValue(0);
+          this.clientform.controls["fixedfees"].setValue(0);
+
+          this.formControlfixlimitChanged();
+          // this.formControlsmysharechanged();
+          // this.formControlsmaxsharechanged();
+          // this.formControlmcommchanged();
+        }
+        this.formControlscommchanged();
+        this.formControlmLossingCommchanged();
+        this.formControlsLossingCommCommchanged();
+      }
+    });
   }
   onClear() {
     this.submitted = false;

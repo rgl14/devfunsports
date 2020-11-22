@@ -85,38 +85,37 @@ export class CreatesuperagentComponent implements OnInit {
       this.superagentform.controls["bookdisplaytype"].setValue(
         this.accountInfo.bookDisplayType.toString()
       );
-      if (this.accountInfo.userType != 1) {
-        this.iscommissionedit = true;
-        this.superagentform.get("expoLimit").clearValidators();
-        this.superagentform.get("MComm").clearValidators();
-      } else {
-        this.iscommissionedit = false;
-      }
-      // console.log(data)
-      // console.log(this.iscommissionedit);
-      this.accountInfo = data;
-      if (this.userId) {
-        this.getuserdata();
-      } else {
-        this.usertype = 5;
-        // this.usermanagement.GetNextUsername(this.usertype).subscribe(resp=>{
-        //   this.superagentform.controls['username'].setValue(resp.userName);
-        // })
-        this.formControlfixlimitChanged();
-      }
-
-      // this.formControlsmaxsharechanged()
-      this.formControlsmysharechanged();
-      this.formControlmcommchanged();
-      this.formControlscommchanged();
-      this.formControlmLossingCommchanged();
-      this.formControlsLossingCommCommchanged();
     });
-    // this.sharedata.AccountInfoSource.subscribe((data) => {
-    //   if (data != null) {
-        
-    //   }
-    // });
+    this.sharedata.AccountInfoSource.subscribe((data) => {
+      if (data != null) {
+        if (data.userType != 1) {
+          this.iscommissionedit = true;
+          this.superagentform.get("expoLimit").clearValidators();
+          this.superagentform.get("MComm").clearValidators();
+        } else {
+          this.iscommissionedit = false;
+        }
+        // console.log(data)
+        // console.log(this.iscommissionedit);
+        this.accountInfo = data;
+        if (this.userId) {
+          this.getuserdata();
+        } else {
+          this.usertype = 5;
+          // this.usermanagement.GetNextUsername(this.usertype).subscribe(resp=>{
+          //   this.superagentform.controls['username'].setValue(resp.userName);
+          // })
+          this.formControlfixlimitChanged();
+        }
+
+        // this.formControlsmaxsharechanged()
+        this.formControlsmysharechanged();
+        this.formControlmcommchanged();
+        this.formControlscommchanged();
+        this.formControlmLossingCommchanged();
+        this.formControlsLossingCommCommchanged();
+      }
+    });
   }
   onClear() {
     // this.submitted = false;

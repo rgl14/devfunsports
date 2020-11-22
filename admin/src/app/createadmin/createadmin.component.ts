@@ -81,7 +81,10 @@ export class CreateadminComponent implements OnInit {
       this.Companyform.controls["bookdisplaytype"].setValue(
         this.accountInfo.bookDisplayType.toString()
       );
-        if (this.accountInfo.userType != 1) {
+    });
+    this.sharedata.AccountInfoSource.subscribe((data) => {
+      if (data != null) {
+        if (data.userType != 1) {
           this.iscommissionedit = true;
           this.Companyform.get("expoLimit").clearValidators();
           this.Companyform.get("MComm").clearValidators();
@@ -90,7 +93,7 @@ export class CreateadminComponent implements OnInit {
         }
         // console.log(data);
         // console.log(this.iscommissionedit);
-        // this.accountInfo = data;
+        this.accountInfo = data;
         if (this.userId) {
           this.getuserdata();
         } else {
@@ -110,38 +113,6 @@ export class CreateadminComponent implements OnInit {
         this.formControlscommchanged();
         this.formControlmLossingCommchanged();
         this.formControlsLossingCommCommchanged();
-    });
-    this.sharedata.AccountInfoSource.subscribe((data) => {
-      if (data != null) {
-        // if (data.userType != 1) {
-        //   this.iscommissionedit = true;
-        //   this.Companyform.get("expoLimit").clearValidators();
-        //   this.Companyform.get("MComm").clearValidators();
-        // } else {
-        //   this.iscommissionedit = false;
-        // }
-        // console.log(data);
-        // console.log(this.iscommissionedit);
-        // this.accountInfo = data;
-        // if (this.userId) {
-          // this.getuserdata();
-        // } else {
-          // this.usertype = 2;
-          // this.usermanagement.GetNextUsername(this.usertype).subscribe(resp=>{
-          //   this.Companyform.controls['username'].setValue(resp.userName);
-          // })
-          // this.Companyform.controls['MComm'].setValue(data.matchComm);
-          // this.Companyform.controls['SComm'].setValue(data.sessionComm);
-          // this.Companyform.controls['MloseComm'].setValue(data.mLossingComm);
-          // this.Companyform.controls['SloseComm'].setValue(data.sLossingComm);
-          // this.formControlfixlimitChanged();
-        // }
-        // this.formControlsmaxsharechanged()
-        // this.formControlsmysharechanged();
-        // this.formControlmcommchanged();
-        // this.formControlscommchanged();
-        // this.formControlmLossingCommchanged();
-        // this.formControlsLossingCommCommchanged();
       }
     });
   }

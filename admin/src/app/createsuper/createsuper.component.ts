@@ -89,36 +89,35 @@ export class CreatesuperComponent implements OnInit {
       this.supermasterform.controls["bookdisplaytype"].setValue(
         this.accountInfo.bookDisplayType.toString()
       );
-      if (this.accountInfo.userType != 1) {
-        this.iscommissionedit = true;
-        this.supermasterform.get("expoLimit").clearValidators();
-        this.supermasterform.get("MComm").clearValidators();
-      } else {
-        this.iscommissionedit = false;
-      }
-      // console.log(data)
-      if (this.userId) {
-        this.getuserdata();
-        this.isdisabled = true;
-      } else {
-        this.usertype = 3;
-        // this.usermanagement.GetNextUsername(this.usertype).subscribe(resp=>{
-        //   this.supermasterform.controls['username'].setValue(resp.userName);
-        // })
-        this.formControlfixlimitChanged();
-      }
-      // this.formControlsmaxsharechanged()
-      this.formControlsmysharechanged();
-      this.formControlmcommchanged();
-      this.formControlscommchanged();
-      this.formControlmLossingCommchanged();
-      this.formControlsLossingCommCommchanged();
     });
-    // this.sharedata.AccountInfoSource.subscribe((data) => {
-    //   if (data != null) {
-        
-    //   }
-    // });
+    this.sharedata.AccountInfoSource.subscribe((data) => {
+      if (data != null) {
+        if (data.userType != 1) {
+          this.iscommissionedit = true;
+          this.supermasterform.get("expoLimit").clearValidators();
+          this.supermasterform.get("MComm").clearValidators();
+        } else {
+          this.iscommissionedit = false;
+        }
+        // console.log(data)
+        if (this.userId) {
+          this.getuserdata();
+          this.isdisabled = true;
+        } else {
+          this.usertype = 3;
+          // this.usermanagement.GetNextUsername(this.usertype).subscribe(resp=>{
+          //   this.supermasterform.controls['username'].setValue(resp.userName);
+          // })
+          this.formControlfixlimitChanged();
+        }
+        // this.formControlsmaxsharechanged()
+        this.formControlsmysharechanged();
+        this.formControlmcommchanged();
+        this.formControlscommchanged();
+        this.formControlmLossingCommchanged();
+        this.formControlsLossingCommCommchanged();
+      }
+    });
   }
   onClear() {
     // this.submitted = false;
