@@ -148,6 +148,7 @@ searchData1(searchValue: any) {
       this.filteredData1=this.MinusAcc;
       this.totalPlus = 0.0;
       this.totalMinus = 0.0;
+      
       _.forEach(this.PlusAcc, (itemdena, index) => {
         this.totalPlus = this.totalPlus + parseFloat(itemdena.balance);
       });
