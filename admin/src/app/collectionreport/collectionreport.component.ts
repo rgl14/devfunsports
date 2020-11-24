@@ -52,7 +52,7 @@ export class CollectionreportComponent implements OnInit {
   ngOnInit() {
     this.matchId = this.route.snapshot.paramMap.get("matchId");
     this.route.params.subscribe(param => {
-      console.log(param)
+      // console.log(param)
       if(param.userId!=undefined){
         this.userId=param.userId;
         this.Uname=param.Uname;
@@ -135,7 +135,7 @@ searchData1(searchValue: any) {
   }
   AdmChipssummary2(ID){
     this.getreports.GetAdmChipsSummary2(ID).subscribe((resp) => {
-      console.log(resp);
+      // console.log(resp);
       this.Own=resp.own;
       this.Cash=resp.cash;
       this.Commission=resp.comm;
