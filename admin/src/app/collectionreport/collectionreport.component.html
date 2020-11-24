@@ -154,7 +154,7 @@
                 </td>
                 <td></td>
               </tr>
-              <tr *ngIf="UrluserType != 1 && parentComm > 0">
+              <tr *ngIf="AccountInfo.userType==1 && parentComm > 0">
                 <td>Parent Commission</td>
                 <td
                   [ngClass]="parentComm >= 0 ? 'text-success' : 'text-danger'"
@@ -307,7 +307,7 @@
                 </td>
                 <td></td>
               </tr>
-              <tr *ngIf="UrluserType != 1 && parentComm <= 0">
+              <tr *ngIf="AccountInfo.userType==1 && parentComm <= 0">
                 <td>Parent Commission</td>
                 <td
                   [ngClass]="parentComm >= 0 ? 'text-success' : 'text-danger'"

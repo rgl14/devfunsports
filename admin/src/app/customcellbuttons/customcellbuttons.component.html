@@ -1,5 +1,6 @@
 <div class="Action-buttons" *ngIf="showActionButtons && !data.roleId">
   <button
+    *ngIf="userId == 0"
     [routerLink]="['./', data.userId, 'edit']"
     style="min-width: 30px; padding: 0 10px"
     mat-raised-button
@@ -9,6 +10,7 @@
     <i class="fa fa-pencil"></i>
   </button>
   <button
+    *ngIf="userId == 0"
     style="min-width: 30px; padding: 0 10px"
     mat-raised-button
     title="Cash Settlement"
@@ -17,8 +19,9 @@
   >
     SE
   </button>
-  <ng-container *ngIf="accountInfo.userType == 1">
+  <ng-container *ngIf="accountInfo">
     <button
+      *ngIf="accountInfo.userType == 1"
       style="min-width: 30px; padding: 0 10px"
       mat-raised-button
       title="Show Password"
@@ -56,6 +59,7 @@
     S
   </button> -->
   <button
+    *ngIf="userId == 0"
     [routerLink]="[data.userId, 'managepassword']"
     style="min-width: 30px; padding: 0 10px"
     mat-raised-button

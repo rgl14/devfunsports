@@ -216,7 +216,7 @@ export class MasterComponent implements OnInit {
   }
 
   showraction(show) {
-    this.gridColumnApi.setColumnVisible("action", show);
+    this.gridColumnApi.setColumnVisible("action", true);
     this.gridColumnApi.setColumnVisible("cp", show);
   }
 

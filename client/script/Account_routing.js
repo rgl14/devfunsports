@@ -95,6 +95,10 @@ window.onunload = function () {
   null;
 };
 
+function checktoken() {
+  return $.cookie("authtoken");
+}
+
 var authtoken = $.cookie("authtoken");
 if (!authtoken) {
   window.location.href = "login.html";
@@ -173,7 +177,7 @@ app.controller("homeAccountController", function (
       method: "GET",
 
       headers: {
-        Token: authtoken,
+        Token: checktoken(),
       },
     }).then(
       function mySuccess(response) {

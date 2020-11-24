@@ -263,6 +263,9 @@ $(document).ready(function () {
   });
 });
 function preventBack() { window.history.forward(); }  
+function checktoken() {
+  return $.cookie("authtoken");
+}
   setTimeout("preventBack()", 0);  
   window.onunload = function () { null }; 
 var authtoken = $.cookie("authtoken");
@@ -1875,7 +1878,7 @@ app.controller("homeController", function (
       url: ApiUrl + "/Data/FundExpo",
       method: "GET",
       headers: {
-        Token: authtoken,
+        Token: checktoken(),
       },
     }).then(
       function mySuccess(response) {

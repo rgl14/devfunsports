@@ -49,7 +49,8 @@ export class CustomcellbuttonsComponent implements OnInit {
     private limits: LimitsService,
     private route: ActivatedRoute,
     private report: ReportsService,
-    private scoreinput: ScoreService
+    private scoreinput: ScoreService,
+    private sharedata: SharedataService,
   ) {
     this.currentroute = this.router.url;
     if (
@@ -68,16 +69,22 @@ export class CustomcellbuttonsComponent implements OnInit {
     this.params = params;
     this.colDef = this.params.colDef.field;
     this.data = this.params.data;
-    console.log(this.data)
-    this.usermanagement.getAccountInfo().subscribe((data) => {
-      this.accountInfo = data.data;
-    });
+    // console.log(this.data)
+    // this.usermanagement.getAccountInfo().subscribe((data) => {
+    //   this.accountInfo = data.data;
+    // });
   }
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get("userId");
     this.sportBfId = this.route.snapshot.paramMap.get("sportBfId");
     this.matchBfId = this.route.snapshot.paramMap.get("bfId");
     this.title = this.route.snapshot.paramMap.get("title");
+    this.sharedata.AccountInfoSource.subscribe((data) => {
+      if (data != null) {
+        // console.log(data);
+        this.accountInfo = data;
+      }
+    })
   }
   updatelimit(userdata: any) {
     // console.log(userdata)
