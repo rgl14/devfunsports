@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GridOptions} from "ag-grid-community";
+import {GridOptions, RowNode} from "ag-grid-community";
 import { ReportsService } from '../services/reports.service';
 import { TimepickerConfig } from 'ngx-bootstrap/timepicker';
 
@@ -129,6 +129,65 @@ this.dropdownSettings = {
         };    
   }
 
+  generatePinnedBottomData(){
+    // generate a row-data with null values
+    let result = {};
+
+    this.gridColumnApi.getAllGridColumns().forEach(item => {
+        result[item.colId] = 0;
+        result['dateTime'] = "Total";
+        result['matchId'] = null;
+        result['matchTitle'] = null;
+    });
+    console.log(result)
+    return this.calculatePinnedBottomData(result);
+}
+calculatePinnedBottomData(target: any){
+    //console.log(target);
+    //list of columns fo aggregation
+    let columnsWithAggregation = ['totalEarning']
+    columnsWithAggregation.forEach(element => {
+      console.log('element', element);
+        this.gridApi.forEachNodeAfterFilter((rowNode: RowNode) => {
+          //if(rowNode.index < 10){
+            console.log(rowNode);
+          //}
+            if (rowNode.data[element])
+                target[element] += Number(rowNode.data[element].toFixed(2));
+        });
+        if (target[element])
+            target[element] = `${target[element].toFixed(2)}`;
+    })
+    let matchEarningAggregation = ['matchEarning']
+    matchEarningAggregation.forEach(element => {
+      console.log('element', element);
+        this.gridApi.forEachNodeAfterFilter((rowNode: RowNode) => {
+          //if(rowNode.index < 10){
+            console.log(rowNode);
+          //}
+            if (rowNode.data[element])
+                target[element] += Number(rowNode.data[element].toFixed(2));
+        });
+        if (target[element])
+            target[element] = `${target[element].toFixed(2)}`;
+    })
+    let commEarningAggregation = ['commEarning']
+    commEarningAggregation.forEach(element => {
+      console.log('element', element);
+        this.gridApi.forEachNodeAfterFilter((rowNode: RowNode) => {
+          //if(rowNode.index < 10){
+            console.log(rowNode);
+          //}
+            if (rowNode.data[element])
+                target[element] += Number(rowNode.data[element].toFixed(2));
+        });
+        if (target[element])
+            target[element] = `${target[element].toFixed(2)}`;
+    })
+    //console.log(target);
+    return target;
+}
+
   onGridReady(params:any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -145,12 +204,17 @@ this.dropdownSettings = {
         }
       this.getreports.GetProfitLoss('',pnldates).subscribe(resp=>{
         this.rowData=resp.data;
+        setTimeout(()=>{
+          let pinnedBottomData = this.generatePinnedBottomData();
+        this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
+        }, 500)
         this.allTimeTotal=resp.allTimeTotal;
         this.matchEarnings=resp.matchEarnings;
         this.selectedTotal=resp.selectedTotal;
         this.totalEarnings=resp.totalEarnings;
       })
   }
+  
 
   profitandloss(){
     // console.log(value)
@@ -163,6 +227,10 @@ this.dropdownSettings = {
      }
      this.getreports.GetProfitLoss('',pnldates).subscribe(resp =>{
        this.rowData=resp.data;
+       setTimeout(()=>{
+        let pinnedBottomData = this.generatePinnedBottomData();
+      this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
+      }, 500)
      })
   }
 
@@ -211,6 +279,10 @@ this.dropdownSettings = {
         }
         this.getreports.GetProfitLoss(this.selectedItems,pnldates).subscribe(resp =>{
           this.rowData=resp.data;
+          setTimeout(()=>{
+            let pinnedBottomData = this.generatePinnedBottomData();
+          this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
+          }, 500)
         })
     }
     OnItemDeSelect(item:any){
@@ -224,6 +296,10 @@ this.dropdownSettings = {
         }
         this.getreports.GetProfitLoss(this.selectedItems,pnldates).subscribe(resp =>{
           this.rowData=resp.data;
+          setTimeout(()=>{
+            let pinnedBottomData = this.generatePinnedBottomData();
+          this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
+          }, 500)
         })
     }
     onSelectAll(items: any){

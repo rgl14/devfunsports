@@ -70,7 +70,7 @@ export class DeclaredbetslipComponent implements OnInit {
         field: "betTime",
         sortable: true,
         minWidth: 125,
-        cellStyle: { color: "red", "font-weight": "bolder" },
+        cellStyle: { "font-weight": "bolder" },
       },
       { headerName: "IP", field: "ipaddress", sortable: true, minWidth: 100 },
       { headerName: "Master", field: "master", sortable: true, minWidth: 75 },
@@ -95,7 +95,7 @@ export class DeclaredbetslipComponent implements OnInit {
       var pnlvalue = pnlodds * pnlstake;
       var totalvalue = pnlvalue.toFixed(2);
       // console.log(pnlvalue)
-      return totalvalue.toString();
+      return totalvalue;
     }
     function balanceFormatter(params) {
       var twodecimalvalue = parseFloat(params.value).toFixed(2);
@@ -106,7 +106,7 @@ export class DeclaredbetslipComponent implements OnInit {
       var pnlodds = rowvalue.odds - 1;
       var pnlstake = rowvalue.stake;
       var pnlvalue = pnlodds * pnlstake;
-      if (params.data.pnl >= 0) {
+      if (rowvalue.action=="LOSS") {
         return { color: "#5cb55c", "font-weight": "bolder" };
       } else {
         return { color: "rgb(231, 59, 59)", "font-weight": "bolder" };
