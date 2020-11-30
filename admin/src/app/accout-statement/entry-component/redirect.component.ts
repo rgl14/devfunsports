@@ -44,13 +44,11 @@ export class redirectComponent {
   Type: any;
   constructor(private router: Router, private route: ActivatedRoute) {
     this.currentRoute = this.router.url;
-    console.log(this.currentRoute);
     this.route.params.subscribe(params => {
     this.refid=params.refid;
     this.userId=params.userId;
     this.Uname=params.Uname;
     this.Type=params.type;
-    console.log(params);
     });
   }
 
@@ -60,8 +58,6 @@ export class redirectComponent {
 
   agInit(params) {
     this.data = params.data;
-    console.log(this.data)
     this.parentComponent = params.context.componentParent.constructor.name;
-   console.log(this.parentComponent)
   }
 }

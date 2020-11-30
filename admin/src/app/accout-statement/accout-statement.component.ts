@@ -68,7 +68,7 @@ export class AccoutStatementComponent implements OnInit {
     };
     this.gridOptions.columnDefs = [
       {headerName: 'Date', field: 'date',sort: "desc",resizable: true, sortable: true, minWidth: 100,width:150,suppressSizeToFit: true,lockPosition:true,suppressNavigable:true},
-      {headerName: 'Type', field: 'type', sortable: true,resizable: true, minWidth: 100,width:150,suppressSizeToFit: true,},
+      {headerName: 'Type', field: 'type', sortable: true,resizable: true, minWidth: 100,width:150,suppressSizeToFit: true,valueFormatter: stringdisplay},
       {headerName: 'Description', field: 'description', sortable: true,resizable: true, minWidth: 250,width:600,suppressSizeToFit: true,cellRendererFramework: redirectComponent,},
       {headerName: 'Dr', field: 'debit',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: debitFormatter,cellClass: function(params) { return (params.data.dr >= 0 ? 'profit':'loss')}},
       {headerName: 'Cr', field: 'credit',resizable: true, sortable: true, minWidth: 100,width:100,suppressSizeToFit: true,valueFormatter: creditFormatter,cellClass: function(params) { return (params.data.cr >= 0 ? 'profit':'loss')}},
@@ -80,6 +80,14 @@ export class AccoutStatementComponent implements OnInit {
         var twodecimalvalue=parseFloat(params.value);
         var ans= twodecimalvalue.toLocaleString('en-IN',{ currency: "INR",minimumFractionDigits:2,maximumFractionDigits:2 });
         return ans;
+    }
+
+    function stringdisplay(params){
+      if(params.value==null){
+        return "Effective";
+      }else{
+        return params.value;
+      }
     }
 
     function debitFormatter(params){
@@ -137,7 +145,6 @@ export class AccoutStatementComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(param => {
-      console.log(param)
       if(param.userId!=undefined){
         this.userId=param.userId;
         this.Uname=param.Uname;
@@ -178,7 +185,7 @@ this.dropdownSettings = {
 
   accountstatement(){
 
-    console.log(this.selectfromdate,this.selecttodate);
+    // console.log(this.selectfromdate,this.selecttodate);
      let accdates={
        "fromdate":this.getFromDateAndTime(),
        "todate":this.getToDateAndTime()
@@ -189,18 +196,18 @@ this.dropdownSettings = {
   }
 
   fromDateChange(date) {
-    console.log(date);
+    // console.log(date);
   }
   toDateChange(date) {
-    console.log(date);
+    // console.log(date);
   }
 
   fromTimeChange(time) {
-    console.log(time);
+    // console.log(time);
   }
 
   toTimeChange(time) {
-    console.log(time);
+    // console.log(time);
   }
 
   getFromDateAndTime() {
@@ -224,7 +231,7 @@ this.dropdownSettings = {
     onItemSelect(item:any){
         this.selectfromdate=this.convertfrom(this.bsRangeValue[0]);
         this.selecttodate=this.convertto(this.bsRangeValue[1]);
-        console.log(this.selectfromdate,this.selecttodate);
+        // console.log(this.selectfromdate,this.selecttodate);
         let accdates={
           "fromdate":this.selectfromdate,
           "todate":this.selecttodate
@@ -236,7 +243,7 @@ this.dropdownSettings = {
     OnItemDeSelect(item:any){
         this.selectfromdate=this.convertfrom(this.bsRangeValue[0]);
         this.selecttodate=this.convertto(this.bsRangeValue[1]);
-        console.log(this.selectfromdate,this.selecttodate);
+        // console.log(this.selectfromdate,this.selecttodate);
         let accdates={
           "fromdate":this.selectfromdate,
           "todate":this.selecttodate
@@ -246,10 +253,10 @@ this.dropdownSettings = {
         })
     }
     onSelectAll(items: any){
-        console.log(items);
+        // console.log(items);
     }
     onDeSelectAll(items: any){
-        console.log(items);
+        // console.log(items);
     }
 
 }
