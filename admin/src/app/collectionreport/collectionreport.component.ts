@@ -39,6 +39,8 @@ export class CollectionreportComponent implements OnInit {
   params: any;
   filteredData=[];
   filteredData1=[];
+  effectiveAmount: any;
+  effectiveSharing: any;
   constructor(
     private usermanagement: UsermanagementService,
     private route: ActivatedRoute,
@@ -633,6 +635,8 @@ export class ESDialog {
   Amount:any;
   totalBalance:any;
   disabled:boolean=false;
+  effectiveAmount: any;
+  effectiveSharing: any;
   constructor(
     public dialogRef: MatDialogRef<ESDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder,private limits: LimitsService,public notification: NotificationService,) {
@@ -642,17 +646,40 @@ export class ESDialog {
       });
       this.formControlchanged();
       this.totalBalance=this.data.amount;
+      this.effectivebalance(this.data.amount)
     }
     
+    effectivebalance(amt){
+      if(amt==null) {amt=0;} 
+      var data={
+        "amount": amt,
+        "receiverUn":this.data.receiverUn,
+        "remarks":(this.data.type==1)? this.data.receiverUn+" Paid Cash To "+this.data.senderUn : this.data.senderUn+" Recieved Cash From "+this.data.receiverUn,
+        "senderUn":this.data.senderUn
+      };
+      this.limits.EffectiveValue(data).subscribe(resp=>{
+        // console.log(resp)
+        this.effectiveAmount=resp.effectiveAmount
+        this.effectiveSharing=resp.effectiveSharing
+      })
+    }
+
     formControlchanged() {
       this.ESForm.get("Amount").valueChanges.subscribe((mode: any) => {
           if (mode > this.data.amount){
             if(this.data.amount>=0){
               this.ESForm.controls["Amount"].setValue(this.data.amount);
               this.totalBalance=this.data.amount;
+              this.effectivebalance(this.data.amount)
             }
         }else{
+          if(mode==null){
+            this.totalBalance = parseFloat(this.data.amount);
+            this.effectivebalance(null)
+          }else{
             this.totalBalance = parseFloat(this.data.amount) - mode;
+            this.effectivebalance(mode)
+          }
         }
       });
     }

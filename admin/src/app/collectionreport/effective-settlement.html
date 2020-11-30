@@ -5,6 +5,8 @@
     <p *ngIf="data.userType!=6">Enter {{data.type === 1? 'Payment':'Receive'}} cash amount:</p>
     <input type="number" matInput formControlName="Amount" class="form-control" min="0"/>
     <div class="mt-1"><textarea name="remark" formControlName="Remark" cols="30" rows="5" class="form-control" placeholder="Add remark" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">{{data.remarks}}</textarea></div>
+    <div class="mt-1" *ngIf="data.userType!=6"><span>Effective Balance</span>: {{effectiveAmount | number : '1.2-2'}}</div>
+    <div class="mt-1" *ngIf="data.userType!=6"><span>Effective Sharing</span>: {{effectiveSharing}} %</div>
     <div class="mt-1"><span>Total Balance</span>: {{totalBalance | number : '1.2-2'}}</div>
   </form>
 </div>

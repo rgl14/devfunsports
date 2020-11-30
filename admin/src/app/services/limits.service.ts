@@ -127,6 +127,10 @@ export class LimitsService {
     return this.http.post(`${this.BASEURL}/Funds/SettleAgentClientCash2`, data);
   }
 
+  //Effective value Calculate for Company to Agent Settlement
+  EffectiveValue(data): Observable<any> {
+    return this.http.post(`${this.BASEURL}/Funds/EffectiveValue`, data);
+  }
 
 
   UpdateFixLimits(USERID,LIMIT): Observable<any> {
