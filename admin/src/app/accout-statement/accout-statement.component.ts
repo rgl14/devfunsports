@@ -84,7 +84,7 @@ export class AccoutStatementComponent implements OnInit {
 
     function stringdisplay(params){
       if(params.value==null){
-        return "Effective";
+        return "Settlement";
       }else{
         return params.value;
       }
