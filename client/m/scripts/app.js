@@ -7657,7 +7657,7 @@ app.controller("statementController", function (
     }).then(
       function mySuccess(response) {
         // console.log(response);
-        $scope.accountdataList = response.data.data;
+        $scope.accountdataList = response.data.data.reverse();
         $scope.loading = false;
         $("#loading").css("display", "none");
       },
@@ -7844,7 +7844,7 @@ app.controller("bal_overviewController", function (
     }).then(
       function mySuccess(response) {
         // console.log(response);
-        $scope.accountdataList = response.data.data;
+        $scope.accountdataList = response.data.data.reverse();
         $scope.loading = false;
         $("#loading").css("display", "none");
       },
