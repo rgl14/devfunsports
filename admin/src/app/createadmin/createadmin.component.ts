@@ -53,7 +53,7 @@ export class CreateadminComponent implements OnInit {
         fixLimit: [0, Validators.required],
         expoLimit: ["", Validators.required],
         CompanyShare: [{ value: "", disabled: true }, Validators.required],
-        myShare: ["", Validators.required],
+        myShare: [{ value: "", disabled: this.isdisabled }, Validators.required],
         MComm: ["2", Validators.required],
         SComm: ["0", Validators.required],
         MloseComm: ["0", Validators.required],

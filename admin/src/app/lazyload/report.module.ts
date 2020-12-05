@@ -146,7 +146,7 @@ const routes: Routes = [
       {
         path: "collectionreport",
         component: ChildrenContainerComponent,
-        data: { breadcrumb: "Chip Summary" },
+        data: { breadcrumb: "Collection Report" },
         children: [
           {
             path: "",
@@ -157,7 +157,7 @@ const routes: Routes = [
       {
         path: "collectionreport/:userId/:Uname/:userType",
         component: ChildrenContainerComponent,
-        data: { breadcrumb: "Chip Summary" },
+        data: { breadcrumb: "Collection Report" },
         children: [
           {
             path: "",

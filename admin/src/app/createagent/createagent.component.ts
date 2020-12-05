@@ -52,7 +52,7 @@ export class CreateagentComponent implements OnInit {
         fixLimit: [0, Validators.required],
         expoLimit: ["", Validators.required],
         Agentshare: [{ value: "", disabled: true }, Validators.required],
-        myShare: ["", Validators.required],
+        myShare: [{ value: "", disabled: this.isdisabled }, Validators.required],
         MComm: ["2", Validators.required],
         SComm: ["0", Validators.required],
         MloseComm: ["0", Validators.required],
