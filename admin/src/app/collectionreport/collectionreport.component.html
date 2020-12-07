@@ -130,7 +130,7 @@
               </ng-container>
             </tbody>
             <tfoot>
-              <tr *ngIf="Commission > 0">
+              <!-- <tr *ngIf="Commission > 0">
                 <td>Commission</td>
                 <td
                   [ngClass]="Commission >= 0 ? 'text-success' : 'text-danger'"
@@ -138,18 +138,19 @@
                   {{ Commission | number: "1.2-2" }}
                 </td>
                 <td></td>
+              </tr> -->
+              
+              <tr *ngIf="Cash <= 0">
+                <td>Cash</td>
+                <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
+                  {{ Cash | number: "1.2-2" }}
+                </td>
+                <td></td>
               </tr>
               <tr *ngIf="Own > 0">
                 <td>Own</td>
                 <td [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
                   {{ Own | number: "1.2-2" }}
-                </td>
-                <td></td>
-              </tr>
-              <tr *ngIf="Cash > 0">
-                <td>Cash</td>
-                <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
-                  {{ Cash | number: "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
@@ -172,11 +173,8 @@
 
               <tr>
                 <th>Total</th>
-                <!-- <th [ngClass]="totalPlus >= 0 ? 'text-success' : 'text-danger'">
+                <th [ngClass]="totalPlus >= 0 ? 'text-success' : 'text-danger'">
                   {{ totalPlus | number: "1.2-2" }}
-                </th> -->
-                <th class="text-danger">
-                  {{ (totalPlus*-1) | number: "1.2-2" }}
                 </th>
                 <td></td>
               </tr>
@@ -302,6 +300,13 @@
               </ng-container>
             </tbody>
             <tfoot>
+              <tr *ngIf="Cash > 0">
+                <td>Cash</td>
+                <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
+                  {{ Cash | number: "1.2-2" }}
+                </td>
+                <td></td>
+              </tr>
               <tr *ngIf="Own <= 0">
                 <td>Own</td>
                 <td [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
@@ -309,17 +314,19 @@
                 </td>
                 <td></td>
               </tr>
-              <tr *ngIf="Cash <= 0">
-                <td>Cash</td>
-                <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
-                  {{ Cash | number: "1.2-2" }}
-                </td>
-                <td></td>
-              </tr>
               <tr *ngIf="UrluserType != 1 && parentPnl <= 0">
                 <td>{{ parentName }}</td>
                 <td [ngClass]="parentPnl >= 0 ? 'text-success' : 'text-danger'">
                   {{ parentPnl | number: "1.2-2" }}
+                </td>
+                <td></td>
+              </tr>
+              <tr *ngIf="Commission > 0">
+                <td>Commission</td>
+                <td
+                  [ngClass]="Commission >= 0 ? 'text-success' : 'text-danger'"
+                >
+                  {{ Commission | number: "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
@@ -334,15 +341,10 @@
               </tr> -->
               <tr>
                 <th>Total</th>
-                <!-- <th
+                <th
                   [ngClass]="totalMinus >= 0 ? 'text-success' : 'text-danger'"
                 >
                   {{ totalMinus | number: "1.2-2" }}
-                </th> -->
-                <th
-                  class="text-success"
-                >
-                  {{ (totalMinus*-1) | number: "1.2-2" }}
                 </th>
                 <th></th>
               </tr>

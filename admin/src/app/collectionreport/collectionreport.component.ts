@@ -104,7 +104,7 @@ searchData1(searchValue: any) {
     this.getreports.GetAdmChipsSummary().subscribe((resp) => {
       console.log(resp);
       this.Own=resp.own;
-      this.Cash=resp.cash;
+      this.Cash=parseFloat(resp.cash)*-1;
       this.Commission=resp.comm;
       this.PlusAcc = resp.userInPlus;
       this.filteredData=this.PlusAcc;
@@ -113,22 +113,24 @@ searchData1(searchValue: any) {
       this.totalPlus = 0.0;
       this.totalMinus = 0.0;
       _.forEach(this.PlusAcc, (itemdena, index) => {
-        this.totalPlus = this.totalPlus + parseFloat(itemdena.balance);
+        var minusbal=parseFloat(itemdena.balance)*-1;
+        this.totalPlus = this.totalPlus + minusbal;
       });
       _.forEach(this.MinusAcc, (itemlena, index) => {
-        this.totalMinus = this.totalMinus + parseFloat(itemlena.balance);
+        var plusbal=parseFloat(itemlena.balance)*-1;
+        this.totalMinus = this.totalMinus + plusbal;
       });
       if(this.Own>0){
         this.totalPlus = this.totalPlus + parseFloat(this.Own);
       }else{
         this.totalMinus = this.totalMinus + parseFloat(this.Own);
       }
-      if(this.Cash>0){
+      if(this.Cash<0){
         this.totalPlus = this.totalPlus + parseFloat(this.Cash);
       }else{
         this.totalMinus = this.totalMinus + parseFloat(this.Cash);
       }
-      if(this.Commission>0){
+      if(this.Commission<0){
         this.totalPlus = this.totalPlus + parseFloat(this.Commission);
       }else{
         this.totalMinus = this.totalMinus + parseFloat(this.Commission);
@@ -139,11 +141,11 @@ searchData1(searchValue: any) {
     this.getreports.GetAdmChipsSummary2(ID).subscribe((resp) => {
       // console.log(resp);
       this.Own=resp.own;
-      this.Cash=resp.cash;
+      this.Cash=parseFloat(resp.cash)*-1;
       this.Commission=resp.comm;
       this.parentComm=resp.parentComm;
       this.parentName=resp.parentName;
-      this.parentPnl=resp.parentPnl;
+      this.parentPnl=parseFloat(resp.parentPnl)*-1;
       this.PlusAcc = resp.userInPlus;
       this.filteredData=this.PlusAcc;
       this.MinusAcc = resp.userInMinus;
@@ -152,22 +154,24 @@ searchData1(searchValue: any) {
       this.totalMinus = 0.0;
       
       _.forEach(this.PlusAcc, (itemdena, index) => {
-        this.totalPlus = this.totalPlus + parseFloat(itemdena.balance);
+        var minusbal=parseFloat(itemdena.balance)*-1;
+        this.totalPlus = this.totalPlus + minusbal;
       });
       _.forEach(this.MinusAcc, (itemlena, index) => {
-        this.totalMinus = this.totalMinus + parseFloat(itemlena.balance);
+        var plusbal=parseFloat(itemlena.balance)*-1;
+        this.totalMinus = this.totalMinus + plusbal;
       });
       if(this.Own>0){
         this.totalPlus = this.totalPlus + parseFloat(this.Own);
       }else{
         this.totalMinus = this.totalMinus + parseFloat(this.Own);
       }
-      if(this.Cash>0){
+      if(this.Cash<0){
         this.totalPlus = this.totalPlus + parseFloat(this.Cash);
       }else{
         this.totalMinus = this.totalMinus + parseFloat(this.Cash);
       }
-      if(this.Commission>0){
+      if(this.Commission<0){
         this.totalPlus = this.totalPlus + parseFloat(this.Commission);
       }else{
         this.totalMinus = this.totalMinus + parseFloat(this.Commission);
