@@ -132,45 +132,31 @@
             <tfoot>
               <tr *ngIf="Commission > 0">
                 <td>Commission</td>
-                <!-- <td
+                <td
                   [ngClass]="Commission >= 0 ? 'text-success' : 'text-danger'"
                 >
                   {{ Commission | number: "1.2-2" }}
-                </td> -->
-                <td
-                  class="text-danger"
-                >
-                  {{ (Commission*-1) | number: "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
               <tr *ngIf="Own > 0">
                 <td>Own</td>
-                <!-- <td [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
+                <td [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
                   {{ Own | number: "1.2-2" }}
-                </td> -->
-                <td class="text-danger">
-                  {{ (Own*-1) | number: "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
               <tr *ngIf="Cash > 0">
                 <td>Cash</td>
-                <!-- <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
+                <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
                   {{ Cash | number: "1.2-2" }}
-                </td> -->
-                <td class="text-danger">
-                  {{ (Cash*-1) | number: "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
               <tr *ngIf="UrluserType != 1 && parentPnl > 0">
                 <td>{{ parentName }}</td>
-                <!-- <td [ngClass]="parentPnl >= 0 ? 'text-success' : 'text-danger'">
+                <td [ngClass]="parentPnl >= 0 ? 'text-success' : 'text-danger'">
                   {{ parentPnl | number: "1.2-2" }}
-                </td> -->
-                <td class="text-danger">
-                  {{ (parentPnl*-1) | number: "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
@@ -318,31 +304,22 @@
             <tfoot>
               <tr *ngIf="Own <= 0">
                 <td>Own</td>
-                <!-- <td [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
+                <td [ngClass]="Own >= 0 ? 'text-success' : 'text-danger'">
                   {{ Own | number: "1.2-2" }}
-                </td> -->
-                <td class="text-success">
-                  {{ (Own*-1) | number: "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
               <tr *ngIf="Cash <= 0">
                 <td>Cash</td>
-                <!-- <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
+                <td [ngClass]="Cash >= 0 ? 'text-success' : 'text-danger'">
                   {{ Cash | number: "1.2-2" }}
-                </td> -->
-                <td class="text-success">
-                  {{ (Cash*-1) | number: "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
               <tr *ngIf="UrluserType != 1 && parentPnl <= 0">
                 <td>{{ parentName }}</td>
-                <!-- <td [ngClass]="parentPnl >= 0 ? 'text-success' : 'text-danger'">
+                <td [ngClass]="parentPnl >= 0 ? 'text-success' : 'text-danger'">
                   {{ parentPnl | number: "1.2-2" }}
-                </td> -->
-                <td class="text-success">
-                  {{ (parentPnl*-1) | number: "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
