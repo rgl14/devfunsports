@@ -172,8 +172,11 @@
 
               <tr>
                 <th>Total</th>
-                <th [ngClass]="totalPlus >= 0 ? 'text-success' : 'text-danger'">
+                <!-- <th [ngClass]="totalPlus >= 0 ? 'text-success' : 'text-danger'">
                   {{ totalPlus | number: "1.2-2" }}
+                </th> -->
+                <th class="text-danger">
+                  {{ (totalPlus*-1) | number: "1.2-2" }}
                 </th>
                 <td></td>
               </tr>
@@ -331,10 +334,15 @@
               </tr> -->
               <tr>
                 <th>Total</th>
-                <th
+                <!-- <th
                   [ngClass]="totalMinus >= 0 ? 'text-success' : 'text-danger'"
                 >
                   {{ totalMinus | number: "1.2-2" }}
+                </th> -->
+                <th
+                  class="text-success"
+                >
+                  {{ (totalMinus*-1) | number: "1.2-2" }}
                 </th>
                 <th></th>
               </tr>
