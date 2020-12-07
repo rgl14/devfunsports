@@ -16,7 +16,7 @@
         <div>
           <div class="ibox-title">
             <!-- <h5>PAYMENT RECEIVING FROM (Lena He)</h5> -->
-            <h5>PLUS ACCOUNTS (Dena He)</h5>
+            <h5>Pay To (Dena)</h5>
           </div>
         </div>
         <div class="ibox-content table-responsive" *ngIf="PlusAcc">
@@ -56,12 +56,17 @@
                       >{{ lena.nameUsername }}</a
                     >
                   </td>
-                  <td
+                  <!-- <td
                     [ngClass]="
                       lena.balance >= 0 ? 'text-success' : 'text-danger'
                     "
                   >
                     {{ lena.balance | number: "1.2-2" }}
+                  </td> -->
+                  <td
+                    class="text-danger"
+                  >
+                    {{ (lena.balance*-1) | number: "1.2-2" }}
                   </td>
                   <td>
                     <button
@@ -181,7 +186,7 @@
     <div class="col-lg-6">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>MINUS ACCOUNTS (Lena He)</h5>
+          <h5>Recieve From (Lena)</h5>
         </div>
         <div class="ibox-content table-responsive" *ngIf="MinusAcc">
          <mat-form-field class="search-form-field" floatLabel="never">
@@ -220,12 +225,17 @@
                       >{{ dena.nameUsername }}</a
                     >
                   </td>
-                  <td
+                  <!-- <td
                     [ngClass]="
                       dena.balance >= 0 ? 'text-success' : 'text-danger'
                     "
                   >
                     {{ dena.balance | number: "1.2-2" }}
+                  </td> -->
+                  <td
+                    class="text-success"
+                  >
+                    {{ (dena.balance*-1) | number: "1.2-2" }}
                   </td>
                   <td>
                     <button
