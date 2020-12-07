@@ -155,7 +155,7 @@
                 </td>
                 <td></td>
               </tr>
-              <tr *ngIf="AccountInfo.userType==1 && parentComm > 0">
+              <!-- <tr *ngIf="AccountInfo.userType==1 && parentComm > 0">
                 <td>Parent Commission</td>
                 <td
                   [ngClass]="parentComm >= 0 ? 'text-success' : 'text-danger'"
@@ -163,7 +163,7 @@
                   {{ parentComm | number: "1.2-2" }}
                 </td>
                 <td></td>
-              </tr>
+              </tr> -->
 
               <tr>
                 <th>Total</th>
@@ -310,7 +310,7 @@
                 </td>
                 <td></td>
               </tr>
-              <tr *ngIf="AccountInfo.userType==1 && parentComm <= 0">
+              <!-- <tr *ngIf="AccountInfo.userType==1 && parentComm <= 0">
                 <td>Parent Commission</td>
                 <td
                   [ngClass]="parentComm >= 0 ? 'text-success' : 'text-danger'"
@@ -318,7 +318,7 @@
                   {{ parentComm | number: "1.2-2" }}
                 </td>
                 <td></td>
-              </tr>
+              </tr> -->
               <tr>
                 <th>Total</th>
                 <th
