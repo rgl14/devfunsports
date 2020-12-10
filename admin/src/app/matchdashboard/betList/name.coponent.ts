@@ -16,7 +16,7 @@ export class name implements OnInit {
 
   agInit(params) {
     this.data = params.data;
-    console.log(this.data)
+    // console.log(this.data)
   }
 
   
