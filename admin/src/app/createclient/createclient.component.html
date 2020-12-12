@@ -22,6 +22,7 @@
                   name="user_name"
                   placeholder="User Name"
                   type="text"
+                  onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57))"
                   (keyup)="ValidateUsername()"
                   [ngClass]="{
                     'is-invalid': submitted && f.username.errors,
