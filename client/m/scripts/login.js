@@ -9,7 +9,8 @@ if (
 } else {
   context = "web";
 }
-var ApiUrl = "http://159.8.246.2/Client/Client.svc";
+var ApiUrl = "http://www.funsports.win/Client/Client.svc";
+// var ApiUrl = "http://159.8.246.2/Client/Client.svc"
 // let Hostname = window.location.hostname;
 // if (Hostname.indexOf('usd') > -1) {
 //     ApiUrl = "http://" +Hostname + "/Client/Client.svc";

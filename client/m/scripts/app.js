@@ -19,16 +19,10 @@ setTimeout("preventBack()", 0);
 window.onunload = function () {
   null;
 };
-var ApiUrl = "http://159.8.246.2/Client/Client.svc";
-var fancyHubAddress = "http://159.8.246.2:21111/";
+var ApiUrl = "http://www.funsports.win/Client/Client.svc";
+// var ApiUrl = "http://159.8.246.2/Client/Client.svc"
+var fancyHubAddress = "http://159.8.244.61:21111";
 var currency = "INR";
-
-// let Hostname = window.location.hostname;
-// if (Hostname.indexOf('usd') > -1) {
-//     ApiUrl = "http://" +Hostname + "/Client/Client.svc";
-// } else if (Hostname.indexOf('hkd') > -1) {
-//     ApiUrl = "http://" + Hostname + "/Client/Client.svc";
-// }
 
 var app = angular.module("sportApp", ["ngCookies", "ngRoute", "ngSanitize"]);
 
@@ -145,7 +139,7 @@ app.run(function ($rootScope, $location, $interval) {
     lastDigestRun = Date.now();
   });
   $rootScope.$on("$locationChangeStart", function (event, next, current) {
-    if (token != undefined || token != null) {
+    if ($rootScope.token != undefined || $rootScope.token != null) {
       history.pushState(null, null, null);
 
       window.addEventListener("popstate", function (event) {
@@ -889,12 +883,12 @@ app.controller("homeController", function (
   $rootScope.currency = currency;
 
   if ($rootScope.appType == 2) {
-    ApiUrl = "http://159.8.246.2/Client/Client.svc";
+    ApiUrl = "http://www.funsports.win/ClientU/Client.svc";
     fancyHubAddress = "http://159.8.244.61:22111";
     $rootScope.currency = "USD";
   } else if ($rootScope.appType == 3) {
-    ApiUrl = "http://159.8.246.2/Client/Client.svc";
-    fancyHubAddress = "http://159.8.244.61:21111";
+    ApiUrl = "http://www.funsports.win/ClientH/Client.svc";
+    fancyHubAddress = "http://159.8.244.61:23111";
     $rootScope.currency = "HKD";
   }
 
@@ -916,6 +910,10 @@ app.controller("homeController", function (
     // $scope.getUserDescription();
   }
 
+  $scope.$on("$destroy", function () {
+    $rootScope.clearCookies();
+  });
+
   $rootScope.info =
     "os:" +
     jscd.os +
@@ -927,6 +925,56 @@ app.controller("homeController", function (
     jscd.browserMajorVersion;
 
   // $rootScope.fType=2;
+
+  $scope.ChangePwd = function () {
+    if ($scope.password == undefined || $scope.password == "") {
+      return false;
+    }
+    if ($scope.newPassword == undefined || $scope.newPassword == "") {
+      return false;
+    }
+    if ($scope.password != $scope.newPassword) {
+      return false;
+    }
+    if ($scope.oldPassword == undefined || $scope.oldPassword == "") {
+      return false;
+    }
+    $scope.changePassData = {
+      changeBy: $scope.userData.uName,
+      context: context,
+      newPwd: $scope.password,
+      oldPwd: $scope.oldPassword,
+    };
+    // console.log(JSON.stringify($scope.changePassData))
+    $http({
+      url: ApiUrl + "/ChangePwd",
+      method: "POST",
+      data: JSON.stringify($scope.changePassData),
+      headers: {
+        Token: token,
+      },
+    }).then(
+      function mySuccess(response) {
+        toastr.success(response.data.result);
+        if (response.data.status == "Success") {
+          $rootScope.result = response.data;
+          $rootScope.changePassView = false;
+          // toastr.success(response.data.result);
+        } else {
+          $rootScope.result = response.data;
+        }
+
+        $timeout(function () {
+          $rootScope.result = null;
+        }, 5000);
+      },
+      function myError(error) {
+        if (error.status == 401) {
+          $rootScope.clearCookies();
+        }
+      }
+    );
+  };
 
   $scope.userDescriptionCalls = true;
   $scope.getUserDescription = function () {
@@ -7588,6 +7636,7 @@ app.controller("profileController", function (
         if (response.data.status == "Success") {
           $rootScope.result = response.data;
           $rootScope.changePassView = false;
+          toastr.success(response.data.result);
         } else {
           $rootScope.result = response.data;
         }
