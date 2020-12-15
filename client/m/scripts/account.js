@@ -10,7 +10,8 @@ if (
 } else {
   context = "Web";
 }
-var ApiUrl = "http://159.8.246.2/Client/Client.svc";
+var ApiUrl = "http://www.funsports.win/Client/Client.svc";
+// var ApiUrl = "http://159.8.246.2/Client/Client.svc"
 var currency = "INR";
 function preventBack() { window.history.forward(); }  
   setTimeout("preventBack()", 0);  
@@ -113,10 +114,10 @@ app.controller("profileController", function (
   $rootScope.currency = currency;
 
   if ($rootScope.appType == 2) {
-    ApiUrl = "http://159.8.246.2/Client/Client.svc";
+    ApiUrl = "http://www.funsports.win/ClientU/Client.svc";
     $rootScope.currency = "USD";
   } else if ($rootScope.appType == 3) {
-    ApiUrl = "http://159.8.246.2/Client/Client.svc";
+    ApiUrl = "http://www.funsports.win/ClientU/Client.svc";
     $rootScope.currency = "HKD";
   }
 

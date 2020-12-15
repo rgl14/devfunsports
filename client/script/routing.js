@@ -276,16 +276,17 @@ var appType = $.cookie("appType");
 if (!appType) {
   window.location.href = "login.html";
 }
-var ApiUrl = "http://159.8.246.2/Client/Client.svc";
+var ApiUrl = "http://www.funsports.win/Client/Client.svc";
+// var ApiUrl = "http://159.8.246.2/Client/Client.svc";
 var fancyHubAddress = "http://159.8.244.61:21111";
 var currency = "INR";
 if (appType == 2) {
-  ApiUrl = "http://159.8.246.2/Client/Client.svc";
+  ApiUrl = "http://www.funsports.win/ClientU/Client.svc";
   fancyHubAddress = "http://159.8.244.61:22111";
   currency = "USD";
 } else if (appType == 3) {
-  ApiUrl = "http://159.8.246.2/Client/Client.svc";
-  fancyHubAddress = "http://159.8.244.61:21111";
+  ApiUrl = "http://www.funsports.win/ClientH/Client.svc";
+  fancyHubAddress = "http://159.8.244.61:23111";
   currency = "HKD";
 }
 // let Hostname = window.location.hostname;
@@ -4826,7 +4827,7 @@ app.controller("homeController", function (
     $scope.stakeList = [];
     $http({
       method: "GET",
-      url: " http://159.8.246.2/Client/Client.svc/Settings/GetBetStakeSetting",
+      url: ApiUrl + "/Settings/GetBetStakeSetting",
       headers: {
         Token: authtoken,
       },
