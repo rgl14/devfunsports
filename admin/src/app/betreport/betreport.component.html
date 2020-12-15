@@ -1,0 +1,153 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>All Bet Report</h5>
+          </div>
+          <div class="ibox-content-table table-responsive pageData">
+              <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium"style="color:white" 
+                type="square-jelly-box" [fullScreen]="true">Loading ...</ngx-spinner>
+              <form [formGroup]="formData" (ngSubmit)="Submit()">
+                <div class="row">
+                  <div class="col-md-3">
+                    <mat-radio-group  formControlName="betType">
+                      <mat-radio-button value="0">All</mat-radio-button>
+                      <mat-radio-button value="1" checked="true">Settled</mat-radio-button>
+                      <mat-radio-button value="2">Un-Settled</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <div class="col-md-3">
+                    <ng-multiselect-dropdown 
+                      name="sports"
+                      [placeholder]="'Select Sports'"
+                      [settings]="dropDownSettings"
+                      formControlName="sportId"
+                      [data]='sportList'
+                      (onSelect)="onSportSelect($event)"
+                      (onSelectAll)="onSportSelectAll($event)"
+                      (onDeSelect)="onSportDeSelect($event)"
+                      (onDeSelectAll)="onSportDeSelectAll($event)"></ng-multiselect-dropdown>
+                  </div>
+                  
+                  <div class="col-md-2">
+                    <mat-form-field class="dateField">
+                      <input readonly (click)="fromPicker.open()" (dateChange)="UpdateMinDates($event)" autocomplete="off" 
+                        formControlName="startDate" matInput [min]="minDate" [max]="maxStartDate" 
+                        [matDatepicker]="fromPicker" placeholder="Start Date">
+                      <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                      <mat-datepicker #fromPicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+              
+                  <div class="col-md-2">
+                    <mat-form-field class="dateField">
+                      <input readonly (click)="toPicker.open()" (dateChange)="UpdateMaxDates($event)" autocomplete="off" 
+                        formControlName="endDate" matInput [min]="minEndDate" [max]="maxDate" 
+                        [matDatepicker]="toPicker" placeholder="End Date">
+                      <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                      <mat-datepicker #toPicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3">
+                    <span class="pageError" *ngIf="form?.sportId?.errors?.required">
+                      Sports is Required
+                    </span>
+                  </div>
+                  <div class="col-md-6"></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <ng-multiselect-dropdown 
+                      name="events"
+                      [placeholder]="'Select Events'"
+                      [settings]="dropDownSettings"
+                      formControlName="eventId"
+                      [data]='eventList' 
+                      (onSelect)="onEventSelect($event)"
+                      (onSelectAll)="onAllEventSelect($event)"
+                      (onDeSelect)="onEventDeSelect($event)"
+                      (onDeSelectAll)="onEventDeSelectAll($event)"></ng-multiselect-dropdown>
+                  </div>
+                  <div class="col-md-3">
+                    <ng-multiselect-dropdown 
+                      name="markets"
+                      [placeholder]="'Select Markets'"
+                      [settings]="dropDownSettings"
+                      formControlName="marketId"
+                      [data]='marketList'></ng-multiselect-dropdown>
+                  </div>
+                  <div class="col-md-2">
+                    <mat-form-field class="example-full-width">
+                      <input type="text" placeholder="Pick one" matInput formControlName="user" [matAutocomplete]="auto">
+                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of (filteredUser | async)" [value]="option.userName">
+                          {{option.userName}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <button mat-raised-button [disabled]="formData.invalid" color="primary" type="submit">Sumbit</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <span class="pageError" *ngIf="eventBinded && form?.eventId?.errors?.required">
+                      Event is Required
+                    </span>
+                  </div>
+                  <div class="col-md-3">
+                    <span class="pageError" *ngIf="marketBinded && form?.marketId?.errors?.required">
+                      Market is Required
+                    </span>
+                  </div>
+                  <div class="col-md-2">
+                    <span class="pageError" *ngIf="form?.user?.errors?.required">
+                      User is Required
+                    </span>
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
+                
+                <div class="row gridDiv mat-elevation-z8">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="excelButtonDiv">
+                          <button
+                            matNativeControl
+                            class="btn btn-outline-success waves-effect waves-light"
+                            type="button"
+                            excelDwd>
+                            <span class="mr-1"><i class="fa fa-file-excel-o"></i></span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <ag-grid-angular 
+                          style="width: 100%; height: 300px;"
+                          class="ag-theme-balham"
+                          [gridOptions]="gridOption"
+                          [rowData]="rowData"
+                          [overlayLoadingTemplate]="gridLoadingOverlay"
+                          [overlayNoRowsTemplate]="noRowTemplate"
+                          [animateRows]="true"
+                          [pagination]="true">
+                        </ag-grid-angular>
+                      </div>
+                    </div>
+                  </div>
+                </div>               
+              </form>          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

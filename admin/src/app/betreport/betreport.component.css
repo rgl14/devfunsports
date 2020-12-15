@@ -1,0 +1,26 @@
+.pageError{
+    color: red;
+    font-size: 11px;
+    float: right;
+    margin-top: -19px;
+    margin-bottom: 20px;
+}
+
+.dateField{
+    width: 110px !important;
+}
+
+.pageData{
+    padding-top: 21px;
+}
+
+.gridDiv{
+    margin-top: 11px;
+    padding-top: 20px;
+}
+
+.excelButtonDiv{
+    float: right; 
+    padding: 0px 10px 0px 0px;
+    margin-bottom: 11px;
+}
