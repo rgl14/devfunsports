@@ -125,7 +125,7 @@ import { ESDialog } from './collectionreport/collectionreport.component';
     ShowPwdDialog,
     AddadminFundsComponent,
     PartialPaymentDialog,
-    ESDialog
+    ESDialog,
   ],
   imports: [
     BrowserModule,

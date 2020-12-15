@@ -233,10 +233,21 @@
     <div class="col-lg-4">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Maximum My Share</h5>
+          <h5>Your Position</h5>
         </div>
         <div class="ibox-content">
-          <h1 class="no-margins">{{ userinfo.maxMyShare }}%</h1>
+          <div>
+            <span class="dashboardSpanHeading">Yesterday's PnL : </span>
+            <span [ngClass]="userData.totalProfitNLoss >= 0 ? 'profit' : 'loss'">{{ userData.totalProfitNLoss | number: "1.2-2" }}</span>
+          </div>
+          <div>
+            <span class="dashboardSpanHeading">Net Settlement Amount : </span>
+            <span [ngClass]="userData.netSettlementAmount>=0 ? 'text-success' :'text-danger'">{{ userData.netSettlementAmount | number:"1.2-2" }}</span>
+          </div>
+          <div>
+            <span class="dashboardSpanHeading">Total Current Exposure : </span>
+            <span [ngClass]="userData.totalCurrentExpo>=0 ? 'text-success' : 'text-danger'">{{ userData.totalCurrentExpo | number:"1.2-2" }}</span>
+          </div>
         </div>
       </div>
     </div>

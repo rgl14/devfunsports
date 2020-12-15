@@ -5,13 +5,14 @@
 export const environment = {
   production: false,
   baseSite: {
-    // url: "http://159.8.246.2/Admin/Admin.svc",
+    url: "http://159.8.246.2/Admin/Admin.svc",
     currency: "INR",
-    url: 'http://www.funsports.win/Main/Admin.svc',
+    //url: 'http://www.funsports.win/Main/Admin.svc',
     bookHub: "http://159.8.244.61:11112",
     // fancyHub: "http://159.8.246.2:21112",
     fancyHub: "http://159.8.244.61:21111",
     analyisHub: "http://159.8.244.61:11334",
+    testingUrl: "http://localhost:1204/Admin.svc",
   },
   // let baseSite = {
 //   url: 'http://www.funsports.win/Main/Admin.svc',

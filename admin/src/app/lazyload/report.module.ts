@@ -2,11 +2,14 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCheckboxModule,
+  MatDatepickerModule,
   MatFormFieldModule,
   MatInputModule,
+  MatNativeDateModule,
   MatRadioModule,
 } from "@angular/material";
 import { Route, RouterModule, Routes } from "@angular/router";
@@ -34,6 +37,22 @@ import {MDLwiseDLpnlComponent} from '../accout-statement/mdlwise-dlpnl/mdlwise-d
 import {DlwiseClientpnlComponent} from '../accout-statement/dlwise-clientpnl/dlwise-clientpnl.component';
 import {InnerClientbetHistoryComponent}from '../accout-statement/inner-clientbet-history/inner-clientbet-history.component';
 import { transactionComponent } from '../transactions/transactions.component';
+import { BetreportComponent } from "../betreport/betreport.component";
+import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
+import { MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { NgxSpinnerModule } from "ngx-spinner";
+
+export  const MY_DATE_FORMAT = {
+  parse: {
+    dateInput: 'LL'
+  },
+  display:{
+    dateInput: 'DD-MMM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY'
+  },
+};
 
 const AccountRoutes: Routes = [
   {
@@ -247,6 +266,14 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: "betreport",
+        component: BetreportComponent,
+        data: { breadcrumb: "All Bet Report" },
+        children:[
+          {path: "", component: BetreportComponent },
+        ],
+      }
     ],
   },
 ];
@@ -266,7 +293,8 @@ const routes: Routes = [
     MDLwiseDLpnlComponent,
     DlwiseClientpnlComponent,
     InnerClientbetHistoryComponent,
-    transactionComponent
+    transactionComponent,
+    BetreportComponent
   ],
   imports: [
     CommonModule,
@@ -287,6 +315,12 @@ const routes: Routes = [
     TimepickerModule.forRoot(),
     SharedModule,
     MaterialModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
+    MatAutocompleteModule,
+    NgxSpinnerModule,
   ],
   exports: [RouterModule],
   entryComponents: [ConfirmBoxDialog, PartialPaymentDialog,redirectComponent],
